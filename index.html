@@ -50,7 +50,7 @@
 
         .img-container { aspect-ratio: 3/4; overflow: hidden; background: #0a0a0a; }
 
-        /* ELITE IMAGE RENDERING - NO COMPROMISE QUALITY FOR JPGS */
+        /* ELITE IMAGE RENDERING - NO COMPROMISE QUALITY FOR JPGS/PNGS */
         img { 
             image-rendering: -webkit-optimize-contrast; 
             image-rendering: crisp-edges;
@@ -118,7 +118,7 @@
         </div>
     </div>
 
-    <!-- 1. MANIFESTO (FULL TEXT RESTORED) -->
+    <!-- 1. MANIFESTO -->
     <section id="manifesto" class="py-32 px-6 manifesto-gradient border-b border-white/5 relative z-10">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center text-left">
             <div class="text-left">
@@ -138,7 +138,7 @@
         </div>
     </section>
 
-    <!-- 2. QUALITY SPECS (4-BOX GRID RESTORED) -->
+    <!-- 2. QUALITY SPECS -->
     <section class="py-32 px-6 border-b border-white/10 bg-neutral-950/50 relative z-10 text-center">
         <div class="max-w-7xl mx-auto">
             <div class="mb-24 space-y-6 text-center"><div class="font-mayek text-4xl font-black tracking-widest leading-none uppercase text-center">ꯒ꯭ꯋꯥꯔꯦꯟꯇꯤ</div><h2 class="text-4xl md:text-[4.5rem] font-black uppercase tracking-tight italic leading-none text-center">QUALITY SPEC</h2></div>
@@ -151,7 +151,7 @@
         </div>
     </section>
 
-    <!-- 3. HOW TO ORDER (VERTICAL LIST RESTORED) -->
+    <!-- 3. HOW TO ORDER -->
     <section id="process" class="py-32 px-6 max-w-6xl mx-auto text-center relative z-10 text-center">
         <div class="font-mayek text-3xl font-black tracking-widest mb-6 leading-none text-center uppercase">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</div>
         <h2 class="text-5xl md:text-[5rem] font-black uppercase tracking-tight mb-28 italic leading-none text-center">HOW TO ORDER</h2>
@@ -169,7 +169,7 @@
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-10 text-left"></div>
     </section>
 
-    <!-- 5. FAQ / REGISTRY (RESTORED) -->
+    <!-- 5. FAQ / REGISTRY -->
     <section id="faq" class="py-32 px-6 border-t border-white/10 relative z-10 text-left">
         <div class="max-w-7xl mx-auto text-left">
             <div class="mb-20 text-left">
@@ -264,15 +264,30 @@
     <script>
         // --- THE PRODUCT DATA CATALOG ---
         const PRODUCT_DATA = [
+            {
+  id: 3,
+  name: "ꯂꯥꯏꯈꯨꯠꯁꯥꯡꯕꯤ LAIKHUTSANGBI TEE",
+  price: "₹899",
+  desc: "Inspired by the mythical entities of the deep Kanglei woods.",
+  lore: "Laikhutsangbi, the long-handed guardian of the forest. To wear this is to carry the stories told by the elders around the fire.",
+  loreMayek: "ꯂꯥꯏꯈꯨꯠꯁꯥꯡꯕꯤꯒꯤ ꯋꯥꯔꯤ ꯑꯁꯤ ꯑꯩꯈꯣꯏꯒꯤ ꯄꯨꯋꯥꯔꯤꯅꯤ꯫",
+  soldOut: false,
+  images: [
+    "images/laikhutshangbi/1.png",
+    "images/laikhutshangbi/2.png",
+    "images/laikhutshangbi/3.png",
+    "images/laikhutshangbi/4.png",
+    "images/laikhutshangbi/5.png"
+  ]
+},
             { 
                 id: 1, 
                 name: "ꯈꯨꯋꯥꯗꯣ KHUADO PEAK HOODIE", 
                 price: "₹1,499", 
                 desc: "Premium heavyweight fleece inspired by Kanglei peaks.", 
                 lore: "The peaks of Khuado were the ancient eyes of our land. Legend says the protectors stood upon these ridges to guard the fertile plains below.", 
-                loreMayek: "ꯈꯨꯋꯥꯗꯣ ꯆꯤꯡꯊꯛꯀꯤ ꯋꯥꯔꯤꯅꯤ꯫ ꯑꯩꯈꯣꯏꯒꯤ ꯄꯨꯋꯥꯔꯤ ꯑꯁꯤꯅꯥ ꯉꯥꯛꯄꯤꯕꯤꯕꯅꯤ꯫", 
+                loreMayek: "ꯈꯨꯋꯥꯗꯣ ꯆingꯊꯛꯀꯤ ꯋꯥꯔꯤꯅꯤ꯫ ꯑꯩꯈꯣꯏꯒꯤ ꯄꯨꯋꯥꯔꯤ ꯑꯁꯤꯅꯥ ꯉꯥꯛꯄꯤꯕꯤꯕꯅꯤ꯫", 
                 soldOut: false, 
-                // Legacy support so images don't break right now
                 images: ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800"] 
             },
             { 
@@ -283,29 +298,11 @@
                 lore: "The Kangla Sha is the divine guardian protector of the palace. Nobility in every thread.", 
                 loreMayek: "ꯀꯪꯂꯥ ꯁꯥ ꯑꯁꯤ ꯂꯥꯏꯒꯤ ꯉꯥꯛꯄꯅꯤ꯫", 
                 soldOut: true, 
-                // Legacy support so images don't break right now
                 images: ["https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=800"] 
             }
-            /* --- HOW TO ADD A NEW SHIRT ---
-               Just copy the block below, change the details, and make sure your images 
-               are in your GitHub folder named exactly like "folder:". Name your images 1.jpg, 2.jpg...
-
-               {
-                   id: 3,
-                   name: "YOUR NEW SHIRT",
-                   price: "₹999",
-                   desc: "Shirt description here.",
-                   lore: "English Story here.",
-                   loreMayek: "Mayek Story here.",
-                   soldOut: false,
-                   folder: "your-new-shirt-folder", // GitHub folder name
-                   imageCount: 4 // Number of images you dropped in the folder
-               },
-            */
         ];
 
-        // --- INVISIBLE PRE-PROCESSOR (DO NOT TOUCH) ---
-        // This automatically builds your image URLs if you use the "Folder & ImageCount" method
+        // --- INVISIBLE PRE-PROCESSOR ---
         PRODUCT_DATA.forEach(p => {
             if (!p.images || p.images.length === 0) {
                 p.images = [];
