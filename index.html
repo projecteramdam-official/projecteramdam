@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -241,7 +241,6 @@
                 <h3 id="modal-title" class="text-2xl md:text-3xl font-black italic tracking-tighter mb-2 leading-tight uppercase text-left"></h3>
                 <p id="modal-price" class="text-xl font-light opacity-60 mb-6 text-left"></p>
                 
-                <!-- Dynamic Buy / Cart Button is injected here immediately under the price -->
                 <div id="modal-buy-container" class="w-full mb-8"></div>
 
                 <p id="modal-desc" class="text-gray-400 text-xs uppercase tracking-widest mb-10 leading-relaxed text-left text-left"></p>
@@ -369,16 +368,14 @@
             updateCartUI();
         };
 
-        // Added functionality to completely remove an item from the cart
         const removeFromCart = (index) => {
             playTock();
             cart.splice(index, 1);
             saveCart();
-            // Automatically close the cart drawer if it is completely empty
             if (cart.length === 0) {
                 toggleCart();
             }
-            updateBuyButtonState(); // Update button state if user has the modal open in background
+            updateBuyButtonState(); 
         };
 
         const updateCartUI = () => {
@@ -393,11 +390,10 @@
                 cartItemsContainer.innerHTML = `<div class="text-center text-gray-600 mt-20 text-xs font-black tracking-widest uppercase">Cart is empty</div>`;
             } else {
                 cartItemsContainer.innerHTML = cart.map((item, idx) => {
-                    totalQty += 1; // Strictly 1 unit per specific size added
+                    totalQty += 1; 
                     totalPrice += item.numPrice;
                     return `
                         <div class="flex gap-4 border-b border-white/10 pb-6 relative">
-                            <!-- CHANGED: Added X mark to remove item completely -->
                             <button onclick="removeFromCart(${idx})" class="absolute top-0 right-0 p-2 -mt-2 -mr-2 text-white/40 hover:text-pe-red transition-colors">
                                 <i data-lucide="x" class="w-4 h-4"></i>
                             </button>
@@ -410,7 +406,6 @@
                                     <h4 class="text-[10px] font-black uppercase tracking-widest leading-snug">${item.name}</h4>
                                     <div class="text-[10px] text-gray-500 mt-1 uppercase tracking-widest">SIZE: <span class="text-white">${item.size}</span></div>
                                 </div>
-                                <!-- CHANGED: Removed the confusing quantity (+/-) buttons. Clean 1 per size. -->
                                 <div class="mt-4">
                                     <span class="text-sm font-black">₹${item.numPrice.toLocaleString('en-IN')}</span>
                                 </div>
@@ -466,7 +461,6 @@
             }
         };
 
-        // --- DUPLICATE ADDITION LOCK LOGIC ---
         const updateBuyButtonState = () => {
             const p = PRODUCT_DATA[currentProdIdx];
             const btn = document.getElementById('add-to-cart-btn');
@@ -496,7 +490,7 @@
                     btn.classList.add('text-white', 'border-white/20');
                 }
             });
-            updateBuyButtonState(); // Instantly update lock state if they switch sizes
+            updateBuyButtonState(); 
             playTock();
         };
 
@@ -510,7 +504,6 @@
                 return;
             }
             
-            // Hard stop logic
             const existingItem = cart.find(item => item.id === p.id && item.size === selectedSize);
             if (existingItem) {
                 isAddingToCart = false;
@@ -528,22 +521,18 @@
                 price: p.price,
                 numPrice: parseInt(p.price.replace(/[^0-9]/g, '')),
                 size: selectedSize,
-                qty: 1, // Only 1 instance allowed per size
+                qty: 1, 
                 image: p.images[0]
             });
             
             saveCart();
             
             if (btn) {
+                // Visual confirmation. NO closeModal() is called here.
                 btn.innerHTML = `<span class="font-inter text-sm font-black tracking-widest text-white">ADDED TO CART ✓</span>`;
-                btn.className = "w-full py-5 uppercase flex items-center justify-center gap-3 text-left font-black tracking-widest text-xs bg-pe-red text-white";
-                
-                setTimeout(() => {
-                    closeModal();
-                    isAddingToCart = false; 
-                }, 600); 
+                btn.className = "w-full py-5 uppercase flex items-center justify-center gap-3 text-left font-black tracking-widest text-xs bg-pe-red text-white cursor-not-allowed";
+                isAddingToCart = false; 
             } else {
-                closeModal();
                 isAddingToCart = false;
             }
         };
@@ -641,7 +630,6 @@
             document.getElementById('modal-price').innerText = p.price;
             document.getElementById('modal-desc').innerText = p.desc;
             
-            // Dynamic Buy Box Injection
             const buyContainer = document.getElementById('modal-buy-container');
             if(p.soldOut) { 
                 buyContainer.innerHTML = `<button disabled class="w-full bg-white text-black py-5 active:scale-95 uppercase flex items-center justify-center gap-3 transition-transform text-left opacity-30 font-black tracking-widest text-xs">SOLD OUT</button>`;
@@ -657,8 +645,8 @@
                         <!-- Filled dynamically by updateBuyButtonState() -->
                     </button>
                 `;
-                selectedSize = 'M'; // Reset default size
-                updateBuyButtonState(); // Immediately check if 'M' is already locked
+                selectedSize = 'M'; 
+                updateBuyButtonState(); 
             }
             
             updateGallery();
@@ -814,7 +802,7 @@
 
         window.onload = () => {
             renderGrid();
-            updateCartUI(); // Load saved cart items right away
+            updateCartUI(); 
             setTimeout(() => {
                 clearInterval(mInt);
                 document.getElementById('matrix-canvas').style.display = 'none';
@@ -879,5 +867,8 @@
     </script>
 </body>
 </html>
+
+
+```
 
 
