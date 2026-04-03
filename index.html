@@ -1,4 +1,5 @@
-```1.30
+1:54
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -77,7 +78,6 @@
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-4 md:py-6 bg-transparent">
         <div class="max-w-7xl mx-auto px-5 md:px-6 flex justify-between items-center text-left">
             
-            <!-- BOUNDED HEADER TO PREVENT OVERLAP (FLEX-1 MIN-W-0 TRUNCATE) -->
             <div class="flex flex-col text-left flex-1 min-w-0 pr-4">
                 <span class="text-lg sm:text-xl md:text-2xl font-mayek font-black leading-tight mb-0.5 truncate text-pe-red">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
                 <span class="text-[7px] sm:text-[9px] md:text-[10px] font-inter font-black tracking-widest text-white uppercase leading-none truncate">Project Eramdam</span>
@@ -89,7 +89,6 @@
                 <a href="#faq" class="text-[9px] font-inter font-black tracking-[0.4em] text-white hover:text-pe-red transition-colors uppercase">Registry</a>
             </div>
             
-            <!-- SHRINK-0 KEEPS ICONS STRICTLY ON THE RIGHT -->
             <div class="flex items-center justify-end gap-5 sm:gap-8 shrink-0">
                  <!-- CART ICON -->
                  <button onclick="toggleCart()" class="relative flex items-center justify-center text-white hover:text-pe-red transition-colors">
@@ -108,7 +107,7 @@
         </div>
     </nav>
 
-    <!-- NEW SLEEK MOBILE MENU DRAWER WITH AUTO-CLOSE OVERLAY -->
+    <!-- MOBILE MENU DRAWER -->
     <div id="mobile-menu-overlay" onclick="toggleMenu()" class="fixed inset-0 z-[2400] hidden bg-black/40 backdrop-blur-sm"></div>
     <div id="mobile-menu" class="fixed top-[70px] right-5 w-48 bg-[#0a0a0a] tactical-border z-[2500] hidden flex-col py-2 shadow-2xl rounded-sm">
         <a href="#drop" onclick="toggleMenu()" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
@@ -143,7 +142,6 @@
                 <span class="text-[10px] font-inter font-black tracking-[0.3em] uppercase text-gray-500 mb-1">Total</span>
                 <span id="cart-total" class="text-2xl font-inter font-black tracking-tight text-white leading-none">₹0</span>
             </div>
-            <!-- RED MAYEK / WHITE ENGLISH CART BUTTON -->
             <button onclick="checkoutCart()" class="w-full bg-[#0a0a0a] border border-white/20 py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm hover:border-white/40">
                 <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5">ꯂꯧꯁꯤꯟꯕꯥ</span>
                 <span class="font-inter text-[9px] text-white font-black tracking-[0.3em] uppercase leading-none">Checkout via WhatsApp</span>
@@ -162,7 +160,6 @@
             <h1 class="font-mayek text-5xl sm:text-6xl md:text-[8rem] font-black text-pe-red leading-none mb-4">ꯃꯔꯨ ꯁꯦꯠꯂꯨ</h1>
             <h2 class="font-inter text-sm sm:text-lg md:text-2xl font-black tracking-[0.5em] md:tracking-[0.8em] text-white uppercase mb-12">Wear Your Roots</h2>
             
-            <!-- RED MAYEK / WHITE ENGLISH HERO BUTTON -->
             <button onclick="openWhatsApp()" class="bg-[#050505] border border-white/20 px-12 py-4 active:scale-95 transition-all flex flex-col items-center justify-center mx-auto rounded-sm hover:border-white/40">
                 <span class="font-mayek text-pe-red text-xl font-black leading-none mb-1.5">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</span>
                 <span class="font-inter text-[8px] text-white tracking-[0.4em] font-black uppercase leading-none">Order Now</span>
@@ -305,55 +302,40 @@
 
                 <p id="modal-desc" class="text-gray-400 font-inter text-[11px] uppercase tracking-widest mb-10 leading-relaxed"></p>
                 
+                <!-- INLINE EXCLUSIVE ACCORDION (NO MORE POPUPS) -->
                 <div class="space-y-2 pb-12">
-                    <button onclick="openLore()" class="w-full text-left py-5 border-y border-white/10 flex justify-between items-center group">
+                    <button onclick="toggleAccordion('lore')" class="w-full text-left py-5 border-y border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col">
                             <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5">ꯋꯥꯔꯤ</span>
                             <span class="font-inter text-[9px] tracking-widest uppercase text-white font-bold leading-none">Lore & Origin</span>
                         </div>
                         <i data-lucide="book-open" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
                     </button>
-                    <button onclick="toggleSizeChart()" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
+                    <div id="lore-accordion" class="hidden bg-[#0a0a0a] border border-white/5 rounded-sm p-6 mb-2">
+                        <button onclick="toggleDecipher()" id="decipher-btn" class="mb-6 font-inter text-[9px] font-black border border-pe-red/30 px-5 py-2.5 hover:bg-pe-red text-pe-red hover:text-white transition-all uppercase rounded-sm">[ DECIPHER ROOTS ]</button>
+                        <div id="lore-body" class="text-xs md:text-sm font-inter font-light italic leading-relaxed text-gray-300"></div>
+                    </div>
+
+                    <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col">
                             <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5">ꯆꯥꯡ</span>
                             <span class="font-inter text-[9px] tracking-widest uppercase text-white font-bold leading-none">Size Chart</span>
                         </div>
                         <i data-lucide="ruler" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
                     </button>
-                    <div id="size-chart" class="hidden p-6 bg-neutral-900 rounded-sm mt-2 text-[10px] font-inter font-bold text-white/80">
+                    <div id="size-accordion" class="hidden bg-[#0a0a0a] border border-white/5 rounded-sm p-6 mt-2">
                         <table class="w-full text-left">
-                            <tr class="border-b border-white/10 font-mayek text-left"><th class="py-3 text-pe-red uppercase text-sm">ꯆꯥꯡ <span class="font-inter text-[8px] text-white/50 ml-1 tracking-widest">SIZE</span></th><th class="uppercase font-inter">Chest</th><th class="uppercase font-inter">Length</th></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/70"><td>S (Small)</td><td>40"</td><td>27"</td></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/70"><td>M (Medium)</td><td>42"</td><td>28"</td></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/70"><td>L (Large)</td><td>44"</td><td>29"</td></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/70"><td>XL (X-Large)</td><td>46"</td><td>30"</td></tr>
+                            <tr class="border-b border-white/10 font-mayek text-left"><th class="py-3 text-pe-red uppercase text-sm">ꯆꯥꯡ <span class="font-inter text-[8px] text-white/50 ml-1 tracking-widest">SIZE</span></th><th class="uppercase font-inter text-xs text-white/80">Chest</th><th class="uppercase font-inter text-xs text-white/80">Length</th></tr>
+                            <tr class="border-b border-white/5 text-left font-inter text-white/60 text-xs"><td>S (Small)</td><td>40"</td><td>27"</td></tr>
+                            <tr class="border-b border-white/5 text-left font-inter text-white/60 text-xs"><td>M (Medium)</td><td>42"</td><td>28"</td></tr>
+                            <tr class="border-b border-white/5 text-left font-inter text-white/60 text-xs"><td>L (Large)</td><td>44"</td><td>29"</td></tr>
+                            <tr class="border-b border-white/5 text-left font-inter text-white/60 text-xs"><td>XL (X-Large)</td><td>46"</td><td>30"</td></tr>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
         <button onclick="closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-3"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
-    </div>
-
-    <!-- LORE MODAL -->
-    <div id="lore-modal" onclick="if(event.target === this) closeLore()" class="overlay-base fixed inset-0 z-[2500] bg-black/98 invisible opacity-0 flex items-center justify-center p-6 cursor-pointer">
-        <div class="popup-anim w-full max-w-2xl bg-[#050505] tactical-border p-10 md:p-16 relative overflow-y-auto max-h-[90vh] hide-scrollbar cursor-default text-center">
-            <!-- FORCED RED ON DECIPHER BUTTON -->
-            <button onclick="toggleDecipher()" id="decipher-btn" class="mb-12 font-inter text-[9px] font-black border border-pe-red/30 px-5 py-2.5 hover:bg-pe-red text-pe-red hover:text-white transition-all uppercase rounded-sm">[ DECIPHER ROOTS ]</button>
-            
-            <div class="flex flex-col items-center mb-10">
-                <h4 class="font-mayek text-4xl md:text-5xl text-pe-red font-black leading-none mb-2">ꯋꯥꯔꯤ</h4>
-                <span class="font-inter text-[10px] tracking-[0.4em] uppercase text-white font-black">Origin Lore</span>
-            </div>
-            
-            <div id="lore-body" class="text-base md:text-xl font-inter font-light italic leading-relaxed text-gray-300"></div>
-            
-            <div class="mt-16 pt-8 border-t border-white/10 flex flex-col items-center">
-                <span class="font-mayek text-xl text-pe-red/50 leading-none mb-1">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
-                <span class="font-inter text-[8px] font-black text-white/50 uppercase tracking-widest">Project Eramdam</span>
-            </div>
-            <button onclick="closeLore()" class="absolute top-6 right-6 text-white/40 hover:text-pe-red transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
-        </div>
     </div>
 
     <!-- PUREI BOT ICON -->
@@ -469,7 +451,8 @@
         };
 
         // --- SYSTEM SCRIPTS ---
-        const SALAI_COLORS = ["#FF3B30", "#FFFFFF", "#444444", "#FFD600", "#FF47B6", "#A100FF", "#00D1FF"];
+        // STRICT RED & WHITE particle effect colors based on feedback
+        const SALAI_COLORS = ["#FF3B30", "#FFFFFF", "#FF3B30", "#FFFFFF"];
         let currentProdIdx = 0, currentImgIdx = 0, isDeciphered = false, audioCtx, hardwareReady = false;
         const apiKey = ""; // API KEY HERE
 
@@ -491,6 +474,18 @@
                 toggleCart();
             }
             updateBuyButtonState(); 
+        };
+
+        const removeFromCartByModal = () => {
+            const p = PRODUCT_DATA[currentProdIdx];
+            const itemIndex = cart.findIndex(item => item.id === p.id && item.size === selectedSize);
+            
+            if (itemIndex > -1) {
+                playTock();
+                cart.splice(itemIndex, 1);
+                saveCart();
+                updateBuyButtonState(); 
+            }
         };
 
         const updateCartUI = () => {
@@ -594,21 +589,57 @@
             }
         };
 
+        // EXCLUSIVE ACCORDION TOGGLER
+        const toggleAccordion = (section) => {
+            playTock();
+            const loreAcc = document.getElementById('lore-accordion');
+            const sizeAcc = document.getElementById('size-accordion');
+            
+            if (section === 'lore') {
+                if (loreAcc.classList.contains('hidden')) {
+                    loreAcc.classList.remove('hidden');
+                    sizeAcc.classList.add('hidden');
+                    
+                    isDeciphered = false;
+                    document.getElementById('decipher-btn').innerText = "[ DECIPHER ROOTS ]";
+                    document.getElementById('lore-body').innerHTML = PRODUCT_DATA[currentProdIdx].lore;
+                    document.getElementById('lore-body').className = "text-xs md:text-sm font-inter font-light italic leading-relaxed text-gray-300";
+                } else {
+                    loreAcc.classList.add('hidden');
+                }
+            } else if (section === 'size') {
+                if (sizeAcc.classList.contains('hidden')) {
+                    sizeAcc.classList.remove('hidden');
+                    loreAcc.classList.add('hidden');
+                } else {
+                    sizeAcc.classList.add('hidden');
+                }
+            }
+        };
+
         const updateBuyButtonState = () => {
             const p = PRODUCT_DATA[currentProdIdx];
-            const btn = document.getElementById('add-to-cart-btn');
-            if (!btn) return;
+            const container = document.getElementById('modal-buy-container');
+            if (!container) return;
 
             const existingItem = cart.find(item => item.id === p.id && item.size === selectedSize);
             
             if (existingItem) {
-                btn.disabled = true;
-                btn.innerHTML = `<span class="font-inter text-xs font-black tracking-[0.4em] text-white leading-none">IN CART ✓</span>`;
-                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-transform text-center bg-pe-red border border-pe-red text-white cursor-not-allowed";
+                // RED REMOVE BUTTON
+                container.innerHTML = `
+                    <button onclick="removeFromCartByModal()" class="w-full bg-pe-red border border-pe-red py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm text-center hover:bg-pe-red/80">
+                        <span class="font-mayek text-white text-lg md:text-xl font-black leading-none mb-1.5">ꯀꯥꯔꯠꯇꯒꯤ ꯂꯧꯊꯣꯛꯎ</span>
+                        <span class="font-inter text-[8px] md:text-[9px] text-white/80 font-black tracking-[0.3em] md:tracking-[0.4em] uppercase leading-none">Remove from Cart</span>
+                    </button>
+                `;
             } else {
-                btn.disabled = false;
-                btn.innerHTML = `<span class="font-mayek text-pe-red text-lg md:text-xl font-black leading-none mb-1.5">ꯀꯥꯔꯠꯇꯥ ꯍꯥꯞꯆꯤꯟꯕ꯭ꯌꯨ</span> <span class="font-inter text-[8px] md:text-[9px] text-white font-black tracking-[0.3em] md:tracking-[0.4em] uppercase leading-none">Add to Cart</span>`;
-                btn.className = "w-full bg-[#0a0a0a] border border-white/20 py-4 active:scale-95 flex flex-col items-center justify-center transition-all text-center rounded-sm cursor-pointer hover:border-white/40";
+                // BLACK ADD BUTTON
+                container.innerHTML = `
+                    <button id="add-to-cart-btn" onclick="addToCart()" class="w-full bg-[#0a0a0a] border border-white/20 py-4 active:scale-95 flex flex-col items-center justify-center transition-all text-center rounded-sm cursor-pointer hover:border-white/40">
+                        <span class="font-mayek text-pe-red text-lg md:text-xl font-black leading-none mb-1.5">ꯀꯥꯔꯠꯇꯥ ꯍꯥꯞꯆꯤꯟꯕ꯭ꯌꯨ</span>
+                        <span class="font-inter text-[8px] md:text-[9px] text-white font-black tracking-[0.3em] md:tracking-[0.4em] uppercase leading-none">Add to Cart</span>
+                    </button>
+                `;
             }
         };
 
@@ -643,9 +674,6 @@
                 return; 
             }
 
-            const btn = document.getElementById('add-to-cart-btn');
-            if (btn) btn.disabled = true;
-
             playTock();
             
             cart.push({
@@ -659,14 +687,8 @@
             });
             
             saveCart();
-            
-            if (btn) {
-                btn.innerHTML = `<span class="font-inter text-xs font-black tracking-[0.4em] text-white leading-none">ADDED TO CART ✓</span>`;
-                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-transform text-center bg-pe-red border border-pe-red text-white cursor-not-allowed";
-                isAddingToCart = false; 
-            } else {
-                isAddingToCart = false;
-            }
+            updateBuyButtonState(); 
+            isAddingToCart = false;
         };
 
         const checkoutCart = () => {
@@ -773,6 +795,9 @@
             document.getElementById('modal-price').innerText = `₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}`;
             document.getElementById('modal-desc').innerText = p.desc;
             
+            document.getElementById('lore-accordion').classList.add('hidden');
+            document.getElementById('size-accordion').classList.add('hidden');
+
             const buyContainer = document.getElementById('modal-buy-container');
             if(p.soldOut) { 
                 buyContainer.innerHTML = `<button disabled class="w-full bg-[#0a0a0a] border border-white/20 py-4 flex flex-col items-center justify-center rounded-sm transition-transform text-center opacity-30 cursor-not-allowed">
@@ -787,9 +812,7 @@
                         <button data-size="L" onclick="selectSize('L')" class="size-btn flex-1 py-3 border border-white/20 text-[10px] tracking-widest font-black hover:bg-white hover:text-black hover:border-white transition-colors text-white rounded-sm">L</button>
                         <button data-size="XL" onclick="selectSize('XL')" class="size-btn flex-1 py-3 border border-white/20 text-[10px] tracking-widest font-black hover:bg-white hover:text-black hover:border-white transition-colors text-white rounded-sm">XL</button>
                     </div>
-                    <button id="add-to-cart-btn" onclick="addToCart()" class="w-full bg-[#0a0a0a] border border-white/20 py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm text-center hover:border-white/40">
-                        <!-- Filled dynamically by updateBuyButtonState() -->
-                    </button>
+                    <div id="add-to-cart-wrapper"></div>
                 `;
                 selectedSize = 'M'; 
                 updateBuyButtonState(); 
@@ -813,15 +836,17 @@
             document.getElementById('product-modal').classList.remove('opacity-100');
             document.getElementById('modal-container').classList.add('translate-y-10');
             
-            const scrollY = document.body.dataset.scrollY; 
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            
-            if (scrollY) {
-                document.documentElement.classList.remove('scroll-smooth');
-                window.scrollTo(0, parseInt(scrollY));
-                setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
+            if(document.getElementById('cart-sidebar').classList.contains('translate-x-full')) {
+                const scrollY = document.body.dataset.scrollY; 
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                
+                if (scrollY) {
+                    document.documentElement.classList.remove('scroll-smooth');
+                    window.scrollTo(0, parseInt(scrollY));
+                    setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
+                }
             }
             
             playTock();
@@ -831,21 +856,8 @@
             if(event.target === this) closeModal();
         });
 
-        const openLore = () => {
-            isDeciphered = false;
-            document.getElementById('decipher-btn').innerText = "[ DECIPHER ROOTS ]";
-            document.getElementById('lore-body').innerHTML = PRODUCT_DATA[currentProdIdx].lore;
-            document.getElementById('lore-body').classList.remove('deciphered', 'font-mayek');
-            document.getElementById('lore-modal').classList.remove('invisible');
-            document.getElementById('lore-modal').classList.add('opacity-100');
-            history.pushState({modal: 'lore'}, '');
-            playTock();
-        };
-
-        const closeLore = () => { document.getElementById('lore-modal').classList.add('invisible'); document.getElementById('lore-modal').classList.remove('opacity-100'); playTock(); };
-
         window.onpopstate = () => {
-            closeModal(); closeLore();
+            closeModal();
             document.getElementById('ai-chat-modal').classList.add('invisible');
             document.getElementById('ai-chat-modal').classList.remove('opacity-100');
             
@@ -871,8 +883,13 @@
                 if(iter >= target.length) clearInterval(interval);
                 iter += Math.ceil(target.length / 10);
             }, 30);
-            if(isDeciphered) body.classList.add('deciphered', 'font-mayek');
-            else body.classList.remove('deciphered', 'font-mayek');
+            if(isDeciphered) {
+                body.classList.add('deciphered', 'font-mayek', 'text-pe-red');
+                body.classList.remove('text-gray-300');
+            } else {
+                body.classList.remove('deciphered', 'font-mayek', 'text-pe-red');
+                body.classList.add('text-gray-300');
+            }
             playTock();
         };
 
@@ -931,7 +948,6 @@
 
         const nextImg = () => { currentImgIdx = (currentImgIdx + 1) % PRODUCT_DATA[currentProdIdx].images.length; updateGallery(); playTock(); };
         const prevImg = () => { currentImgIdx = (currentImgIdx - 1 + PRODUCT_DATA[currentProdIdx].images.length) % PRODUCT_DATA[currentProdIdx].images.length; updateGallery(); playTock(); };
-        const toggleSizeChart = () => { document.getElementById('size-chart').classList.toggle('hidden'); playTock(); };
 
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
@@ -940,7 +956,7 @@
         const drops = new Array(columns).fill(1);
         const drawM = () => {
             ctx.fillStyle = 'rgba(0,0,0,0.1)'; ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = '#pe-red'; ctx.font = '20px monospace'; // Make matrix red for aesthetic
+            ctx.fillStyle = '#FF3B30'; ctx.font = '20px monospace';
             drops.forEach((d, i) => {
                 ctx.fillText("ꯀꯁꯂꯃꯄꯅ"[Math.floor(Math.random()*8)], i*20, d*20);
                 if(d*20 > canvas.height && Math.random() > 0.98) drops[i] = 0;
@@ -1016,7 +1032,3 @@
     </script>
 </body>
 </html>
-
-
-```
-
