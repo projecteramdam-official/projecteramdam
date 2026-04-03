@@ -50,6 +50,9 @@
 
         .img-container { aspect-ratio: 3/4; overflow: hidden; background: #0a0a0a; }
 
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
         /* ELITE IMAGE RENDERING - NO COMPROMISE QUALITY FOR JPGS/PNGS */
         img { 
             image-rendering: -webkit-optimize-contrast; 
@@ -65,7 +68,7 @@
     <div id="loader" class="fixed inset-0 z-[3000] bg-black flex flex-col items-center justify-center">
         <canvas id="matrix-canvas" class="absolute inset-0 opacity-30"></canvas>
         <div id="typewriter-container" class="relative z-10 text-center hidden px-6 text-center">
-            <h2 id="typewriter-main" class="text-4xl md:text-8xl font-mayek font-black mb-6 tracking-widest text-white leading-none"></h2>
+            <h2 id="typewriter-main" class="text-4xl md:text-8xl font-mayek font-black mb-6 tracking-widest text-white leading-tight"></h2>
             <p id="typewriter-sub" class="text-xl md:text-3xl font-light tracking-[0.8em] text-gray-500 uppercase italic"></p>
         </div>
     </div>
@@ -83,7 +86,17 @@
                 <a href="#faq" class="text-[10px] font-black tracking-[0.4em] text-white/60 hover:text-white transition-colors uppercase">REGISTRY</a>
             </div>
             <div class="flex items-center gap-6">
-                 <button onclick="openWhatsApp()" class="hidden sm:flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] border-b border-white pb-1 font-mayek text-white">ꯄꯥꯎ ꯐꯥꯎꯅꯕꯤꯌꯨ CONNECT</button>
+                 <!-- CART ICON -->
+                 <button onclick="toggleCart()" class="relative flex items-center justify-center text-white hover:text-pe-red transition-colors">
+                     <i data-lucide="shopping-bag" class="w-5 h-5 md:w-6 md:h-6"></i>
+                     <span id="cart-badge" class="absolute -top-1.5 -right-2 bg-pe-red text-white text-[9px] font-black w-[16px] h-[16px] flex items-center justify-center rounded-full hidden">0</span>
+                 </button>
+                 
+                 <!-- CONNECT BUTTON -->
+                 <button onclick="openWhatsApp()" class="hidden sm:flex items-center gap-2 border-b border-white pb-1">
+                    <span class="font-mayek text-white text-sm font-black">ꯄꯥꯎ ꯐꯥꯎꯅꯕꯤꯌꯨ</span>
+                    <span class="font-inter text-[10px] font-black uppercase tracking-[0.4em] mt-[2px]">CONNECT</span>
+                 </button>
                  <button onclick="toggleMenu()" class="md:hidden"><i data-lucide="menu"></i></button>
             </div>
         </div>
@@ -97,6 +110,27 @@
         <button onclick="toggleMenu()"><i data-lucide="x" class="w-12 h-12 text-white/20"></i></button>
     </div>
 
+    <!-- CART SIDEBAR -->
+    <div id="cart-sidebar-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[3500] invisible opacity-0 transition-all duration-300"></div>
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[450px] bg-[#050505] z-[3600] translate-x-full transition-transform duration-300 flex flex-col tactical-border border-r-0 border-y-0">
+        <div class="p-6 border-b border-white/10 flex justify-between items-center bg-black">
+            <h2 class="font-mayek text-2xl text-pe-red font-black flex items-center gap-3">ꯀꯥꯔꯠ <span class="font-inter text-sm text-white tracking-[0.4em] uppercase mt-1">CART</span></h2>
+            <button onclick="toggleCart()" class="text-white/50 hover:text-white bg-white/5 rounded-full p-2"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4 hide-scrollbar bg-[#050505]">
+            <!-- Cart items injected here -->
+        </div>
+        <div class="p-8 border-t border-white/10 bg-black">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-xs font-black tracking-[0.3em] uppercase text-gray-500">SUBTOTAL</span>
+                <span id="cart-total" class="text-3xl font-black italic tracking-tighter">₹0</span>
+            </div>
+            <button onclick="checkoutCart()" class="w-full bg-white text-black py-5 active:scale-95 uppercase flex items-center justify-center gap-3 transition-transform text-left font-black tracking-widest text-xs">
+                CHECKOUT ON WHATSAPP <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </div>
+
     <!-- HERO -->
     <section class="relative h-[100vh] flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
@@ -107,7 +141,10 @@
             <div class="flex items-center justify-center gap-4 mb-8 opacity-40"><p class="text-[9px] font-black tracking-[1em]">KANGLEIPAK ORIGIN</p></div>
             <h1 class="font-mayek text-6xl md:text-[10rem] font-black tracking-widest leading-none mb-4 text-center">ꯃꯔꯨ ꯁꯦꯠꯂꯨ</h1>
             <h2 class="text-3xl md:text-[5rem] font-black italic opacity-60 tracking-tighter mb-12 text-center uppercase">WEAR YOUR ROOTS</h2>
-            <button onclick="openWhatsApp()" class="bg-white text-black px-12 py-6 font-black text-[10px] tracking-[0.4em] active:scale-95 transition-transform font-mayek">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ ORDER NOW</button>
+            <button onclick="openWhatsApp()" class="bg-white text-black px-10 py-5 active:scale-95 transition-transform flex items-center justify-center gap-3 mx-auto">
+                <span class="font-mayek text-xl font-black">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</span>
+                <span class="font-inter text-[10px] tracking-[0.4em] font-black mt-1 uppercase">ORDER NOW</span>
+            </button>
         </div>
     </section>
 
@@ -190,20 +227,26 @@
     </section>
 
     <!-- PRODUCT MODAL -->
-    <div id="product-modal" onclick="if(event.target === this) closeModal()" class="overlay-base fixed inset-0 z-[2000] bg-black/95 invisible opacity-0 flex items-center justify-center p-4 md:p-10 cursor-pointer">
-        <div id="modal-container" class="popup-anim w-full max-w-6xl h-full md:h-[85vh] bg-black tactical-border overflow-hidden flex flex-col md:flex-row translate-y-10 cursor-default">
-            <div id="swipe-zone" class="relative w-full md:w-3/5 h-1/2 md:h-full bg-neutral-900 overflow-hidden">
+    <div id="product-modal" class="overlay-base fixed inset-0 z-[2000] bg-black invisible opacity-0 flex items-center justify-center md:p-10 cursor-pointer">
+        <div id="modal-container" class="popup-anim w-full max-w-6xl h-[100dvh] md:h-[85vh] bg-black md:tactical-border overflow-y-auto flex flex-col md:flex-row translate-y-10 cursor-default relative">
+            
+            <div id="swipe-zone" class="relative w-full md:w-3/5 h-[70vh] md:h-full bg-[#050505] overflow-hidden shrink-0">
                 <div id="modal-images" class="flex h-full transition-transform duration-500"></div>
                 <button onclick="prevImg()" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/80 rounded-full border border-white/10"><i data-lucide="chevron-left"></i></button>
                 <button onclick="nextImg()" class="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/80 rounded-full border border-white/10"><i data-lucide="chevron-right"></i></button>
                 <div id="image-dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"></div>
             </div>
-            <div class="w-full md:w-2/5 p-8 md:p-12 overflow-y-auto flex flex-col bg-black text-left text-left">
-                <h3 id="modal-title" class="text-2xl md:text-3xl font-black italic tracking-tighter mb-4 leading-none uppercase text-left"></h3>
-                <p id="modal-price" class="text-2xl font-light opacity-40 mb-8 text-left"></p>
+            
+            <div class="w-full md:w-2/5 p-6 md:p-12 flex flex-col bg-black text-left shrink-0 overflow-y-auto">
+                <h3 id="modal-title" class="text-2xl md:text-3xl font-black italic tracking-tighter mb-2 leading-tight uppercase text-left"></h3>
+                <p id="modal-price" class="text-xl font-light opacity-60 mb-6 text-left"></p>
+                
+                <!-- Dynamic Buy / Cart Button is injected here immediately under the price -->
+                <div id="modal-buy-container" class="w-full mb-8"></div>
+
                 <p id="modal-desc" class="text-gray-400 text-xs uppercase tracking-widest mb-10 leading-relaxed text-left text-left"></p>
                 
-                <div class="space-y-8 mb-12">
+                <div class="space-y-4 pb-12">
                     <button onclick="openLore()" class="w-full text-left py-4 border-y border-white/5 font-mayek text-xs flex justify-between items-center text-pe-red uppercase text-left">ꯋꯥꯔꯤ LORE & ORIGIN <i data-lucide="book-open" class="w-4 h-4"></i></button>
                     <button onclick="toggleSizeChart()" class="w-full text-left py-4 border-b border-white/5 text-[10px] font-black tracking-widest flex justify-between items-center text-white/60 font-mayek text-left">ꯆꯥꯡ SIZE CHART</button>
                     <div id="size-chart" class="hidden p-4 bg-neutral-900 tactical-border text-[9px] font-bold text-left text-left">
@@ -214,10 +257,9 @@
                         </table>
                     </div>
                 </div>
-                <button id="modal-buy" class="mt-auto w-full bg-white text-black py-6 font-black text-xs font-mayek active:scale-95 uppercase text-left">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ ORDER HERE</button>
             </div>
         </div>
-        <button onclick="closeModal()" class="absolute top-6 right-6 text-white z-[2100] p-4"><i data-lucide="x" size="40"></i></button>
+        <button onclick="closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/50 backdrop-blur-md md:bg-transparent rounded-full text-white z-[2100] p-3"><i data-lucide="x" class="w-6 h-6 md:w-10 md:h-10"></i></button>
     </div>
 
     <!-- LORE MODAL -->
@@ -317,6 +359,213 @@
         let currentProdIdx = 0, currentImgIdx = 0, isDeciphered = false, audioCtx, hardwareReady = false;
         const apiKey = ""; // API KEY HERE
 
+        // --- CART SYSTEM (LOCAL STORAGE) ---
+        let cart = JSON.parse(localStorage.getItem('pe_cart')) || [];
+        let selectedSize = 'M';
+        let isAddingToCart = false; 
+
+        const saveCart = () => {
+            localStorage.setItem('pe_cart', JSON.stringify(cart));
+            updateCartUI();
+        };
+
+        // Added functionality to completely remove an item from the cart
+        const removeFromCart = (index) => {
+            playTock();
+            cart.splice(index, 1);
+            saveCart();
+            // Automatically close the cart drawer if it is completely empty
+            if (cart.length === 0) {
+                toggleCart();
+            }
+            updateBuyButtonState(); // Update button state if user has the modal open in background
+        };
+
+        const updateCartUI = () => {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const badge = document.getElementById('cart-badge');
+            const totalEl = document.getElementById('cart-total');
+            
+            let totalQty = 0;
+            let totalPrice = 0;
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<div class="text-center text-gray-600 mt-20 text-xs font-black tracking-widest uppercase">Cart is empty</div>`;
+            } else {
+                cartItemsContainer.innerHTML = cart.map((item, idx) => {
+                    totalQty += 1; // Strictly 1 unit per specific size added
+                    totalPrice += item.numPrice;
+                    return `
+                        <div class="flex gap-4 border-b border-white/10 pb-6 relative">
+                            <!-- CHANGED: Added X mark to remove item completely -->
+                            <button onclick="removeFromCart(${idx})" class="absolute top-0 right-0 p-2 -mt-2 -mr-2 text-white/40 hover:text-pe-red transition-colors">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                            
+                            <div class="w-20 h-24 bg-neutral-900 shrink-0">
+                                <img src="${item.image}" class="w-full h-full object-contain">
+                            </div>
+                            <div class="flex-grow flex flex-col justify-center py-1 pr-6">
+                                <div>
+                                    <h4 class="text-[10px] font-black uppercase tracking-widest leading-snug">${item.name}</h4>
+                                    <div class="text-[10px] text-gray-500 mt-1 uppercase tracking-widest">SIZE: <span class="text-white">${item.size}</span></div>
+                                </div>
+                                <!-- CHANGED: Removed the confusing quantity (+/-) buttons. Clean 1 per size. -->
+                                <div class="mt-4">
+                                    <span class="text-sm font-black">₹${item.numPrice.toLocaleString('en-IN')}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            if (totalQty > 0) {
+                badge.innerText = totalQty;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+            
+            totalEl.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
+            lucide.createIcons();
+        };
+
+        const toggleCart = () => {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-sidebar-overlay');
+            const isOpen = !sidebar.classList.contains('translate-x-full');
+            playTock();
+            
+            if (isOpen) {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('invisible', 'opacity-0');
+                
+                if(document.getElementById('product-modal').classList.contains('invisible')){
+                    const scrollY = document.body.dataset.scrollY; 
+                    document.body.style.position = '';
+                    document.body.style.top = '';
+                    document.body.style.width = '';
+                    if (scrollY) {
+                        document.documentElement.classList.remove('scroll-smooth');
+                        window.scrollTo(0, parseInt(scrollY));
+                        setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
+                    }
+                }
+            } else {
+                updateCartUI();
+                sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('invisible', 'opacity-0');
+                
+                if(document.body.style.position !== 'fixed'){
+                    document.body.dataset.scrollY = window.scrollY; 
+                    document.body.style.position = 'fixed';
+                    document.body.style.top = `-${window.scrollY}px`;
+                    document.body.style.width = '100%';
+                }
+            }
+        };
+
+        // --- DUPLICATE ADDITION LOCK LOGIC ---
+        const updateBuyButtonState = () => {
+            const p = PRODUCT_DATA[currentProdIdx];
+            const btn = document.getElementById('add-to-cart-btn');
+            if (!btn) return;
+
+            const existingItem = cart.find(item => item.id === p.id && item.size === selectedSize);
+            
+            if (existingItem) {
+                btn.disabled = true;
+                btn.innerHTML = `<span class="font-inter text-sm font-black tracking-widest text-white">IN CART ✓</span>`;
+                btn.className = "w-full py-5 uppercase flex items-center justify-center gap-3 text-left font-black tracking-widest text-xs bg-pe-red text-white cursor-not-allowed";
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = `<span class="font-mayek text-lg font-black">ꯀꯥꯔꯠꯇꯥ ꯍꯥꯞꯆꯤꯟꯕ꯭ꯌꯨ</span> <span class="font-inter text-xs md:text-sm font-black tracking-widest mt-1">ADD TO CART</span>`;
+                btn.className = "w-full bg-white text-black py-5 active:scale-95 uppercase flex items-center justify-center gap-3 transition-transform text-left cursor-pointer";
+            }
+        };
+
+        const selectSize = (size) => {
+            selectedSize = size;
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                if (btn.dataset.size === size) {
+                    btn.classList.add('bg-white', 'text-black');
+                    btn.classList.remove('text-white', 'border-white/20');
+                } else {
+                    btn.classList.remove('bg-white', 'text-black');
+                    btn.classList.add('text-white', 'border-white/20');
+                }
+            });
+            updateBuyButtonState(); // Instantly update lock state if they switch sizes
+            playTock();
+        };
+
+        const addToCart = () => {
+            if (isAddingToCart) return; 
+            isAddingToCart = true;
+
+            const p = PRODUCT_DATA[currentProdIdx];
+            if (p.soldOut) {
+                isAddingToCart = false;
+                return;
+            }
+            
+            // Hard stop logic
+            const existingItem = cart.find(item => item.id === p.id && item.size === selectedSize);
+            if (existingItem) {
+                isAddingToCart = false;
+                return; 
+            }
+
+            const btn = document.getElementById('add-to-cart-btn');
+            if (btn) btn.disabled = true;
+
+            playTock();
+            
+            cart.push({
+                id: p.id,
+                name: p.name,
+                price: p.price,
+                numPrice: parseInt(p.price.replace(/[^0-9]/g, '')),
+                size: selectedSize,
+                qty: 1, // Only 1 instance allowed per size
+                image: p.images[0]
+            });
+            
+            saveCart();
+            
+            if (btn) {
+                btn.innerHTML = `<span class="font-inter text-sm font-black tracking-widest text-white">ADDED TO CART ✓</span>`;
+                btn.className = "w-full py-5 uppercase flex items-center justify-center gap-3 text-left font-black tracking-widest text-xs bg-pe-red text-white";
+                
+                setTimeout(() => {
+                    closeModal();
+                    isAddingToCart = false; 
+                }, 600); 
+            } else {
+                closeModal();
+                isAddingToCart = false;
+            }
+        };
+
+        const checkoutCart = () => {
+            if (cart.length === 0) return;
+            playTock();
+            
+            let message = "Hi PE! I would like to place an order:%0A%0A";
+            let total = 0;
+            
+            cart.forEach((item, i) => {
+                message += `${i+1}. ${item.name} (Size: ${item.size}) - ₹${item.numPrice.toLocaleString('en-IN')}%0A`;
+                total += item.numPrice;
+            });
+            
+            message += `%0A*Total: ₹${total.toLocaleString('en-IN')}*%0A%0APlease let me know the UPI details.`;
+            
+            window.open(`https://wa.me/919000000000?text=${message}`, '_blank');
+        };
+        // --- END CART SYSTEM ---
+
         // THE ULTIMATE PRIMER: Runs on CAPTURE to override browser latency
         const primeHardware = () => {
             if (hardwareReady) return;
@@ -351,15 +600,16 @@
             grid.innerHTML = PRODUCT_DATA.map((p, idx) => `
                 <div class="group cursor-pointer flex flex-col relative text-left" onclick="openModal(${idx})">
                     <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4">
-                        <img src="${p.images[0]}" class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                        <img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         ${p.soldOut ? '<div class="sold-out-stamp font-mayek text-center uppercase">ꯁꯣꯜꯗ ꯑꯥꯎꯠ</div>' : ''}
                     </div>
                     <div class="space-y-1 text-left px-1">
-                        <h4 class="text-[10px] font-black uppercase tracking-widest text-left">${p.name}</h4>
-                        <div class="flex justify-between items-center text-left">
+                        <h4 class="text-[10px] md:text-[11px] font-black uppercase tracking-widest text-left leading-snug mb-1">${p.name}</h4>
+                        <div class="flex justify-between items-start mt-2">
                             <span class="text-[11px] opacity-40 text-left">${p.price}</span>
-                            <button class="flex items-center gap-1 text-[7px] font-black tracking-widest uppercase">
-                                <span class="font-mayek btn-label-mayek" style="margin-right:2px; font-size: 8px;">ꯑꯀꯨꯞꯄ</span> DETAILS
+                            <button class="flex items-center justify-end gap-1.5 text-[8px] font-black tracking-widest uppercase">
+                                <span class="font-mayek text-pe-red text-[11px]">ꯑꯀꯨꯞꯄ</span> 
+                                <span>DETAILS</span>
                             </button>
                         </div>
                     </div>
@@ -390,15 +640,37 @@
             document.getElementById('modal-title').innerText = p.name;
             document.getElementById('modal-price').innerText = p.price;
             document.getElementById('modal-desc').innerText = p.desc;
-            const b = document.getElementById('modal-buy');
-            playTock();
-            if(p.soldOut) { b.innerText = "SOLD OUT"; b.disabled = true; b.style.opacity = 0.3; }
-            else { b.innerHTML = 'ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ ORDER HERE'; b.disabled = false; b.style.opacity = 1; }
+            
+            // Dynamic Buy Box Injection
+            const buyContainer = document.getElementById('modal-buy-container');
+            if(p.soldOut) { 
+                buyContainer.innerHTML = `<button disabled class="w-full bg-white text-black py-5 active:scale-95 uppercase flex items-center justify-center gap-3 transition-transform text-left opacity-30 font-black tracking-widest text-xs">SOLD OUT</button>`;
+            } else { 
+                buyContainer.innerHTML = `
+                    <div class="flex gap-2 mb-4" id="size-selector">
+                        <button data-size="S" onclick="selectSize('S')" class="size-btn flex-1 py-3 border border-white/20 text-xs font-black hover:bg-white hover:text-black transition-colors text-white">S</button>
+                        <button data-size="M" onclick="selectSize('M')" class="size-btn flex-1 py-3 border border-white text-black bg-white text-xs font-black transition-colors">M</button>
+                        <button data-size="L" onclick="selectSize('L')" class="size-btn flex-1 py-3 border border-white/20 text-xs font-black hover:bg-white hover:text-black transition-colors text-white">L</button>
+                        <button data-size="XL" onclick="selectSize('XL')" class="size-btn flex-1 py-3 border border-white/20 text-xs font-black hover:bg-white hover:text-black transition-colors text-white">XL</button>
+                    </div>
+                    <button id="add-to-cart-btn" onclick="addToCart()" class="w-full bg-white text-black py-5 active:scale-95 uppercase flex items-center justify-center gap-3 transition-transform text-left">
+                        <!-- Filled dynamically by updateBuyButtonState() -->
+                    </button>
+                `;
+                selectedSize = 'M'; // Reset default size
+                updateBuyButtonState(); // Immediately check if 'M' is already locked
+            }
+            
             updateGallery();
             document.getElementById('product-modal').classList.remove('invisible');
             document.getElementById('product-modal').classList.add('opacity-100');
             document.getElementById('modal-container').classList.remove('translate-y-10');
-            document.body.classList.add('no-scroll');
+            
+            document.body.dataset.scrollY = window.scrollY; 
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${window.scrollY}px`;
+            document.body.style.width = '100%';
+            
             history.pushState({modal: 'product'}, '');
         };
 
@@ -406,9 +678,24 @@
             document.getElementById('product-modal').classList.add('invisible');
             document.getElementById('product-modal').classList.remove('opacity-100');
             document.getElementById('modal-container').classList.add('translate-y-10');
-            document.body.classList.remove('no-scroll');
+            
+            const scrollY = document.body.dataset.scrollY; 
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            
+            if (scrollY) {
+                document.documentElement.classList.remove('scroll-smooth');
+                window.scrollTo(0, parseInt(scrollY));
+                setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
+            }
+            
             playTock();
         };
+
+        document.getElementById('product-modal').addEventListener('click', function(event) {
+            if(event.target === this) closeModal();
+        });
 
         const openLore = () => {
             isDeciphered = false;
@@ -427,6 +714,11 @@
             closeModal(); closeLore();
             document.getElementById('ai-chat-modal').classList.add('invisible');
             document.getElementById('ai-chat-modal').classList.remove('opacity-100');
+            
+            const sidebar = document.getElementById('cart-sidebar');
+            if (!sidebar.classList.contains('translate-x-full')) {
+                toggleCart();
+            }
         };
 
         const toggleDecipher = () => {
@@ -495,7 +787,7 @@
             const p = PRODUCT_DATA[currentProdIdx];
             const container = document.getElementById('modal-images');
             container.style.transform = `translateX(-${currentImgIdx * 100}%)`;
-            container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-cover shrink-0">`).join('');
+            container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0">`).join('');
             document.getElementById('image-dots').innerHTML = p.images.map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'}"></div>`).join('');
         };
 
@@ -522,6 +814,7 @@
 
         window.onload = () => {
             renderGrid();
+            updateCartUI(); // Load saved cart items right away
             setTimeout(() => {
                 clearInterval(mInt);
                 document.getElementById('matrix-canvas').style.display = 'none';
@@ -586,3 +879,5 @@
     </script>
 </body>
 </html>
+
+
