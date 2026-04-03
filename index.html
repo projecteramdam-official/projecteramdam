@@ -1,41 +1,57 @@
-1:54
-
+2.19
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>PE | Project Eramdam - Kangleipak Streetwear</title>
+    
     <!-- Optimized Font Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Meetei+Mayek:wght@100..900&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Engine Configuration -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pe-red': '#FF3B30',
+                        'pe-black': '#000000',
+                        'pe-white': '#ffffff'
+                    },
+                    fontFamily: {
+                        'mayek': ['"Noto Sans Meetei Mayek"', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
-        :root { --pe-black: #000000; --pe-white: #ffffff; --pe-red: #FF3B30; }
         * { -webkit-tap-highlight-color: transparent; outline: none; }
-        body { background-color: var(--pe-black); color: var(--pe-white); font-family: 'Inter', sans-serif; overflow-x: hidden; touch-action: pan-y; user-select: none; text-align: left; }
-        .font-mayek { font-family: 'Noto Sans Meetei Mayek', 'Inter', sans-serif; }
-
-        .btn-label-mayek { display: inline-block; transform: scale(1.1); margin-right: 0.6rem; color: var(--pe-red); font-weight: 900; }
-
+        body { background-color: #000000; color: #ffffff; overflow-x: hidden; touch-action: pan-y; user-select: none; text-align: left; font-family: 'Inter', sans-serif; }
+        
         /* Hardware Accelerated Cinematic Motion */
         @keyframes kenBurns { 0%, 100% { transform: scale(1) translateZ(0); } 50% { transform: scale(1.08) translateZ(0); } }
         .ken-burns { animation: kenBurns 20s ease-in-out infinite; will-change: transform; }
 
-        /* Performance Splash */
+        /* Performance Splash Particles */
         @keyframes gentle-float { 0% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) rotate(var(--tr)); } }
-        .particle { position: fixed; pointer-events: none; z-index: 9999; font-weight: 900; animation: gentle-float 1.2s ease-out forwards; will-change: transform, opacity; }
+        .particle { position: fixed; pointer-events: none; z-index: 9999; font-weight: 900; animation: gentle-float 1.2s ease-out forwards; will-change: transform, opacity; font-family: 'Noto Sans Meetei Mayek', sans-serif; }
 
         .glass { background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
         .tactical-border { border: 1px solid rgba(255, 255, 255, 0.1); }
         .no-scroll { overflow: hidden; height: 100vh; position: fixed; width: 100%; }
-        #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--pe-red); z-index: 2000; width: 0%; transition: width 0.1s linear; }
+        #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: #FF3B30; z-index: 2000; width: 0%; transition: width 0.1s linear; }
         
-        .deciphered { color: var(--pe-red); text-shadow: 0 0 10px rgba(255, 59, 48, 0.4); }
-        .sold-out-stamp { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); border: 3px solid var(--pe-red); color: var(--pe-red); padding: 8px 16px; font-weight: 900; z-index: 20; background: rgba(0,0,0,0.85); pointer-events: none; }
+        .deciphered { color: #FF3B30; text-shadow: 0 0 10px rgba(255, 59, 48, 0.4); word-break: break-word; overflow-wrap: break-word; font-family: 'Noto Sans Meetei Mayek', sans-serif; }
+        
+        .sold-out-stamp { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); border: 3px solid #FF3B30; color: #FF3B30; padding: 8px 16px; font-weight: 900; z-index: 20; background: rgba(0,0,0,0.85); pointer-events: none; font-family: 'Noto Sans Meetei Mayek', sans-serif; text-transform: uppercase;}
 
         .bot-bubble { box-shadow: 0 0 40px rgba(255, 59, 48, 0.2); animation: float-bot 4s ease-in-out infinite; }
         @keyframes float-bot { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
@@ -46,31 +62,32 @@
         .animate-marquee { animation: marquee 25s linear infinite; }
 
         .manifesto-gradient { background: linear-gradient(180deg, #000 0%, #080808 100%); }
-        .faq-item { border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 2.5rem 0; }
-        .faq-item:last-child { border-bottom: none; }
+        
+        /* Interactive Cards */
+        .interactive-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; touch-action: manipulation; }
+        @media (hover: hover) {
+            .interactive-card:hover { transform: translateY(-6px); background-color: #0a0a0a; border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 10px 30px -10px rgba(255, 59, 48, 0.15); z-index: 10; }
+            .interactive-card:hover i { transform: scale(1.15); color: #FF3B30; }
+        }
+        .interactive-card:active { transform: scale(0.98); border-color: #FF3B30; }
 
         .img-container { aspect-ratio: 3/4; overflow: hidden; background: #0a0a0a; }
-
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* ELITE IMAGE RENDERING */
-        img { 
-            image-rendering: -webkit-optimize-contrast; 
-            image-rendering: crisp-edges;
-        }
+        img { image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-pe-black text-pe-white">
 
     <div id="scroll-progress"></div>
 
     <!-- LOADER -->
-    <div id="loader" class="fixed inset-0 z-[3000] bg-black flex flex-col items-center justify-center">
-        <canvas id="matrix-canvas" class="absolute inset-0 opacity-30"></canvas>
-        <div id="typewriter-container" class="relative z-10 text-center hidden px-6 flex flex-col items-center">
-            <h2 id="typewriter-main" class="text-4xl md:text-7xl font-mayek font-black mb-2 text-pe-red leading-none"></h2>
-            <p id="typewriter-sub" class="text-xs md:text-sm font-inter tracking-[0.8em] font-black text-white uppercase"></p>
+    <div id="loader" class="fixed inset-0 z-[3000] bg-pe-black flex flex-col items-center justify-center">
+        <canvas id="matrix-canvas" class="absolute inset-0 opacity-20"></canvas>
+        <div id="typewriter-container" class="relative z-10 text-center hidden px-6 flex flex-col items-center w-full">
+            <h2 id="typewriter-main" class="text-4xl md:text-7xl font-mayek font-black mb-2 text-pe-white leading-none truncate w-full"></h2>
+            <p id="typewriter-sub" class="text-xs md:text-sm font-inter tracking-[0.8em] font-black text-pe-red uppercase"></p>
         </div>
     </div>
 
@@ -79,116 +96,117 @@
         <div class="max-w-7xl mx-auto px-5 md:px-6 flex justify-between items-center text-left">
             
             <div class="flex flex-col text-left flex-1 min-w-0 pr-4">
-                <span class="text-lg sm:text-xl md:text-2xl font-mayek font-black leading-tight mb-0.5 truncate text-pe-red">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
-                <span class="text-[7px] sm:text-[9px] md:text-[10px] font-inter font-black tracking-widest text-white uppercase leading-none truncate">Project Eramdam</span>
+                <span class="text-xl sm:text-2xl md:text-3xl font-mayek font-black leading-tight mb-0.5 truncate text-pe-white">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
+                <span class="text-[7px] sm:text-[9px] md:text-[10px] font-inter font-black tracking-widest text-pe-white/60 uppercase leading-none truncate">Project Eramdam</span>
             </div>
             
             <div class="hidden lg:flex items-center space-x-12 shrink-0">
-                <a href="#drop" class="text-[9px] font-inter font-black tracking-[0.4em] text-white hover:text-pe-red transition-colors uppercase">The Drop</a>
-                <a href="#manifesto" class="text-[9px] font-inter font-black tracking-[0.4em] text-white hover:text-pe-red transition-colors uppercase">Manifesto</a>
-                <a href="#faq" class="text-[9px] font-inter font-black tracking-[0.4em] text-white hover:text-pe-red transition-colors uppercase">Registry</a>
+                <a href="#drop" class="text-[9px] font-inter font-black tracking-[0.4em] text-pe-white hover:text-pe-red transition-colors uppercase">The Drop</a>
+                <a href="#manifesto" class="text-[9px] font-inter font-black tracking-[0.4em] text-pe-white hover:text-pe-red transition-colors uppercase">Manifesto</a>
+                <a href="#faq" class="text-[9px] font-inter font-black tracking-[0.4em] text-pe-white hover:text-pe-red transition-colors uppercase">Registry</a>
             </div>
             
             <div class="flex items-center justify-end gap-5 sm:gap-8 shrink-0">
                  <!-- CART ICON -->
-                 <button onclick="toggleCart()" class="relative flex items-center justify-center text-white hover:text-pe-red transition-colors">
+                 <button onclick="toggleCart()" class="relative flex items-center justify-center text-pe-white hover:text-pe-red transition-colors">
                      <i data-lucide="shopping-bag" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-                     <span id="cart-badge" class="absolute -top-1.5 -right-2 bg-pe-red text-white text-[9px] font-black w-[16px] h-[16px] flex items-center justify-center rounded-full hidden">0</span>
+                     <span id="cart-badge" class="absolute -top-1.5 -right-2 bg-pe-red text-pe-white text-[9px] font-black w-[16px] h-[16px] flex items-center justify-center rounded-full hidden">0</span>
                  </button>
                  
                  <!-- DESKTOP CONNECT BUTTON -->
-                 <button onclick="openWhatsApp()" class="hidden sm:flex flex-col items-end text-right border-b border-white/30 pb-1 hover:border-white transition-colors">
-                    <span class="font-mayek text-pe-red text-sm font-black leading-none mb-1">ꯄꯥꯎ ꯐꯥꯎꯅꯕꯤꯌꯨ</span>
-                    <span class="font-inter text-[7px] text-white font-black uppercase tracking-widest leading-none">Connect</span>
+                 <button onclick="openWhatsApp()" class="hidden sm:flex flex-col items-end text-right border-b border-pe-white/30 pb-1 hover:border-pe-white transition-colors">
+                    <span class="font-mayek text-pe-white text-sm font-black leading-none mb-1">ꯄꯥꯎ ꯐꯥꯎꯅꯕꯤꯌꯨ</span>
+                    <span class="font-inter text-[7px] text-pe-white font-black uppercase tracking-widest leading-none">Connect</span>
                  </button>
                  <!-- HAMBURGER MENU -->
-                 <button onclick="toggleMenu()" class="md:hidden text-white hover:text-pe-red transition-colors"><i data-lucide="menu" class="w-6 h-6"></i></button>
+                 <button onclick="toggleMenu()" class="md:hidden text-pe-white hover:text-pe-red transition-colors"><i data-lucide="menu" class="w-6 h-6"></i></button>
             </div>
         </div>
     </nav>
 
     <!-- MOBILE MENU DRAWER -->
-    <div id="mobile-menu-overlay" onclick="toggleMenu()" class="fixed inset-0 z-[2400] hidden bg-black/40 backdrop-blur-sm"></div>
+    <div id="mobile-menu-overlay" onclick="toggleMenu()" class="fixed inset-0 z-[2400] hidden bg-pe-black/40 backdrop-blur-sm"></div>
     <div id="mobile-menu" class="fixed top-[70px] right-5 w-48 bg-[#0a0a0a] tactical-border z-[2500] hidden flex-col py-2 shadow-2xl rounded-sm">
-        <a href="#drop" onclick="toggleMenu()" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
-            <span class="font-mayek text-lg font-black text-pe-red leading-none mb-1.5">ꯗ ꯗ꯭ꯔꯣꯄ</span>
-            <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white uppercase leading-none">The Drop</span>
+        <a href="#drop" onclick="toggleMenu()" class="px-5 py-4 border-b border-pe-white/5 flex flex-col hover:bg-pe-white/5 transition-colors">
+            <span class="font-mayek text-lg font-black text-pe-white leading-none mb-1.5">ꯗ ꯗ꯭ꯔꯣꯄ</span>
+            <span class="font-inter text-[8px] font-black tracking-[0.3em] text-pe-white/60 uppercase leading-none">The Drop</span>
         </a>
-        <a href="#manifesto" onclick="toggleMenu()" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
-            <span class="font-mayek text-lg font-black text-pe-red leading-none mb-1.5">ꯍꯧꯔꯀꯐꯝ</span>
-            <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white uppercase leading-none">Manifesto</span>
+        <a href="#manifesto" onclick="toggleMenu()" class="px-5 py-4 border-b border-pe-white/5 flex flex-col hover:bg-pe-white/5 transition-colors">
+            <span class="font-mayek text-lg font-black text-pe-white leading-none mb-1.5">ꯍꯧꯔꯀꯐꯝ</span>
+            <span class="font-inter text-[8px] font-black tracking-[0.3em] text-pe-white/60 uppercase leading-none">Manifesto</span>
         </a>
-        <a href="#faq" onclick="toggleMenu()" class="px-5 py-4 flex flex-col hover:bg-white/5 transition-colors">
-            <span class="font-mayek text-lg font-black text-pe-red leading-none mb-1.5">ꯄꯥꯎꯈꯨꯝ</span>
-            <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white uppercase leading-none">Registry</span>
+        <a href="#faq" onclick="toggleMenu()" class="px-5 py-4 flex flex-col hover:bg-pe-white/5 transition-colors">
+            <span class="font-mayek text-lg font-black text-pe-white leading-none mb-1.5">ꯄꯥꯎꯈꯨꯝ</span>
+            <span class="font-inter text-[8px] font-black tracking-[0.3em] text-pe-white/60 uppercase leading-none">Registry</span>
         </a>
     </div>
 
     <!-- CART SIDEBAR -->
-    <div id="cart-sidebar-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[3500] invisible opacity-0 transition-all duration-300"></div>
+    <div id="cart-sidebar-overlay" onclick="toggleCart()" class="fixed inset-0 bg-pe-black/60 backdrop-blur-sm z-[3500] invisible opacity-0 transition-all duration-300"></div>
     <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[420px] bg-[#050505] z-[3600] translate-x-full transition-transform duration-300 flex flex-col tactical-border border-r-0 border-y-0">
-        <div class="p-6 border-b border-white/10 flex justify-between items-center bg-black">
+        <div class="p-6 border-b border-pe-white/10 flex justify-between items-center bg-pe-black">
             <div class="flex flex-col">
-                <h2 class="font-mayek text-2xl text-pe-red font-black leading-none mb-1">ꯀꯥꯔꯠ</h2>
-                <span class="font-inter text-[9px] text-white tracking-[0.4em] font-black uppercase leading-none">Cart</span>
+                <h2 class="font-mayek text-2xl text-pe-white font-black leading-none mb-1">ꯀꯥꯔꯠ</h2>
+                <span class="font-inter text-[9px] text-pe-white/60 tracking-[0.4em] font-black uppercase leading-none">Cart</span>
             </div>
-            <button onclick="toggleCart()" class="text-white/50 hover:text-white bg-white/5 rounded-full p-2"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <button onclick="toggleCart()" class="text-pe-white/50 hover:text-pe-white bg-pe-white/5 rounded-full p-2"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4 hide-scrollbar bg-[#050505]">
             <!-- Cart items injected here -->
         </div>
-        <div class="p-6 border-t border-white/10 bg-black">
+        <div class="p-6 border-t border-pe-white/10 bg-pe-black">
             <div class="flex justify-between items-end mb-6">
                 <span class="text-[10px] font-inter font-black tracking-[0.3em] uppercase text-gray-500 mb-1">Total</span>
-                <span id="cart-total" class="text-2xl font-inter font-black tracking-tight text-white leading-none">₹0</span>
+                <span id="cart-total" class="text-2xl font-inter font-black tracking-tight text-pe-white leading-none">₹0</span>
             </div>
-            <button onclick="checkoutCart()" class="w-full bg-[#0a0a0a] border border-white/20 py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm hover:border-white/40">
-                <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5">ꯂꯧꯁꯤꯟꯕꯥ</span>
-                <span class="font-inter text-[9px] text-white font-black tracking-[0.3em] uppercase leading-none">Checkout via WhatsApp</span>
+            <button onclick="checkoutCart()" class="w-full bg-pe-white text-pe-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm cursor-pointer hover:bg-gray-200">
+                <span class="font-mayek text-lg font-black leading-none mb-1.5">ꯂꯧꯁꯤꯟꯕꯥ</span>
+                <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none">Checkout via WhatsApp</span>
             </button>
         </div>
     </div>
 
     <!-- HERO -->
-    <section class="relative h-[100vh] flex items-center justify-center overflow-hidden">
+    <section class="relative h-[100vh] flex items-center justify-center overflow-hidden w-full">
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=1920" class="ken-burns w-full h-full object-cover opacity-60 grayscale contrast-[1.1]" alt="Hero">
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-pe-black via-pe-black/40 to-transparent"></div>
         </div>
-        <div class="relative z-10 text-center px-6 mt-16">
-            <div class="flex items-center justify-center gap-4 mb-6 opacity-50"><p class="text-[8px] md:text-[10px] font-inter font-black tracking-[1em] uppercase text-white">Kangleipak Origin</p></div>
-            <h1 class="font-mayek text-5xl sm:text-6xl md:text-[8rem] font-black text-pe-red leading-none mb-4">ꯃꯔꯨ ꯁꯦꯠꯂꯨ</h1>
-            <h2 class="font-inter text-sm sm:text-lg md:text-2xl font-black tracking-[0.5em] md:tracking-[0.8em] text-white uppercase mb-12">Wear Your Roots</h2>
+        <div class="relative z-10 text-center px-6 mt-16 w-full max-w-4xl mx-auto">
+            <div class="flex items-center justify-center gap-4 mb-6 opacity-50"><p class="text-[8px] md:text-[10px] font-inter font-black tracking-[1em] uppercase text-pe-white">Kangleipak Origin</p></div>
+            <h1 class="font-mayek text-5xl sm:text-6xl md:text-[8rem] font-black text-pe-white leading-none mb-4">ꯃꯔꯨ ꯁꯦꯠꯂꯨ</h1>
+            <h2 class="font-inter text-sm sm:text-lg md:text-2xl font-black tracking-[0.5em] md:tracking-[0.8em] text-pe-white uppercase mb-12">Wear Your Roots</h2>
             
-            <button onclick="openWhatsApp()" class="bg-[#050505] border border-white/20 px-12 py-4 active:scale-95 transition-all flex flex-col items-center justify-center mx-auto rounded-sm hover:border-white/40">
-                <span class="font-mayek text-pe-red text-xl font-black leading-none mb-1.5">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</span>
-                <span class="font-inter text-[8px] text-white tracking-[0.4em] font-black uppercase leading-none">Order Now</span>
+            <!-- Restored original Hero Button Colors -->
+            <button onclick="openWhatsApp()" class="bg-[#050505] border border-pe-white/20 text-pe-white px-12 py-4 active:scale-95 transition-all flex flex-col items-center justify-center mx-auto rounded-sm hover:bg-white/5">
+                <span class="font-mayek text-xl font-black leading-none mb-1.5">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</span>
+                <span class="font-inter text-[8px] tracking-[0.4em] font-black uppercase leading-none text-white/70">Order Now</span>
             </button>
         </div>
     </section>
 
     <!-- TICKER -->
-    <div class="bg-white text-black py-4 md:py-5 overflow-hidden whitespace-nowrap border-y border-white/10 z-20 relative text-left">
+    <div class="bg-pe-white text-pe-black py-4 md:py-5 overflow-hidden whitespace-nowrap border-y border-pe-white/10 z-20 relative text-left">
         <div class="flex animate-marquee space-x-12 items-center">
-            <span class="font-mayek text-[14px] md:text-[16px] font-black uppercase tracking-[0.6em] flex items-center gap-10 text-pe-red leading-normal">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-black"></i> ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-black"></i></span>
+            <span class="font-mayek text-[14px] md:text-[16px] font-black uppercase tracking-[0.6em] flex items-center gap-10 text-pe-black leading-normal">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-pe-black"></i> ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-pe-black"></i></span>
         </div>
     </div>
 
     <!-- 1. MANIFESTO -->
-    <section id="manifesto" class="py-20 md:py-32 px-6 manifesto-gradient border-b border-white/5 relative z-10">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center text-left">
-            <div class="text-left">
+    <section id="manifesto" class="py-20 md:py-32 px-6 manifesto-gradient border-b border-pe-white/5 relative z-10 w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center text-left">
+            <div class="text-left w-full">
                 <div class="mb-10">
-                    <h3 class="font-mayek text-4xl md:text-6xl font-black text-pe-red leading-none mb-3">ꯍꯧꯔꯀꯐꯝ</h3>
-                    <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white uppercase">Origin Manifesto</h4>
+                    <h3 class="font-mayek text-4xl md:text-6xl font-black text-pe-white leading-none mb-3">ꯍꯧꯔꯀꯐꯝ</h3>
+                    <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white/60 uppercase">Origin Manifesto</h4>
                 </div>
-                <div class="space-y-8 text-base md:text-xl font-light leading-relaxed text-gray-300 border-l border-pe-red/30 pl-6 md:pl-8 text-left">
-                    <p>Before trends, there was a land of strength, stories, and legacy — <span class="text-pe-red font-bold uppercase tracking-widest text-left">KANGLEIPAK</span>.</p>
+                <div class="space-y-6 md:space-y-8 text-sm sm:text-base md:text-xl font-light leading-relaxed text-gray-300 border-l border-pe-white/20 pl-6 md:pl-8 text-left w-full">
+                    <p>Before trends, there was a land of strength, stories, and legacy — <span class="text-pe-white font-bold uppercase tracking-widest text-left">KANGLEIPAK</span>.</p>
                     <p>A place where culture lived in the heart of the people, from peaks to valley, passed from one generation to the next. We create from that same spirit — honoring what came before us while shaping what comes next.</p>
                     <p>We reimagine heritage into something wearable, meaningful, and alive in the present. Rooted in memory, identity, and quiet pride.</p>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-3 md:gap-4">
+            <div class="grid grid-cols-2 gap-3 md:gap-4 w-full">
                 <div class="img-container tactical-border grayscale"><img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&q=80&w=800" class="ken-burns w-full h-full object-cover opacity-60"></div>
                 <div class="img-container tactical-border mt-8 md:mt-12 grayscale"><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=800" class="ken-burns w-full h-full object-cover opacity-60"></div>
             </div>
@@ -196,150 +214,176 @@
     </section>
 
     <!-- 2. QUALITY SPECS -->
-    <section class="py-20 md:py-32 px-6 border-b border-white/10 bg-neutral-950/50 relative z-10 text-center">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-16 md:mb-20 flex flex-col items-center">
-                <h3 class="font-mayek text-3xl md:text-4xl font-black text-pe-red leading-none mb-3">ꯒ꯭ꯋꯥꯔꯦꯟꯇꯤ</h3>
-                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white uppercase">Quality Spec</h4>
+    <section class="py-20 md:py-32 px-5 md:px-6 border-b border-pe-white/10 bg-neutral-950/50 relative z-10 text-center w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="mb-12 md:mb-20 flex flex-col items-center">
+                <h3 class="font-mayek text-3xl md:text-4xl font-black text-pe-white leading-none mb-3">ꯒ꯭ꯋꯥꯔꯦꯟꯇꯤ</h3>
+                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white/60 uppercase">Quality Spec</h4>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10 text-center">
-                <div class="bg-black p-8 md:p-12 flex flex-col items-center justify-center space-y-6 group hover:bg-neutral-900 transition-all"><i data-lucide="target" class="w-8 h-8 text-pe-red/40 group-hover:text-pe-red transition-colors"></i><h5 class="font-inter font-black text-[9px] md:text-[11px] tracking-[0.2em] uppercase text-center text-white">Premium Fabric</h5></div>
-                <div class="bg-black p-8 md:p-12 flex flex-col items-center justify-center space-y-6 group hover:bg-neutral-900 transition-all"><i data-lucide="shield" class="w-8 h-8 text-pe-red/40 group-hover:text-pe-red transition-colors"></i><h5 class="font-inter font-black text-[9px] md:text-[11px] tracking-[0.2em] uppercase text-center text-white">Secure Checkout</h5></div>
-                <div class="bg-black p-8 md:p-12 flex flex-col items-center justify-center space-y-6 group hover:bg-neutral-900 transition-all"><i data-lucide="locate" class="w-8 h-8 text-pe-red/40 group-hover:text-pe-red transition-colors"></i><h5 class="font-inter font-black text-[9px] md:text-[11px] tracking-[0.2em] uppercase text-center text-white">Pan India Delivery</h5></div>
-                <div class="bg-black p-8 md:p-12 flex flex-col items-center justify-center space-y-6 group hover:bg-neutral-900 transition-all"><i data-lucide="activity" class="w-8 h-8 text-pe-red/40 group-hover:text-pe-red transition-colors"></i><h5 class="font-inter font-black text-[9px] md:text-[11px] tracking-[0.2em] uppercase text-center text-white">Unit Tracking</h5></div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center w-full">
+                <div class="interactive-card group bg-[#050505] border border-pe-white/5 rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4">
+                    <i data-lucide="target" class="w-8 h-8 md:w-10 md:h-10 text-pe-white/30 group-hover:text-pe-red transition-all duration-300 group-hover:scale-110 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-pe-white font-black text-base md:text-lg leading-none mb-1.5">ꯃꯈꯜ ꯐꯕꯥ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-pe-white/60">Premium Fabric</span>
+                    </div>
+                </div>
+                <div class="interactive-card group bg-[#050505] border border-pe-white/5 rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4">
+                    <i data-lucide="shield" class="w-8 h-8 md:w-10 md:h-10 text-pe-white/30 group-hover:text-pe-red transition-all duration-300 group-hover:scale-110 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-pe-white font-black text-base md:text-lg leading-none mb-1.5">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-pe-white/60">Secure Checkout</span>
+                    </div>
+                </div>
+                <div class="interactive-card group bg-[#050505] border border-pe-white/5 rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4">
+                    <i data-lucide="locate" class="w-8 h-8 md:w-10 md:h-10 text-pe-white/30 group-hover:text-pe-red transition-all duration-300 group-hover:scale-110 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-pe-white font-black text-base md:text-lg leading-none mb-1.5">ꯌꯧꯍꯟꯕꯥ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-pe-white/60">Pan India Delivery</span>
+                    </div>
+                </div>
+                <div class="interactive-card group bg-[#050505] border border-pe-white/5 rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4">
+                    <i data-lucide="activity" class="w-8 h-8 md:w-10 md:h-10 text-pe-white/30 group-hover:text-pe-red transition-all duration-300 group-hover:scale-110 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-pe-white font-black text-base md:text-lg leading-none mb-1.5">ꯃꯤꯠꯌꯦꯡ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-pe-white/60">Unit Tracking</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 3. HOW TO ORDER -->
-    <section id="process" class="py-20 md:py-32 px-6 max-w-6xl mx-auto text-center relative z-10">
-        <div class="mb-16 md:mb-24 flex flex-col items-center">
-            <h3 class="font-mayek text-4xl md:text-5xl font-black text-pe-red leading-none mb-3">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</h3>
-            <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white uppercase">How To Order</h4>
+    <section id="process" class="py-20 md:py-32 px-5 md:px-6 max-w-7xl mx-auto text-center relative z-10 w-full">
+        <div class="mb-12 md:mb-20 flex flex-col items-center">
+            <h3 class="font-mayek text-3xl md:text-4xl font-black text-pe-white leading-none mb-3">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</h3>
+            <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white/60 uppercase">How To Order</h4>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-16 md:gap-20 text-center">
-            <div class="relative group flex flex-col items-center">
-                <div class="flex flex-col items-center mb-6">
-                    <span class="font-mayek text-2xl font-black text-pe-red leading-none mb-1.5">ꯑꯃꯥ</span>
-                    <span class="font-inter text-[8px] font-black tracking-widest text-white/50 uppercase">Step One</span>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center w-full">
+            <div class="interactive-card group bg-[#050505] border border-pe-white/5 rounded-sm p-6 md:p-10 flex flex-col items-center justify-center relative overflow-hidden">
+                <span class="text-6xl md:text-7xl font-black text-pe-white/5 group-hover:text-pe-red/5 transition-colors block leading-none absolute -bottom-2 -right-2 pointer-events-none">1</span>
+                <i data-lucide="mouse-pointer-click" class="w-8 h-8 md:w-10 md:h-10 text-pe-white/30 transition-colors duration-300 group-hover:text-pe-red mb-3 relative z-10 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center relative z-10">
+                    <span class="font-mayek text-pe-white font-black text-base md:text-lg leading-none mb-1.5">ꯈꯟꯕꯥ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-pe-white/60">Select Piece</span>
                 </div>
-                <div class="relative inline-block mb-6"><span class="text-7xl font-black text-white/5 group-hover:text-white/10 transition-colors block leading-none">1</span><i data-lucide="target" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-pe-red/30 group-hover:text-pe-red transition-all"></i></div>
-                <div class="flex flex-col items-center"><span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯈꯟꯕꯥ</span><span class="font-inter text-[9px] font-bold uppercase tracking-[0.2em] text-gray-500">Select Piece</span></div>
             </div>
-            <div class="relative group flex flex-col items-center">
-                <div class="flex flex-col items-center mb-6">
-                    <span class="font-mayek text-2xl font-black text-pe-red leading-none mb-1.5">ꯑꯅꯤ</span>
-                    <span class="font-inter text-[8px] font-black tracking-widest text-white/50 uppercase">Step Two</span>
+            <div class="interactive-card group bg-[#050505] border border-pe-white/5 rounded-sm p-6 md:p-10 flex flex-col items-center justify-center relative overflow-hidden">
+                <span class="text-6xl md:text-7xl font-black text-pe-white/5 group-hover:text-pe-red/5 transition-colors block leading-none absolute -bottom-2 -right-2 pointer-events-none">2</span>
+                <i data-lucide="message-circle" class="w-8 h-8 md:w-10 md:h-10 text-pe-white/30 transition-colors duration-300 group-hover:text-pe-red mb-3 relative z-10 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center relative z-10">
+                    <span class="font-mayek text-pe-white font-black text-base md:text-lg leading-none mb-1.5">ꯄꯥꯎ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-pe-white/60">WA Confirm</span>
                 </div>
-                <div class="relative inline-block mb-6"><span class="text-7xl font-black text-white/5 group-hover:text-white/10 transition-colors block leading-none">2</span><i data-lucide="zap" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-pe-red/30 group-hover:text-pe-red transition-all"></i></div>
-                <div class="flex flex-col items-center"><span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯄꯥꯎ</span><span class="font-inter text-[9px] font-bold uppercase tracking-[0.2em] text-gray-500">WhatsApp Confirm</span></div>
             </div>
-            <div class="relative group flex flex-col items-center">
-                <div class="flex flex-col items-center mb-6">
-                    <span class="font-mayek text-2xl font-black text-pe-red leading-none mb-1.5">ꯑꯍꯨꯝ</span>
-                    <span class="font-inter text-[8px] font-black tracking-widest text-white/50 uppercase">Step Three</span>
+            <div class="interactive-card group bg-[#050505] border border-pe-white/5 rounded-sm p-6 md:p-10 flex flex-col items-center justify-center relative overflow-hidden">
+                <span class="text-6xl md:text-7xl font-black text-pe-white/5 group-hover:text-pe-red/5 transition-colors block leading-none absolute -bottom-2 -right-2 pointer-events-none">3</span>
+                <i data-lucide="shield-check" class="w-8 h-8 md:w-10 md:h-10 text-pe-white/30 transition-colors duration-300 group-hover:text-pe-red mb-3 relative z-10 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center relative z-10">
+                    <span class="font-mayek text-pe-white font-black text-base md:text-lg leading-none mb-1.5">ꯁꯦꯟ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-pe-white/60">UPI Signature</span>
                 </div>
-                <div class="relative inline-block mb-6"><span class="text-7xl font-black text-white/5 group-hover:text-white/10 transition-colors block leading-none">3</span><i data-lucide="shield" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-pe-red/30 group-hover:text-pe-red transition-all"></i></div>
-                <div class="flex flex-col items-center"><span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯁꯦꯟ</span><span class="font-inter text-[9px] font-bold uppercase tracking-[0.2em] text-gray-500">UPI Signature</span></div>
             </div>
-            <div class="relative group flex flex-col items-center">
-                <div class="flex flex-col items-center mb-6">
-                    <span class="font-mayek text-2xl font-black text-pe-red leading-none mb-1.5">ꯃꯔꯤ</span>
-                    <span class="font-inter text-[8px] font-black tracking-widest text-white/50 uppercase">Step Four</span>
+            <div class="interactive-card group bg-[#050505] border border-pe-white/5 rounded-sm p-6 md:p-10 flex flex-col items-center justify-center relative overflow-hidden">
+                <span class="text-6xl md:text-7xl font-black text-pe-white/5 group-hover:text-pe-red/5 transition-colors block leading-none absolute -bottom-2 -right-2 pointer-events-none">4</span>
+                <i data-lucide="truck" class="w-8 h-8 md:w-10 md:h-10 text-pe-white/30 transition-colors duration-300 group-hover:text-pe-red mb-3 relative z-10 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center relative z-10">
+                    <span class="font-mayek text-pe-white font-black text-base md:text-lg leading-none mb-1.5">ꯌꯧꯔꯛꯄꯥ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-pe-white/60">Unit Deployed</span>
                 </div>
-                <div class="relative inline-block mb-6"><span class="text-7xl font-black text-white/5 group-hover:text-white/10 transition-colors block leading-none">4</span><i data-lucide="activity" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-pe-red/30 group-hover:text-pe-red transition-all"></i></div>
-                <div class="flex flex-col items-center"><span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯌꯧꯔꯛꯄꯥ</span><span class="font-inter text-[9px] font-bold uppercase tracking-[0.2em] text-gray-500">Unit Deployed</span></div>
             </div>
         </div>
     </section>
 
     <!-- 4. PRODUCT GRID -->
-    <section id="drop" class="py-20 md:py-32 px-6 border-t border-white/5 relative z-10 text-left">
+    <section id="drop" class="py-20 md:py-32 px-5 md:px-6 border-t border-pe-white/5 relative z-10 text-left w-full">
         <div id="drop-trigger" class="text-center mb-16 md:mb-24 flex flex-col items-center">
-            <h3 class="font-mayek text-4xl md:text-5xl font-black text-pe-red leading-none mb-3">ꯗ ꯗ꯭ꯔꯣꯄ</h3>
-            <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white uppercase">Current Drop</h4>
+            <h3 class="font-mayek text-4xl md:text-5xl font-black text-pe-white leading-none mb-3">ꯗ ꯗ꯭ꯔꯣꯄ</h3>
+            <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white/60 uppercase">Current Drop</h4>
         </div>
-        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-10 text-left"></div>
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-10 text-left w-full max-w-7xl mx-auto"></div>
     </section>
 
     <!-- 5. FAQ / REGISTRY -->
-    <section id="faq" class="py-20 md:py-32 px-6 border-t border-white/10 relative z-10 text-left">
-        <div class="max-w-7xl mx-auto text-left">
-            <div class="mb-16 md:mb-20 flex flex-col text-left items-start">
-                <h3 class="font-mayek text-4xl md:text-5xl font-black text-pe-red leading-none mb-3">ꯄꯥꯎꯈꯨꯝ</h3>
-                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white uppercase">Registry / FAQ</h4>
+    <section id="faq" class="py-20 md:py-32 px-6 border-t border-pe-white/10 relative z-10 text-left w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto text-left w-full">
+            <div class="mb-12 md:mb-20 flex flex-col text-left items-start">
+                <h3 class="font-mayek text-4xl md:text-5xl font-black text-pe-white leading-none mb-3">ꯄꯥꯎꯈꯨꯝ</h3>
+                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white/60 uppercase">Registry / FAQ</h4>
             </div>
-            <div class="space-y-2 text-left">
-                <div class="faq-item grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 text-left py-8">
-                    <div class="text-[13px] md:text-[15px] font-inter font-black uppercase tracking-widest text-white flex items-start gap-4"><span class="text-pe-red font-mayek text-lg leading-none">꯱</span> HOW DO THE PIECES FIT?</div>
-                    <div class="text-[13px] md:text-[15px] font-inter font-light text-gray-400 leading-relaxed pl-8 md:pl-0">Designed for a relaxed silhouette. Refer to our size chart inside the product view for exact measurements.</div>
+            <div class="space-y-2 text-left w-full">
+                <div class="faq-item grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 text-left py-6 md:py-8 w-full border-b border-pe-white/5">
+                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-black uppercase tracking-widest text-pe-white flex items-start gap-4"><span class="text-pe-red font-mayek text-lg leading-none shrink-0">꯱</span> HOW DO THE PIECES FIT?</div>
+                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-light text-gray-400 leading-relaxed md:pl-0 w-full break-words">Designed for a relaxed silhouette. Refer to our size chart inside the product view for exact measurements.</div>
                 </div>
-                <div class="faq-item grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 text-left py-8">
-                    <div class="text-[13px] md:text-[15px] font-inter font-black uppercase tracking-widest text-white flex items-start gap-4"><span class="text-pe-red font-mayek text-lg leading-none">꯲</span> WHEN WILL MY ORDER ARRIVE?</div>
-                    <div class="text-[13px] md:text-[15px] font-inter font-light text-gray-400 leading-relaxed pl-8 md:pl-0">Standard delivery takes 5-7 business days across India. Tracking details are shared via WhatsApp once deployed.</div>
+                <div class="faq-item grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 text-left py-6 md:py-8 w-full border-b border-pe-white/5">
+                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-black uppercase tracking-widest text-pe-white flex items-start gap-4"><span class="text-pe-red font-mayek text-lg leading-none shrink-0">꯲</span> WHEN WILL MY ORDER ARRIVE?</div>
+                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-light text-gray-400 leading-relaxed md:pl-0 w-full break-words">Standard delivery takes 5-7 business days across India. Tracking details are shared via WhatsApp once deployed.</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- PRODUCT MODAL -->
-    <div id="product-modal" class="overlay-base fixed inset-0 z-[2000] bg-black invisible opacity-0 flex items-center justify-center md:p-10 cursor-pointer">
-        <div id="modal-container" class="popup-anim w-full max-w-6xl h-[100dvh] md:h-[85vh] bg-black md:tactical-border overflow-y-auto flex flex-col md:flex-row translate-y-10 cursor-default relative">
+    <div id="product-modal" class="overlay-base fixed inset-0 z-[2000] bg-pe-black invisible opacity-0 flex items-center justify-center md:p-10 cursor-pointer w-full h-[100dvh]">
+        <div id="modal-container" class="popup-anim w-full max-w-6xl h-[100dvh] md:h-[85vh] bg-pe-black md:tactical-border overflow-y-auto flex flex-col md:flex-row translate-y-10 cursor-default relative">
             
-            <div id="swipe-zone" class="relative w-full md:w-3/5 h-[70vh] md:h-full bg-[#050505] overflow-hidden shrink-0">
+            <div id="swipe-zone" class="relative w-full md:w-3/5 h-[65vh] md:h-full bg-[#050505] overflow-hidden shrink-0">
                 <div id="modal-images" class="flex h-full transition-transform duration-500"></div>
-                <button onclick="prevImg()" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/80 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
-                <button onclick="nextImg()" class="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/80 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                <button onclick="prevImg()" class="absolute left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-pe-black/80 rounded-full border border-pe-white/10 hover:bg-pe-white hover:text-pe-black transition-colors"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                <button onclick="nextImg()" class="absolute right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-pe-black/80 rounded-full border border-pe-white/10 hover:bg-pe-white hover:text-pe-black transition-colors"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
                 <div id="image-dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"></div>
             </div>
             
-            <div class="w-full md:w-2/5 p-6 md:p-12 flex flex-col bg-black text-left shrink-0 overflow-y-auto">
-                <div id="modal-title" class="mb-4"></div>
-                <p id="modal-price" class="text-2xl font-inter font-bold tracking-tight text-white mb-6"></p>
+            <div class="w-full md:w-2/5 p-6 md:p-12 flex flex-col bg-pe-black text-left shrink-0 overflow-y-auto pb-24">
+                <div id="modal-title" class="mb-3 w-full"></div>
+                <p id="modal-price" class="text-2xl font-inter font-bold tracking-tight text-pe-white mb-8"></p>
                 
-                <!-- Dynamic Buy / Cart Button is injected here -->
                 <div id="modal-buy-container" class="w-full mb-8"></div>
 
-                <p id="modal-desc" class="text-gray-400 font-inter text-[11px] uppercase tracking-widest mb-10 leading-relaxed"></p>
+                <p id="modal-desc" class="text-gray-400 font-inter text-[10px] md:text-[11px] uppercase tracking-widest mb-10 leading-relaxed w-full break-words"></p>
                 
-                <!-- INLINE EXCLUSIVE ACCORDION (NO MORE POPUPS) -->
-                <div class="space-y-2 pb-12">
-                    <button onclick="toggleAccordion('lore')" class="w-full text-left py-5 border-y border-white/10 flex justify-between items-center group">
+                <!-- INLINE STRICT ACCORDIONS -->
+                <div class="space-y-0 w-full border-t border-pe-white/10">
+                    <button onclick="toggleAccordion('lore')" class="w-full text-left py-5 border-b border-pe-white/10 flex justify-between items-center group transition-colors">
                         <div class="flex flex-col">
-                            <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5">ꯋꯥꯔꯤ</span>
-                            <span class="font-inter text-[9px] tracking-widest uppercase text-white font-bold leading-none">Lore & Origin</span>
+                            <span class="font-mayek text-pe-white text-lg font-black leading-none mb-1.5">ꯋꯥꯔꯤ</span>
+                            <span class="font-inter text-[9px] tracking-widest uppercase text-pe-white/60 font-bold leading-none">Lore & Origin</span>
                         </div>
-                        <i data-lucide="book-open" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
+                        <i id="icon-lore" data-lucide="chevron-down" class="w-5 h-5 text-pe-white/30 group-hover:text-pe-white transition-colors"></i>
                     </button>
-                    <div id="lore-accordion" class="hidden bg-[#0a0a0a] border border-white/5 rounded-sm p-6 mb-2">
-                        <button onclick="toggleDecipher()" id="decipher-btn" class="mb-6 font-inter text-[9px] font-black border border-pe-red/30 px-5 py-2.5 hover:bg-pe-red text-pe-red hover:text-white transition-all uppercase rounded-sm">[ DECIPHER ROOTS ]</button>
-                        <div id="lore-body" class="text-xs md:text-sm font-inter font-light italic leading-relaxed text-gray-300"></div>
+                    
+                    <div id="accordion-lore" class="hidden py-6 text-left w-full border-b border-pe-white/10 bg-[#050505] px-4 rounded-sm">
+                        <!-- STRICTLY RED DECIPHER BUTTON -->
+                        <button onclick="toggleDecipher()" id="decipher-btn" class="mb-6 font-inter text-[9px] font-black border border-pe-red/30 px-5 py-2.5 hover:bg-pe-red text-pe-red hover:text-pe-white transition-all uppercase rounded-sm">[ DECIPHER ROOTS ]</button>
+                        <div id="lore-body" class="text-sm md:text-base font-inter font-light italic leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap"></div>
                     </div>
 
-                    <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
+                    <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-pe-white/10 flex justify-between items-center group transition-colors">
                         <div class="flex flex-col">
-                            <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5">ꯆꯥꯡ</span>
-                            <span class="font-inter text-[9px] tracking-widest uppercase text-white font-bold leading-none">Size Chart</span>
+                            <span class="font-mayek text-pe-white text-lg font-black leading-none mb-1.5">ꯆꯥꯡ</span>
+                            <span class="font-inter text-[9px] tracking-widest uppercase text-pe-white/60 font-bold leading-none">Size Chart</span>
                         </div>
-                        <i data-lucide="ruler" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
+                        <i id="icon-size" data-lucide="chevron-down" class="w-5 h-5 text-pe-white/30 group-hover:text-pe-white transition-colors"></i>
                     </button>
-                    <div id="size-accordion" class="hidden bg-[#0a0a0a] border border-white/5 rounded-sm p-6 mt-2">
-                        <table class="w-full text-left">
-                            <tr class="border-b border-white/10 font-mayek text-left"><th class="py-3 text-pe-red uppercase text-sm">ꯆꯥꯡ <span class="font-inter text-[8px] text-white/50 ml-1 tracking-widest">SIZE</span></th><th class="uppercase font-inter text-xs text-white/80">Chest</th><th class="uppercase font-inter text-xs text-white/80">Length</th></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/60 text-xs"><td>S (Small)</td><td>40"</td><td>27"</td></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/60 text-xs"><td>M (Medium)</td><td>42"</td><td>28"</td></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/60 text-xs"><td>L (Large)</td><td>44"</td><td>29"</td></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/60 text-xs"><td>XL (X-Large)</td><td>46"</td><td>30"</td></tr>
+
+                    <div id="accordion-size" class="hidden py-6 w-full border-b border-pe-white/10 bg-[#050505] px-4 rounded-sm overflow-x-auto">
+                        <table class="w-full text-left min-w-[250px] text-[10px] font-inter font-bold text-pe-white/80">
+                            <tr class="border-b border-pe-white/10 font-mayek text-left"><th class="py-3 text-pe-red uppercase text-sm">ꯆꯥꯡ <span class="font-inter text-[8px] text-pe-white/50 ml-1 tracking-widest">SIZE</span></th><th class="uppercase font-inter text-pe-red">Chest</th><th class="uppercase font-inter text-pe-red">Length</th></tr>
+                            <tr class="border-b border-pe-white/5 text-left font-inter text-pe-white/70"><td>S (Small)</td><td>40"</td><td>27"</td></tr>
+                            <tr class="border-b border-pe-white/5 text-left font-inter text-pe-white/70"><td>M (Medium)</td><td>42"</td><td>28"</td></tr>
+                            <tr class="border-b border-pe-white/5 text-left font-inter text-pe-white/70"><td>L (Large)</td><td>44"</td><td>29"</td></tr>
+                            <tr class="border-b border-pe-white/5 text-left font-inter text-pe-white/70"><td>XL (X-Large)</td><td>46"</td><td>30"</td></tr>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        <button onclick="closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-3"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
+        <button onclick="closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-pe-black/60 backdrop-blur-md md:bg-transparent rounded-full text-pe-white hover:text-pe-red transition-colors z-[2100] p-2 md:p-3"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
     </div>
 
     <!-- PUREI BOT ICON -->
-    <div id="ai-bot-trigger" class="fixed bottom-6 right-6 z-[150] bot-bubble w-14 h-14 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center cursor-pointer transition-all p-1 overflow-hidden">
+    <div id="ai-bot-trigger" class="fixed bottom-6 right-6 z-[150] bot-bubble w-14 h-14 md:w-16 md:h-16 bg-pe-white rounded-full flex items-center justify-center cursor-pointer transition-all p-1 overflow-hidden">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="55" r="32" fill="#FFE0BD"/><path d="M50 23 Q 55 10 60 18" fill="none" stroke="#4a3000" stroke-width="2.5"/><circle cx="42" cy="48" r="4.5" fill="#000"/><circle cx="58" cy="48" r="4.5" fill="#000"/><circle cx="36" cy="58" r="6" fill="#FFADAD" opacity="0.4"/><circle cx="64" cy="58" r="6" fill="#FFADAD" opacity="0.4"/>
             <g transform="rotate(-10 50 70)"><rect x="42" y="55" width="16" height="28" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5" /><rect x="42" y="55" width="16" height="4" fill="#88FF88" stroke="#000" stroke-width="1"/><line x1="45" y1="62" x2="55" y2="62" stroke="#0000FF" stroke-width="1" opacity="0.3"/><line x1="45" y1="68" x2="55" y2="68" stroke="#0000FF" stroke-width="1" opacity="0.3"/></g>
@@ -348,46 +392,46 @@
     </div>
 
     <!-- AI CHAT WINDOW -->
-    <div id="ai-chat-modal" class="invisible opacity-0 fixed inset-0 z-[2800] bg-black/80 flex items-end md:items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden" onclick="if(event.target === this) toggleAIChat()">
-        <div id="chat-container" class="popup-anim w-full md:max-w-md bg-[#050505] tactical-border h-[75vh] md:h-[600px] flex flex-col rounded-t-xl md:rounded-xl overflow-hidden cursor-default translate-y-20">
-            <div class="p-6 bg-white text-black flex justify-between items-center">
+    <div id="ai-chat-modal" class="invisible opacity-0 fixed inset-0 z-[2800] bg-pe-black/80 flex items-end md:items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden w-full h-[100dvh]" onclick="if(event.target === this) toggleAIChat()">
+        <div id="chat-container" class="popup-anim w-full md:max-w-md bg-[#050505] tactical-border h-[80vh] md:h-[600px] flex flex-col rounded-t-xl md:rounded-xl overflow-hidden cursor-default translate-y-20">
+            <div class="p-6 bg-pe-white text-pe-black flex justify-between items-center shrink-0">
                 <div class="flex items-center gap-3">
                     <span class="text-2xl">👶</span>
                     <div class="flex flex-col">
                         <span class="font-mayek font-black text-pe-red text-lg leading-none mb-0.5">ꯄꯨꯔꯩ</span>
-                        <span class="font-inter font-black text-[9px] tracking-widest uppercase text-black/60">Purei AI</span>
+                        <span class="font-inter font-black text-[9px] tracking-widest uppercase text-pe-black/60">Purei AI</span>
                     </div>
                 </div>
-                <button onclick="toggleAIChat()" class="text-black/50 hover:text-pe-red transition-colors"><i data-lucide="x"></i></button>
+                <button onclick="toggleAIChat()" class="text-pe-black/50 hover:text-pe-red transition-colors p-2"><i data-lucide="x"></i></button>
             </div>
-            <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 bg-black font-inter text-xs md:text-sm leading-relaxed hide-scrollbar text-white">
+            <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 bg-pe-black font-inter text-[13px] md:text-sm leading-relaxed hide-scrollbar text-pe-white w-full break-words">
                 <div class="bg-neutral-900 p-4 border-l-2 border-pe-red rounded-r-sm">Khurumjari! I am Purei. ✨ Ask me anything about our roots or the streetwear line.</div>
             </div>
-            <div class="p-4 border-t border-white/5 bg-[#050505]">
+            <div class="p-4 border-t border-pe-white/5 bg-[#050505] shrink-0">
                 <div class="flex gap-2">
-                    <input id="chat-input" type="text" placeholder="Ask Purei..." class="flex-grow bg-white/5 p-4 text-sm outline-none focus:border-pe-red border border-transparent transition-colors font-inter text-white rounded-sm">
-                    <button onclick="sendMessage()" class="bg-white text-black px-5 active:scale-95 transition-transform rounded-sm"><i data-lucide="send" class="w-5 h-5"></i></button>
+                    <input id="chat-input" type="text" placeholder="Ask Purei..." class="flex-grow bg-pe-white/5 p-4 text-sm outline-none focus:border-pe-red border border-transparent transition-colors font-inter text-pe-white rounded-sm w-full">
+                    <button onclick="sendMessage()" class="bg-pe-white text-pe-black px-5 active:scale-95 transition-transform rounded-sm shrink-0"><i data-lucide="send" class="w-5 h-5"></i></button>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="py-20 md:py-24 px-6 border-t border-white/10 bg-[#050505] relative z-10 text-center md:text-left">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 md:gap-20">
-            <div class="flex flex-col items-center md:items-start">
-                <span class="font-mayek text-4xl sm:text-5xl font-black text-pe-red leading-none mb-2">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
-                <span class="font-inter text-[10px] font-black tracking-[0.4em] text-white uppercase leading-none">Project Eramdam</span>
+    <footer class="py-20 md:py-24 px-6 border-t border-pe-white/10 bg-[#050505] relative z-10 text-center md:text-left w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 md:gap-20 w-full">
+            <div class="flex flex-col items-center md:items-start w-full">
+                <span class="font-mayek text-4xl sm:text-5xl font-black text-pe-white leading-none mb-2 text-center md:text-left w-full break-words">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
+                <span class="font-inter text-[10px] font-black tracking-[0.4em] text-pe-white/50 uppercase leading-none">Project Eramdam</span>
             </div>
-            <div class="flex flex-col items-center md:items-end gap-8">
-                <div class="flex gap-10 text-[10px] font-inter font-black uppercase tracking-[0.3em]">
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors flex flex-col items-center md:items-end gap-2">
-                        <i data-lucide="instagram" class="w-5 h-5 text-white/30"></i> Socials
+            <div class="flex flex-col items-center md:items-end gap-8 w-full">
+                <div class="flex gap-8 md:gap-10 text-[10px] font-inter font-black uppercase tracking-[0.3em]">
+                    <a href="#" class="text-gray-400 hover:text-pe-white transition-colors flex flex-col items-center md:items-end gap-2">
+                        <i data-lucide="instagram" class="w-5 h-5 text-pe-white/30"></i> Socials
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors flex flex-col items-center md:items-end gap-2">
-                        <i data-lucide="message-square" class="w-5 h-5 text-white/30"></i> Support
+                    <a href="#" class="text-gray-400 hover:text-pe-white transition-colors flex flex-col items-center md:items-end gap-2">
+                        <i data-lucide="message-square" class="w-5 h-5 text-pe-white/30"></i> Support
                     </a>
                 </div>
-                <p class="font-inter text-[9px] text-gray-700 tracking-[0.3em] uppercase font-bold">© 2026 Project Eramdam. Rooted in the Soil.</p>
+                <p class="font-inter text-[8px] md:text-[9px] text-gray-700 tracking-[0.2em] md:tracking-[0.3em] uppercase font-bold text-center md:text-right break-words w-full">© 2026 Project Eramdam. Rooted in the Soil.</p>
             </div>
         </div>
     </footer>
@@ -451,15 +495,13 @@
         };
 
         // --- SYSTEM SCRIPTS ---
-        // STRICT RED & WHITE particle effect colors based on feedback
-        const SALAI_COLORS = ["#FF3B30", "#FFFFFF", "#FF3B30", "#FFFFFF"];
+        const SALAI_COLORS = ["#FF3B30", "#FFFFFF", "#444444", "#FFD600", "#FF47B6", "#A100FF", "#00D1FF"];
         let currentProdIdx = 0, currentImgIdx = 0, isDeciphered = false, audioCtx, hardwareReady = false;
         const apiKey = ""; // API KEY HERE
 
         // --- CART SYSTEM (LOCAL STORAGE) ---
         let cart = JSON.parse(localStorage.getItem('pe_cart')) || [];
         let selectedSize = 'M';
-        let isAddingToCart = false; 
 
         const saveCart = () => {
             localStorage.setItem('pe_cart', JSON.stringify(cart));
@@ -476,15 +518,14 @@
             updateBuyButtonState(); 
         };
 
-        const removeFromCartByModal = () => {
-            const p = PRODUCT_DATA[currentProdIdx];
-            const itemIndex = cart.findIndex(item => item.id === p.id && item.size === selectedSize);
-            
-            if (itemIndex > -1) {
+        // Added functionality for Product Modal's explicitly red Remove button
+        const removeFromCartByProduct = (productId, size) => {
+            const existingIndex = cart.findIndex(item => item.id === productId && item.size === size);
+            if (existingIndex !== -1) {
                 playTock();
-                cart.splice(itemIndex, 1);
+                cart.splice(existingIndex, 1);
                 saveCart();
-                updateBuyButtonState(); 
+                updateBuyButtonState();
             }
         };
 
@@ -497,7 +538,7 @@
             let totalPrice = 0;
             
             if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `<div class="text-center text-gray-600 mt-32 font-inter text-[10px] font-black tracking-[0.4em] uppercase flex flex-col items-center"><i data-lucide="shopping-bag" class="w-8 h-8 mb-4 opacity-20"></i> Cart is empty</div>`;
+                cartItemsContainer.innerHTML = `<div class="text-center text-gray-600 mt-32 font-inter text-[10px] font-black tracking-[0.4em] uppercase flex flex-col items-center w-full"><i data-lucide="shopping-bag" class="w-8 h-8 mb-4 opacity-20"></i> Cart is empty</div>`;
                 lucide.createIcons();
             } else {
                 cartItemsContainer.innerHTML = cart.map((item, idx) => {
@@ -505,22 +546,22 @@
                     totalPrice += item.numPrice;
                     const nameParts = splitName(item.name);
                     return `
-                        <div class="flex gap-4 border-b border-white/10 pb-6 relative">
-                            <button onclick="removeFromCart(${idx})" class="absolute top-0 right-0 p-2 -mt-2 -mr-2 text-white/30 hover:text-pe-red transition-colors">
-                                <i data-lucide="x" class="w-4 h-4"></i>
+                        <div class="flex gap-3 sm:gap-4 border-b border-pe-white/10 pb-6 relative w-full">
+                            <button onclick="removeFromCart(${idx})" class="absolute top-0 right-0 p-2 -mt-2 -mr-2 text-pe-white/30 hover:text-pe-red transition-colors">
+                                <i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                             </button>
                             
-                            <div class="w-20 h-24 bg-neutral-900 shrink-0 rounded-sm overflow-hidden">
+                            <div class="w-16 h-20 sm:w-20 sm:h-24 bg-neutral-900 shrink-0 rounded-sm overflow-hidden">
                                 <img src="${item.image}" class="w-full h-full object-contain">
                             </div>
-                            <div class="flex-grow flex flex-col justify-center py-1 pr-6">
-                                <div class="mb-2">
-                                    <h4 class="font-mayek text-sm text-pe-red leading-none mb-1">${nameParts.mayek}</h4>
-                                    <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white uppercase">${nameParts.eng}</span>
+                            <div class="flex-grow flex flex-col justify-center py-1 pr-6 min-w-0">
+                                <div class="mb-2 w-full truncate">
+                                    <h4 class="font-mayek text-sm md:text-[15px] text-pe-white leading-none mb-1 truncate w-full">${nameParts.mayek}</h4>
+                                    <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-pe-white/50 uppercase truncate w-full block">${nameParts.eng}</span>
                                 </div>
-                                <div class="flex justify-between items-center mt-2">
-                                    <div class="text-[9px] font-inter text-white uppercase tracking-widest font-bold bg-white/10 px-2 py-1 rounded-sm">Size: <span class="text-pe-red">${item.size}</span></div>
-                                    <span class="text-sm font-inter font-black text-white">₹${item.numPrice.toLocaleString('en-IN')}</span>
+                                <div class="flex justify-between items-center mt-2 w-full">
+                                    <div class="text-[8px] sm:text-[9px] font-inter text-pe-white uppercase tracking-widest font-bold bg-pe-white/10 px-2 py-1 rounded-sm">Size: <span class="text-pe-red">${item.size}</span></div>
+                                    <span class="text-xs sm:text-sm font-inter font-black text-pe-white">₹${item.numPrice.toLocaleString('en-IN')}</span>
                                 </div>
                             </div>
                         </div>
@@ -589,57 +630,22 @@
             }
         };
 
-        // EXCLUSIVE ACCORDION TOGGLER
-        const toggleAccordion = (section) => {
-            playTock();
-            const loreAcc = document.getElementById('lore-accordion');
-            const sizeAcc = document.getElementById('size-accordion');
-            
-            if (section === 'lore') {
-                if (loreAcc.classList.contains('hidden')) {
-                    loreAcc.classList.remove('hidden');
-                    sizeAcc.classList.add('hidden');
-                    
-                    isDeciphered = false;
-                    document.getElementById('decipher-btn').innerText = "[ DECIPHER ROOTS ]";
-                    document.getElementById('lore-body').innerHTML = PRODUCT_DATA[currentProdIdx].lore;
-                    document.getElementById('lore-body').className = "text-xs md:text-sm font-inter font-light italic leading-relaxed text-gray-300";
-                } else {
-                    loreAcc.classList.add('hidden');
-                }
-            } else if (section === 'size') {
-                if (sizeAcc.classList.contains('hidden')) {
-                    sizeAcc.classList.remove('hidden');
-                    loreAcc.classList.add('hidden');
-                } else {
-                    sizeAcc.classList.add('hidden');
-                }
-            }
-        };
-
         const updateBuyButtonState = () => {
             const p = PRODUCT_DATA[currentProdIdx];
-            const container = document.getElementById('modal-buy-container');
-            if (!container) return;
+            const btn = document.getElementById('add-to-cart-btn');
+            if (!btn) return;
 
             const existingItem = cart.find(item => item.id === p.id && item.size === selectedSize);
             
             if (existingItem) {
-                // RED REMOVE BUTTON
-                container.innerHTML = `
-                    <button onclick="removeFromCartByModal()" class="w-full bg-pe-red border border-pe-red py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm text-center hover:bg-pe-red/80">
-                        <span class="font-mayek text-white text-lg md:text-xl font-black leading-none mb-1.5">ꯀꯥꯔꯠꯇꯒꯤ ꯂꯧꯊꯣꯛꯎ</span>
-                        <span class="font-inter text-[8px] md:text-[9px] text-white/80 font-black tracking-[0.3em] md:tracking-[0.4em] uppercase leading-none">Remove from Cart</span>
-                    </button>
-                `;
+                // IT IS NOW A PROPER "REMOVE FROM CART" BUTTON
+                btn.onclick = () => removeFromCartByProduct(p.id, selectedSize);
+                btn.innerHTML = `<span class="font-mayek text-pe-white text-lg md:text-xl font-black leading-none mb-1.5">ꯂꯧꯊꯣꯛꯄꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-pe-white/70 leading-none uppercase">Remove from Cart</span>`;
+                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-transform text-center bg-pe-black border border-pe-white/30 text-pe-white cursor-pointer hover:border-pe-white";
             } else {
-                // BLACK ADD BUTTON
-                container.innerHTML = `
-                    <button id="add-to-cart-btn" onclick="addToCart()" class="w-full bg-[#0a0a0a] border border-white/20 py-4 active:scale-95 flex flex-col items-center justify-center transition-all text-center rounded-sm cursor-pointer hover:border-white/40">
-                        <span class="font-mayek text-pe-red text-lg md:text-xl font-black leading-none mb-1.5">ꯀꯥꯔꯠꯇꯥ ꯍꯥꯞꯆꯤꯟꯕ꯭ꯌꯨ</span>
-                        <span class="font-inter text-[8px] md:text-[9px] text-white font-black tracking-[0.3em] md:tracking-[0.4em] uppercase leading-none">Add to Cart</span>
-                    </button>
-                `;
+                btn.onclick = addToCart;
+                btn.innerHTML = `<span class="font-mayek text-pe-black text-lg md:text-xl font-black leading-none mb-1.5">ꯀꯥꯔꯠꯇꯥ ꯍꯥꯞꯆꯤꯟꯕ꯭ꯌꯨ</span> <span class="font-inter text-[8px] md:text-[9px] text-pe-black/70 font-black tracking-[0.3em] md:tracking-[0.4em] uppercase leading-none">Add to Cart</span>`;
+                btn.className = "w-full bg-pe-white text-pe-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all text-center rounded-sm cursor-pointer hover:bg-gray-200";
             }
         };
 
@@ -647,11 +653,11 @@
             selectedSize = size;
             document.querySelectorAll('.size-btn').forEach(btn => {
                 if (btn.dataset.size === size) {
-                    btn.classList.add('bg-white', 'text-black', 'border-white');
-                    btn.classList.remove('text-white', 'border-white/20');
+                    btn.classList.add('bg-pe-white', 'text-pe-black', 'border-pe-white');
+                    btn.classList.remove('text-pe-white', 'border-pe-white/20');
                 } else {
-                    btn.classList.remove('bg-white', 'text-black', 'border-white');
-                    btn.classList.add('text-white', 'border-white/20');
+                    btn.classList.remove('bg-pe-white', 'text-pe-black', 'border-pe-white');
+                    btn.classList.add('text-pe-white', 'border-pe-white/20');
                 }
             });
             updateBuyButtonState(); 
@@ -659,20 +665,11 @@
         };
 
         const addToCart = () => {
-            if (isAddingToCart) return; 
-            isAddingToCart = true;
-
             const p = PRODUCT_DATA[currentProdIdx];
-            if (p.soldOut) {
-                isAddingToCart = false;
-                return;
-            }
+            if (p.soldOut) return;
             
             const existingItem = cart.find(item => item.id === p.id && item.size === selectedSize);
-            if (existingItem) {
-                isAddingToCart = false;
-                return; 
-            }
+            if (existingItem) return; 
 
             playTock();
             
@@ -687,8 +684,8 @@
             });
             
             saveCart();
-            updateBuyButtonState(); 
-            isAddingToCart = false;
+            // Instantly updates to "REMOVE FROM CART" mode locking out double taps natively
+            updateBuyButtonState();
         };
 
         const checkoutCart = () => {
@@ -707,7 +704,44 @@
             
             window.open(`https://wa.me/919000000000?text=${message}`, '_blank');
         };
-        // --- END CART SYSTEM ---
+
+        // --- ACCORDION SYSTEM FOR INLINE LORE AND SIZE ---
+        const toggleAccordion = (section) => {
+            playTock();
+            const loreContent = document.getElementById('accordion-lore');
+            const sizeContent = document.getElementById('accordion-size');
+            const loreIcon = document.getElementById('icon-lore');
+            const sizeIcon = document.getElementById('icon-size');
+
+            if(section === 'lore') {
+                if(loreContent.classList.contains('hidden')){
+                    // Strict Open Lore, Close Size
+                    loreContent.classList.remove('hidden');
+                    loreIcon.classList.add('rotate-180');
+                    sizeContent.classList.add('hidden');
+                    sizeIcon.classList.remove('rotate-180');
+                    
+                    document.getElementById('lore-body').innerHTML = PRODUCT_DATA[currentProdIdx].lore;
+                    document.getElementById('lore-body').classList.remove('deciphered');
+                    document.getElementById('decipher-btn').innerText = "[ DECIPHER ROOTS ]";
+                    isDeciphered = false;
+                } else {
+                    loreContent.classList.add('hidden');
+                    loreIcon.classList.remove('rotate-180');
+                }
+            } else if(section === 'size') {
+                if(sizeContent.classList.contains('hidden')){
+                    // Strict Open Size, Close Lore
+                    sizeContent.classList.remove('hidden');
+                    sizeIcon.classList.add('rotate-180');
+                    loreContent.classList.add('hidden');
+                    loreIcon.classList.remove('rotate-180');
+                } else {
+                    sizeContent.classList.add('hidden');
+                    sizeIcon.classList.remove('rotate-180');
+                }
+            }
+        };
 
         // THE ULTIMATE PRIMER: Runs on CAPTURE to override browser latency
         const primeHardware = () => {
@@ -743,21 +777,22 @@
             grid.innerHTML = PRODUCT_DATA.map((p, idx) => {
                 const nameParts = splitName(p.name);
                 return `
-                <div class="group cursor-pointer flex flex-col relative text-left" onclick="openModal(${idx})">
-                    <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm">
+                <div class="group cursor-pointer flex flex-col relative text-left w-full" onclick="openModal(${idx})">
+                    <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm w-full">
                         <img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         ${p.soldOut ? '<div class="sold-out-stamp font-mayek text-center uppercase">ꯁꯣꯜꯗ ꯑꯥꯎꯠ</div>' : ''}
                     </div>
-                    <div class="space-y-1 text-left px-1">
-                        <div class="mb-3">
-                            <span class="block font-mayek text-sm md:text-[15px] text-pe-red leading-tight mb-0.5 truncate">${nameParts.mayek}</span>
-                            <span class="block font-inter text-[8px] text-white tracking-[0.2em] font-bold uppercase truncate">${nameParts.eng}</span>
+                    <div class="space-y-1 text-left px-1 w-full min-w-0">
+                        <div class="mb-3 w-full">
+                            <span class="block font-mayek text-[13px] md:text-[15px] text-pe-white leading-tight mb-0.5 truncate w-full group-hover:text-pe-white transition-colors">${nameParts.mayek}</span>
+                            <span class="block font-inter text-[8px] text-pe-white/50 tracking-[0.2em] font-bold uppercase truncate w-full">${nameParts.eng}</span>
                         </div>
-                        <div class="flex justify-between items-end border-t border-white/5 pt-3">
-                            <span class="text-xs font-inter font-light text-white/80">₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}</span>
-                            <button class="flex flex-col items-end text-right group-hover:text-white transition-colors">
-                                <span class="font-mayek text-pe-red text-[12px] font-black leading-none mb-1 group-hover:text-white transition-colors">ꯑꯀꯨꯞꯄ</span> 
-                                <span class="font-inter text-[7px] text-white/40 tracking-widest font-black uppercase leading-none group-hover:text-white transition-colors">Details</span>
+                        <div class="flex justify-between items-end border-t border-pe-white/5 pt-3 w-full">
+                            <span class="text-xs font-inter font-light text-pe-white/80">₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}</span>
+                            <button class="flex flex-col items-end text-right transition-colors shrink-0">
+                                <!-- RED MAYEK FOR DETAILS STRICTLY -->
+                                <span class="font-mayek text-pe-red text-[12px] font-black leading-none mb-1 transition-colors">ꯑꯀꯨꯞꯄ</span> 
+                                <span class="font-inter text-[7px] text-pe-white/40 tracking-widest font-black uppercase leading-none transition-colors group-hover:text-pe-white">Details</span>
                             </button>
                         </div>
                     </div>
@@ -786,33 +821,38 @@
             currentProdIdx = idx; currentImgIdx = 0;
             const p = PRODUCT_DATA[idx];
             
+            // Strictly reset Accordions upon opening new modal
+            document.getElementById('accordion-lore').classList.add('hidden');
+            document.getElementById('accordion-size').classList.add('hidden');
+            document.getElementById('icon-lore').classList.remove('rotate-180');
+            document.getElementById('icon-size').classList.remove('rotate-180');
+            
             const nameParts = splitName(p.name);
             document.getElementById('modal-title').innerHTML = `
-                <span class="block font-mayek text-3xl md:text-4xl text-pe-red leading-none mb-1.5">${nameParts.mayek}</span>
-                <span class="block font-inter text-[9px] md:text-[11px] text-white font-black tracking-[0.3em] uppercase">${nameParts.eng}</span>
+                <span class="block font-mayek text-3xl md:text-4xl text-pe-white leading-none mb-1.5 w-full break-words">${nameParts.mayek}</span>
+                <span class="block font-inter text-[9px] md:text-[11px] text-pe-white/50 font-black tracking-[0.3em] uppercase w-full break-words">${nameParts.eng}</span>
             `;
             
             document.getElementById('modal-price').innerText = `₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}`;
             document.getElementById('modal-desc').innerText = p.desc;
             
-            document.getElementById('lore-accordion').classList.add('hidden');
-            document.getElementById('size-accordion').classList.add('hidden');
-
             const buyContainer = document.getElementById('modal-buy-container');
             if(p.soldOut) { 
-                buyContainer.innerHTML = `<button disabled class="w-full bg-[#0a0a0a] border border-white/20 py-4 flex flex-col items-center justify-center rounded-sm transition-transform text-center opacity-30 cursor-not-allowed">
-                    <span class="font-mayek text-pe-red text-xl font-black leading-none mb-1.5">ꯁꯣꯜꯗ ꯑꯥꯎꯠ</span>
-                    <span class="font-inter text-[9px] font-black text-white tracking-[0.3em] uppercase leading-none">Sold Out</span>
+                buyContainer.innerHTML = `<button disabled class="w-full bg-[#0a0a0a] border border-pe-white/20 py-4 flex flex-col items-center justify-center rounded-sm transition-transform text-center opacity-30 cursor-not-allowed">
+                    <span class="font-mayek text-pe-white text-xl font-black leading-none mb-1.5">ꯁꯣꯜꯗ ꯑꯥꯎꯠ</span>
+                    <span class="font-inter text-[9px] font-black text-pe-white tracking-[0.3em] uppercase leading-none">Sold Out</span>
                 </button>`;
             } else { 
                 buyContainer.innerHTML = `
                     <div class="flex gap-2 mb-4" id="size-selector">
-                        <button data-size="S" onclick="selectSize('S')" class="size-btn flex-1 py-3 border border-white/20 text-[10px] tracking-widest font-black hover:bg-white hover:text-black hover:border-white transition-colors text-white rounded-sm">S</button>
-                        <button data-size="M" onclick="selectSize('M')" class="size-btn flex-1 py-3 border border-white text-black bg-white text-[10px] tracking-widest font-black transition-colors rounded-sm">M</button>
-                        <button data-size="L" onclick="selectSize('L')" class="size-btn flex-1 py-3 border border-white/20 text-[10px] tracking-widest font-black hover:bg-white hover:text-black hover:border-white transition-colors text-white rounded-sm">L</button>
-                        <button data-size="XL" onclick="selectSize('XL')" class="size-btn flex-1 py-3 border border-white/20 text-[10px] tracking-widest font-black hover:bg-white hover:text-black hover:border-white transition-colors text-white rounded-sm">XL</button>
+                        <button data-size="S" onclick="selectSize('S')" class="size-btn flex-1 py-3 border border-pe-white/20 text-[10px] tracking-widest font-black hover:bg-pe-white hover:text-pe-black hover:border-pe-white transition-colors text-pe-white rounded-sm">S</button>
+                        <button data-size="M" onclick="selectSize('M')" class="size-btn flex-1 py-3 border border-pe-white text-pe-black bg-pe-white text-[10px] tracking-widest font-black transition-colors rounded-sm">M</button>
+                        <button data-size="L" onclick="selectSize('L')" class="size-btn flex-1 py-3 border border-pe-white/20 text-[10px] tracking-widest font-black hover:bg-pe-white hover:text-pe-black hover:border-pe-white transition-colors text-pe-white rounded-sm">L</button>
+                        <button data-size="XL" onclick="selectSize('XL')" class="size-btn flex-1 py-3 border border-pe-white/20 text-[10px] tracking-widest font-black hover:bg-pe-white hover:text-pe-black hover:border-pe-white transition-colors text-pe-white rounded-sm">XL</button>
                     </div>
-                    <div id="add-to-cart-wrapper"></div>
+                    <button id="add-to-cart-btn" class="w-full">
+                        <!-- Filled dynamically by updateBuyButtonState() -->
+                    </button>
                 `;
                 selectedSize = 'M'; 
                 updateBuyButtonState(); 
@@ -836,17 +876,15 @@
             document.getElementById('product-modal').classList.remove('opacity-100');
             document.getElementById('modal-container').classList.add('translate-y-10');
             
-            if(document.getElementById('cart-sidebar').classList.contains('translate-x-full')) {
-                const scrollY = document.body.dataset.scrollY; 
-                document.body.style.position = '';
-                document.body.style.top = '';
-                document.body.style.width = '';
-                
-                if (scrollY) {
-                    document.documentElement.classList.remove('scroll-smooth');
-                    window.scrollTo(0, parseInt(scrollY));
-                    setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
-                }
+            const scrollY = document.body.dataset.scrollY; 
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            
+            if (scrollY) {
+                document.documentElement.classList.remove('scroll-smooth');
+                window.scrollTo(0, parseInt(scrollY));
+                setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
             }
             
             playTock();
@@ -857,7 +895,7 @@
         });
 
         window.onpopstate = () => {
-            closeModal();
+            closeModal(); 
             document.getElementById('ai-chat-modal').classList.add('invisible');
             document.getElementById('ai-chat-modal').classList.remove('opacity-100');
             
@@ -883,13 +921,8 @@
                 if(iter >= target.length) clearInterval(interval);
                 iter += Math.ceil(target.length / 10);
             }, 30);
-            if(isDeciphered) {
-                body.classList.add('deciphered', 'font-mayek', 'text-pe-red');
-                body.classList.remove('text-gray-300');
-            } else {
-                body.classList.remove('deciphered', 'font-mayek', 'text-pe-red');
-                body.classList.add('text-gray-300');
-            }
+            if(isDeciphered) body.classList.add('deciphered');
+            else body.classList.remove('deciphered');
             playTock();
         };
 
@@ -900,7 +933,7 @@
             if (!raw) return;
             playTock();
             const userMsg = document.createElement('div');
-            userMsg.className = "bg-white/5 p-4 tactical-border text-right ml-12 text-white font-medium text-left rounded-sm";
+            userMsg.className = "bg-pe-white/5 p-4 tactical-border text-right ml-12 text-pe-white font-medium text-left rounded-sm break-words";
             userMsg.innerText = "You: " + raw;
             container.appendChild(userMsg);
             input.value = "";
@@ -909,7 +942,7 @@
             if(raw.toUpperCase().includes("THON THON") || raw.toUpperCase().includes("THONTHONBA")) {
                 setTimeout(() => {
                     const botMsg = document.createElement('div');
-                    botMsg.className = "bg-neutral-900 p-4 border-l-2 border-pe-red mr-12 text-white font-medium text-left rounded-sm";
+                    botMsg.className = "bg-neutral-900 p-4 border-l-2 border-pe-red mr-12 text-pe-white font-medium text-left rounded-sm break-words";
                     botMsg.innerText = "Purei: I love you mumma🥰😘";
                     container.appendChild(botMsg);
                     container.scrollTop = container.scrollHeight;
@@ -930,7 +963,7 @@
                 const data = await response.json();
                 const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm still here! 👶";
                 const botDiv = document.createElement('div');
-                botDiv.className = "bg-neutral-900 p-4 border-l-2 border-pe-red mr-12 text-white font-medium text-left rounded-sm";
+                botDiv.className = "bg-neutral-900 p-4 border-l-2 border-pe-red mr-12 text-pe-white font-medium text-left rounded-sm break-words";
                 botDiv.innerText = "Purei: " + aiText;
                 container.appendChild(botDiv);
                 container.scrollTop = container.scrollHeight;
@@ -943,7 +976,7 @@
             const container = document.getElementById('modal-images');
             container.style.transform = `translateX(-${currentImgIdx * 100}%)`;
             container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0">`).join('');
-            document.getElementById('image-dots').innerHTML = p.images.map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'}"></div>`).join('');
+            document.getElementById('image-dots').innerHTML = p.images.map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-pe-white' : 'bg-pe-white/20'}"></div>`).join('');
         };
 
         const nextImg = () => { currentImgIdx = (currentImgIdx + 1) % PRODUCT_DATA[currentProdIdx].images.length; updateGallery(); playTock(); };
@@ -956,7 +989,8 @@
         const drops = new Array(columns).fill(1);
         const drawM = () => {
             ctx.fillStyle = 'rgba(0,0,0,0.1)'; ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = '#FF3B30'; ctx.font = '20px monospace';
+            ctx.fillStyle = '#FF3B30'; // Strict Red Matrix
+            ctx.font = '20px monospace';
             drops.forEach((d, i) => {
                 ctx.fillText("ꯀꯁꯂꯃꯄꯅ"[Math.floor(Math.random()*8)], i*20, d*20);
                 if(d*20 > canvas.height && Math.random() > 0.98) drops[i] = 0;
@@ -1015,8 +1049,8 @@
             const progress = document.getElementById('scroll-progress');
             const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             progress.style.width = (window.scrollY / scrollTotal) * 100 + '%';
-            if(window.scrollY > 50) { nav.classList.add('glass', 'py-4', 'tactical-border'); nav.classList.remove('py-4', 'md:py-6'); }
-            else { nav.classList.remove('glass', 'py-4', 'tactical-border'); nav.classList.add('py-4', 'md:py-6'); }
+            if(window.scrollY > 50) { nav.classList.add('glass', 'py-3', 'md:py-4', 'tactical-border'); nav.classList.remove('py-4', 'md:py-6'); }
+            else { nav.classList.remove('glass', 'py-3', 'md:py-4', 'tactical-border'); nav.classList.add('py-4', 'md:py-6'); }
         };
 
         const openWhatsApp = (p="") => { playTock(); window.open(`https://wa.me/919000000000?text=Hi PE! Order request for: ${p}`, '_blank'); };
@@ -1032,3 +1066,7 @@
     </script>
 </body>
 </html>
+
+
+```
+
