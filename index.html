@@ -1,4 +1,4 @@
-```red fixed
+```red and matrix fixed
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -637,7 +637,69 @@
         const updateGallery = () => { const p = PRODUCT_DATA[currentProdIdx]; const container = document.getElementById('modal-images'); container.style.transform = `translateX(-${currentImgIdx * 100}%)`; container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0">`).join(''); document.getElementById('image-dots').innerHTML = p.images.map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'}"></div>`).join(''); };
         const nextImg = () => { currentImgIdx = (currentImgIdx + 1) % PRODUCT_DATA[currentProdIdx].images.length; updateGallery(); playTock(); };
         const prevImg = () => { currentImgIdx = (currentImgIdx - 1 + PRODUCT_DATA[currentProdIdx].images.length) % PRODUCT_DATA[currentProdIdx].images.length; updateGallery(); playTock(); };
-        const canvas = document.getElementById('matrix-canvas'); const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight; const columns = Math.floor(canvas.width / 20); const drops = new Array(columns).fill(1); const drawM = () => { ctx.fillStyle = 'rgba(0,0,0,0.1)'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.fillStyle = '#FF3B30'; ctx.font = '20px monospace'; drops.forEach((d, i) => { ctx.fillText("ꯀꯁꯂꯃꯄꯅ"[Math.floor(Math.random()*8)], i*20, d*20); if(d*20 > canvas.height && Math.random() > 0.98) drops[i] = 0; drops[i]++; }); };
+        const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// 🔥 spacing tuned for visibility
+const fontSize = 22;
+const columns = Math.floor(canvas.width / fontSize);
+const drops = new Array(columns).fill(1);
+
+// 🔥 character set
+const chars = "ꯀꯁꯂꯃꯄꯅ";
+
+const drawM = () => {
+  // 🔥 stronger trail (better outdoor visibility)
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // 🔥 font upgrade
+  ctx.font = `bold ${fontSize}px "Noto Sans Meetei Mayek"`;
+
+  drops.forEach((d, i) => {
+    const char = chars[Math.floor(Math.random() * chars.length)];
+    const x = i * fontSize;
+    const y = d * fontSize;
+
+    // 🔥 WHITE LEADER (top character = highlight)
+    ctx.fillStyle = '#FFFFFF';
+    ctx.shadowColor = '#FFFFFF';
+    ctx.shadowBlur = 6;
+    ctx.fillText(char, x, y);
+
+    // 🔥 RED TRAIL (rest of flow)
+    ctx.fillStyle = '#FF3B30';
+    ctx.shadowColor = '#FF3B30';
+    ctx.shadowBlur = 6;
+    ctx.fillText(char, x, y - fontSize);
+
+    // 🔥 subtle contrast boost
+    ctx.fillStyle = 'rgba(255,255,255,0.12)';
+    ctx.fillText(char, x, y);
+
+    // reset drop
+    if (y > canvas.height && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+
+    drops[i]++;
+  });
+
+  // cleanup
+  ctx.shadowBlur = 0;
+};
+
+// 🔥 run loop (if not already present)
+setInterval(drawM, 50);
+
+// 🔥 responsive fix
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
         const mInt = setInterval(drawM, 33);
         window.onload = () => { renderGrid(); updateCartUI(); setTimeout(() => { clearInterval(mInt); document.getElementById('matrix-canvas').style.display = 'none'; document.getElementById('typewriter-container').classList.remove('hidden'); typewrite("ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ", 'typewriter-main', 100, () => { typewrite("KHURUMJARI", 'typewriter-sub', 80, () => { setTimeout(() => document.getElementById('loader').style.display = 'none', 1000); }); }); }, 2000); };
         const typewrite = (t, id, s, cb) => { let i = 0; const el = document.getElementById(id); const tmr = setInterval(() => { if(i < t.length) { el.innerHTML += t.charAt(i); i++; } else { clearInterval(tmr); if(cb) cb(); } }, s); };
