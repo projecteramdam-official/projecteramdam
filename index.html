@@ -385,7 +385,7 @@
 
     <div id="ai-chat-modal" class="invisible opacity-0 fixed inset-0 z-[2800] bg-black/80 flex items-end md:items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden w-full h-[100dvh]" onclick="if(event.target === this) toggleAIChat()">
         <div id="chat-container" class="popup-anim w-full md:max-w-md bg-[#050505] tactical-border h-[80vh] md:h-[600px] flex flex-col rounded-t-xl md:rounded-xl overflow-hidden cursor-default translate-y-20">
-            <div class="p-6 bg-white text-black flex justify-between items-center shrink-0 text-left"><div class="flex items-center gap-3 text-left"><span class="text-2xl text-left">👶</span><div class="flex flex-col text-left"><span class="font-mayek font-black text-pe-red text-lg leading-none mb-0.5 text-left">ꯄꯨꯔꯩ</span><span class="font-inter font-black text-[9px] tracking-widest uppercase text-black/60 text-left text-left">Purei AI</span></div></div><button onclick="toggleAIChat()" class="text-black/50 hover:text-pe-red transition-colors p-2 text-left"><i data-lucide="x"></i></button></div>
+            <div class="p-6 bg-white text-black flex justify-between items-center shrink-0 text-left"><div class="flex items-center gap-3 text-left"><span class="text-2xl text-left">👶</span><div class="flex flex-col text-left"><span class="font-mayek font-black text-pe-red text-lg leading-none mb-0.5 text-left">ꯄꯨꯔꯩ</span><span class="font-inter font-black text-[9px] tracking-widest uppercase text-black/60 text-left text-left">Purei</span></div></div><button onclick="toggleAIChat()" class="text-black/50 hover:text-pe-red transition-colors p-2 text-left"><i data-lucide="x"></i></button></div>
             <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 bg-black font-inter text-[13px] md:text-sm leading-relaxed hide-scrollbar text-white w-full break-words text-left"></div>
             <div class="p-4 border-t border-white/5 bg-[#050505] shrink-0 text-left"><div class="flex gap-2 text-left"><input id="chat-input" type="text" placeholder="Ask Purei..." class="flex-grow bg-white/5 p-4 text-sm outline-none focus:border-pe-red border border-transparent transition-colors font-inter text-white rounded-sm w-full text-left"><button onclick="sendMessage()" class="bg-white text-black px-5 active:scale-95 transition-transform rounded-sm shrink-0 text-left"><i data-lucide="send" class="w-5 h-5"></i></button></div></div>
         </div>
@@ -394,9 +394,87 @@
     <!-- SCRIPTS -->
     <script>
         const PRODUCT_DATA = [
-            { id: 3, name: "ꯂꯥꯏꯈꯨꯠꯁꯥꯡꯕꯤ LAIKHUTSANGBI TEE", price: "₹899", desc: "Inspired by the mythical entities of the deep Kanglei woods.", lore: "Laikhutsangbi, the long-handed guardian of the forest. To wear this is to carry the stories told by the elders around the fire.", loreMayek: "ꯂꯥꯏꯈꯨꯠꯁꯥꯡꯕꯤꯒꯤ ꯋꯥꯔꯤ ꯑꯁꯤ ꯑꯩꯈꯣꯏꯒꯤ ꯄꯨꯋꯥꯔꯤꯅꯤ꯫", soldOut: false, images: ["images/laikhutshangbi/1.png","images/laikhutshangbi/2.png","images/laikhutshangbi/3.png","images/laikhutshangbi/4.png","images/laikhutshangbi/5.png"] },
-            { id: 1, name: "ꯈꯨꯋꯥꯗꯣ KHUADO PEAK HOODIE", price: "₹1,499", desc: "Premium heavyweight fleece inspired by Kanglei peaks.", lore: "The peaks of Khuado were the ancient eyes of our land. Legend says the protectors stood upon these ridges to guard the fertile plains below.", loreMayek: "ꯈꯨꯋꯥꯗꯣ ꯆingꯊꯛꯀꯤ ꯋꯥꯔꯤꯅꯤ꯫ ꯑꯩꯈꯣꯏꯒꯤ ꯄꯨꯋꯥꯔꯤ ꯑꯁꯤꯅꯥ ꯉꯥꯛꯄꯤꯕꯤꯕꯅꯤ꯫", soldOut: false, images: ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800"] },
-            { id: 2, name: "ꯀꯪꯂꯥ ꯁꯥ KANGLA SHA TEE", price: "₹799", desc: "High-definition sacred motif on heavyweight cotton.", lore: "The Kangla Sha is the divine guardian protector of the palace. Nobility in every thread.", loreMayek: "ꯀꯪꯂꯥ ꯁꯥ ꯑꯁꯤ ꯂꯥꯏꯒꯤ ꯉꯥꯛꯄꯅꯤ꯫", soldOut: true, images: ["https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=800"] }
+            {
+  id: 1,
+  name: "ꯂꯥꯏꯈꯨꯠꯁꯥꯡꯕꯤ LAIKHUTSANGBI TEE",
+  price: "₹899",
+  desc: "Born from ancient Kangleipak folklore — a presence that lurks between deity and demon.",
+  lore: "Lai Khutshangbi — a hingchabi feared across the old lands of Kangleipak. Neither fully divine nor entirely mortal, she walks with hands so long they scrape the earth beneath her. Her fingers, sharp as thorns. Her presence, impossible to escape. In the silence of the night, she reaches — not just for the body, but for the spirit. To wear this is to carry a story that was never meant to be seen, only feared.",
+  loreMayek: "ꯂꯥꯏ ꯈꯨꯠꯁꯥꯡꯕꯤ ꯑꯁꯤ ꯍꯤꯡꯆꯥꯕꯤ ꯑꯃ ꯑꯁꯤ ꯀꯪꯂꯩꯄꯥꯛꯀꯤ ꯄꯨꯋꯥꯔꯤ ꯑꯃꯅꯤ꯫ ꯃꯍꯥꯛꯀꯤ ꯈꯨꯠ ꯑꯁꯤ ꯑꯇꯣꯞꯄ ꯑꯃ ꯑꯁꯤ ꯃꯤꯠꯇꯦ ꯂꯩꯔꯤꯕ ꯑꯃꯅꯤ꯫ ꯃꯍꯥꯛꯀꯤ ꯑꯄꯥꯡꯕ ꯑꯁꯤ ꯃꯇꯝ ꯑꯃ ꯑꯁꯤ ꯍꯦꯟꯕ ꯑꯃꯅꯤ꯫",
+  soldOut: false,
+  images: [
+    "images/laikhutshangbi/1.jpg",
+    "images/laikhutshangbi/2.jpg",
+    "images/laikhutshangbi/3.jpg",
+    "images/laikhutshangbi/4.jpg",
+    "images/laikhutshangbi/5.jpg",
+    "images/laikhutshangbi/6.jpg"
+  ]
+},
+            {
+  id: 2,
+  name: "ꯁꯪꯒꯥꯏ SANGAI SPIRIT TEE",
+  price: "₹899",
+  desc: "A spirit-form interpretation of Sangai — watching, protecting, and slowly fading from our world.",
+  lore: "Not all guardians are seen. Some remain between presence and absence. The Sangai stands as a silent protector of Loktak — watching over the land, its people, and its fragile balance. But as time moves forward, its spirit begins to fade. This design captures that moment — where the Sangai is no longer just an animal, but a presence. A watcher. A memory. A warning.",
+  loreMayek: "ꯁꯪꯒꯥꯏ ꯑꯁꯤ ꯂꯩꯔꯤꯕ ꯑꯃꯁꯨꯡ ꯂꯩꯔꯤꯕ ꯑꯃꯅꯤ꯫ ꯃꯍꯥꯛ ꯑꯁꯤ ꯂꯣꯛꯇꯥꯛ ꯂꯦꯛꯀꯤ ꯃꯥꯌꯥꯡ ꯑꯃ ꯑꯁꯤ ꯑꯩꯈꯣꯏꯒꯤ ꯄꯨꯋꯥꯔꯤ ꯑꯁꯤ ꯍꯦꯟꯕ ꯑꯃꯅꯤ꯫",
+  soldOut: false,
+  images: [
+    "images/sangai-v2/1.jpg",
+    "images/sangai-v2/2.jpg",
+    "images/sangai-v2/3.jpg"
+  ]
+},
+                {id: 3,
+      name: "ꯈꯝꯕ KHAMBA TEE",
+      price: "₹899",
+      desc: "Inspired by the legendary trial of Khamba — where strength meets calm, and truth overcomes deception.",
+      lore: "When Nongban Kongyamba deceived the king with false divine words, Khamba was forced into a trial against the feral Kao — a raging bull feared across kingdoms. While others saw chaos, Khamba saw connection. Guided by his father's legacy and his sister’s wisdom, he faced the beast not with fear, but with calm resolve. In the wild clash between rage and stillness, the untamed bull bowed — revealing that true strength lies not in force, but in mastery of self.",
+      loreMayek: "ꯈꯝꯕ ꯑꯁꯤ ꯃꯣꯏꯔꯥꯡꯒꯤ ꯄꯨꯋꯥꯔꯤ ꯑꯃ ꯑꯁꯤ ꯅꯣꯡꯕꯟ ꯀꯣꯡꯌꯝꯕꯒꯤ ꯃꯁꯛ ꯑꯁꯤ ꯂꯧꯕꯤ꯫ ꯀꯥꯎ ꯑꯁꯤ ꯑꯗꯨꯗ ꯃꯤꯍꯧꯕ ꯑꯃ ꯑꯁꯤ ꯑꯩꯈꯣꯏꯒꯤ ꯃꯃꯥꯡꯗ ꯂꯩꯔꯤꯕ ꯑꯃꯅꯤ꯫",
+      soldOut: false,
+      images: [
+        "images/khamba/1.jpg",
+        "images/khamba/2.jpg",
+        "images/khamba/3.jpg"
+      ]
+    },
+           {
+  id: 4,
+  name: "ꯊꯥꯡꯒꯜ THANGAL TEE",
+  price: "₹899",
+  desc: "Inspired by Thangal General — a warrior, strategist, and protector who stood for the land till his last breath.",
+  lore: "Lungthoubu Thangal, later known as Thangal General, was not born into power — he earned it. From guiding kings through the wild to capturing elephants alone, his strength and intelligence made him indispensable. He became a pillar of the kingdom, shaping roads, education, and strategy. But above all, he stood for Manipur. Even in the face of death, he did not step back. This piece carries that spirit — courage without fear, loyalty without compromise.",
+  loreMayek: "ꯊꯥꯡꯒꯜ ꯑꯁꯤ ꯃꯤꯍꯧꯕ ꯑꯃꯁꯨꯡ ꯃꯄꯨꯡ ꯑꯃ ꯑꯁꯤ ꯃꯣꯏꯔꯥꯡꯒꯤ ꯂꯩꯄꯥꯛ ꯑꯁꯤ ꯍꯦꯟꯕ ꯑꯃꯅꯤ꯫ ꯃꯍꯥꯛ ꯑꯁꯤ ꯃꯃꯥꯡꯗ ꯍꯧꯔꯛꯄ ꯑꯃꯅꯤ꯫ ꯍꯧꯖꯤꯛꯇ ꯑꯃ ꯑꯁꯤ ꯃꯤꯍꯧꯕ ꯑꯃꯅꯤ꯫",
+  soldOut: false,
+  images: [
+    "images/thangal/1.jpg",
+    "images/thangal/2.jpg",
+    "images/thangal/3.jpg",
+    "images/thangal/4.jpg",
+    "images/thangal/5.jpg",
+    "images/thangal/6.jpg",
+    "images/thangal/7.jpg",
+    "images/thangal/8.jpg"
+  ]
+},
+            {
+  id: 5,
+  name: "ꯁꯪꯒꯥꯏ SANGAI TEE",
+  price: "₹899",
+  desc: "Inspired by the legendary dancing deer of Loktak — a symbol of grace, balance, and survival.",
+  lore: "The Sangai, known as the dancing deer, moves with delicate precision across the floating phumdis of Loktak Lake. Each step is a balance between life and collapse — a quiet mastery of instability. Found nowhere else in the world, it stands as a living symbol of harmony between nature and spirit. This design captures that moment — where fragility becomes strength, and movement becomes identity.",
+  loreMayek: "ꯁꯪꯒꯥꯏ ꯑꯁꯤ ꯂꯣꯛꯇꯥꯛ ꯂꯦꯛꯀꯤ ꯐꯨꯝꯗꯤꯁꯤꯡ ꯑꯗꯨꯗ ꯂꯥꯛꯄ ꯑꯃ ꯑꯁꯤ ꯑꯍꯣꯡꯕ ꯑꯃꯁꯨꯡ ꯃꯥꯌꯥꯡ ꯑꯃꯅꯤ꯫ ꯃꯁꯤꯒꯤ ꯃꯃꯥꯡꯗ ꯑꯁꯤ ꯂꯩꯔꯤꯕ ꯑꯃꯅꯤ꯫",
+  soldOut: false,
+  images: [
+    "images/sangai-v1/1.jpg",
+    "images/sangai-v1/2.png",
+    "images/sangai-v1/3.png",
+    "images/sangai-v1/4.png",
+    "images/sangai-v1/5.png",
+    "images/sangai-v1/6.png",
+    "images/sangai-v1/7.png"
+  ]
+}
         ];
 
         PRODUCT_DATA.forEach(p => { if (!p.images || p.images.length === 0) { p.images = []; for (let i = 1; i <= (p.imageCount || 1); i++) { p.images.push(`images/${p.folder}/${i}.jpg`); } } });
