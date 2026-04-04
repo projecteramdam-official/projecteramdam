@@ -1,4 +1,4 @@
-```html
+```size chart fixed
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -364,13 +364,57 @@
                     </button>
 
                     <div id="accordion-size" class="hidden py-6 w-full border-b border-white/10 bg-[#050505] px-4 rounded-sm overflow-x-auto text-left text-left text-left text-left text-left text-left">
-                        <table class="w-full text-left min-w-[250px] text-[10px] font-inter font-bold text-white/80 text-left">
-                            <tr class="border-b border-white/10 font-mayek text-left text-left"><th class="py-3 text-pe-red uppercase text-sm text-left text-left">ꯆꯥꯡ <span class="font-inter text-[8px] text-white/50 ml-1 tracking-widest text-left text-left">SIZE</span></th><th class="uppercase font-inter text-pe-red text-left text-left">Chest</th><th class="uppercase font-inter text-pe-red text-left text-left">Length</th></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/70 text-left"><td>S (Small)</td><td>40"</td><td>27"</td></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/70 text-left"><td>M (Medium)</td><td>42"</td><td>28"</td></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/70 text-left"><td>L (Large)</td><td>44"</td><td>29"</td></tr>
-                            <tr class="border-b border-white/5 text-left font-inter text-white/70 text-left"><td>XL (X-Large)</td><td>46"</td><td>30"</td></tr>
-                        </table>
+                        <!-- REPLACE ONLY THIS PART INSIDE YOUR EXISTING accordion-size DIV -->
+
+<table class="w-full text-left min-w-[250px] text-[10px] font-inter font-bold text-white/80">
+  
+  <tr class="border-b border-white/10">
+    <th class="py-3 text-pe-red uppercase text-sm font-mayek">
+      ꯆꯥꯡ 
+      <span class="font-inter text-[8px] text-white/50 ml-1 tracking-widest">SIZE</span>
+    </th>
+    <th class="uppercase font-inter text-pe-red">CHEST (IN)</th>
+    <th class="uppercase font-inter text-pe-red">LENGTH (IN)</th>
+  </tr>
+
+  <tr class="border-b border-white/5 font-inter text-white/70">
+    <td>S <span class="text-[8px] text-white/40">(Small)</span></td>
+    <td>38"</td>
+    <td>26"</td>
+  </tr>
+
+  <tr class="border-b border-white/5 font-inter text-white/70">
+    <td>M <span class="text-[8px] text-white/40">(Medium)</span></td>
+    <td>40"</td>
+    <td>27"</td>
+  </tr>
+
+  <tr class="border-b border-white/5 font-inter text-white/70">
+    <td>L <span class="text-[8px] text-white/40">(Large)</span></td>
+    <td>42"</td>
+    <td>28"</td>
+  </tr>
+
+  <tr class="border-b border-white/5 font-inter text-white/70">
+    <td>XL <span class="text-[8px] text-white/40">(X-Large)</span></td>
+    <td>44"</td>
+    <td>29"</td>
+  </tr>
+
+  <tr class="border-b border-white/5 font-inter text-white/70">
+    <td>XXL <span class="text-[8px] text-white/40">(XX-Large)</span></td>
+    <td>46"</td>
+    <td>30"</td>
+  </tr>
+
+</table>
+
+<p class="text-[9px] font-inter text-white/40 mt-4">
+  Measurements may vary ±1 inch. For a relaxed fit, choose one size up.
+</p>
+
+<!-- END REPLACEMENT -->
+
                     </div>
                 </div>
             </div>
@@ -420,8 +464,8 @@
   loreMayek: "ꯁꯪꯒꯥꯏ ꯑꯁꯤ ꯂꯩꯔꯤꯕ ꯑꯃꯁꯨꯡ ꯂꯩꯔꯤꯕ ꯑꯃꯅꯤ꯫ ꯃꯍꯥꯛ ꯑꯁꯤ ꯂꯣꯛꯇꯥꯛ ꯂꯦꯛꯀꯤ ꯃꯥꯌꯥꯡ ꯑꯃ ꯑꯁꯤ ꯑꯩꯈꯣꯏꯒꯤ ꯄꯨꯋꯥꯔꯤ ꯑꯁꯤ ꯍꯦꯟꯕ ꯑꯃꯅꯤ꯫",
   soldOut: false,
   images: [
-    "images/sangai-v2/1.jpg",
     "images/sangai-v2/2.jpg",
+    "images/sangai-v2/1.jpg",
     "images/sangai-v2/3.jpg"
   ]
 },
@@ -433,8 +477,8 @@
       loreMayek: "ꯈꯝꯕ ꯑꯁꯤ ꯃꯣꯏꯔꯥꯡꯒꯤ ꯄꯨꯋꯥꯔꯤ ꯑꯃ ꯑꯁꯤ ꯅꯣꯡꯕꯟ ꯀꯣꯡꯌꯝꯕꯒꯤ ꯃꯁꯛ ꯑꯁꯤ ꯂꯧꯕꯤ꯫ ꯀꯥꯎ ꯑꯁꯤ ꯑꯗꯨꯗ ꯃꯤꯍꯧꯕ ꯑꯃ ꯑꯁꯤ ꯑꯩꯈꯣꯏꯒꯤ ꯃꯃꯥꯡꯗ ꯂꯩꯔꯤꯕ ꯑꯃꯅꯤ꯫",
       soldOut: false,
       images: [
-        "images/khamba/1.jpg",
         "images/khamba/2.jpg",
+        "images/khamba/1.jpg",
         "images/khamba/3.jpg"
       ]
     },
@@ -447,14 +491,14 @@
   loreMayek: "ꯊꯥꯡꯒꯜ ꯑꯁꯤ ꯃꯤꯍꯧꯕ ꯑꯃꯁꯨꯡ ꯃꯄꯨꯡ ꯑꯃ ꯑꯁꯤ ꯃꯣꯏꯔꯥꯡꯒꯤ ꯂꯩꯄꯥꯛ ꯑꯁꯤ ꯍꯦꯟꯕ ꯑꯃꯅꯤ꯫ ꯃꯍꯥꯛ ꯑꯁꯤ ꯃꯃꯥꯡꯗ ꯍꯧꯔꯛꯄ ꯑꯃꯅꯤ꯫ ꯍꯧꯖꯤꯛꯇ ꯑꯃ ꯑꯁꯤ ꯃꯤꯍꯧꯕ ꯑꯃꯅꯤ꯫",
   soldOut: false,
   images: [
-    "images/thangal/1.jpg",
-    "images/thangal/2.jpg",
     "images/thangal/3.jpg",
     "images/thangal/4.jpg",
     "images/thangal/5.jpg",
+    "images/thangal/8.jpg",
+    "images/thangal/1.jpg",
+    "images/thangal/2.jpg",
     "images/thangal/6.jpg",
-    "images/thangal/7.jpg",
-    "images/thangal/8.jpg"
+    "images/thangal/7.jpg"
   ]
 },
             {
@@ -466,13 +510,13 @@
   loreMayek: "ꯁꯪꯒꯥꯏ ꯑꯁꯤ ꯂꯣꯛꯇꯥꯛ ꯂꯦꯛꯀꯤ ꯐꯨꯝꯗꯤꯁꯤꯡ ꯑꯗꯨꯗ ꯂꯥꯛꯄ ꯑꯃ ꯑꯁꯤ ꯑꯍꯣꯡꯕ ꯑꯃꯁꯨꯡ ꯃꯥꯌꯥꯡ ꯑꯃꯅꯤ꯫ ꯃꯁꯤꯒꯤ ꯃꯃꯥꯡꯗ ꯑꯁꯤ ꯂꯩꯔꯤꯕ ꯑꯃꯅꯤ꯫",
   soldOut: false,
   images: [
+    "images/sangai-v1/3.jpg",
+    "images/sangai-v1/4.jpg",
+    "images/sangai-v1/5.jpg",
+    "images/sangai-v1/6.jpg",
+    "images/sangai-v1/7.jpg",
     "images/sangai-v1/1.jpg",
-    "images/sangai-v1/2.png",
-    "images/sangai-v1/3.png",
-    "images/sangai-v1/4.png",
-    "images/sangai-v1/5.png",
-    "images/sangai-v1/6.png",
-    "images/sangai-v1/7.png"
+    "images/sangai-v1/2.jpg"
   ]
 }
         ];
