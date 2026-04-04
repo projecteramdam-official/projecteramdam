@@ -583,7 +583,7 @@
 
         const addToCart = () => { if (isAddingToCart) return; isAddingToCart = true; const p = PRODUCT_DATA[currentProdIdx]; if (p.soldOut) { isAddingToCart = false; return; } const existingItem = cart.find(item => item.id === p.id && item.size === selectedSize); if (existingItem) { isAddingToCart = false; return; } playTock(); cart.push({ id: p.id, name: p.name, price: p.price, numPrice: parseInt(p.price.replace(/[^0-9]/g, '')), size: selectedSize, qty: 1, image: p.images[0] }); saveCart(); updateBuyButtonState(); isAddingToCart = false; };
 
-        const checkoutCart = () => { if (cart.length === 0) return; playTock(); let message = "Hi PE! I would like to place an order:%0A%0A"; let total = 0; cart.forEach((item, i) => { message += `${i+1}. ${item.name} (Size: ${item.size}) - ₹${item.numPrice.toLocaleString('en-IN')}%0A`; total += item.numPrice; }); message += `%0A*Total: ₹${total.toLocaleString('en-IN')}*%0A%0APlease let me know the UPI details.`; window.open(`https://wa.me/919000000000?text=${message}`, '_blank'); };
+        const checkoutCart = () => { if (cart.length === 0) return; playTock(); let message = "Hi PE! I would like to place an order:%0A%0A"; let total = 0; cart.forEach((item, i) => { message += `${i+1}. ${item.name} (Size: ${item.size}) - ₹${item.numPrice.toLocaleString('en-IN')}%0A`; total += item.numPrice; }); message += `%0A*Total: ₹${total.toLocaleString('en-IN')}*%0A%0APlease let me know the UPI details.`; window.open(`https://wa.me/919366659414?text=${message}`, '_blank'); };
 
         const toggleAccordion = (section) => {
             playTock();
