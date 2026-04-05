@@ -1,0 +1,134 @@
+[
+  {
+    "id": 101,
+    "name": "KANGLASHA - Guardian of Roots | Oversized Tee",
+    "price": "₹1299",
+    "desc": "Sacred guardian of Kangla Fort — symbol of protection, authority, and identity.",
+    "lore": "Kangla Sha stands as a guardian of power — silent, unshaken, eternal.\n\nIt does not move for attention.\nIt exists as authority itself.",
+    "loreMayek": "",
+    "details": "• Oversized relaxed fit\n• Premium cotton\n• Structured drape\n• Statement design",
+    "wash": "• Cold wash\n• Do not bleach\n• Dry in shade",
+    "soldOut": false,
+    "images": [
+      "images/kangla_sha/front.jpg"
+    ]
+  },
+  {
+    "id": 102,
+    "name": "KHAMBA - Kao Trial Edition | UT27",
+    "price": "₹999",
+    "desc": "Strength meets control.",
+    "lore": "Khamba’s strength is not chaos.\n\nIt is control.\nMeasured. Directed. Absolute.",
+    "loreMayek": "",
+    "details": "• Oversized fit\n• Heavyweight cotton\n• Athletic structure",
+    "wash": "• Cold wash only\n• Do not iron on print",
+    "soldOut": false,
+    "images": [
+      "images/khamba_trial/front.jpg"
+    ]
+  },
+  {
+    "id": 104,
+    "name": "LAI KHUTSHANGBI - Phunga Wari Edition",
+    "price": "₹899",
+    "desc": "Fear lives in imagination.",
+    "lore": "She exists where stories are told in whispers.\n\nNot seen.\nBut always present.",
+    "loreMayek": "",
+    "details": "• Oversized fit\n• Soft breathable cotton\n• Horror-inspired graphic",
+    "wash": "• Cold wash\n• Dry in shade",
+    "soldOut": false,
+    "images": [
+      "images/lai_phunga/front.jpg"
+    ]
+  },
+  {
+    "id": 105,
+    "name": "LAI KHUTSHANGBI - She Reaches",
+    "price": "₹899",
+    "desc": "She does not knock.",
+    "lore": "You think it hasn’t arrived yet.\n\nIt already has.",
+    "loreMayek": "",
+    "details": "• Oversized fit\n• High contrast print\n• Streetwear aesthetic",
+    "wash": "• Cold wash\n• Do not bleach",
+    "soldOut": false,
+    "images": [
+      "images/lai_reaches/front.jpg"
+    ]
+  },
+  {
+    "id": 107,
+    "name": "SANGAI - Dancing Deer",
+    "price": "₹899",
+    "desc": "Balance is survival.",
+    "lore": "Every step is deliberate.\n\nBalance is not grace.\nIt is survival.",
+    "loreMayek": "",
+    "details": "• Oversized fit\n• Minimal symbolic design\n• Lightweight cotton",
+    "wash": "• Cold wash\n• Dry in shade",
+    "soldOut": false,
+    "images": [
+      "images/sangai_dancing/front.jpg"
+    ]
+  },
+  {
+    "id": 109,
+    "name": "THANGAL - Warrior Legacy",
+    "price": "₹899",
+    "desc": "Strength built on action.",
+    "lore": "Discipline defines the warrior.\n\nNot words.\nNot noise.\nAction.",
+    "loreMayek": "",
+    "details": "• Oversized fit\n• Durable cotton\n• Bold identity print",
+    "wash": "• Cold wash\n• Low heat iron",
+    "soldOut": false,
+    "images": [
+      "images/thangal_warrior/alt_1.jpg"
+    ]
+  },
+  {
+    "id": 110,
+    "name": "KHAMBA - Core Edition",
+    "price": "₹899",
+    "desc": "Embodiment of raw strength — stripped of excess, built on legacy.",
+    "lore": "Khamba is not loud.\n\nHis strength does not seek attention.\nIt exists — steady, unshaken, undeniable.\n\nNo distractions.\nJust presence.",
+    "loreMayek": "",
+    "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + bold identity",
+    "wash": "• Cold wash\n• Do not bleach\n• Dry in shade",
+    "soldOut": false,
+    "images": [
+      "images/khamba_v1/front.jpg",
+      "images/khamba_v1/alt_1.jpg",
+      "images/khamba_v1/alt_2.jpg"
+    ]
+  },
+  {
+    "id": 111,
+    "name": "LAI KHUTSHANGBI - Concept V1",
+    "price": "₹799",
+    "desc": "The first reach — where presence begins.",
+    "lore": "She reaches before she exists.\n\nForm comes later.\nPresence comes first.",
+    "loreMayek": "",
+    "details": "• Oversized relaxed fit\n• Experimental concept design",
+    "wash": "• Cold wash\n• Dry in shade",
+    "soldOut": false,
+    "images": [
+      "images/lai_v1/front.jpg",
+      "images/lai_v1/alt_1.jpg",
+      "images/lai_v1/alt_2.jpg",
+      "images/lai_v1/alt_3.jpg"
+    ]
+  },
+  {
+    "id": 112,
+    "name": "SANGAI - Spirit Form",
+    "price": "₹899",
+    "desc": "A silent watcher — beyond sight.",
+    "lore": "You do not see it.\n\nBut it sees you.\n\nPresence does not require visibility.",
+    "loreMayek": "",
+    "details": "• Oversized fit\n• Minimal atmospheric design",
+    "wash": "• Cold wash\n• Do not bleach",
+    "soldOut": false,
+    "images": [
+      "images/sangai_spirit/front_.jpg",
+      "images/sangai_spirit/back_.jpg"
+    ]
+  }
+]
