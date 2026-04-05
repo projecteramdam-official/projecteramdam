@@ -1,0 +1,182 @@
+[
+  {
+    "id": 101,
+    "name": "KANGLASHA - Guardian of Roots | Oversized Tee",
+    "price": "₹1299",
+    "desc": "Sacred guardian of Kangla Fort — symbol of protection, authority, and identity. Built for bold presence with structured oversized silhouette.",
+    "lore": "Kangla Sha is not just a creature — it is a gatekeeper of power.\nStanding at the ancient Kangla Fort, it has witnessed kings rise, kingdoms fall, and history reshape itself.\n\nThis design captures that silent dominance — not loud, not chaotic, but unshakable.\n\nThe sharp edges, the stance, the symmetry — everything reflects authority without needing to prove it.\n\nThis is not fashion. This is presence.",
+    "loreMayek": "",
+    "details": "• 240–260 GSM Premium Terry Cotton\n• Oversized drop-shoulder fit\n• High-density screen print\n• Breathable + structured drape\n• Built for daily wear + statement styling\n\n⚠️ Check size chart before ordering.",
+    "wash": "• Machine wash cold (inside-out)\n• Do not bleach\n• Do not iron directly on print\n• Dry in shade\n• Avoid high heat drying",
+    "soldOut": false,
+    "images": [
+      "images/kangla_sha/front.jpg",
+      "images/kangla_sha/Front_1_c_1.jpg",
+      "images/kangla_sha/Front_1_c_61.jpg",
+      "images/kangla_sha/back.jpg",
+      "images/kangla_sha/Back_2_c_61.jpg"
+    ]
+  },
+
+  {
+    "id": 102,
+    "name": "KHAMBA - Kao Trial Edition | UT27",
+    "price": "₹999",
+    "desc": "Inspired by Khamba Na Kao Phaba — where strength meets calm, and control defeats chaos.",
+    "lore": "When the raging Kao was unleashed, it was not just a battle of strength — it was a test of spirit.\n\nKhamba did not fight the bull with fear. He faced it with control.\n\nThis design captures that moment — tension, movement, and raw force frozen in time.\n\nThe aggressive strokes represent chaos.\nThe central structure represents calm.\n\nBecause true power is not in dominance — it is in control.",
+    "loreMayek": "",
+    "details": "• UT27 Unisex Terry Oversized Tee\n• Heavyweight premium cotton\n• Sharp black knockout graphic\n• Streetwear-ready silhouette\n• Designed for durability",
+    "wash": "• Wash inside-out\n• Cold wash only\n• No bleach\n• Avoid ironing design\n• Air dry",
+    "soldOut": false,
+    "images": [
+      "images/khamba_trial/front.jpg",
+      "images/khamba_trial/Front_1_c_45.jpg",
+      "images/khamba_trial/Front_1_c_49.jpg",
+      "images/khamba_trial/Front_1_c_54.jpg",
+      "images/khamba_trial/Front_1_c_56.jpg",
+      "images/khamba_trial/Front_1_c_57.jpg",
+      "images/khamba_trial/Front_1_c_61.jpg",
+      "images/khamba_trial/model_male.jpg",
+      "images/khamba_trial/model_female.jpg"
+    ]
+  },
+
+  {
+    "id": 104,
+    "name": "LAI KHUTSHANGBI - Phunga Wari Edition",
+    "price": "₹899",
+    "desc": "Inspired by childhood Phunga Wari — where fear lived in imagination.",
+    "lore": "In the quiet nights, stories were warnings.\n\nShe existed in corners. In silence.\n\nNot what you see — what you feel.",
+    "loreMayek": "",
+    "details": "• Premium oversized cotton\n• Horror-inspired design",
+    "wash": "• Cold wash\n• Dry in shade",
+    "soldOut": false,
+    "images": [
+      "images/lai_phunga/front.jpg",
+      "images/lai_phunga/Front_1_c_1.jpg",
+      "images/lai_phunga/Front_1_c_49.jpg",
+      "images/lai_phunga/Front_1_c_54.jpg",
+      "images/lai_phunga/Front_1_c_56.jpg",
+      "images/lai_phunga/Front_1_c_57.jpg",
+      "images/lai_phunga/Front_1_c_8.jpg",
+      "images/lai_phunga/model_male.jpg",
+      "images/lai_phunga/model_female.jpg"
+    ]
+  },
+
+  {
+    "id": 105,
+    "name": "LAI KHUTSHANGBI - She Reaches",
+    "price": "₹899",
+    "desc": "She does not knock. She reaches.",
+    "lore": "Her reach comes before her presence.\n\nIt has already reached.",
+    "loreMayek": "",
+    "details": "• Oversized fit\n• Horror streetwear",
+    "wash": "• Cold wash",
+    "soldOut": false,
+    "images": [
+      "images/lai_reaches/front.jpg",
+      "images/lai_reaches/Front_1_c_10.jpg",
+      "images/lai_reaches/Front_1_c_2.jpg",
+      "images/lai_reaches/Front_1_c_25.jpg",
+      "images/lai_reaches/Front_1_c_3.jpg",
+      "images/lai_reaches/Front_1_c_49.jpg",
+      "images/lai_reaches/Front_1_c_54.jpg",
+      "images/lai_reaches/Front_1_c_56.jpg",
+      "images/lai_reaches/Front_1_c_57.jpg",
+      "images/lai_reaches/Front_1_c_8.jpg",
+      "images/lai_reaches/model_male.jpg",
+      "images/lai_reaches/model_female.jpg"
+    ]
+  },
+
+  {
+    "id": 107,
+    "name": "SANGAI - Dancing Deer",
+    "price": "₹899",
+    "desc": "Balance is survival.",
+    "lore": "Each step is survival.",
+    "loreMayek": "",
+    "details": "• Minimal design",
+    "wash": "• Cold wash",
+    "soldOut": false,
+    "images": [
+      "images/sangai_dancing/front.jpg",
+      "images/sangai_dancing/alt_2.jpg",
+      "images/sangai_dancing/alt_3.jpg",
+      "images/sangai_dancing/alt_4.jpg",
+      "images/sangai_dancing/alt_5.jpg",
+      "images/sangai_dancing/model_male.jpg",
+      "images/sangai_dancing/model_female.jpg"
+    ]
+  },
+
+  {
+    "id": 109,
+    "name": "THANGAL - Warrior Legacy",
+    "price": "₹899",
+    "desc": "Strength built on action.",
+    "lore": "Discipline defines the warrior.",
+    "loreMayek": "",
+    "details": "• Durable cotton",
+    "wash": "• Cold wash",
+    "soldOut": false,
+    "images": [
+      "images/thangal_warrior/alt_1.jpg",
+      "images/thangal_warrior/alt_2.jpg",
+      "images/thangal_warrior/alt_3.jpg",
+      "images/thangal_warrior/alt_4.jpg"
+    ]
+  },
+
+  {
+    "id": 110,
+    "name": "KHAMBA - Core Edition",
+    "price": "₹899",
+    "desc": "Embodiment of raw strength.",
+    "lore": "Quiet power. No noise.",
+    "loreMayek": "",
+    "details": "• Oversized fit",
+    "wash": "• Cold wash",
+    "soldOut": false,
+    "images": [
+      "images/khamba_v1/front.jpg",
+      "images/khamba_v1/alt_1.jpg",
+      "images/khamba_v1/alt_2.jpg"
+    ]
+  },
+
+  {
+    "id": 111,
+    "name": "LAI KHUTSHANGBI - Concept V1",
+    "price": "₹799",
+    "desc": "The first reach.",
+    "lore": "Presence before form.",
+    "loreMayek": "",
+    "details": "• Concept design",
+    "wash": "• Cold wash",
+    "soldOut": false,
+    "images": [
+      "images/lai_v1/front.jpg",
+      "images/lai_v1/alt_1.jpg",
+      "images/lai_v1/alt_2.jpg",
+      "images/lai_v1/alt_3.jpg"
+    ]
+  },
+
+  {
+    "id": 112,
+    "name": "SANGAI - Spirit Form",
+    "price": "₹899",
+    "desc": "Silent watcher.",
+    "lore": "Always present.",
+    "loreMayek": "",
+    "details": "• Minimal design",
+    "wash": "• Cold wash",
+    "soldOut": false,
+    "images": [
+      "images/sangai_spirit/front_.jpg",
+      "images/sangai_spirit/back_.jpg"
+    ]
+  }
+]
