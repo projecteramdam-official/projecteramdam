@@ -1,0 +1,952 @@
+```product updated
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>PE | Project Eramdam - Kangleipak Streetwear</title>
+    
+    <!-- Optimized Font Loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Meetei+Mayek:wght@100..900&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Engine Configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pe-red': '#FF3B30',
+                        'pe-black': '#000000',
+                        'pe-white': '#ffffff'
+                    },
+                    fontFamily: {
+                        'mayek': ['"Noto Sans Meetei Mayek"', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        * { -webkit-tap-highlight-color: transparent; outline: none; }
+        body { background-color: #000000; color: #ffffff; overflow-x: hidden; touch-action: pan-y; user-select: none; text-align: left; font-family: 'Inter', sans-serif; }
+        
+        @keyframes kenBurns { 0%, 100% { transform: scale(1) translateZ(0); } 50% { transform: scale(1.08) translateZ(0); } }
+        .ken-burns { animation: kenBurns 20s ease-in-out infinite; will-change: transform; }
+
+        @keyframes gentle-float { 0% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) rotate(var(--tr)); } }
+        .particle { position: fixed; pointer-events: none; z-index: 9999; font-weight: 900; animation: gentle-float 1.2s ease-out forwards; will-change: transform, opacity; font-family: 'Noto Sans Meetei Mayek', sans-serif; }
+
+        .glass { background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
+        .tactical-border { border: 1px solid rgba(255, 255, 255, 0.1); }
+        #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: #FF3B30; z-index: 2000; width: 0%; transition: width 0.1s linear; }
+        
+        .deciphered { color: #FF3B30; text-shadow: 0 0 10px rgba(255, 59, 48, 0.4); word-break: break-all; overflow-wrap: break-word; font-family: 'Noto Sans Meetei Mayek', sans-serif; }
+        .sold-out-stamp { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); border: 3px solid #FF3B30; color: #FF3B30; padding: 8px 16px; font-weight: 900; z-index: 20; background: rgba(0,0,0,0.85); pointer-events: none; font-family: 'Noto Sans Meetei Mayek', sans-serif; text-transform: uppercase;}
+
+        .bot-bubble { box-shadow: 0 0 40px rgba(255, 59, 48, 0.2); animation: float-bot 4s ease-in-out infinite; }
+        @keyframes float-bot { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-marquee { animation: marquee 25s linear infinite; }
+
+        .interactive-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); }
+        @media (hover: hover) {
+            .interactive-card:hover { transform: translateY(-8px); background-color: #0d0d0d; border-color: rgba(255, 255, 255, 0.3); }
+            .interactive-card:hover i { transform: scale(1.1); color: #FF3B30; }
+        }
+        .interactive-card:active { transform: scale(0.96); border-color: #FF3B30; }
+
+        .img-container { aspect-ratio: 3/4; overflow: hidden; background: #0a0a0a; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        img { image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <div id="scroll-progress"></div>
+
+    <!-- LOADER -->
+    <div id="loader" class="fixed inset-0 z-[3000] bg-black flex flex-col items-center justify-center">
+        <canvas id="matrix-canvas" class="absolute inset-0 opacity-60"></canvas>
+        <div id="typewriter-container" class="relative z-10 text-center hidden px-6 flex flex-col items-center w-full">
+            <h2 id="typewriter-main" class="text-4xl md:text-7xl font-mayek font-black mb-2 text-white leading-none truncate w-full text-center"></h2>
+            <p id="typewriter-sub" class="text-xs md:text-sm font-inter tracking-[0.8em] font-black text-pe-red uppercase text-center"></p>
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-4 md:py-6 bg-transparent">
+        <div class="max-w-7xl mx-auto px-5 md:px-6 flex justify-between items-center text-left">
+            <div class="flex flex-col text-left flex-1 min-w-0 pr-4">
+                <span class="text-xl sm:text-2xl md:text-3xl font-mayek font-black leading-tight mb-0.5 truncate text-white">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
+                <span class="text-[7px] sm:text-[9px] md:text-[10px] font-inter font-black tracking-widest text-white/60 uppercase leading-none truncate">Project Eramdam</span>
+            </div>
+            <div class="hidden lg:flex items-center space-x-12 shrink-0">
+                <a href="#drop" class="text-[9px] font-inter font-black tracking-[0.4em] text-white/60 hover:text-pe-red transition-colors uppercase">The Drop</a>
+                <a href="#manifesto" class="text-[9px] font-inter font-black tracking-[0.4em] text-white/60 hover:text-pe-red transition-colors uppercase">Manifesto</a>
+                <a href="#faq" class="text-[9px] font-inter font-black tracking-[0.4em] text-white/60 hover:text-pe-red transition-colors uppercase">Registry</a>
+            </div>
+            <div class="flex items-center justify-end gap-5 sm:gap-8 shrink-0">
+                 <button onclick="toggleCart()" class="relative flex items-center justify-center text-white hover:text-pe-red transition-colors">
+                     <i data-lucide="shopping-bag" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                     <span id="cart-badge" class="absolute -top-1.5 -right-2 bg-pe-red text-white text-[9px] font-black w-[16px] h-[16px] flex items-center justify-center rounded-full hidden">0</span>
+                 </button>
+                 <button onclick="openWhatsApp()" class="hidden sm:flex flex-col items-end text-right border-b border-white/30 pb-1 hover:border-white transition-colors">
+                    <span class="font-mayek text-white text-sm font-black leading-none mb-1">ꯄꯥꯎ ꯐꯥꯎꯅꯕꯤꯌꯨ</span>
+                    <span class="font-inter text-[7px] text-white/60 font-black uppercase tracking-widest leading-none">Connect</span>
+                 </button>
+                 <button onclick="toggleMenu()" class="md:hidden text-white hover:text-pe-red transition-colors"><i data-lucide="menu" class="w-6 h-6"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU DROPDOWN -->
+    <div id="mobile-menu-overlay" onclick="toggleMenu()" class="fixed inset-0 z-[2400] hidden bg-pe-black/40 backdrop-blur-sm"></div>
+    <div id="mobile-menu" class="fixed top-[70px] right-5 w-48 bg-[#0a0a0a] tactical-border z-[2500] hidden flex-col py-2 shadow-2xl rounded-sm">
+        <a href="#drop" onclick="toggleMenu()" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
+            <span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯗ ꯗ꯭ꯔꯣꯄ</span>
+            <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">The Drop</span>
+        </a>
+        <a href="#manifesto" onclick="toggleMenu()" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
+            <span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯍꯧꯔꯀꯐꯝ</span>
+            <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">Manifesto</span>
+        </a>
+        <a href="#faq" onclick="toggleMenu()" class="px-5 py-4 flex flex-col hover:bg-white/5 transition-colors">
+            <span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯄꯥꯎꯈꯨꯝ</span>
+            <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">Registry</span>
+        </a>
+    </div>
+
+    <!-- CART SIDEBAR -->
+    <div id="cart-sidebar-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[3500] invisible opacity-0 transition-all duration-300"></div>
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[420px] bg-[#050505] z-[3600] translate-x-full transition-transform duration-300 flex flex-col tactical-border border-r-0 border-y-0">
+        <div class="p-6 border-b border-white/10 flex justify-between items-center bg-black">
+            <div class="flex flex-col text-left">
+                <h2 class="font-mayek text-2xl text-white font-black leading-none mb-1">ꯀꯥꯔꯠ</h2>
+                <span class="font-inter text-[9px] text-white/60 tracking-[0.4em] font-black uppercase leading-none">Cart</span>
+            </div>
+            <button onclick="toggleCart()" class="text-white/50 hover:text-pe-red bg-white/5 rounded-full p-2 transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4 hide-scrollbar bg-[#050505]"></div>
+        <div class="p-6 border-t border-white/10 bg-black">
+            <div class="flex justify-between items-end mb-6">
+                <span class="text-[10px] font-inter font-black tracking-[0.3em] uppercase text-gray-500 mb-1">Total</span>
+                <span id="cart-total" class="text-2xl font-inter font-black tracking-tight text-white leading-none">₹0</span>
+            </div>
+            <button onclick="checkoutCart()" class="w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm hover:bg-gray-100 cursor-pointer shadow-xl">
+                <span class="font-mayek text-lg font-black leading-none mb-1.5">ꯂꯧꯁꯤꯟꯕꯥ</span>
+                <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none">Checkout via WhatsApp</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="relative h-[100vh] flex items-center justify-center overflow-hidden w-full">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=1920" class="ken-burns w-full h-full object-cover opacity-60 grayscale contrast-[1.1]" alt="Hero">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+        </div>
+        <div class="relative z-10 text-center px-6 mt-16 w-full max-w-4xl mx-auto">
+            <div class="flex items-center justify-center gap-4 mb-6 opacity-50"><p class="text-[8px] md:text-[10px] font-inter font-black tracking-[1em] uppercase text-white">Kangleipak Origin</p></div>
+            <h1 class="font-mayek text-5xl sm:text-6xl md:text-[8rem] font-black text-white leading-none mb-4 text-center">ꯃꯔꯨ ꯁꯦꯠꯂꯨ</h1>
+            <h2 class="font-inter text-sm sm:text-lg md:text-2xl font-black tracking-[0.5em] md:tracking-[0.8em] text-white/60 uppercase mb-12 text-center">Wear Your Roots</h2>
+            
+            <button onclick="openWhatsApp()" class="bg-white text-black px-12 py-4 active:scale-95 transition-all flex flex-col items-center justify-center mx-auto rounded-sm hover:bg-gray-100 shadow-2xl">
+                <span class="font-mayek text-xl font-black leading-none mb-1.5 text-black">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</span>
+                <span class="font-inter text-[8px] font-black tracking-[0.4em] uppercase leading-none text-black/70">Order Now</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="bg-white text-black py-4 md:py-5 overflow-hidden whitespace-nowrap border-y border-white/10 z-20 relative text-left">
+        <div class="flex animate-marquee space-x-12 items-center">
+            <span class="font-mayek text-[14px] md:text-[16px] font-black uppercase tracking-[0.6em] flex items-center gap-10 text-black leading-normal">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-black"></i> ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-black"></i></span>
+        </div>
+    </div>
+
+    <!-- 1. MANIFESTO -->
+    <section id="manifesto" class="py-20 md:py-32 px-6 manifesto-gradient border-b border-white/5 relative z-10 w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center text-left">
+            <div class="text-left w-full">
+                <div class="mb-10">
+                    <h3 class="font-mayek text-4xl md:text-6xl font-black text-white leading-none mb-3">ꯍꯧꯔꯀꯐꯝ</h3>
+                    <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase">Origin Manifesto</h4>
+                </div>
+                <div class="space-y-6 md:space-y-8 text-sm sm:text-base md:text-xl font-light leading-relaxed text-gray-300 border-l border-white/20 pl-6 md:pl-8 text-left w-full text-left">
+                    <p>Before trends, there was a land of strength, stories, and legacy — <span class="text-white font-bold uppercase tracking-widest text-left">KANGLEIPAK</span>.</p>
+                    <p>A place where culture lived in the heart of the people, passed from one generation to the next. We create from that same spirit — honoring what came before us while shaping what comes next.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 md:gap-4 w-full">
+                <div class="img-container tactical-border grayscale"><img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&q=80&w=800" class="ken-burns w-full h-full object-cover opacity-60"></div>
+                <div class="img-container tactical-border mt-8 md:mt-12 grayscale"><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=800" class="ken-burns w-full h-full object-cover opacity-60"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. QUALITY SPECS (INTERACTIVE) -->
+    <section class="py-20 md:py-32 px-5 md:px-6 border-b border-white/10 bg-neutral-950/50 relative z-10 text-center w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="mb-12 md:mb-20 flex flex-col items-center">
+                <h3 class="font-mayek text-3xl md:text-4xl font-black text-white leading-none mb-3">ꯒ꯭ꯋꯥꯔꯦꯟꯇꯤ</h3>
+                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-center">Quality Spec</h4>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center w-full">
+                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
+                    <i data-lucide="target" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯃꯈꯜ ꯐꯕꯥ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Premium Fabric</span>
+                    </div>
+                </div>
+                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
+                    <i data-lucide="shield" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Secure Checkout</span>
+                    </div>
+                </div>
+                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
+                    <i data-lucide="locate" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯌꯧꯍꯟꯕꯥ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Pan India Delivery</span>
+                    </div>
+                </div>
+                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
+                    <i data-lucide="activity" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯃꯤꯠꯌꯦꯡ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Unit Tracking</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. HOW TO ORDER -->
+    <section id="process" class="py-20 md:py-32 px-5 md:px-6 max-w-7xl mx-auto text-center relative z-10 w-full">
+        <div class="mb-12 md:mb-20 flex flex-col items-center text-center">
+            <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-center">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</h3>
+            <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white uppercase text-center">How To Order</h4>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center w-full">
+            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
+                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">1</span>
+                <i data-lucide="mouse-pointer-click" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center text-center">
+                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯈꯟꯕꯥ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">Select Piece</span>
+                </div>
+            </div>
+            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
+                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">2</span>
+                <i data-lucide="message-circle" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center text-center">
+                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯄꯥꯎ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">WA Confirm</span>
+                </div>
+            </div>
+            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
+                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">3</span>
+                <i data-lucide="shield-check" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center text-center">
+                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯁꯦꯟ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">UPI Signature</span>
+                </div>
+            </div>
+            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
+                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">4</span>
+                <i data-lucide="truck" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center text-center">
+                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯌꯧꯔꯛꯄꯥ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">Unit Deployed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. PRODUCT GRID -->
+    <section id="drop" class="py-20 md:py-32 px-5 md:px-6 border-t border-white/5 relative z-10 text-left w-full">
+        <div id="drop-trigger" class="text-center mb-16 md:mb-24 flex flex-col items-center text-center">
+            <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-center">ꯗ ꯗ꯭ꯔꯣꯄ</h3>
+            <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white uppercase text-center">Current Drop</h4>
+        </div>
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-10 text-left w-full max-w-7xl mx-auto px-1 text-left"></div>
+    </section>
+
+    <!-- 5. FAQ -->
+    <section id="faq" class="py-20 md:py-32 px-6 border-t border-white/10 relative z-10 text-left w-full overflow-hidden text-left">
+        <div class="max-w-7xl mx-auto text-left w-full">
+            <div class="mb-12 md:mb-20 flex flex-col text-left items-start">
+                <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-left">ꯄꯥꯎꯈꯨꯝ</h3>
+                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-left">Registry / FAQ</h4>
+            </div>
+            <div class="space-y-2 text-left w-full">
+                <div class="faq-item grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 text-left py-6 md:py-8 border-b border-white/5 text-left">
+                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-black uppercase tracking-widest text-white flex items-start gap-4 text-left"><span class="text-pe-white font-mayek text-lg leading-none shrink-0 text-left">꯱</span> HOW DO THE PIECES FIT?</div>
+                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-light text-gray-400 leading-relaxed md:pl-0 w-full break-words text-left">Designed for a relaxed silhouette. Refer to our size chart inside the product view for exact measurements.</div>
+                </div>
+                <div class="faq-item grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 text-left py-6 md:py-8 border-b border-white/5 text-left">
+                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-black uppercase tracking-widest text-white flex items-start gap-4 text-left"><span class="text-pe-white font-mayek text-lg leading-none shrink-0 text-left">꯲</span> WHEN WILL MY ORDER ARRIVE?</div>
+                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-light text-gray-400 leading-relaxed md:pl-0 w-full break-words text-left">Standard delivery takes 5-7 business days across India. Tracking details are shared via WhatsApp once deployed.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-20 md:py-24 px-6 border-t border-white/10 bg-[#050505] relative z-10 text-center md:text-left w-full overflow-hidden text-left">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 md:gap-20 w-full text-left">
+            <div class="flex flex-col items-center md:items-start w-full text-left">
+                <span class="font-mayek text-4xl sm:text-5xl font-black text-white leading-none mb-2 text-center md:text-left w-full break-words text-left">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
+                <span class="font-inter text-[10px] font-black tracking-[0.4em] text-white/60 uppercase leading-none text-left">Project Eramdam</span>
+            </div>
+            <div class="flex flex-col items-center md:items-end gap-8 w-full text-left">
+                <div class="flex gap-8 md:gap-10 text-[10px] font-inter font-black uppercase tracking-[0.3em] text-left">
+                    <a href="#" class="text-white/60 hover:text-pe-red transition-colors flex flex-col items-center md:items-end gap-2 text-pe-white/60">
+                        <i data-lucide="instagram" class="w-5 h-5 text-white/30"></i> Socials
+                    </a>
+                    <a href="#" class="text-white/60 hover:text-pe-red transition-colors flex flex-col items-center md:items-end gap-2 text-pe-white/60">
+                        <i data-lucide="message-square" class="w-5 h-5 text-white/30"></i> Support
+                    </a>
+                </div>
+                <p class="font-inter text-[8px] md:text-[9px] text-gray-700 tracking-[0.2em] md:tracking-[0.3em] uppercase font-bold text-center md:text-right break-words w-full text-left">© 2026 Project Eramdam. Rooted in the Soil.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PRODUCT MODAL -->
+    <div id="product-modal" class="overlay-base fixed inset-0 z-[2000] bg-black invisible opacity-0 flex items-center justify-center md:p-10 cursor-pointer w-full h-[100dvh]">
+        <div id="modal-container" class="popup-anim w-full max-w-6xl h-[100dvh] md:h-[85vh] bg-black md:tactical-border overflow-y-auto flex flex-col md:flex-row translate-y-10 cursor-default relative text-left shadow-2xl">
+            
+            <div id="swipe-zone" class="relative w-full md:w-3/5 h-[60vh] md:h-full bg-[#050505] overflow-hidden shrink-0">
+                <div id="modal-images" class="flex h-full transition-transform duration-500"></div>
+                <button onclick="prevImg()" class="absolute left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/80 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                <button onclick="nextImg()" class="absolute right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/80 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                <div id="image-dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"></div>
+            </div>
+            
+            <div class="w-full md:w-2/5 p-6 md:p-12 flex flex-col bg-black text-left shrink-0 overflow-y-auto pb-24 text-left">
+                <div id="modal-title" class="mb-3 w-full text-left text-left"></div>
+                <p id="modal-price" class="text-2xl font-inter font-bold tracking-tight text-white mb-8 text-left text-left"></p>
+                
+                <div id="modal-buy-container" class="w-full mb-8 text-left text-left"></div>
+
+                <p id="modal-desc" class="text-gray-400 font-inter text-[10px] md:text-[11px] uppercase tracking-widest mb-10 leading-relaxed w-full break-words text-left text-left"></p>
+                
+                <div class="space-y-0 w-full border-t border-white/10 text-left text-left">
+                    <button onclick="toggleAccordion('lore')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
+                        <div class="flex flex-col text-left text-left text-left">
+                            <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors text-left text-left text-left text-left text-left">ꯋꯥꯔꯤ</span>
+                            <span class="font-inter text-[9px] tracking-widest uppercase text-white/40 font-bold leading-none text-left text-left text-left">Lore & Origin</span>
+                        </div>
+                        <i id="icon-lore" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
+                    </button>
+                    <div id="accordion-lore" class="hidden py-6 text-left w-full border-b border-white/10 bg-[#050505] px-4 rounded-sm text-left">
+                        <button onclick="toggleDecipher()" id="decipher-btn" class="mb-6 font-inter text-[9px] font-black border border-pe-red/30 px-5 py-2.5 hover:bg-pe-red text-pe-red hover:text-white transition-all uppercase rounded-sm text-left text-left text-left">[ DECIPHER ROOTS ]</button>
+                        <div id="lore-body" class="text-sm md:text-base font-inter font-light italic leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap text-left text-left"></div>
+                    </div>
+
+                    <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
+                        <div class="flex flex-col text-left text-left text-left text-left text-left text-left">
+                            <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors text-left text-left">ꯆꯥꯡ</span>
+                            <span class="font-inter text-[9px] tracking-widest uppercase text-white/40 font-bold leading-none text-left text-left text-left">Size Chart</span>
+                        </div>
+                        <i id="icon-size" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
+                    </button>
+
+                    <div id="accordion-size" class="hidden py-6 w-full border-b border-white/10 bg-[#050505] px-4 rounded-sm overflow-x-auto text-left text-left text-left text-left text-left text-left">
+                        <!-- REPLACE ONLY THIS PART INSIDE YOUR EXISTING accordion-size DIV -->
+
+<table class="w-full text-left min-w-[250px] text-[10px] font-inter font-bold text-white/80">
+  
+  <tr class="border-b border-white/10">
+    <th class="py-3 text-pe-red uppercase text-sm font-mayek">
+      ꯆꯥꯡ 
+      <span class="font-inter text-[8px] text-white/50 ml-1 tracking-widest">SIZE</span>
+    </th>
+    <th class="uppercase font-inter text-pe-red">CHEST (IN)</th>
+    <th class="uppercase font-inter text-pe-red">LENGTH (IN)</th>
+  </tr>
+
+  <tr class="border-b border-white/5 font-inter text-white/70">
+    <td>S <span class="text-[8px] text-white/40">(Small)</span></td>
+    <td>38"</td>
+    <td>26"</td>
+  </tr>
+
+  <tr class="border-b border-white/5 font-inter text-white/70">
+    <td>M <span class="text-[8px] text-white/40">(Medium)</span></td>
+    <td>40"</td>
+    <td>27"</td>
+  </tr>
+
+  <tr class="border-b border-white/5 font-inter text-white/70">
+    <td>L <span class="text-[8px] text-white/40">(Large)</span></td>
+    <td>42"</td>
+    <td>28"</td>
+  </tr>
+
+  <tr class="border-b border-white/5 font-inter text-white/70">
+    <td>XL <span class="text-[8px] text-white/40">(X-Large)</span></td>
+    <td>44"</td>
+    <td>29"</td>
+  </tr>
+
+  <tr class="border-b border-white/5 font-inter text-white/70">
+    <td>XXL <span class="text-[8px] text-white/40">(XX-Large)</span></td>
+    <td>46"</td>
+    <td>30"</td>
+  </tr>
+
+</table>
+
+<p class="text-[9px] font-inter text-white/40 mt-4">
+  Measurements may vary ±1 inch. For a relaxed fit, choose one size up.
+</p>
+
+<!-- END REPLACEMENT -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button onclick="closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-2 md:p-3 text-left"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
+    </div>
+
+    <!-- AI BOT Trigger -->
+    <div id="ai-bot-trigger" class="fixed bottom-6 right-6 z-[150] bot-bubble w-14 h-14 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center cursor-pointer transition-all p-1 overflow-hidden shadow-2xl">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="55" r="32" fill="#FFE0BD"/><path d="M50 23 Q 55 10 60 18" fill="none" stroke="#4a3000" stroke-width="2.5"/><circle cx="42" cy="48" r="4.5" fill="#000"/><circle cx="58" cy="48" r="4.5" fill="#000"/><circle cx="36" cy="58" r="6" fill="#FFADAD" opacity="0.4"/><circle cx="64" cy="58" r="6" fill="#FFADAD" opacity="0.4"/><g transform="rotate(-10 50 70)"><rect x="42" y="55" width="16" height="28" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5" /><rect x="42" y="55" width="16" height="4" fill="#88FF88" stroke="#000" stroke-width="1"/><line x1="45" y1="62" x2="55" y2="62" stroke="#0000FF" stroke-width="1" opacity="0.3"/><line x1="45" y1="68" x2="55" y2="68" stroke="#0000FF" stroke-width="1" opacity="0.3"/></g><path d="M30 65 Q 40 75 48 70" fill="none" stroke="#000" stroke-width="2.5"/><path d="M70 65 Q 60 75 52 70" fill="none" stroke="#000" stroke-width="2.5"/></svg>
+    </div>
+
+    <div id="ai-chat-modal" class="invisible opacity-0 fixed inset-0 z-[2800] bg-black/80 flex items-end md:items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden w-full h-[100dvh]" onclick="if(event.target === this) toggleAIChat()">
+        <div id="chat-container" class="popup-anim w-full md:max-w-md bg-[#050505] tactical-border h-[80vh] md:h-[600px] flex flex-col rounded-t-xl md:rounded-xl overflow-hidden cursor-default translate-y-20">
+            <div class="p-6 bg-white text-black flex justify-between items-center shrink-0 text-left"><div class="flex items-center gap-3 text-left"><span class="text-2xl text-left">👶</span><div class="flex flex-col text-left"><span class="font-mayek font-black text-pe-red text-lg leading-none mb-0.5 text-left">ꯄꯨꯔꯩ</span><span class="font-inter font-black text-[9px] tracking-widest uppercase text-black/60 text-left text-left">Purei</span></div></div><button onclick="toggleAIChat()" class="text-black/50 hover:text-pe-red transition-colors p-2 text-left"><i data-lucide="x"></i></button></div>
+            <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 bg-black font-inter text-[13px] md:text-sm leading-relaxed hide-scrollbar text-white w-full break-words text-left"></div>
+            <div class="p-4 border-t border-white/5 bg-[#050505] shrink-0 text-left"><div class="flex gap-2 text-left"><input id="chat-input" type="text" placeholder="Ask Purei..." class="flex-grow bg-white/5 p-4 text-sm outline-none focus:border-pe-red border border-transparent transition-colors font-inter text-white rounded-sm w-full text-left"><button onclick="sendMessage()" class="bg-white text-black px-5 active:scale-95 transition-transform rounded-sm shrink-0 text-left"><i data-lucide="send" class="w-5 h-5"></i></button></div></div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        const PRODUCT_DATA = [
+
+/* =========================
+KANGLASHA
+========================= */
+{
+  id: 101,
+  name: "KANGLASHA - Guardian of Roots | Oversized Tee",
+  price: "₹1299",
+  desc: "Sacred guardian of Kangla Fort — symbol of protection, authority, and identity. Built for bold presence with structured oversized silhouette.",
+  
+  lore: `Kangla Sha is not just a creature — it is a gatekeeper of power. 
+Standing at the ancient Kangla Fort, it has witnessed kings rise, kingdoms fall, and history reshape itself.
+
+This design captures that silent dominance — not loud, not chaotic, but unshakable.
+
+The sharp edges, the stance, the symmetry — everything reflects authority without needing to prove it.
+
+This is not fashion. This is presence.`,
+
+  loreMayek: "",
+
+  details: `
+• 240–260 GSM Premium Terry Cotton  
+• Oversized drop-shoulder fit  
+• High-density screen print  
+• Breathable + structured drape  
+• Built for daily wear + statement styling  
+
+⚠️ Check size chart before ordering. Oversized fit — do not assume your regular size.
+  `,
+
+  wash: `
+• Machine wash cold (inside-out)  
+• Do not bleach  
+• Do not iron directly on print  
+• Dry in shade (prevents fading)  
+• Avoid high heat drying  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/kangla_sha/front.jpg",
+    "images/kangla_sha/Front_1_c_1.jpg",
+    "images/kangla_sha/Front_1_c_61.jpg",
+    "images/kangla_sha/back.jpg",
+    "images/kangla_sha/Back_2_c_61.jpg"
+  ]
+},
+
+/* =========================
+KHAMBA (KAO PHABA)
+========================= */
+{
+  id: 102,
+  name: "KHAMBA - Kao Trial Edition | UT27",
+  price: "₹999",
+  desc: "Inspired by Khamba Na Kao Phaba — where strength meets calm, and control defeats chaos.",
+  
+  lore: `When the raging Kao was unleashed, it was not just a battle of strength — it was a test of spirit.
+
+Khamba did not fight the bull with fear. He faced it with control.
+
+This design captures that moment — tension, movement, and raw force frozen in time.
+
+The aggressive strokes represent chaos.
+The central structure represents calm.
+
+Because true power is not in dominance — it is in control.`,
+
+  loreMayek: "",
+
+  details: `
+• UT27 Unisex Terry Oversized Tee  
+• Heavyweight premium cotton  
+• Sharp black knockout graphic  
+• Streetwear-ready silhouette  
+• Designed for durability + daily wear  
+
+⚠️ Check size before ordering. Oversized fit — size down if unsure.
+  `,
+
+  wash: `
+• Wash inside-out  
+• Cold wash only  
+• No bleach  
+• Avoid direct ironing on design  
+• Air dry recommended  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/khamba_trial/front.jpg",
+    "images/khamba_trial/Front_1_c_45.jpg",
+    "images/khamba_trial/Front_1_c_49.jpg",
+    "images/khamba_trial/Front_1_c_54.jpg",
+    "images/khamba_trial/Front_1_c_56.jpg",
+    "images/khamba_trial/Front_1_c_57.jpg",
+    "images/khamba_trial/Front_1_c_61.jpg",
+    "images/khamba_trial/model_male.jpg",
+    "images/khamba_trial/model_female.jpg"
+  ]
+},
+
+/* =========================
+LAI KHUTSHANGBI (PHUNGA)
+========================= */
+{
+  id: 104,
+  name: "LAI KHUTSHANGBI - Phunga Wari Edition",
+  price: "₹899",
+  desc: "Inspired by childhood Phunga Wari — where fear lived in imagination and shadows had meaning.",
+  
+  lore: `In the quiet nights, when children gathered around the fire, stories were not told for entertainment — they were warnings.
+
+Lai Khutshangbi was never clearly seen.
+
+She existed in the corners. In the silence. In the fear of being watched.
+
+This design reflects that imagination:
+Blurred form.
+Elongated presence.
+Uncertain boundaries.
+
+It is not what you see.
+It is what you feel.`,
+
+  loreMayek: "",
+
+  details: `
+• Premium oversized cotton tee  
+• Soft yet structured fabric  
+• High contrast horror silhouette design  
+• Inspired by oral folklore storytelling  
+
+⚠️ Important: Check size chart before ordering. Oversized fit.
+  `,
+
+  wash: `
+• Wash inside-out  
+• Cold gentle cycle  
+• No harsh detergents  
+• Do not tumble dry high heat  
+• Dry in shade  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/lai_phunga/front.jpg",
+    "images/lai_phunga/Front_1_c_1.jpg",
+    "images/lai_phunga/Front_1_c_49.jpg",
+    "images/lai_phunga/Front_1_c_54.jpg",
+    "images/lai_phunga/Front_1_c_56.jpg",
+    "images/lai_phunga/Front_1_c_57.jpg",
+    "images/lai_phunga/Front_1_c_8.jpg",
+    "images/lai_phunga/model_male.jpg",
+    "images/lai_phunga/model_female.jpg"
+  ]
+},
+
+/* =========================
+LAI KHUTSHANGBI (REACHES)
+========================= */
+{
+  id: 105,
+  name: "LAI KHUTSHANGBI - She Reaches",
+  price: "₹899",
+  desc: "She does not knock. She reaches.",
+  
+  lore: `Lai Khutshangbi is known not by sight — but by reach.
+
+Her arms extend beyond what should be possible.
+Her presence arrives before she is seen.
+
+This design focuses on that moment:
+The stretch.
+The tension.
+The inevitability.
+
+The sharp lines represent branches, shadows, and fingers merging into one form.
+
+It is not chasing you.
+It has already reached.`,
+
+  loreMayek: "",
+
+  details: `
+• Oversized UT27 fit  
+• High-density black + red graphic  
+• Horror-inspired folklore streetwear  
+• Strong silhouette visibility  
+
+⚠️ Check size chart before ordering. Oversized fit recommended.
+  `,
+
+  wash: `
+• Wash cold inside-out  
+• Avoid strong spin cycles  
+• Do not iron print  
+• Hang dry preferred  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/lai_reaches/front.jpg",
+    "images/lai_reaches/Front_1_c_10.jpg",
+    "images/lai_reaches/Front_1_c_2.jpg",
+    "images/lai_reaches/Front_1_c_25.jpg",
+    "images/lai_reaches/Front_1_c_3.jpg",
+    "images/lai_reaches/Front_1_c_49.jpg",
+    "images/lai_reaches/Front_1_c_54.jpg",
+    "images/lai_reaches/Front_1_c_56.jpg",
+    "images/lai_reaches/Front_1_c_57.jpg",
+    "images/lai_reaches/Front_1_c_8.jpg",
+    "images/lai_reaches/model_male.jpg",
+    "images/lai_reaches/model_female.jpg"
+  ]
+},
+
+/* =========================
+SANGAI (DANCING)
+========================= */
+{
+  id: 107,
+  name: "SANGAI - Dancing Deer",
+  price: "₹899",
+  desc: "Symbol of balance — where every step is survival.",
+  
+  lore: `The Sangai does not run wildly.
+
+It walks carefully — balancing on floating land that can collapse at any moment.
+
+Each step is calculated.
+Each movement is survival.
+
+This design captures that fragile strength — where grace is not beauty, but necessity.`,
+
+  loreMayek: "",
+
+  details: `
+• Oversized relaxed fit  
+• Soft breathable cotton  
+• Minimal + symbolic design  
+• Everyday wearable  
+
+⚠️ Check size chart before ordering.
+  `,
+
+  wash: `
+• Cold wash  
+• Do not bleach  
+• Low heat iron (avoid print)  
+• Dry in shade  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/sangai_dancing/front.jpg",
+    "images/sangai_dancing/alt_2.jpg",
+    "images/sangai_dancing/alt_3.jpg",
+    "images/sangai_dancing/alt_4.jpg",
+    "images/sangai_dancing/alt_5.jpg",
+    "images/sangai_dancing/model_male.jpg",
+    "images/sangai_dancing/model_female.jpg"
+  ]
+},
+
+/* =========================
+THANGAL
+========================= */
+{
+  id: 109,
+  name: "THANGAL - Warrior Legacy",
+  price: "₹899",
+  desc: "A tribute to Lungthoubu Thangal — strength, loyalty, and resistance.",
+  
+  lore: `Thangal was not born into greatness.
+
+He earned it.
+
+From guiding kings through unknown lands to standing firm against colonial power — his life was built on action, not title.
+
+This design reflects discipline, structure, and resilience.
+
+No excess.
+No noise.
+Just strength.`,
+
+  loreMayek: "",
+
+  details: `
+• UT27 oversized fit  
+• Durable cotton build  
+• Strong minimal graphic identity  
+• Designed for everyday + statement wear  
+
+⚠️ Check size before ordering.
+  `,
+
+  wash: `
+• Wash inside-out  
+• Cold water  
+• Avoid heavy machine drying  
+• Do not iron print  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/thangal_warrior/alt_1.jpg",
+    "images/thangal_warrior/alt_2.jpg",
+    "images/thangal_warrior/alt_3.jpg",
+    "images/thangal_warrior/alt_4.jpg"
+  ]
+}
+
+];
+
+        PRODUCT_DATA.forEach(p => { if (!p.images || p.images.length === 0) { p.images = []; for (let i = 1; i <= (p.imageCount || 1); i++) { p.images.push(`images/${p.folder}/${i}.jpg`); } } });
+
+        const splitName = (name) => { const match = name.match(/^([ꯀ-꯿\s]+)\s+(.*)$/); if(match) return { mayek: match[1].trim(), eng: match[2].trim() }; return { mayek: name, eng: "" }; };
+
+        const SALAI_COLORS = ["#FF3B30", "#FFFFFF", "#444444", "#FFD600", "#FF47B6", "#A100FF", "#00D1FF"];
+        let currentProdIdx = 0, currentImgIdx = 0, isDeciphered = false, audioCtx, hardwareReady = false, isAddingToCart = false; 
+        const apiKey = ""; 
+
+        let cart = JSON.parse(localStorage.getItem('pe_cart')) || [];
+        let selectedSize = 'M';
+
+        const saveCart = () => { localStorage.setItem('pe_cart', JSON.stringify(cart)); updateCartUI(); };
+
+        const removeFromCart = (index) => { playTock(); cart.splice(index, 1); saveCart(); if (cart.length === 0) toggleCart(); updateBuyButtonState(); };
+
+        const removeFromCartByProduct = (productId, size) => { const existingIndex = cart.findIndex(item => item.id === productId && item.size === size); if (existingIndex !== -1) { playTock(); cart.splice(existingIndex, 1); saveCart(); updateBuyButtonState(); } };
+
+        const updateCartUI = () => {
+            const container = document.getElementById('cart-items'); const badge = document.getElementById('cart-badge'); const totalEl = document.getElementById('cart-total');
+            let totalQty = 0; let totalPrice = 0;
+            if (cart.length === 0) { container.innerHTML = `<div class="text-center text-gray-600 mt-32 font-inter text-[10px] font-black tracking-[0.4em] uppercase flex flex-col items-center w-full"><i data-lucide="shopping-bag" class="w-8 h-8 mb-4 opacity-20"></i> Cart is empty</div>`; lucide.createIcons(); }
+            else {
+                container.innerHTML = cart.map((item, idx) => {
+                    totalQty += 1; totalPrice += item.numPrice; const nameParts = splitName(item.name);
+                    return `<div class="flex gap-3 sm:gap-4 border-b border-white/10 pb-6 relative w-full text-left"><button onclick="removeFromCart(${idx})" class="absolute top-0 right-0 p-2 -mt-2 -mr-2 text-white/30 hover:text-pe-red transition-colors text-left text-left"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5"></i></button><div class="w-16 h-20 sm:w-20 sm:h-24 bg-neutral-900 shrink-0 rounded-sm overflow-hidden text-left text-left text-left text-left"><img src="${item.image}" class="w-full h-full object-contain"></div><div class="flex-grow flex flex-col justify-center py-1 pr-6 min-w-0 text-left text-left"><div class="mb-2 w-full truncate text-left text-left"><h4 class="font-mayek text-sm text-white leading-none mb-1 truncate w-full text-left text-left text-left text-left">${nameParts.mayek}</h4><span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate w-full block text-left text-left">${nameParts.eng}</span></div><div class="flex justify-between items-center mt-2 w-full text-left text-left"><div class="text-[8px] sm:text-[9px] font-inter text-white uppercase tracking-widest font-bold bg-white/10 px-2 py-1 rounded-sm text-left text-left">Size: <span class="text-pe-red text-left text-left">${item.size}</span></div><span class="text-xs sm:text-sm font-inter font-black text-white text-left text-left text-left text-left">₹${item.numPrice.toLocaleString('en-IN')}</span></div></div></div>`;
+                }).join('');
+                lucide.createIcons();
+            }
+            if (totalQty > 0) { badge.innerText = totalQty; badge.classList.remove('hidden'); } else badge.classList.add('hidden');
+            totalEl.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
+        };
+
+        const toggleMenu = () => { const menu = document.getElementById('mobile-menu'); const overlay = document.getElementById('mobile-menu-overlay'); playTock(); if (menu.classList.contains('hidden')) { menu.classList.remove('hidden'); menu.classList.add('flex'); overlay.classList.remove('hidden'); } else { menu.classList.add('hidden'); menu.classList.remove('flex'); overlay.classList.add('hidden'); } };
+
+        const toggleCart = () => {
+            const sidebar = document.getElementById('cart-sidebar'); const overlay = document.getElementById('cart-sidebar-overlay'); const isOpen = !sidebar.classList.contains('translate-x-full'); playTock();
+            if (isOpen) { sidebar.classList.add('translate-x-full'); overlay.classList.add('invisible', 'opacity-0'); if(document.getElementById('product-modal').classList.contains('invisible')){ const scrollY = document.body.dataset.scrollY; document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = ''; if (scrollY) { document.documentElement.classList.remove('scroll-smooth'); window.scrollTo(0, parseInt(scrollY)); setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50); } } }
+            else { updateCartUI(); sidebar.classList.remove('translate-x-full'); overlay.classList.remove('invisible', 'opacity-0'); if(document.body.style.position !== 'fixed'){ document.body.dataset.scrollY = window.scrollY; document.body.style.position = 'fixed'; document.body.style.top = `-${window.scrollY}px`; document.body.style.width = '100%'; } }
+        };
+
+        const updateBuyButtonState = () => {
+            const p = PRODUCT_DATA[currentProdIdx]; const btn = document.getElementById('add-to-cart-btn'); if (!btn) return;
+            const existingItem = cart.find(item => item.id === p.id && item.size === selectedSize);
+            if (existingItem) {
+                btn.onclick = () => removeFromCartByProduct(p.id, selectedSize);
+                btn.innerHTML = `<span class="font-mayek text-white text-lg md:text-xl font-black leading-none mb-1.5 text-left text-left">ꯂꯧꯊꯣꯛꯄꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 leading-none uppercase text-left text-left">Remove from Cart</span>`;
+                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-transform text-center bg-black border border-pe-red text-white cursor-pointer hover:border-pe-red text-left text-left";
+            } else {
+                btn.onclick = addToCart;
+                btn.innerHTML = `<span class="font-mayek text-black text-lg md:text-xl font-black leading-none mb-1.5 text-left text-left">ꯀꯥꯔꯠꯇꯥ ꯍꯄꯆꯤꯟꯕ꯭ꯌꯨ</span> <span class="font-inter text-[8px] md:text-[9px] text-black/70 font-black tracking-[0.3em] md:tracking-[0.4em] uppercase leading-none text-left text-left">Add to Cart</span>`;
+                btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all text-center rounded-sm cursor-pointer hover:bg-gray-100 shadow-xl text-left text-left";
+            }
+        };
+
+        const selectSize = (size) => {
+            selectedSize = size;
+            document.querySelectorAll('.size-btn').forEach(btn => { if (btn.dataset.size === size) { btn.classList.add('bg-white', 'text-black', 'border-white'); btn.classList.remove('text-white', 'border-white/20'); } else { btn.classList.remove('bg-white', 'text-black', 'border-white'); btn.classList.add('text-white', 'border-white/20'); } });
+            updateBuyButtonState(); playTock();
+        };
+
+        const addToCart = () => { if (isAddingToCart) return; isAddingToCart = true; const p = PRODUCT_DATA[currentProdIdx]; if (p.soldOut) { isAddingToCart = false; return; } const existingItem = cart.find(item => item.id === p.id && item.size === selectedSize); if (existingItem) { isAddingToCart = false; return; } playTock(); cart.push({ id: p.id, name: p.name, price: p.price, numPrice: parseInt(p.price.replace(/[^0-9]/g, '')), size: selectedSize, qty: 1, image: p.images[0] }); saveCart(); updateBuyButtonState(); isAddingToCart = false; };
+
+        const checkoutCart = () => { if (cart.length === 0) return; playTock(); let message = "Hi PE! I would like to place an order:%0A%0A"; let total = 0; cart.forEach((item, i) => { message += `${i+1}. ${item.name} (Size: ${item.size}) - ₹${item.numPrice.toLocaleString('en-IN')}%0A`; total += item.numPrice; }); message += `%0A*Total: ₹${total.toLocaleString('en-IN')}*%0A%0APlease let me know the UPI details.`; window.open(`https://wa.me/919366659414?text=${message}`, '_blank'); };
+
+        const toggleAccordion = (section) => {
+            playTock();
+            const loreC = document.getElementById('accordion-lore'); const sizeC = document.getElementById('accordion-size');
+            const loreI = document.getElementById('icon-lore'); const sizeI = document.getElementById('icon-size');
+            if(section === 'lore') {
+                if(loreC.classList.contains('hidden')){ loreC.classList.remove('hidden'); loreI.classList.add('rotate-180'); sizeC.classList.add('hidden'); sizeI.classList.remove('rotate-180'); document.getElementById('lore-body').innerHTML = PRODUCT_DATA[currentProdIdx].lore; document.getElementById('lore-body').classList.remove('deciphered'); document.getElementById('decipher-btn').innerText = "[ DECIPHER ROOTS ]"; isDeciphered = false; }
+                else { loreC.classList.add('hidden'); loreI.classList.remove('rotate-180'); }
+            } else if(section === 'size') {
+                if(sizeC.classList.contains('hidden')){ sizeC.classList.remove('hidden'); sizeI.classList.add('rotate-180'); loreC.classList.add('hidden'); loreI.classList.remove('rotate-180'); }
+                else { sizeC.classList.add('hidden'); sizeI.classList.remove('rotate-180'); }
+            }
+        };
+
+        const primeHardware = () => { if (hardwareReady) return; if (navigator.vibrate) navigator.vibrate(10); if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); const g = audioCtx.createGain(); g.gain.setValueAtTime(0, audioCtx.currentTime); g.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.01); const o = audioCtx.createOscillator(); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.05); } if (audioCtx.state === 'suspended') audioCtx.resume(); hardwareReady = true; };
+        window.addEventListener('pointerdown', primeHardware, { capture: true, once: true });
+        const playTock = () => { primeHardware(); if (navigator.vibrate) navigator.vibrate(12); if (!audioCtx) return; const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(140, audioCtx.currentTime); g.gain.setValueAtTime(0.04, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.08); };
+
+        const renderGrid = () => {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = PRODUCT_DATA.map((p, idx) => {
+                const nameParts = splitName(p.name);
+                return `<div class="group cursor-pointer flex flex-col relative text-left w-full text-left text-left" onclick="openModal(${idx})"><div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm w-full text-left text-left"><img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">${p.soldOut ? '<div class="sold-out-stamp font-mayek text-center uppercase text-pe-red text-left text-left">ꯁꯣꯜꯗ ꯑꯥꯎꯠ</div>' : ''}</div><div class="space-y-1 text-left px-1 w-full min-w-0 text-left text-left text-left text-left"><div class="mb-3 w-full text-left text-left text-left text-left text-left text-left text-left text-left"><span class="block font-mayek text-[13px] md:text-[15px] text-white leading-tight mb-0.5 truncate w-full text-left text-left text-left text-left group-hover:text-white transition-colors">${nameParts.mayek}</span><span class="block font-inter text-[8px] text-white/50 tracking-[0.2em] font-bold uppercase truncate w-full text-left text-left">${nameParts.eng}</span></div><div class="flex justify-between items-end border-t border-white/5 pt-3 w-full text-left text-left text-left text-left text-left text-left text-left text-left text-left"><span class="text-xs font-inter font-light text-white/80 text-left text-left text-left text-left text-left">₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}</span><button class="flex flex-col items-end text-right transition-colors shrink-0 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left"><span class="font-mayek text-pe-red text-[12px] font-black leading-none mb-1 transition-colors text-left text-left text-left text-left text-left text-left text-left text-left text-left text-pe-red text-left">ꯑꯀꯨꯞꯄ</span><span class="font-inter text-[7px] text-white/60 tracking-widest font-black uppercase leading-none transition-colors group-hover:text-white text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Details</span></button></div></div></div>`}).join('');
+            lucide.createIcons();
+        };
+
+        const toggleAIChat = () => { const m = document.getElementById('ai-chat-modal'); const cont = document.getElementById('chat-container'); const isOpen = !m.classList.contains('invisible'); playTock(); if (!isOpen) { m.classList.remove('invisible'); m.classList.add('opacity-100'); cont.classList.remove('translate-y-20'); history.pushState({modal: 'chat'}, ''); } else { m.classList.add('invisible'); m.classList.remove('opacity-100'); cont.classList.add('translate-y-20'); } };
+
+        const openModal = (idx) => {
+            currentProdIdx = idx; currentImgIdx = 0; const p = PRODUCT_DATA[idx];
+            document.getElementById('accordion-lore').classList.add('hidden'); document.getElementById('accordion-size').classList.add('hidden'); document.getElementById('icon-lore').classList.remove('rotate-180'); document.getElementById('icon-size').classList.remove('rotate-180');
+            const nameParts = splitName(p.name);
+            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-1.5 w-full break-words text-left">${nameParts.mayek}</span><span class="block font-inter text-[9px] md:text-[11px] text-white/50 font-black tracking-[0.3em] uppercase w-full break-words text-left text-left">${nameParts.eng}</span>`;
+            document.getElementById('modal-price').innerText = `₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}`;
+            document.getElementById('modal-desc').innerText = p.desc;
+            const buyContainer = document.getElementById('modal-buy-container');
+            if(p.soldOut) { buyContainer.innerHTML = `<button disabled class="w-full bg-[#0a0a0a] border border-white/20 py-4 flex flex-col items-center justify-center rounded-sm transition-transform text-center opacity-30 cursor-not-allowed text-left text-left text-left text-left text-left text-left text-left text-left"><span class="font-mayek text-white text-xl font-black leading-none mb-1.5 text-left text-left">ꯁꯣꯜꯗ ꯑꯥꯎꯠ</span><span class="font-inter text-[9px] font-black text-white/60 tracking-[0.3em] uppercase leading-none text-left text-left text-left text-left text-left text-left text-left text-left">Sold Out</span></button>`; }
+            else { buyContainer.innerHTML = `<div class="flex gap-2 mb-4 text-left text-left" id="size-selector"><button data-size="S" onclick="selectSize('S')" class="size-btn flex-1 py-3 border border-white/20 text-[10px] tracking-widest font-black hover:bg-white hover:text-black transition-colors text-white rounded-sm flex items-center justify-center text-center">S</button><button data-size="M" onclick="selectSize('M')" class="size-btn flex-1 py-3 border border-white text-black bg-white text-[10px] tracking-widest font-black rounded-sm flex items-center justify-center text-center">M</button><button data-size="L" onclick="selectSize('L')" class="size-btn flex-1 py-3 border border-white/20 text-[10px] tracking-widest font-black hover:bg-white hover:text-black transition-colors text-white rounded-sm flex items-center justify-center text-center">L</button><button data-size="XL" onclick="selectSize('XL')" class="size-btn flex-1 py-3 border border-white/20 text-[10px] tracking-widest font-black hover:bg-white hover:text-black transition-colors text-white rounded-sm text-left flex items-center justify-center text-center">XL</button></div><button id="add-to-cart-btn" class="w-full text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left"></button>`; selectedSize = 'M'; updateBuyButtonState(); }
+            updateGallery(); document.getElementById('product-modal').classList.remove('invisible'); document.getElementById('product-modal').classList.add('opacity-100'); document.getElementById('modal-container').classList.remove('translate-y-10');
+            document.body.dataset.scrollY = window.scrollY; document.body.style.position = 'fixed'; document.body.style.top = `-${window.scrollY}px`; document.body.style.width = '100%';
+            history.pushState({modal: 'product'}, '');
+        };
+
+        const closeModal = () => { document.getElementById('product-modal').classList.add('invisible'); document.getElementById('product-modal').classList.remove('opacity-100'); document.getElementById('modal-container').classList.add('translate-y-10'); const scrollY = document.body.dataset.scrollY; document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = ''; if (scrollY) { document.documentElement.classList.remove('scroll-smooth'); window.scrollTo(0, parseInt(scrollY)); setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50); } playTock(); };
+
+        const toggleDecipher = () => { const body = document.getElementById('lore-body'); const target = isDeciphered ? PRODUCT_DATA[currentProdIdx].lore : PRODUCT_DATA[currentProdIdx].loreMayek; const chars = "ꯀꯁꯂꯃꯄꯅꯆꯇꯈꯉꯊꯋꯌꯍꯎꯏꯐꯑꯒꯓꯔꯕꯖꯗꯘꯙꯚ"; isDeciphered = !isDeciphered; document.getElementById('decipher-btn').innerText = isDeciphered ? "[ RESTORE INTERFACE ]" : "[ DECIPHER ROOTS ]"; let iter = 0; const interval = setInterval(() => { body.innerText = body.innerText.split("").map((c, i) => i < iter ? target[i] : chars[Math.floor(Math.random()*27)]).join(""); if(iter >= target.length) clearInterval(interval); iter += Math.ceil(target.length / 10); }, 30); if(isDeciphered) body.classList.add('deciphered'); else body.classList.remove('deciphered'); playTock(); };
+
+        async function sendMessage() { const input = document.getElementById('chat-input'); const container = document.getElementById('chat-messages'); const raw = input.value.trim(); if (!raw) return; playTock(); const userMsg = document.createElement('div'); userMsg.className = "bg-white/5 p-4 tactical-border ml-12 text-pe-white font-medium rounded-sm break-words mb-4 text-left text-left text-left text-left"; userMsg.innerText = "You: " + raw; container.appendChild(userMsg); input.value = ""; container.scrollTop = container.scrollHeight; if(raw.toUpperCase().includes("THON THON") || raw.toUpperCase().includes("THONTHONBA")) { setTimeout(() => { const botMsg = document.createElement('div'); botMsg.className = "bg-neutral-900 p-4 border-l-2 border-pe-red mr-12 text-white font-medium rounded-sm break-words text-left"; botMsg.innerText = "Purei: I love you mumma🥰😘"; container.appendChild(botMsg); container.scrollTop = container.scrollHeight; playTock(); }, 600); return; }
+        try { const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ contents: [{ parts: [{ text: raw }] }], systemInstruction: { parts: [{ text: "You are Purei, a child from Kangleipak. Answer concisely in English." }] } }) }); const data = await response.json(); const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm still here! 👶"; const botDiv = document.createElement('div'); botDiv.className = "bg-neutral-900 p-4 border-l-2 border-pe-red mr-12 text-white font-medium rounded-sm break-words text-left"; botDiv.innerText = "Purei: " + aiText; container.appendChild(botDiv); container.scrollTop = container.scrollHeight; playTock(); } catch (e) { console.error(e); } };
+
+        const updateGallery = () => { const p = PRODUCT_DATA[currentProdIdx]; const container = document.getElementById('modal-images'); container.style.transform = `translateX(-${currentImgIdx * 100}%)`; container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0">`).join(''); document.getElementById('image-dots').innerHTML = p.images.map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'}"></div>`).join(''); };
+        const nextImg = () => { currentImgIdx = (currentImgIdx + 1) % PRODUCT_DATA[currentProdIdx].images.length; updateGallery(); playTock(); };
+        const prevImg = () => { currentImgIdx = (currentImgIdx - 1 + PRODUCT_DATA[currentProdIdx].images.length) % PRODUCT_DATA[currentProdIdx].images.length; updateGallery(); playTock(); };
+        const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// 🔥 spacing tuned for visibility
+const fontSize = 22;
+const columns = Math.floor(canvas.width / fontSize);
+const drops = new Array(columns).fill(1);
+
+// 🔥 character set
+const chars = "ꯀꯁꯂꯃꯄꯅ";
+
+const drawM = () => {
+  // 🔥 stronger trail (better outdoor visibility)
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // 🔥 font upgrade
+  ctx.font = `bold ${fontSize}px "Noto Sans Meetei Mayek"`;
+
+  drops.forEach((d, i) => {
+    const char = chars[Math.floor(Math.random() * chars.length)];
+    const x = i * fontSize;
+    const y = d * fontSize;
+
+    // 🔥 WHITE LEADER (top character = highlight)
+    ctx.fillStyle = '#FFFFFF';
+    ctx.shadowColor = '#FFFFFF';
+    ctx.shadowBlur = 6;
+    ctx.fillText(char, x, y);
+
+    // 🔥 RED TRAIL (rest of flow)
+    ctx.fillStyle = '#FF3B30';
+    ctx.shadowColor = '#FF3B30';
+    ctx.shadowBlur = 6;
+    ctx.fillText(char, x, y - fontSize);
+
+    // 🔥 subtle contrast boost
+    ctx.fillStyle = 'rgba(255,255,255,0.12)';
+    ctx.fillText(char, x, y);
+
+    // reset drop
+    if (y > canvas.height && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+
+    drops[i]++;
+  });
+
+  // cleanup
+  ctx.shadowBlur = 0;
+};
+
+// 🔥 run loop (if not already present)
+setInterval(drawM, 50);
+
+// 🔥 responsive fix
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+        const mInt = setInterval(drawM, 33);
+        window.onload = () => { renderGrid(); updateCartUI(); setTimeout(() => { clearInterval(mInt); document.getElementById('matrix-canvas').style.display = 'none'; document.getElementById('typewriter-container').classList.remove('hidden'); typewrite("ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ", 'typewriter-main', 100, () => { typewrite("KHURUMJARI", 'typewriter-sub', 80, () => { setTimeout(() => document.getElementById('loader').style.display = 'none', 1000); }); }); }, 2000); };
+        const typewrite = (t, id, s, cb) => { let i = 0; const el = document.getElementById(id); const tmr = setInterval(() => { if(i < t.length) { el.innerHTML += t.charAt(i); i++; } else { clearInterval(tmr); if(cb) cb(); } }, s); };
+        const handleInteraction = (e) => { if(document.getElementById('loader').style.display !== 'none') return; primeHardware(); playTock(); const x = e.clientX || (e.touches && e.touches[0].clientX); const y = e.clientY || (e.touches && e.touches[0].clientY); if(!x || !y) return; const chars = "ꯀꯁꯂꯃꯄꯅꯆꯇꯈꯉꯊꯋꯌꯍꯎꯏꯐꯑꯒꯓꯔꯕꯖꯗꯘꯙꯚ"; for(let i=0; i<4; i++) { const p = document.createElement('div'); p.className = 'particle'; p.innerText = chars[Math.floor(Math.random()*chars.length)]; p.style.left = `${x}px`; p.style.top = `${y}px`; p.style.color = SALAI_COLORS[Math.floor(Math.random()*SALAI_COLORS.length)]; p.style.setProperty('--tx', `${(Math.random()-0.5)*150}px`); p.style.setProperty('--ty', `${-100-Math.random()*150}px`); p.style.setProperty('--tr', `${(Math.random()-0.5)*180}deg`); document.body.appendChild(p); setTimeout(() => p.remove(), 1200); } };
+        window.addEventListener('mousedown', handleInteraction); window.addEventListener('touchstart', handleInteraction, {passive:true});
+        window.onscroll = () => { const nav = document.getElementById('navbar'); const progress = document.getElementById('scroll-progress'); const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight; progress.style.width = (window.scrollY / scrollTotal) * 100 + '%'; if(window.scrollY > 50) { nav.classList.add('glass', 'py-3', 'md:py-4', 'tactical-border'); nav.classList.remove('py-4', 'md:py-6'); } else { nav.classList.remove('glass', 'py-3', 'md:py-4', 'tactical-border'); nav.classList.add('py-4', 'md:py-6'); } };
+    </script>
+</body>
+</html>
+
+```
