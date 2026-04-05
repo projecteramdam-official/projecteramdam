@@ -438,18 +438,22 @@
     <!-- SCRIPTS -->
     <script>
         let PRODUCT_DATA = [];
-        async function loadProducts() {
+
+async function loadProducts() {
   try {
-    const res = await fetch('data/products.json');
+    const res = await fetch('./data/products.json');
     PRODUCT_DATA = await res.json();
 
+    console.log("Products loaded:", PRODUCT_DATA);
+
     renderGrid();
-  } catch (err) {    
+    updateCartUI();
+  } catch (err) {
     console.error("Error loading products:", err);
   }
 }
 
-        window.addEventListener('DOMContentLoaded', loadProducts);
+window.addEventListener('DOMContentLoaded', loadProducts);
         const splitName = (name) => { const match = name.match(/^([ꯀ-꯿\s]+)\s+(.*)$/); if(match) return { mayek: match[1].trim(), eng: match[2].trim() }; return { mayek: name, eng: "" }; };
 
         const SALAI_COLORS = ["#FF3B30", "#FFFFFF", "#444444", "#FFD600", "#FF47B6", "#A100FF", "#00D1FF"];
@@ -628,7 +632,7 @@ window.addEventListener('resize', () => {
   canvas.height = window.innerHeight;
 });
         const mInt = setInterval(drawM, 33);
-        window.onload = () => { renderGrid(); updateCartUI(); setTimeout(() => { clearInterval(mInt); document.getElementById('matrix-canvas').style.display = 'none'; document.getElementById('typewriter-container').classList.remove('hidden'); typewrite("ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ", 'typewriter-main', 100, () => { typewrite("KHURUMJARI", 'typewriter-sub', 80, () => { setTimeout(() => document.getElementById('loader').style.display = 'none', 1000); }); }); }, 2000); };
+        window.onload = () => { updateCartUI(); setTimeout(() => { clearInterval(mInt); document.getElementById('matrix-canvas').style.display = 'none'; document.getElementById('typewriter-container').classList.remove('hidden'); typewrite("ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ", 'typewriter-main', 100, () => { typewrite("KHURUMJARI", 'typewriter-sub', 80, () => { setTimeout(() => document.getElementById('loader').style.display = 'none', 1000); }); }); }, 2000); };
         const typewrite = (t, id, s, cb) => { let i = 0; const el = document.getElementById(id); const tmr = setInterval(() => { if(i < t.length) { el.innerHTML += t.charAt(i); i++; } else { clearInterval(tmr); if(cb) cb(); } }, s); };
         const handleInteraction = (e) => { if(document.getElementById('loader').style.display !== 'none') return; primeHardware(); playTock(); const x = e.clientX || (e.touches && e.touches[0].clientX); const y = e.clientY || (e.touches && e.touches[0].clientY); if(!x || !y) return; const chars = "ꯀꯁꯂꯃꯄꯅꯆꯇꯈꯉꯊꯋꯌꯍꯎꯏꯐꯑꯒꯓꯔꯕꯖꯗꯘꯙꯚ"; for(let i=0; i<4; i++) { const p = document.createElement('div'); p.className = 'particle'; p.innerText = chars[Math.floor(Math.random()*chars.length)]; p.style.left = `${x}px`; p.style.top = `${y}px`; p.style.color = SALAI_COLORS[Math.floor(Math.random()*SALAI_COLORS.length)]; p.style.setProperty('--tx', `${(Math.random()-0.5)*150}px`); p.style.setProperty('--ty', `${-100-Math.random()*150}px`); p.style.setProperty('--tr', `${(Math.random()-0.5)*180}deg`); document.body.appendChild(p); setTimeout(() => p.remove(), 1200); } };
         window.addEventListener('mousedown', handleInteraction); window.addEventListener('touchstart', handleInteraction, {passive:true});
