@@ -91,40 +91,16 @@
   },
 
   {
-    "id": 107,
-    "name": "SANGAI - Dancing Deer",
-    "price": "₹899",
-    "desc": "Symbol of balance — where every step is survival.",
-    "lore":`The Sangai does not run wildly.
-
-It walks carefully — balancing on floating land that can collapse at any moment.
-
-Each step is calculated.
-Each movement is survival.
-
-This design captures that fragile strength — where grace is not beauty, but necessity.`,
-
-  loreMayek: "",
-
-  details: `
-• Oversized relaxed fit  
-• Soft breathable cotton  
-• Minimal + symbolic design  
-• Everyday wearable  
-
-⚠️ Check size chart before ordering.
-  `,
-
-  wash: `
-• Cold wash  
-• Do not bleach  
-• Low heat iron (avoid print)  
-• Dry in shade  
-  `,
-
-  soldOut: false,
-
-  images: [
+  "id": 107,
+  "name": "SANGAI - Dancing Deer",
+  "price": "₹899",
+  "desc": "Symbol of balance — where every step is survival.",
+  "lore": "The Sangai does not run wildly.\n\nIt walks carefully — balancing on floating land that can collapse at any moment.\n\nEach step is calculated.\nEach movement is survival.\n\nThis design captures that fragile strength — where grace is not beauty, but necessity.",
+  "loreMayek": "",
+  "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + symbolic design\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
+  "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
+  "soldOut": false,
+  "images": [
     "images/sangai_dancing/front.jpg",
     "images/sangai_dancing/alt_2.jpg",
     "images/sangai_dancing/alt_3.jpg",
@@ -135,45 +111,17 @@ This design captures that fragile strength — where grace is not beauty, but ne
   ]
 },
 
-  {
-  id: 109,
-  name: "THANGAL - Warrior Legacy",
-  price: "₹899",
-  desc: "A tribute to Lungthoubu Thangal — strength, loyalty, and resistance.",
-  
-  lore: `Thangal was not born into greatness.
-
-He earned it.
-
-From guiding kings through unknown lands to standing firm against colonial power — his life was built on action, not title.
-
-This design reflects discipline, structure, and resilience.
-
-No excess.
-No noise.
-Just strength.`,
-
-  loreMayek: "",
-
-  details: `
-• UT27 oversized fit  
-• Durable cotton build  
-• Strong minimal graphic identity  
-• Designed for everyday + statement wear  
-
-⚠️ Check size before ordering.
-  `,
-
-  wash: `
-• Wash inside-out  
-• Cold water  
-• Avoid heavy machine drying  
-• Do not iron print  
-  `,
-
-  soldOut: false,
-
-  images: [
+{
+  "id": 109,
+  "name": "THANGAL - Warrior Legacy",
+  "price": "₹899",
+  "desc": "A tribute to Lungthoubu Thangal — strength, loyalty, and resistance.",
+  "lore": "Thangal was not born into greatness.\n\nHe earned it.\n\nFrom guiding kings through unknown lands to standing firm against colonial power — his life was built on action, not title.\n\nThis design reflects discipline, structure, and resilience.\n\nNo excess.\nNo noise.\nJust strength.",
+  "loreMayek": "",
+  "details": "• UT27 oversized fit\n• Durable cotton build\n• Strong minimal graphic identity\n• Designed for everyday + statement wear\n\n⚠️ Check size before ordering.",
+  "wash": "• Wash inside-out\n• Cold water\n• Avoid heavy machine drying\n• Do not iron print",
+  "soldOut": false,
+  "images": [
     "images/thangal_warrior/alt_1.jpg",
     "images/thangal_warrior/alt_2.jpg",
     "images/thangal_warrior/alt_3.jpg",
@@ -181,92 +129,34 @@ Just strength.`,
   ]
 },
 
-  {
-  id: 110,
-  name: "KHAMBA - Core Edition",
-  price: "₹899",
-  desc: "Embodiment of raw strength — stripped of excess, built on legacy.",
-  
-  lore: `Khamba is not loud.
-
-His strength does not seek attention.
-It exists — steady, unshaken, undeniable.
-
-Rooted in courage and resilience, he stands as a symbol of quiet power.
-
-No ornaments.
-No distractions.
-
-Just presence.
-Just force.`,
-
-  loreMayek: "",
-
-  details: `
-• Oversized relaxed fit  
-• Soft breathable cotton  
-• Minimal + bold identity  
-• Everyday wearable  
-
-⚠️ Check size chart before ordering.
-  `,
-
-  wash: `
-• Cold wash  
-• Do not bleach  
-• Low heat iron (avoid print)  
-• Dry in shade  
-  `,
-
-  soldOut: false,
-
-  images: [
+{
+  "id": 110,
+  "name": "KHAMBA - Core Edition",
+  "price": "₹899",
+  "desc": "Embodiment of raw strength — stripped of excess, built on legacy.",
+  "lore": "Khamba is not loud.\n\nHis strength does not seek attention.\nIt exists — steady, unshaken, undeniable.\n\nRooted in courage and resilience, he stands as a symbol of quiet power.\n\nNo ornaments.\nNo distractions.\n\nJust presence.\nJust force.",
+  "loreMayek": "",
+  "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + bold identity\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
+  "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
+  "soldOut": false,
+  "images": [
     "images/khamba_v1/front.jpg",
     "images/khamba_v1/alt_1.jpg",
     "images/khamba_v1/alt_2.jpg"
   ]
 },
 
-  id: 111,
-  name: "LAI KHUTSHANGBI - Concept V1",
-  price: "₹799",
-  desc: "The first reach — where presence begins to take form.",
-  
-  lore: `She does not arrive fully formed.
-
-She reaches first.
-
-Lai Khutshangbi exists between seen and unseen —
-her presence defined by motion, by extension, by touch that never fully reveals itself.
-
-This concept captures the beginning —
-the moment something crosses into our world.
-
-Incomplete.
-Unsettling.
-Watching.`,
-
-  loreMayek: "",
-
-  details: `
-• Oversized relaxed fit  
-• Soft breathable cotton  
-• Concept experimental design  
-• Limited early drop  
-
-⚠️ Check size chart before ordering.
-  `,
-
-  wash: `
-• Cold wash  
-• Do not bleach  
-• Low heat iron (avoid print)  
-• Dry in shade  
-  `,
-
-  soldOut: false,
-
-  images: [
+{
+  "id": 111,
+  "name": "LAI KHUTSHANGBI - Concept V1",
+  "price": "₹799",
+  "desc": "The first reach — where presence begins to take form.",
+  "lore": "She does not arrive fully formed.\n\nShe reaches first.\n\nLai Khutshangbi exists between seen and unseen —\nher presence defined by motion, by extension, by touch that never fully reveals itself.\n\nThis concept captures the beginning —\nthe moment something crosses into our world.\n\nIncomplete.\nUnsettling.\nWatching.",
+  "loreMayek": "",
+  "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Concept experimental design\n• Limited early drop\n\n⚠️ Check size chart before ordering.",
+  "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
+  "soldOut": false,
+  "images": [
     "images/lai_v1/front.jpg",
     "images/lai_v1/alt_1.jpg",
     "images/lai_v1/alt_2.jpg",
@@ -274,46 +164,17 @@ Watching.`,
   ]
 },
 
-  {
-  id: 112,
-  name: "SANGAI - Spirit Form",
-  price: "₹899",
-  desc: "A silent watcher — existing beyond sight, beyond certainty.",
-  
-  lore: `You do not see the spirit.
-
-But it sees you.
-
-The Sangai, in its spirit form, is not bound to land or body.
-It moves between worlds — quiet, observing, present without proof.
-
-Not every presence needs to be visible to be real.
-
-Some things exist in stillness.
-
-Some things are always there.`,
-
-  loreMayek: "",
-
-  details: `
-• Oversized relaxed fit  
-• Soft breathable cotton  
-• Minimal + atmospheric design  
-• Everyday wearable  
-
-⚠️ Check size chart before ordering.
-  `,
-
-  wash: `
-• Cold wash  
-• Do not bleach  
-• Low heat iron (avoid print)  
-• Dry in shade  
-  `,
-
-  soldOut: false,
-
-  images: [
+{
+  "id": 112,
+  "name": "SANGAI - Spirit Form",
+  "price": "₹899",
+  "desc": "A silent watcher — existing beyond sight, beyond certainty.",
+  "lore": "You do not see the spirit.\n\nBut it sees you.\n\nThe Sangai, in its spirit form, is not bound to land or body.\nIt moves between worlds — quiet, observing, present without proof.\n\nNot every presence needs to be visible to be real.\n\nSome things exist in stillness.\n\nSome things are always there.",
+  "loreMayek": "",
+  "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + atmospheric design\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
+  "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
+  "soldOut": false,
+  "images": [
     "images/sangai_spirit/front_.jpg",
     "images/sangai_spirit/back_.jpg"
   ]
