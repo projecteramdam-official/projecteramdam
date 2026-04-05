@@ -6,8 +6,8 @@
     "desc": "Sacred guardian of Kangla Fort — symbol of protection, authority, and identity. Built for bold presence with structured oversized silhouette.",
     "lore": "Kangla Sha is not just a creature — it is a gatekeeper of power.\nStanding at the ancient Kangla Fort, it has witnessed kings rise, kingdoms fall, and history reshape itself.\n\nThis design captures that silent dominance — not loud, not chaotic, but unshakable.\n\nThe sharp edges, the stance, the symmetry — everything reflects authority without needing to prove it.\n\nThis is not fashion. This is presence.",
     "loreMayek": "",
-    "details": "• 240–260 GSM Premium Terry Cotton\n• Oversized drop-shoulder fit\n• High-density screen print\n• Breathable + structured drape\n• Built for daily wear + statement styling\n\n⚠️ Check size chart before ordering.",
-    "wash": "• Machine wash cold (inside-out)\n• Do not bleach\n• Do not iron directly on print\n• Dry in shade\n• Avoid high heat drying",
+    "details": "• 240–260 GSM Premium Terry Cotton\n• Oversized drop-shoulder fit\n• High-density screen print\n• Breathable + structured drape\n• Built for daily wear + statement styling\n\n⚠️ Check size chart before ordering. Oversized fit — do not assume your regular size.",
+    "wash": "• Machine wash cold (inside-out)\n• Do not bleach\n• Do not iron directly on print\n• Dry in shade (prevents fading)\n• Avoid high heat drying",
     "soldOut": false,
     "images": [
       "images/kangla_sha/front.jpg",
@@ -25,8 +25,8 @@
     "desc": "Inspired by Khamba Na Kao Phaba — where strength meets calm, and control defeats chaos.",
     "lore": "When the raging Kao was unleashed, it was not just a battle of strength — it was a test of spirit.\n\nKhamba did not fight the bull with fear. He faced it with control.\n\nThis design captures that moment — tension, movement, and raw force frozen in time.\n\nThe aggressive strokes represent chaos.\nThe central structure represents calm.\n\nBecause true power is not in dominance — it is in control.",
     "loreMayek": "",
-    "details": "• UT27 Unisex Terry Oversized Tee\n• Heavyweight premium cotton\n• Sharp black knockout graphic\n• Streetwear-ready silhouette\n• Designed for durability",
-    "wash": "• Wash inside-out\n• Cold wash only\n• No bleach\n• Avoid ironing design\n• Air dry",
+    "details": "• UT27 Unisex Terry Oversized Tee\n• Heavyweight premium cotton\n• Sharp black knockout graphic\n• Streetwear-ready silhouette\n• Designed for durability + daily wear\n\n⚠️ Check size before ordering. Oversized fit — size down if unsure.",
+    "wash": "• Wash inside-out\n• Cold wash only\n• No bleach\n• Avoid direct ironing on design\n• Air dry recommended",
     "soldOut": false,
     "images": [
       "images/khamba_trial/front.jpg",
@@ -45,11 +45,11 @@
     "id": 104,
     "name": "LAI KHUTSHANGBI - Phunga Wari Edition",
     "price": "₹899",
-    "desc": "Inspired by childhood Phunga Wari — where fear lived in imagination.",
-    "lore": "In the quiet nights, stories were warnings.\n\nShe existed in corners. In silence.\n\nNot what you see — what you feel.",
+    "desc": "Inspired by childhood Phunga Wari — where fear lived in imagination and shadows had meaning.",
+    "lore": "In the quiet nights, when children gathered around the fire, stories were not told for entertainment — they were warnings.\n\nLai Khutshangbi was never clearly seen.\n\nShe existed in the corners. In the silence. In the fear of being watched.\n\nThis design reflects that imagination:\nBlurred form.\nElongated presence.\nUncertain boundaries.\n\nIt is not what you see.\nIt is what you feel.",
     "loreMayek": "",
-    "details": "• Premium oversized cotton\n• Horror-inspired design",
-    "wash": "• Cold wash\n• Dry in shade",
+    "details": "• Premium oversized cotton tee\n• Soft yet structured fabric\n• High contrast horror silhouette design\n• Inspired by oral folklore storytelling\n\n⚠️ Important: Check size chart before ordering. Oversized fit.",
+    "wash": "• Wash inside-out\n• Cold gentle cycle\n• No harsh detergents\n• Do not tumble dry high heat\n• Dry in shade",
     "soldOut": false,
     "images": [
       "images/lai_phunga/front.jpg",
@@ -69,10 +69,10 @@
     "name": "LAI KHUTSHANGBI - She Reaches",
     "price": "₹899",
     "desc": "She does not knock. She reaches.",
-    "lore": "Her reach comes before her presence.\n\nIt has already reached.",
+    "lore": "Lai Khutshangbi is known not by sight — but by reach.\n\nHer arms extend beyond what should be possible.\nHer presence arrives before she is seen.\n\nThis design focuses on that moment:\nThe stretch.\nThe tension.\nThe inevitability.\n\nIt is not chasing you.\nIt has already reached.",
     "loreMayek": "",
-    "details": "• Oversized fit\n• Horror streetwear",
-    "wash": "• Cold wash",
+    "details": "• Oversized UT27 fit\n• High-density black + red graphic\n• Horror-inspired folklore streetwear\n\n⚠️ Check size chart before ordering.",
+    "wash": "• Wash cold inside-out\n• Do not iron print\n• Hang dry preferred",
     "soldOut": false,
     "images": [
       "images/lai_reaches/front.jpg",
@@ -94,89 +94,229 @@
     "id": 107,
     "name": "SANGAI - Dancing Deer",
     "price": "₹899",
-    "desc": "Balance is survival.",
-    "lore": "Each step is survival.",
-    "loreMayek": "",
-    "details": "• Minimal design",
-    "wash": "• Cold wash",
-    "soldOut": false,
-    "images": [
-      "images/sangai_dancing/front.jpg",
-      "images/sangai_dancing/alt_2.jpg",
-      "images/sangai_dancing/alt_3.jpg",
-      "images/sangai_dancing/alt_4.jpg",
-      "images/sangai_dancing/alt_5.jpg",
-      "images/sangai_dancing/model_male.jpg",
-      "images/sangai_dancing/model_female.jpg"
-    ]
-  },
+    "desc": "Symbol of balance — where every step is survival.",
+    "lore":`The Sangai does not run wildly.
+
+It walks carefully — balancing on floating land that can collapse at any moment.
+
+Each step is calculated.
+Each movement is survival.
+
+This design captures that fragile strength — where grace is not beauty, but necessity.`,
+
+  loreMayek: "",
+
+  details: `
+• Oversized relaxed fit  
+• Soft breathable cotton  
+• Minimal + symbolic design  
+• Everyday wearable  
+
+⚠️ Check size chart before ordering.
+  `,
+
+  wash: `
+• Cold wash  
+• Do not bleach  
+• Low heat iron (avoid print)  
+• Dry in shade  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/sangai_dancing/front.jpg",
+    "images/sangai_dancing/alt_2.jpg",
+    "images/sangai_dancing/alt_3.jpg",
+    "images/sangai_dancing/alt_4.jpg",
+    "images/sangai_dancing/alt_5.jpg",
+    "images/sangai_dancing/model_male.jpg",
+    "images/sangai_dancing/model_female.jpg"
+  ]
+},
 
   {
-    "id": 109,
-    "name": "THANGAL - Warrior Legacy",
-    "price": "₹899",
-    "desc": "Strength built on action.",
-    "lore": "Discipline defines the warrior.",
-    "loreMayek": "",
-    "details": "• Durable cotton",
-    "wash": "• Cold wash",
-    "soldOut": false,
-    "images": [
-      "images/thangal_warrior/alt_1.jpg",
-      "images/thangal_warrior/alt_2.jpg",
-      "images/thangal_warrior/alt_3.jpg",
-      "images/thangal_warrior/alt_4.jpg"
-    ]
-  },
+  id: 109,
+  name: "THANGAL - Warrior Legacy",
+  price: "₹899",
+  desc: "A tribute to Lungthoubu Thangal — strength, loyalty, and resistance.",
+  
+  lore: `Thangal was not born into greatness.
+
+He earned it.
+
+From guiding kings through unknown lands to standing firm against colonial power — his life was built on action, not title.
+
+This design reflects discipline, structure, and resilience.
+
+No excess.
+No noise.
+Just strength.`,
+
+  loreMayek: "",
+
+  details: `
+• UT27 oversized fit  
+• Durable cotton build  
+• Strong minimal graphic identity  
+• Designed for everyday + statement wear  
+
+⚠️ Check size before ordering.
+  `,
+
+  wash: `
+• Wash inside-out  
+• Cold water  
+• Avoid heavy machine drying  
+• Do not iron print  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/thangal_warrior/alt_1.jpg",
+    "images/thangal_warrior/alt_2.jpg",
+    "images/thangal_warrior/alt_3.jpg",
+    "images/thangal_warrior/alt_4.jpg"
+  ]
+},
 
   {
-    "id": 110,
-    "name": "KHAMBA - Core Edition",
-    "price": "₹899",
-    "desc": "Embodiment of raw strength.",
-    "lore": "Quiet power. No noise.",
-    "loreMayek": "",
-    "details": "• Oversized fit",
-    "wash": "• Cold wash",
-    "soldOut": false,
-    "images": [
-      "images/khamba_v1/front.jpg",
-      "images/khamba_v1/alt_1.jpg",
-      "images/khamba_v1/alt_2.jpg"
-    ]
-  },
+  id: 110,
+  name: "KHAMBA - Core Edition",
+  price: "₹899",
+  desc: "Embodiment of raw strength — stripped of excess, built on legacy.",
+  
+  lore: `Khamba is not loud.
+
+His strength does not seek attention.
+It exists — steady, unshaken, undeniable.
+
+Rooted in courage and resilience, he stands as a symbol of quiet power.
+
+No ornaments.
+No distractions.
+
+Just presence.
+Just force.`,
+
+  loreMayek: "",
+
+  details: `
+• Oversized relaxed fit  
+• Soft breathable cotton  
+• Minimal + bold identity  
+• Everyday wearable  
+
+⚠️ Check size chart before ordering.
+  `,
+
+  wash: `
+• Cold wash  
+• Do not bleach  
+• Low heat iron (avoid print)  
+• Dry in shade  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/khamba_v1/front.jpg",
+    "images/khamba_v1/alt_1.jpg",
+    "images/khamba_v1/alt_2.jpg"
+  ]
+},
+
+  id: 111,
+  name: "LAI KHUTSHANGBI - Concept V1",
+  price: "₹799",
+  desc: "The first reach — where presence begins to take form.",
+  
+  lore: `She does not arrive fully formed.
+
+She reaches first.
+
+Lai Khutshangbi exists between seen and unseen —
+her presence defined by motion, by extension, by touch that never fully reveals itself.
+
+This concept captures the beginning —
+the moment something crosses into our world.
+
+Incomplete.
+Unsettling.
+Watching.`,
+
+  loreMayek: "",
+
+  details: `
+• Oversized relaxed fit  
+• Soft breathable cotton  
+• Concept experimental design  
+• Limited early drop  
+
+⚠️ Check size chart before ordering.
+  `,
+
+  wash: `
+• Cold wash  
+• Do not bleach  
+• Low heat iron (avoid print)  
+• Dry in shade  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/lai_v1/front.jpg",
+    "images/lai_v1/alt_1.jpg",
+    "images/lai_v1/alt_2.jpg",
+    "images/lai_v1/alt_3.jpg"
+  ]
+},
 
   {
-    "id": 111,
-    "name": "LAI KHUTSHANGBI - Concept V1",
-    "price": "₹799",
-    "desc": "The first reach.",
-    "lore": "Presence before form.",
-    "loreMayek": "",
-    "details": "• Concept design",
-    "wash": "• Cold wash",
-    "soldOut": false,
-    "images": [
-      "images/lai_v1/front.jpg",
-      "images/lai_v1/alt_1.jpg",
-      "images/lai_v1/alt_2.jpg",
-      "images/lai_v1/alt_3.jpg"
-    ]
-  },
+  id: 112,
+  name: "SANGAI - Spirit Form",
+  price: "₹899",
+  desc: "A silent watcher — existing beyond sight, beyond certainty.",
+  
+  lore: `You do not see the spirit.
 
-  {
-    "id": 112,
-    "name": "SANGAI - Spirit Form",
-    "price": "₹899",
-    "desc": "Silent watcher.",
-    "lore": "Always present.",
-    "loreMayek": "",
-    "details": "• Minimal design",
-    "wash": "• Cold wash",
-    "soldOut": false,
-    "images": [
-      "images/sangai_spirit/front_.jpg",
-      "images/sangai_spirit/back_.jpg"
-    ]
-  }
+But it sees you.
+
+The Sangai, in its spirit form, is not bound to land or body.
+It moves between worlds — quiet, observing, present without proof.
+
+Not every presence needs to be visible to be real.
+
+Some things exist in stillness.
+
+Some things are always there.`,
+
+  loreMayek: "",
+
+  details: `
+• Oversized relaxed fit  
+• Soft breathable cotton  
+• Minimal + atmospheric design  
+• Everyday wearable  
+
+⚠️ Check size chart before ordering.
+  `,
+
+  wash: `
+• Cold wash  
+• Do not bleach  
+• Low heat iron (avoid print)  
+• Dry in shade  
+  `,
+
+  soldOut: false,
+
+  images: [
+    "images/sangai_spirit/front_.jpg",
+    "images/sangai_spirit/back_.jpg"
+  ]
+}
+
 ]
