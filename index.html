@@ -1,4 +1,5 @@
-Insta alignment
+Strick fixed
+
 
 ```html
 <!DOCTYPE html>
@@ -150,12 +151,12 @@ Insta alignment
         </div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4 hide-scrollbar bg-[#050505]"></div>
         <div class="p-6 border-t border-white/10 bg-black">
-            <!-- CHECKOUT CONFIRMATION -->
-            <div class="mb-4">
+            <!-- UPGRADED CHECKOUT CONFIRMATION -->
+            <div class="mb-4 bg-[#0f0f0f] p-4 rounded-lg border border-white/5">
                 <label class="flex items-start gap-3 cursor-pointer group">
-                    <input type="checkbox" id="order-review-check" class="mt-1 accent-pe-red bg-black border border-white/20 w-4 h-4 rounded-sm shrink-0">
-                    <span class="font-inter text-[9px] text-white/40 uppercase tracking-widest leading-relaxed group-hover:text-white/60 transition-colors">
-                        I have reviewed my order details and understand this is a <span class="text-pe-red font-black">made-to-order</span> product.
+                    <input type="checkbox" id="order-review-check" class="mt-0.5 accent-white bg-black border border-white/20 w-4 h-4 rounded-sm shrink-0">
+                    <span class="font-inter text-[10px] text-white/70 leading-relaxed group-hover:text-white transition-colors select-none">
+                        I've reviewed my final order details and am ready to proceed.
                     </span>
                 </label>
             </div>
@@ -336,7 +337,6 @@ Insta alignment
                 <span class="font-inter text-[10px] font-black tracking-[0.4em] text-white/60 uppercase leading-none">Project Eramdam</span>
             </div>
             <div class="flex flex-col items-center md:items-end gap-8 w-full text-left">
-                <!-- FIXED ALIGNMENT: items-start keeps them perfectly level, and shortened labels fit mobile flawlessly -->
                 <div class="flex justify-center md:justify-end items-start gap-6 sm:gap-10 text-[9px] md:text-[10px] font-inter font-black uppercase tracking-[0.3em]">
                     <a href="https://instagram.com/projecteramdam.official" target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-pe-red transition-colors flex flex-col items-center gap-2 group">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/30 group-hover:text-pe-red transition-colors shrink-0"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
@@ -372,7 +372,7 @@ Insta alignment
                 <p id="modal-price" class="text-2xl font-inter font-bold tracking-tight text-white mb-6 text-left"></p>
                 <p id="modal-desc" class="text-gray-400 font-inter text-[10px] md:text-[11px] uppercase tracking-widest mb-8 leading-relaxed w-full break-words text-left"></p>
 
-                <!-- Size and Protocol appear BEFORE Buy Container -->
+                <!-- Size and Premium Protocol appear BEFORE Buy Container -->
                 <div class="space-y-0 w-full border-t border-white/10 text-left mb-8">
                     <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
@@ -407,6 +407,7 @@ Insta alignment
                         </div>
                     </div>
 
+                    <!-- UPGRADED PREMIUM PROTOCOL -->
                     <button id="btn-protocol" onclick="toggleAccordion('protocol')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group text-left">
                         <div class="flex flex-col text-left">
                             <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5 transition-colors">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
@@ -414,11 +415,24 @@ Insta alignment
                         </div>
                         <i id="icon-protocol" data-lucide="shield-alert" class="w-5 h-5 text-pe-red/40 group-hover:text-pe-red transition-colors"></i>
                     </button>
-                    <div id="accordion-protocol" class="hidden py-6 text-left w-full border-b border-white/10 bg-pe-red/5 px-4 rounded-sm">
-                        <div class="space-y-4 font-inter text-[10px] md:text-[11px] leading-relaxed text-gray-400 uppercase tracking-wider text-left">
-                            <p><span class="text-white font-bold">● Crafted on demand:</span> Your order is produced only after checkout. This approach allows us to maintain quality, avoid excess inventory, and focus on thoughtful design.</p>
-                            <p><span class="text-white font-bold">● Prepaid only:</span> To keep operations smooth and reliable, we currently process prepaid orders only. This helps us reduce failed deliveries and ensures your order reaches you without unnecessary delays.</p>
-                            <p><span class="text-white font-bold">● Final review before checkout:</span> I’ve reviewed my size and order details before proceeding.</p>
+                    <div id="accordion-protocol" class="hidden pb-6 pt-2 text-left w-full border-b border-white/10 px-0">
+                        <div class="bg-gradient-to-b from-[#1a0f0f] to-[#120909] p-5 rounded-xl border border-white/5">
+                            <p class="font-inter text-[10px] text-white/40 tracking-widest uppercase mb-5 border-b border-white/5 pb-4">Built for clarity, so you know exactly what to expect.</p>
+                            
+                            <div class="mb-5">
+                                <p class="font-inter font-bold text-white text-[13px] tracking-wide mb-1.5">Crafted on demand</p>
+                                <p class="font-inter text-[11px] text-white/60 leading-relaxed">Your piece is created after checkout. This allows us to focus on quality, reduce waste, and deliver designs that feel intentional and unique.</p>
+                            </div>
+                            
+                            <div class="mb-5">
+                                <p class="font-inter font-bold text-white text-[13px] tracking-wide mb-1.5">Secure prepaid checkout</p>
+                                <p class="font-inter text-[11px] text-white/60 leading-relaxed">We currently accept prepaid orders (UPI/Card) to ensure faster processing and avoid delays caused by failed deliveries.</p>
+                            </div>
+                            
+                            <div>
+                                <p class="font-inter font-bold text-white text-[13px] tracking-wide mb-1.5">Review before you proceed</p>
+                                <p class="font-inter text-[11px] text-white/60 leading-relaxed">Since your item is made specifically for you, we recommend double-checking your size and color before placing the order.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -587,7 +601,6 @@ Insta alignment
         let PRODUCT_DATA_LOADED = FALLBACK_DATA; 
         let cart = [];
         
-        // DEEP AUDIT FIX: LocalStorage Try-Catch safety net
         try {
             const savedCart = localStorage.getItem('pe_cart');
             cart = savedCart ? JSON.parse(savedCart) : [];
@@ -602,7 +615,6 @@ Insta alignment
 
         let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
 
-        // HISTORY API STATE VARIABLES
         let isProductModalOpen = false;
         let isCartSidebarOpen = false;
         let isMobileMenuOpen = false;
@@ -694,7 +706,6 @@ Insta alignment
             const isOpen = !sidebar.classList.contains('translate-x-full');
             playTock();
             if (isOpen) {
-                // CLOSING
                 sidebar.classList.add('translate-x-full');
                 overlay.classList.add('invisible', 'opacity-0');
                 const scrollY = document.body.dataset.scrollY;
@@ -706,7 +717,6 @@ Insta alignment
                 isCartSidebarOpen = false;
                 if (!fromPopState) history.back();
             } else {
-                // OPENING
                 updateCartUI();
                 const scrollY = window.scrollY;
                 document.body.dataset.scrollY = scrollY;
@@ -789,11 +799,11 @@ Insta alignment
                     </div>
                 </div>
                 
-                <div id="modal-ack-container" class="mt-4 mb-2 p-4 border border-white/10 bg-[#050505] rounded-sm transition-colors duration-300">
+                <div id="modal-ack-container" class="mt-5 mb-2 p-4 border border-white/10 bg-[#0f0f0f] rounded-lg transition-colors duration-300">
                     <label class="flex items-start gap-3 cursor-pointer group">
-                        <input type="checkbox" id="modal-ack-check" onchange="updateBuyButtonState()" class="mt-1 accent-pe-red bg-black border border-white/20 w-4 h-4 rounded-sm shrink-0">
-                        <span class="font-inter text-[9px] text-white/60 uppercase tracking-widest leading-relaxed transition-colors">
-                            I confirm my <span class="text-white font-black">Size</span> and understand the <span class="text-pe-red font-black">No COD / No Exchange</span> policy.
+                        <input type="checkbox" id="modal-ack-check" onchange="updateBuyButtonState()" class="mt-0.5 accent-white bg-black border border-white/20 w-4 h-4 rounded-sm shrink-0">
+                        <span class="font-inter text-[11px] text-white/80 leading-relaxed transition-colors select-none">
+                            I've reviewed my size and order details before proceeding
                         </span>
                     </label>
                 </div>
@@ -818,7 +828,6 @@ Insta alignment
             swipeZone.addEventListener('touchmove', touchMove, {passive: true});
             swipeZone.addEventListener('touchend', touchEnd);
             
-            // HISTORY API: Push state to trap back button
             isProductModalOpen = true;
             history.pushState({ modal: 'product' }, "");
         };
@@ -847,7 +856,6 @@ Insta alignment
             document.getElementById('product-modal').classList.add('invisible');
             document.getElementById('product-modal').classList.remove('opacity-100');
             
-            // DEEP AUDIT FIX: Safely reset swipe math
             currentTranslate = 0; prevTranslate = 0;
             
             const scrollY = document.body.dataset.scrollY;
@@ -863,18 +871,12 @@ Insta alignment
             }
         };
 
-        // EVENT LISTENER FOR HARDWARE BACK BUTTON
         window.addEventListener('popstate', (e) => {
-            if (isProductModalOpen) {
-                closeModal(true); // true means it was triggered by popstate
-            } else if (isCartSidebarOpen) {
-                toggleCart(true);
-            } else if (isMobileMenuOpen) {
-                toggleMenu(true);
-            }
+            if (isProductModalOpen) closeModal(true);
+            else if (isCartSidebarOpen) toggleCart(true);
+            else if (isMobileMenuOpen) toggleMenu(true);
         });
 
-        // DEEP AUDIT FIX: Correctly toggle mutually exclusive borders/text colors to prevent visual bugs
         const selectSize = (size) => {
             selectedSize = size;
             document.querySelectorAll('.size-btn').forEach(btn => {
@@ -930,7 +932,7 @@ Insta alignment
                     playTock();
                 };
                 btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all opacity-80 cursor-pointer bg-neutral-900 border border-pe-red/30 text-center text-pe-red";
-                btn.innerHTML = `<span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase text-pe-red">Accept Size & Protocol First</span>`;
+                btn.innerHTML = `<span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase text-pe-red">Review Details First</span>`;
                 return;
             }
 
@@ -962,7 +964,8 @@ Insta alignment
             const reviewed = document.getElementById('order-review-check').checked;
             if (!reviewed) {
                 const label = document.getElementById('order-review-check').parentElement;
-                label.classList.add('bg-pe-red/10'); setTimeout(() => label.classList.remove('bg-pe-red/10'), 600);
+                label.classList.add('bg-pe-red/10', 'border-pe-red'); 
+                setTimeout(() => label.classList.remove('bg-pe-red/10', 'border-pe-red'), 600);
                 return;
             }
             playTock();
@@ -974,7 +977,6 @@ Insta alignment
             });
             message += `*Total: ₹${total.toLocaleString('en-IN')}*\n\nPlease provide UPI details.`;
             
-            // DEEP AUDIT FIX: Using encodeURIComponent ensures text formatting never breaks WhatsApp linking
             window.open(`https://wa.me/919366659414?text=${encodeURIComponent(message)}`, '_blank');
         };
 
@@ -1056,7 +1058,6 @@ Insta alignment
             lucide.createIcons();
         };
 
-        // Effects
         const handleInteraction = (e) => {
             if(document.getElementById('loader').style.display !== 'none') return;
             primeHardware(); playTock();
@@ -1076,7 +1077,6 @@ Insta alignment
         };
         window.addEventListener('mousedown', handleInteraction); window.addEventListener('touchstart', handleInteraction, {passive:true});
 
-        // Matrix
         const canvas = document.getElementById('matrix-canvas'), ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         const drawM = () => {
@@ -1094,7 +1094,7 @@ Insta alignment
         const mInt = setInterval(drawM, 50);
 
         window.onload = () => {
-            lucide.createIcons(); // Base UI icons
+            lucide.createIcons();
             loadRegistry();
             setTimeout(() => {
                 clearInterval(mInt); document.getElementById('matrix-canvas').style.display = 'none';
@@ -1110,7 +1110,6 @@ Insta alignment
             const tmr = setInterval(() => { if(i < t.length) { el.innerHTML += t.charAt(i); i++; } else { clearInterval(tmr); if(cb) cb(); } }, s);
         };
 
-        // DEEP AUDIT FIX: Safe Audio Context handling
         const primeHardware = () => { 
             if (!hardwareReady) { 
                 if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1179,11 +1178,11 @@ Insta alignment
                 return;
             }
         }
-        // document.getElementById('ai-bot-trigger').onclick = toggleAIChat; // Disabled since trigger is hidden
     </script>
 </body>
 </html>
 
 
 ```
+
 
