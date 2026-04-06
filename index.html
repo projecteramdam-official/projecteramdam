@@ -1,4 +1,4 @@
-To drop
+Inta logo
 
 ```html
 <!DOCTYPE html>
@@ -336,12 +336,19 @@ To drop
                 <span class="font-inter text-[10px] font-black tracking-[0.4em] text-white/60 uppercase leading-none">Project Eramdam</span>
             </div>
             <div class="flex flex-col items-center md:items-end gap-8 w-full text-left">
-                <div class="flex gap-8 md:gap-10 text-[10px] font-inter font-black uppercase tracking-[0.3em]">
-                    <a href="#" class="text-white/60 hover:text-pe-red transition-colors flex flex-col items-center md:items-end gap-2">
-                        <i data-lucide="instagram" class="w-5 h-5 text-white/30"></i> Socials
+                <!-- PURE INLINE SVGS FOR FOOTER (Guaranteed not to be blocked by AdBlockers) -->
+                <div class="flex flex-wrap justify-center md:justify-end gap-8 md:gap-10 text-[10px] font-inter font-black uppercase tracking-[0.3em]">
+                    <a href="https://instagram.com/projecteramdam.official" target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-pe-red transition-colors flex flex-col items-center md:items-end gap-2 group">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/30 group-hover:text-pe-red transition-colors"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        Instagram
                     </a>
-                    <a href="#" class="text-white/60 hover:text-pe-red transition-colors flex flex-col items-center md:items-end gap-2">
-                        <i data-lucide="message-square" class="w-5 h-5 text-white/30"></i> Support
+                    <a href="mailto:projecteramdam.official@gmail.com" class="text-white/60 hover:text-pe-red transition-colors flex flex-col items-center md:items-end gap-2 group">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/30 group-hover:text-pe-red transition-colors"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        Email Us
+                    </a>
+                    <a href="https://wa.me/919366659414?text=Hi%20Project%20Eramdam%20Support!%20I%20have%20a%20query%20and%20need%20some%20help..." target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-pe-red transition-colors flex flex-col items-center md:items-end gap-2 group">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/30 group-hover:text-pe-red transition-colors"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                        WhatsApp Support
                     </a>
                 </div>
                 <p class="font-inter text-[8px] md:text-[9px] text-gray-700 tracking-[0.2em] md:tracking-[0.3em] uppercase font-bold text-center md:text-right break-words w-full">© 2026 Project Eramdam. Rooted in the Soil.</p>
@@ -578,14 +585,24 @@ To drop
         ];
 
         let PRODUCT_DATA_LOADED = FALLBACK_DATA; 
-        let cart = JSON.parse(localStorage.getItem('pe_cart')) || [];
+        let cart = [];
+        
+        // DEEP AUDIT FIX: LocalStorage Try-Catch safety net
+        try {
+            const savedCart = localStorage.getItem('pe_cart');
+            cart = savedCart ? JSON.parse(savedCart) : [];
+        } catch (e) {
+            cart = [];
+            localStorage.removeItem('pe_cart');
+        }
+        
         let currentProdIdx = 0, currentImgIdx = 0;
         let selectedSize = 'M', selectedColor = null;
         let audioCtx, hardwareReady = false;
 
         let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
 
-        // HISTORY API STATE VARIABLES (For fixing physical back button issue)
+        // HISTORY API STATE VARIABLES
         let isProductModalOpen = false;
         let isCartSidebarOpen = false;
         let isMobileMenuOpen = false;
@@ -829,6 +846,10 @@ To drop
         const closeModal = (fromPopState = false) => {
             document.getElementById('product-modal').classList.add('invisible');
             document.getElementById('product-modal').classList.remove('opacity-100');
+            
+            // DEEP AUDIT FIX: Safely reset swipe math
+            currentTranslate = 0; prevTranslate = 0;
+            
             const scrollY = document.body.dataset.scrollY;
             document.documentElement.classList.remove('scroll-smooth');
             document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
@@ -939,14 +960,16 @@ To drop
                 return;
             }
             playTock();
-            let message = "Hi PE! I would like to place an order:%0A%0A";
+            let message = "Hi PE! I would like to place an order:\n\n";
             let total = 0;
             cart.forEach((item, i) => {
-                message += `${i+1}. ${item.name}%0A- Size: ${item.size}%0A- Color: ${item.color}%0A- Price: ₹${item.numPrice.toLocaleString('en-IN')}%0A%0A`;
+                message += `${i+1}. ${item.name}\n- Size: ${item.size}\n- Color: ${item.color}\n- Price: ₹${item.numPrice.toLocaleString('en-IN')}\n\n`;
                 total += item.numPrice;
             });
-            message += `*Total: ₹${total.toLocaleString('en-IN')}*%0A%0APlease provide UPI details.`;
-            window.open(`https://wa.me/919366659414?text=${message}`, '_blank');
+            message += `*Total: ₹${total.toLocaleString('en-IN')}*\n\nPlease provide UPI details.`;
+            
+            // DEEP AUDIT FIX: Using encodeURIComponent ensures text formatting never breaks WhatsApp linking
+            window.open(`https://wa.me/919366659414?text=${encodeURIComponent(message)}`, '_blank');
         };
 
         const toggleAccordion = (id) => {
@@ -986,7 +1009,7 @@ To drop
                     </div>
                 </div>
             `).join('');
-            lucide.createIcons(); // Re-render icons after injection
+            lucide.createIcons();
         };
 
         const updateGallery = () => {
@@ -1007,14 +1030,14 @@ To drop
             grid.innerHTML = PRODUCT_DATA_LOADED.map((p, idx) => {
                 const nameParts = splitName(p.name);
                 return `
-                <div class="group cursor-pointer flex flex-col relative text-left" onclick="openModal(${idx})">
-                    <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm text-left">
+                <div class="group cursor-pointer flex flex-col relative text-left h-full" onclick="openModal(${idx})">
+                    <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm text-left shrink-0">
                         <img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 text-left">
                     </div>
-                    <div class="space-y-1 px-1 text-left">
-                        <span class="block font-mayek text-[13px] md:text-[15px] text-white leading-tight truncate text-left text-left">${nameParts.mayek}</span>
-                        <span class="block font-inter text-[8px] text-white/50 tracking-[0.2em] font-bold uppercase truncate mb-3 text-left text-left">${nameParts.eng}</span>
-                        <div class="flex justify-between items-center border-t border-white/5 pt-3 text-left">
+                    <div class="px-1 text-left flex flex-col flex-grow">
+                        <span class="block font-mayek text-[13px] md:text-[15px] text-white leading-tight line-clamp-2 mb-1">${nameParts.mayek}</span>
+                        ${nameParts.eng ? `<span class="block font-inter text-[8px] text-white/50 tracking-[0.2em] font-bold uppercase truncate mb-2">${nameParts.eng}</span>` : ''}
+                        <div class="flex justify-between items-center border-t border-white/5 pt-3 text-left mt-auto shrink-0">
                             <span class="text-xs font-inter font-light text-white/80 text-left">₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}</span>
                             <div class="flex flex-col items-end text-right shrink-0">
                                 <span class="font-mayek text-pe-red text-[11px] font-black leading-none mb-1 uppercase tracking-widest text-left">ꯑꯀꯨꯞꯄ</span>
@@ -1081,7 +1104,14 @@ To drop
             const tmr = setInterval(() => { if(i < t.length) { el.innerHTML += t.charAt(i); i++; } else { clearInterval(tmr); if(cb) cb(); } }, s);
         };
 
-        const primeHardware = () => { if (!hardwareReady) { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); hardwareReady = true; } };
+        // DEEP AUDIT FIX: Safe Audio Context handling
+        const primeHardware = () => { 
+            if (!hardwareReady) { 
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume(); 
+                hardwareReady = true; 
+            } 
+        };
         window.addEventListener('pointerdown', primeHardware, { capture: true, once: true });
 
         const playTock = () => {
@@ -1147,7 +1177,6 @@ To drop
     </script>
 </body>
 </html>
-
 
 
 ```
