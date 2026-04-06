@@ -1,5 +1,4 @@
-Strick fixed
-
+New words
 
 ```html
 <!DOCTYPE html>
@@ -168,6 +167,10 @@ Strick fixed
                 <span class="font-mayek text-lg font-black leading-none mb-1.5">ꯂꯧꯁꯤꯟꯕꯥ</span>
                 <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none">Checkout via WhatsApp</span>
             </button>
+            <!-- NEW MICRO TRUST LINE IN CART -->
+            <p class="text-[9px] text-white/40 text-center mt-3 font-inter tracking-wide">
+                Orders are verified manually before processing for accuracy.
+            </p>
         </div>
     </div>
 
@@ -337,6 +340,7 @@ Strick fixed
                 <span class="font-inter text-[10px] font-black tracking-[0.4em] text-white/60 uppercase leading-none">Project Eramdam</span>
             </div>
             <div class="flex flex-col items-center md:items-end gap-8 w-full text-left">
+                <!-- PURE INLINE SVGS FOR FOOTER (Guaranteed not to be blocked by AdBlockers) -->
                 <div class="flex justify-center md:justify-end items-start gap-6 sm:gap-10 text-[9px] md:text-[10px] font-inter font-black uppercase tracking-[0.3em]">
                     <a href="https://instagram.com/projecteramdam.official" target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-pe-red transition-colors flex flex-col items-center gap-2 group">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/30 group-hover:text-pe-red transition-colors shrink-0"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
@@ -369,7 +373,13 @@ Strick fixed
             
             <div class="w-full md:w-2/5 p-6 md:p-12 flex flex-col bg-black text-left shrink-0 overflow-y-auto pb-24 text-left">
                 <div id="modal-title" class="mb-3 w-full"></div>
-                <p id="modal-price" class="text-2xl font-inter font-bold tracking-tight text-white mb-6 text-left"></p>
+                <p id="modal-price" class="text-2xl font-inter font-bold tracking-tight text-white mb-2 text-left"></p>
+                
+                <!-- NEW MICRO TRUST LINE IN MODAL -->
+                <p class="text-[9px] text-white/40 mb-6 uppercase tracking-widest">
+                    Made for you after order — not mass produced
+                </p>
+
                 <p id="modal-desc" class="text-gray-400 font-inter text-[10px] md:text-[11px] uppercase tracking-widest mb-8 leading-relaxed w-full break-words text-left"></p>
 
                 <!-- Size and Premium Protocol appear BEFORE Buy Container -->
@@ -396,18 +406,29 @@ Strick fixed
                               <tr class="border-b border-white/5 font-inter text-white/70"><td>XXL <span class="text-[8px] text-white/40">(XX-Large)</span></td><td>46"</td><td>30"</td></tr>
                             </table>
                             
-                            <div class="space-y-4 font-inter text-[10px] uppercase tracking-wider text-white/60">
-                                <h4 class="text-white font-black">How to choose your Correct Size</h4>
-                                <p>Lay a flat t-shirt you already wear. Measure from pit to pit and multiply by 2. Compare with chart above.</p>
-                                <h4 class="text-white font-black">Quick Guidance</h4>
-                                <p>✔ Medium (M) in most brands → choose M</p>
-                                <p>✔ Large (L) and prefer relaxed fit → choose L or XL</p>
-                                <p>✔ Between sizes → Go one size up for comfort.</p>
+                            <!-- UPGRADED SIZE GUIDE -->
+                            <div class="space-y-4 font-inter text-[11px] tracking-wide text-white/70">
+                                <h4 class="text-white font-black">How to Measure (Accurate Method)</h4>
+                                <p>
+                                    Take a t-shirt you already wear comfortably.<br>
+                                    Lay it flat → measure from armpit to armpit → multiply by 2.<br>
+                                    Match that number with the chest size above.
+                                </p>
+                                
+                                <h4 class="text-white font-black">Fit Guidance (Real-world)</h4>
+                                <p>• If you wear <b>M in brands like Zudio / H&M → choose M</b></p>
+                                <p>• If you like slightly loose → go one size up</p>
+                                <p>• If you want oversized streetwear look → go 1 size up</p>
+                                <p>• If unsure between two sizes → ALWAYS go bigger</p>
+                                
+                                <h4 class="text-white font-black">Important</h4>
+                                <p class="text-pe-red">
+                                    This is an oversized fit. Do NOT size down unless you want a tight fit.
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- UPGRADED PREMIUM PROTOCOL -->
                     <button id="btn-protocol" onclick="toggleAccordion('protocol')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group text-left">
                         <div class="flex flex-col text-left">
                             <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5 transition-colors">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
@@ -619,19 +640,18 @@ Strick fixed
         let isCartSidebarOpen = false;
         let isMobileMenuOpen = false;
 
+        // UPGRADED PREMIUM FAQ CONTENT
         const FAQ_CONTENT = [
             { icon: "shopping-bag", t: "How your order works", c: "Every product is made specially for you after you place an order. We don’t keep ready stock — your item is printed, packed, and shipped just for you.<br><br>Once your order is confirmed, it goes into production, then handed over to courier partners for delivery.<br><br>This process helps us deliver unique designs while maintaining quality." },
-            { icon: "truck", t: "Delivery & shipping timeline", c: "We aim to deliver your order as quickly and safely as possible. Here’s what you can expect:<br><br>• <b>Production time:</b> 2–3 business days<br>• <b>Shipping time (India):</b> 2–5 days after dispatch<br><br>So overall, most orders are delivered within <b class='text-pe-red'>4–8 days</b>." },
-            { icon: "building-2", t: "Metro Cities (Fast Delivery)", c: "For metro cities like Delhi, Mumbai, Bangalore, etc., delivery is usually faster and may arrive within 3–5 days after dispatch." },
-            { icon: "mountain", t: "Remote & Northeast Regions", c: "For regions like Northeast India (Manipur, Mizoram, Nagaland, etc.) and other remote locations, delivery may take longer depending on courier serviceability.<br><br>In such cases, delivery can take approximately <b>5–10 days or more</b>.<br><br>Some remote pincodes may be serviced via India Post, which can take longer and may have limited tracking updates." },
-            { icon: "alert-triangle", t: "Important Delivery Note", c: "We work with multiple courier partners like Delhivery, BlueDart, Ekart, etc., depending on your location.<br><br>Delays may occur due to weather, location, or courier issues. While we always try to assist, these are outside our direct control." },
+            { icon: "truck", t: "Delivery Timeline (Realistic)", c: "Every order follows a 2-step process:<br><br><b>1. Production:</b> 2–3 days (made after order)<br><b>2. Shipping:</b> depends on your location<br><br><b>Metro Cities:</b> 2–4 days after dispatch<br><b>Tier 2/3 Cities:</b> 3–6 days<br><b>Northeast / Remote Areas:</b> 5–10+ days<br><br>Total delivery time: <b class='text-pe-red'>4–10 days</b>" },
+            { icon: "map", t: "Delivery in Northeast India", c: "We actively deliver to Manipur and all Northeast states.<br><br>However, due to logistics:<br>• Some orders may be routed via India Post<br>• Tracking updates may be slower<br>• Delivery can take additional time<br><br>This is normal for remote regions.<br><br>We ensure your order is safely dispatched — but final delivery depends on courier network availability." },
             { icon: "package", t: "Tracking your order", c: "Once your order is shipped, a tracking ID will be provided so you can follow your delivery in real time.<br><br>Tracking details include courier partner, delivery status, and estimated arrival." },
-            { icon: "target", t: "What we promise", c: "✔ Good quality fabric and printing<br>✔ Careful packaging under our brand<br>✔ Support if something goes wrong<br>✔ Transparent communication<br><br>If there’s a genuine issue, we will always try our best to resolve it." },
+            { icon: "target", t: "What you can expect from us", c: "✔ Quality fabric and long-lasting prints<br>✔ Careful packaging with attention to detail<br>✔ Clear communication on your order status<br>✔ Real human support via WhatsApp<br><br>If something genuinely goes wrong, we don’t ignore it — we work with you to fix it." },
             { icon: "palette", t: "Product & color expectations", c: "Product images are mockups for reference. Actual colors may slightly vary due to fabric, lighting, and screen differences.<br><br>This is normal in print-on-demand products." },
             { icon: "ruler", t: "Size & fit", c: "Please check the size chart carefully before placing your order.<br><br>Since each item is made specifically for you, size changes are not possible after production starts.<br><br>A small variation (1–2 cm) may occur." },
-            { icon: "refresh-cw", t: "Returns & replacements", c: "We’re here to help if something genuinely goes wrong.<br><br><b>We will support you if:</b><br>✔ You receive a damaged product<br>✔ There is a printing defect<br>✔ You receive the wrong item<br><br>Please report within 7 days with photos or unboxing video.<br><br><b>Not covered:</b><br>✘ Wrong size selected<br>✘ Change of mind<br>✘ Minor color differences" },
+            { icon: "refresh-cw", t: "Returns & Support", c: "Because every product is made on demand, returns are limited.<br><br><b>We support you if:</b><br>✔ You receive a damaged item<br>✔ There is a print defect<br>✔ Wrong product delivered<br><br>Report within 7 days with photos or unboxing video.<br><br><b>Not applicable for:</b><br>✘ Wrong size selected<br>✘ Change of mind<br><br>We aim to be fair — not difficult." },
             { icon: "credit-card", t: "Payments & COD", c: "Orders are processed after payment confirmation.<br><br>Cash on Delivery may not be available in all locations, especially remote areas." },
-            { icon: "x-circle", t: "Delivery issues", c: "If delivery fails due to incorrect address, unavailability, or refusal, the order may be returned to the warehouse.<br><br>In such cases, we can arrange re-shipping. Additional shipping charges may apply." },
+            { icon: "shield", t: "Responsibility & Liability", c: "Once your order is shipped, delivery is handled by third-party courier partners.<br><br>We ensure proper dispatch and packaging.<br><br>However, delays caused by:<br>• Courier issues<br>• Weather<br>• Remote location constraints<br><br>are outside our direct control.<br><br>That said — we will always assist you in resolving genuine issues." },
             { icon: "message-square", t: "Support", c: "If you have any issues, feel free to contact us on WhatsApp. We’ll do our best to assist you." }
         ];
 
@@ -1184,5 +1204,4 @@ Strick fixed
 
 
 ```
-
 
