@@ -1,4 +1,4 @@
-details added
+red details
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -65,7 +65,6 @@ details added
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         img { image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
 
-        /* Color Dropdown List Animation */
         .custom-dropdown-list {
             max-height: 0;
             overflow: hidden;
@@ -252,7 +251,7 @@ details added
                 <i data-lucide="message-circle" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
                 <div class="flex flex-col items-center text-center">
                     <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯄꯥꯎ</span>
-                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">WA Confirm</span>
+                    <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase text-white/60">WA Confirm</span>
                 </div>
             </div>
             <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
@@ -302,7 +301,7 @@ details added
     </section>
 
     <footer class="py-20 md:py-24 px-6 border-t border-white/10 bg-[#050505] relative z-10 text-center md:text-left w-full overflow-hidden">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 md:gap-20 w-full">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 md:gap-20 w-full text-left">
             <div class="flex flex-col items-center md:items-start w-full text-left">
                 <span class="font-mayek text-4xl sm:text-5xl font-black text-white leading-none mb-2 text-center md:text-left w-full break-words">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
                 <span class="font-inter text-[10px] font-black tracking-[0.4em] text-white/60 uppercase leading-none">Project Eramdam</span>
@@ -351,7 +350,6 @@ details added
                         <div id="lore-body" class="text-sm md:text-base font-inter font-light italic leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap text-left"></div>
                     </div>
 
-                    <!-- New: Product Details Accordion -->
                     <button id="btn-details" onclick="toggleAccordion('details')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
                             <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯑꯀꯨꯞꯄ</span>
@@ -363,7 +361,6 @@ details added
                         <div id="details-body" class="text-[10px] md:text-[11px] font-inter font-light leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap uppercase tracking-wider"></div>
                     </div>
 
-                    <!-- New: Wash Care Accordion -->
                     <button id="btn-wash" onclick="toggleAccordion('wash')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
                             <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯁꯦꯡꯗꯣꯛꯄꯥ</span>
@@ -410,7 +407,7 @@ details added
 
     <div id="ai-chat-modal" class="invisible opacity-0 fixed inset-0 z-[2800] bg-black/80 flex items-end md:items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden w-full h-[100dvh]" onclick="if(event.target === this) toggleAIChat()">
         <div id="chat-container" class="popup-anim w-full md:max-w-md bg-[#050505] tactical-border h-[80vh] md:h-[600px] flex flex-col rounded-t-xl md:rounded-xl overflow-hidden cursor-default translate-y-20">
-            <div class="p-6 bg-white text-black flex justify-between items-center shrink-0 text-left"><div class="flex items-center gap-3 text-left"><span class="text-2xl text-left">👶</span><div class="flex flex-col text-left"><span class="font-mayek font-black text-pe-red text-lg leading-none mb-0.5 text-left">ꯄꯨꯔꯩ</span><span class="font-inter font-black text-[9px] tracking-widest uppercase text-black/60 text-left">Purei</span></div></div><button onclick="toggleAIChat()" class="text-black/50 hover:text-pe-red transition-colors p-2 text-left"><i data-lucide="x"></i></button></div>
+            <div class="p-6 bg-white text-black flex justify-between items-center shrink-0 text-left"><div class="flex items-center gap-3 text-left"><span class="text-2xl text-left">👶</span><div class="flex flex-col text-left"><span class="font-mayek font-black text-pe-red text-lg leading-none mb-0.5 text-left">ꯄꯨꯔꯩ</span><span class="font-inter font-black text-[9px] tracking-widest uppercase text-black/60 text-left text-left">Purei</span></div></div><button onclick="toggleAIChat()" class="text-black/50 hover:text-pe-red transition-colors p-2 text-left"><i data-lucide="x"></i></button></div>
             <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 bg-black font-inter text-[13px] md:text-sm leading-relaxed hide-scrollbar text-white w-full break-words text-left"></div>
             <div class="p-4 border-t border-white/5 bg-[#050505] shrink-0 text-left"><div class="flex gap-2 text-left"><input id="chat-input" type="text" placeholder="Ask Purei..." class="flex-grow bg-white/5 p-4 text-sm outline-none focus:border-pe-red border border-transparent transition-colors font-inter text-white rounded-sm w-full text-left"><button onclick="sendMessage()" class="bg-white text-black px-5 active:scale-95 transition-transform rounded-sm shrink-0 text-left"><i data-lucide="send" class="w-5 h-5"></i></button></div></div>
         </div>
@@ -485,13 +482,13 @@ details added
                             <img src="${item.image}" class="w-full h-full object-contain">
                         </div>
                         <div class="flex-grow flex flex-col justify-center min-w-0 text-left">
-                            <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate">${nameParts.mayek}</h4>
-                            <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3">${nameParts.eng}</span>
-                            <div class="flex flex-wrap gap-2">
+                            <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate text-left">${nameParts.mayek}</h4>
+                            <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3 text-left">${nameParts.eng}</span>
+                            <div class="flex flex-wrap gap-2 text-left">
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Size: <span class="text-pe-red">${item.size}</span></div>
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Color: <span class="text-pe-red">${item.color}</span></div>
                             </div>
-                            <span class="text-sm font-inter font-black text-white mt-3">₹${item.numPrice.toLocaleString('en-IN')}</span>
+                            <span class="text-sm font-inter font-black text-white mt-3 text-left">₹${item.numPrice.toLocaleString('en-IN')}</span>
                         </div>
                     </div>`;
                 }).join('');
@@ -513,15 +510,13 @@ details added
                 sidebar.classList.add('translate-x-full');
                 overlay.classList.add('invisible', 'opacity-0');
                 
-                // Restore scroll
                 const scrollY = document.body.dataset.scrollY;
                 document.body.style.position = '';
                 document.body.style.top = '';
+                document.body.style.width = '';
                 window.scrollTo(0, parseInt(scrollY || '0'));
             } else {
                 updateCartUI();
-                
-                // Save scroll position
                 const scrollY = window.scrollY;
                 document.body.dataset.scrollY = scrollY;
                 document.body.style.position = 'fixed';
@@ -548,20 +543,17 @@ details added
             const p = PRODUCT_DATA[idx];
             const nameParts = splitName(p.name);
             
-            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2">${nameParts.mayek}</span><span class="block font-inter text-[9px] text-white/50 font-black tracking-[0.3em] uppercase">${nameParts.eng}</span>`;
+            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[9px] text-white/50 font-black tracking-[0.3em] uppercase text-left">${nameParts.eng}</span>`;
             document.getElementById('modal-price').innerText = p.price;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('lore-body').innerText = p.lore;
 
-            // Populate extra sections from JSON
             document.getElementById('details-body').innerText = p.details || "Details coming soon...";
             document.getElementById('wash-body').innerText = p.wash || "Handle with care.";
             
-            // Hide specific accordions if data is completely missing
             document.getElementById('btn-details').style.display = p.details ? 'flex' : 'none';
             document.getElementById('btn-wash').style.display = p.wash ? 'flex' : 'none';
 
-            // Ensure sections are reset
             ['lore', 'details', 'wash', 'size'].forEach(s => {
                 document.getElementById(`accordion-${s}`).classList.add('hidden');
                 document.getElementById(`icon-${s}`).classList.remove('rotate-180');
@@ -569,38 +561,37 @@ details added
 
             const buyContainer = document.getElementById('modal-buy-container');
             buyContainer.innerHTML = `
-                <div class="space-y-3">
-                    <span class="text-[9px] font-inter font-black tracking-widest text-white/40 uppercase">Select Size</span>
-                    <div class="flex gap-2">
-                        ${['S', 'M', 'L', 'XL', 'XXL'].map(s => `<button data-size="${s}" onclick="selectSize('${s}')" class="size-btn flex-1 py-3 border ${s === 'M' ? 'border-white bg-white text-black' : 'border-white/20 text-white'} text-[10px] tracking-widest font-black rounded-sm transition-all">${s}</button>`).join('')}
+                <div class="space-y-3 text-left">
+                    <span class="text-[9px] font-inter font-black tracking-widest text-white/40 uppercase text-left">Select Size</span>
+                    <div class="flex gap-2 text-left">
+                        ${['S', 'M', 'L', 'XL', 'XXL'].map(s => `<button data-size="${s}" onclick="selectSize('${s}')" class="size-btn flex-1 py-3 border ${s === 'M' ? 'border-white bg-white text-black' : 'border-white/20 text-white'} text-[10px] tracking-widest font-black rounded-sm transition-all text-center">${s}</button>`).join('')}
                     </div>
                 </div>
-                <div class="space-y-3 relative">
-                    <span class="text-[9px] font-inter font-black tracking-widest text-white/40 uppercase">Select Color</span>
-                    <div onclick="toggleColorDropdown()" class="w-full bg-[#0d0d0d] tactical-border p-4 rounded-sm flex items-center justify-between cursor-pointer active:border-pe-red transition-colors">
-                        <div class="flex items-center gap-3">
-                            <div id="selected-color-swatch" class="w-4 h-4 rounded-sm border border-white/20 bg-transparent"></div>
-                            <span id="selected-color-name" class="font-inter text-xs font-black tracking-widest uppercase text-white/60">Choose Variant</span>
+                <div class="space-y-3 relative text-left">
+                    <span class="text-[9px] font-inter font-black tracking-widest text-white/40 uppercase text-left">Select Color</span>
+                    <div onclick="toggleColorDropdown()" class="w-full bg-[#0d0d0d] tactical-border p-4 rounded-sm flex items-center justify-between cursor-pointer active:border-pe-red transition-colors text-left">
+                        <div class="flex items-center gap-3 text-left">
+                            <div id="selected-color-swatch" class="w-4 h-4 rounded-sm border border-white/20 bg-transparent shrink-0 text-left"></div>
+                            <span id="selected-color-name" class="font-inter text-xs font-black tracking-widest uppercase text-white/60 text-left">Choose Variant</span>
                         </div>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-white/30"></i>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-white/30 shrink-0 text-left"></i>
                     </div>
-                    <div id="color-dropdown-list" class="custom-dropdown-list absolute top-full left-0 right-0 z-50 bg-[#0d0d0d] tactical-border rounded-sm shadow-2xl mt-1 hide-scrollbar">
+                    <div id="color-dropdown-list" class="custom-dropdown-list absolute top-full left-0 right-0 z-50 bg-[#0d0d0d] tactical-border rounded-sm shadow-2xl mt-1 hide-scrollbar text-left">
                         ${p.colors.map(c => `
-                            <div onclick="selectColor('${c}')" class="flex items-center gap-4 p-4 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0 cursor-pointer">
-                                <div class="w-4 h-4 rounded-sm border border-white/20" style="background-color: ${COLOR_MAP[c]}"></div>
-                                <span class="font-inter text-[10px] font-black tracking-widest uppercase text-white/80">${c}</span>
+                            <div onclick="selectColor('${c}')" class="flex items-center gap-4 p-4 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0 cursor-pointer text-left">
+                                <div class="w-4 h-4 rounded-sm border border-white/20 shrink-0 text-left" style="background-color: ${COLOR_MAP[c]}"></div>
+                                <span class="font-inter text-[10px] font-black tracking-widest uppercase text-white/80 text-left">${c}</span>
                             </div>
                         `).join('')}
                     </div>
                 </div>
-                <button id="add-to-cart-btn" class="w-full"></button>
+                <button id="add-to-cart-btn" class="w-full text-left"></button>
             `;
 
             updateGallery();
             updateBuyButtonState();
             lucide.createIcons();
             
-            // Save scroll position for modal
             const scrollY = window.scrollY;
             document.body.dataset.scrollY = scrollY;
             document.body.style.position = 'fixed';
@@ -617,10 +608,10 @@ details added
             document.getElementById('product-modal').classList.remove('opacity-100');
             document.getElementById('modal-container').classList.add('translate-y-10');
             
-            // Restore scroll position
             const scrollY = document.body.dataset.scrollY;
             document.body.style.position = '';
             document.body.style.top = '';
+            document.body.style.width = '';
             window.scrollTo(0, parseInt(scrollY || '0'));
             
             playTock();
@@ -659,7 +650,7 @@ details added
 
             if (!selectedColor) {
                 btn.disabled = true;
-                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all opacity-40 cursor-not-allowed bg-neutral-900 border border-white/10";
+                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all opacity-40 cursor-not-allowed bg-neutral-900 border border-white/10 text-center";
                 btn.innerHTML = `<span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase">Select Color First</span>`;
                 return;
             }
@@ -667,12 +658,12 @@ details added
             btn.disabled = false;
             if (inCart) {
                 btn.onclick = () => removeFromCartByVariant(p.id, selectedSize, selectedColor);
-                btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5">ꯂꯧꯊꯣꯛꯄꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase">Remove from Cart</span>`;
-                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-black border border-pe-red text-white";
+                btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5 text-center">ꯂꯧꯊꯣꯛꯄꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase text-center">Remove from Cart</span>`;
+                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-black border border-pe-red text-white text-center";
             } else {
                 btn.onclick = addToCart;
-                btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5">ꯀꯥꯔꯠꯇꯥ ꯍꯄꯆꯤꯟꯕ꯭ꯌꯨ</span><span class="font-inter text-[9px] text-black/70 font-black tracking-[0.4em] uppercase">Add to Cart</span>`;
-                btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl";
+                btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5 text-center">ꯀꯥꯔꯠꯇꯥ ꯍꯄꯆꯤꯟꯕ꯭ꯌꯨ</span><span class="font-inter text-[9px] text-black/70 font-black tracking-[0.4em] uppercase text-center">Add to Cart</span>`;
+                btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center";
             }
         };
 
@@ -729,9 +720,9 @@ details added
         const updateGallery = () => {
             const p = PRODUCT_DATA[currentProdIdx];
             const container = document.getElementById('modal-images');
-            container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0">`).join('');
+            container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0 text-left">`).join('');
             container.style.transform = `translateX(-${currentImgIdx * 100}%)`;
-            document.getElementById('image-dots').innerHTML = p.images.map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'}"></div>`).join('');
+            document.getElementById('image-dots').innerHTML = p.images.map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'} text-left"></div>`).join('');
         };
 
         const nextImg = () => { currentImgIdx = (currentImgIdx + 1) % PRODUCT_DATA[currentProdIdx].images.length; updateGallery(); playTock(); };
@@ -742,16 +733,19 @@ details added
             grid.innerHTML = PRODUCT_DATA.map((p, idx) => {
                 const nameParts = splitName(p.name);
                 return `
-                <div class="group cursor-pointer flex flex-col relative" onclick="openModal(${idx})">
-                    <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm">
-                        <img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="group cursor-pointer flex flex-col relative text-left" onclick="openModal(${idx})">
+                    <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm text-left">
+                        <img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 text-left">
                     </div>
-                    <div class="space-y-1 px-1">
-                        <span class="block font-mayek text-[13px] md:text-[15px] text-white leading-tight truncate">${nameParts.mayek}</span>
-                        <span class="block font-inter text-[8px] text-white/50 tracking-[0.2em] font-bold uppercase truncate mb-3">${nameParts.eng}</span>
-                        <div class="flex justify-between items-center border-t border-white/5 pt-3">
-                            <span class="text-xs font-inter font-light text-white/80">${p.price}</span>
-                            <span class="font-mayek text-pe-red text-[10px] font-black uppercase tracking-widest">Details</span>
+                    <div class="space-y-1 px-1 text-left">
+                        <span class="block font-mayek text-[13px] md:text-[15px] text-white leading-tight truncate text-left">${nameParts.mayek}</span>
+                        <span class="block font-inter text-[8px] text-white/50 tracking-[0.2em] font-bold uppercase truncate mb-3 text-left">${nameParts.eng}</span>
+                        <div class="flex justify-between items-center border-t border-white/5 pt-3 text-left">
+                            <span class="text-xs font-inter font-light text-white/80 text-left">₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}</span>
+                            <div class="flex flex-col items-end text-right shrink-0">
+                                <span class="font-mayek text-pe-red text-[11px] font-black leading-none mb-1 uppercase tracking-widest text-left">ꯑꯀꯨꯞꯄ</span>
+                                <span class="font-inter text-[7px] text-white/40 tracking-[0.2em] font-black uppercase leading-none text-left">Details</span>
+                            </div>
                         </div>
                     </div>
                 </div>`
@@ -859,7 +853,6 @@ details added
             else nav.classList.remove('glass', 'tactical-border');
         };
 
-        // 6. AI Interaction
         const toggleAIChat = () => {
             const m = document.getElementById('ai-chat-modal');
             const cont = document.getElementById('chat-container');
