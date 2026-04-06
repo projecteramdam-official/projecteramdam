@@ -10,11 +10,16 @@
     "wash": "• Machine wash cold (inside-out)\n• Do not bleach\n• Do not iron directly on print\n• Dry in shade (prevents fading)\n• Avoid high heat drying",
     "colors": ["White", "Off White"],
     "images": [
-      "images/kangla_sha/front.jpg",
-      "images/kangla_sha/Front_1_c_1.jpg",
-      "images/kangla_sha/Front_1_c_61.jpg",
-      "images/kangla_sha/back.jpg",
-      "images/kangla_sha/Back_2_c_61.jpg"
+       
+    "images/kangla_sha/Front_1_c_1.jpg",
+
+    "images/kangla_sha/Front_1_c_61.jpg",
+
+ "images/kangla_sha/front.jpg",
+
+    "images/kangla_sha/back.jpg",
+
+    "images/kangla_sha/Back_2_c_61.jpg"
     ]
   },
   {
@@ -34,7 +39,9 @@
       "images/khamba_trial/Front_1_c_54.jpg",
       "images/khamba_trial/Front_1_c_56.jpg",
       "images/khamba_trial/Front_1_c_57.jpg",
-      "images/khamba_trial/Front_1_c_61.jpg"
+      "images/khamba_trial/Front_1_c_61.jpg",
+       "images/khamba_trial/model_female.jpg",
+       "images/khamba_trial/model_male.jpg"
     ]
   },
   {
@@ -54,7 +61,9 @@
       "images/lai_phunga/Front_1_c_54.jpg",
       "images/lai_phunga/Front_1_c_56.jpg",
       "images/lai_phunga/Front_1_c_57.jpg",
-      "images/lai_phunga/Front_1_c_8.jpg"
+      "images/lai_phunga/Front_1_c_8.jpg",
+      "images/lai_phunga/model_female.jpg",
+      "images/lai_phunga/model_male.jpg"
     ]
   },
   {
@@ -77,7 +86,9 @@
       "images/lai_reaches/Front_1_c_54.jpg",
       "images/lai_reaches/Front_1_c_56.jpg",
       "images/lai_reaches/Front_1_c_57.jpg",
-      "images/lai_reaches/Front_1_c_8.jpg"
+      "images/lai_reaches/Front_1_c_8.jpg",
+      "images/lai_reaches/model_female.jpg",
+      "images/lai_reaches/model_male.jpg"
     ]
   },
   {
@@ -95,7 +106,9 @@
       "images/sangai_dancing/alt_2.jpg",
       "images/sangai_dancing/alt_3.jpg",
       "images/sangai_dancing/alt_4.jpg",
-      "images/sangai_dancing/alt_5.jpg"
+      "images/sangai_dancing/alt_5.jpg",
+      "images/sangai_dancing/model_male.jpg",
+      "images/sangai_dancing/model_female.jpg"
     ]
   },
   {
