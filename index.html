@@ -1,5 +1,4 @@
-faq
-
+001
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -76,7 +75,6 @@ faq
             overflow-y: auto;
         }
 
-        /* Snap Gallery Engine */
         #modal-images {
             will-change: transform;
             touch-action: pan-y pinch-zoom;
@@ -151,6 +149,7 @@ faq
         </div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4 hide-scrollbar bg-[#050505]"></div>
         <div class="p-6 border-t border-white/10 bg-black">
+            <!-- CHECKOUT CONFIRMATION -->
             <div class="mb-4">
                 <label class="flex items-start gap-3 cursor-pointer group">
                     <input type="checkbox" id="order-review-check" class="mt-1 accent-pe-red bg-black border border-white/20 w-4 h-4 rounded-sm shrink-0">
@@ -170,7 +169,7 @@ faq
         </div>
     </div>
 
-    <!-- MAIN PAGE CONTENT -->
+    <!-- HERO -->
     <section class="relative h-[100vh] flex items-center justify-center overflow-hidden w-full">
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=1920" class="ken-burns w-full h-full object-cover opacity-60 grayscale contrast-[1.1]" alt="Hero">
@@ -188,6 +187,7 @@ faq
         </div>
     </section>
 
+    <!-- TICKER -->
     <div class="bg-white text-black py-4 md:py-5 overflow-hidden whitespace-nowrap border-y border-white/10 z-20 relative text-left">
         <div class="flex animate-marquee space-x-12 items-center">
             <span class="font-mayek text-[14px] md:text-[16px] font-black uppercase tracking-[0.6em] flex items-center gap-10 text-black leading-normal">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-black"></i> ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-black"></i></span>
@@ -199,7 +199,7 @@ faq
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center text-left">
             <div class="text-left w-full">
                 <div class="mb-10">
-                    <h3 class="font-mayek text-4xl md:text-6xl font-black text-white leading-none mb-3">ꯍꯧꯔꯀꐐꯝ</h3>
+                    <h3 class="font-mayek text-4xl md:text-6xl font-black text-white leading-none mb-3">ꯍꯧꯔꯀꯐꯝ</h3>
                     <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase">Origin Manifesto</h4>
                 </div>
                 <div class="space-y-6 md:space-y-8 text-sm sm:text-base md:text-xl font-light leading-relaxed text-gray-300 border-l border-white/20 pl-6 md:pl-8 text-left w-full">
@@ -214,7 +214,89 @@ faq
         </div>
     </section>
 
-    <!-- DROP -->
+    <!-- QUALITY SPECS -->
+    <section class="py-20 md:py-32 px-5 md:px-6 border-b border-white/10 bg-neutral-950/50 relative z-10 text-center w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="mb-12 md:mb-20 flex flex-col items-center">
+                <h3 class="font-mayek text-3xl md:text-4xl font-black text-white leading-none mb-3">ꯒ꯭ꯋꯥꯔꯦꯟꯇꯤ</h3>
+                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-center">Quality Spec</h4>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center w-full">
+                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
+                    <i data-lucide="target" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯃꯈꯜ ꯐꯕꯥ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Premium Fabric</span>
+                    </div>
+                </div>
+                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
+                    <i data-lucide="shield" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Secure Checkout</span>
+                    </div>
+                </div>
+                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
+                    <i data-lucide="locate" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯌꯧꯍꯟꯕꯥ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Pan India Delivery</span>
+                    </div>
+                </div>
+                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
+                    <i data-lucide="activity" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯃꯤꯠꯌꯦꯡ</span>
+                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Unit Tracking</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO ORDER -->
+    <section id="process" class="py-20 md:py-32 px-5 md:px-6 max-w-7xl mx-auto text-center relative z-10 w-full">
+        <div class="mb-12 md:mb-20 flex flex-col items-center text-center">
+            <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-center">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</h3>
+            <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white uppercase text-center">How To Order</h4>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center w-full">
+            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
+                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">1</span>
+                <i data-lucide="mouse-pointer-click" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center text-center">
+                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯈꯟꯕꯥ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">Select Piece</span>
+                </div>
+            </div>
+            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
+                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">2</span>
+                <i data-lucide="message-circle" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center text-center">
+                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯄꯥꯎ</span>
+                    <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase text-center">WA Confirm</span>
+                </div>
+            </div>
+            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
+                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">3</span>
+                <i data-lucide="shield-check" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center text-center">
+                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯁꯦꯟ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">UPI Signature</span>
+                </div>
+            </div>
+            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
+                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">4</span>
+                <i data-lucide="truck" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
+                <div class="flex flex-col items-center text-center">
+                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯌꯧꯔꯛꯄꯥ</span>
+                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">Unit Deployed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DROP GRID -->
     <section id="drop" class="py-20 md:py-32 px-5 md:px-6 border-t border-white/5 relative z-10 text-left w-full">
         <div id="drop-trigger" class="text-center mb-16 md:mb-24 flex flex-col items-center">
             <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-center">ꯗ ꯗ꯭ꯔꯣꯄ</h3>
@@ -223,7 +305,7 @@ faq
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-10 text-left w-full max-w-7xl mx-auto px-1"></div>
     </section>
 
-    <!-- FAQ (REGISTRY) -->
+    <!-- REGISTRY FAQ (ACCORDION STYLE) -->
     <section id="faq" class="py-20 md:py-32 px-6 border-t border-white/10 relative z-10 text-left w-full overflow-hidden">
         <div class="max-w-5xl mx-auto text-left w-full">
             <div class="mb-12 md:mb-20 flex flex-col text-left items-start">
@@ -231,39 +313,8 @@ faq
                 <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-left">Registry / What to Expect</h4>
             </div>
             
-            <div class="grid grid-cols-1 gap-12 md:gap-16">
-                <!-- Delivery Section -->
-                <div class="space-y-6">
-                    <h3 class="font-inter text-[11px] font-black text-pe-red uppercase tracking-[0.4em] flex items-center gap-3">
-                        <i data-lucide="truck" class="w-4 h-4"></i> Delivery & Shipping
-                    </h3>
-                    <div class="space-y-4 font-inter text-[13px] md:text-sm text-white/60 leading-relaxed max-w-3xl">
-                        <p>Every product is made specially for you after order. We aim for <span class="text-white font-black">4–8 days</span> delivery for Metro cities (Delhi, Mumbai, Bangalore).</p>
-                        <p>For <span class="text-white font-black">Northeast India & Remote Regions</span>, delivery typically takes <span class="text-white font-black">5–10 days</span> depending on India Post serviceability.</p>
-                        <p class="text-[11px] border-l-2 border-pe-red pl-4 italic">Note: While we aim for speed, delays due to weather or courier logistics are outside our direct control.</p>
-                    </div>
-                </div>
-
-                <!-- Quality & Color Section -->
-                <div class="space-y-6">
-                    <h3 class="font-inter text-[11px] font-black text-pe-red uppercase tracking-[0.4em] flex items-center gap-3">
-                        <i data-lucide="palette" class="w-4 h-4"></i> Product Expectations
-                    </h3>
-                    <div class="space-y-4 font-inter text-[13px] md:text-sm text-white/60 leading-relaxed max-w-3xl">
-                        <p>We promise premium fabric and transparent communication. Note that actual colors may slightly vary from mockups due to screen differences and POD fabric absorption.</p>
-                    </div>
-                </div>
-
-                <!-- Returns Section -->
-                <div class="space-y-6">
-                    <h3 class="font-inter text-[11px] font-black text-pe-red uppercase tracking-[0.4em] flex items-center gap-3">
-                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> Returns & Replacements
-                    </h3>
-                    <div class="space-y-4 font-inter text-[13px] md:text-sm text-white/60 leading-relaxed max-w-3xl">
-                        <p>We support genuine issues: damaged products, printing defects, or wrong items. Please report within <span class="text-white font-black">7 days</span> with an unboxing video.</p>
-                        <p>We cannot cover <span class="text-pe-red">wrong size selection</span> or change of mind as items are printed on demand.</p>
-                    </div>
-                </div>
+            <div id="registry-accordion" class="space-y-0 border-t border-white/5">
+                <!-- FAQ Items will be injected here via script -->
             </div>
         </div>
     </section>
@@ -293,12 +344,11 @@ faq
     <div id="product-modal" class="overlay-base fixed inset-0 z-[2000] bg-black invisible opacity-0 flex items-center justify-center md:p-10 cursor-pointer w-full h-[100dvh]">
         <div id="modal-container" class="popup-anim w-full max-w-6xl h-[100dvh] md:h-[85vh] bg-black md:tactical-border overflow-y-auto flex flex-col md:flex-row translate-y-10 cursor-default relative text-left shadow-2xl">
             
-            <!-- SWIPE GALLERY -->
             <div id="swipe-zone" class="relative w-full md:w-3/5 h-[60vh] md:h-full bg-[#050505] overflow-hidden shrink-0">
                 <div id="modal-images" class="flex h-full"></div>
-                <button onclick="prevImg()" class="absolute left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/80 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
-                <button onclick="nextImg()" class="absolute right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/80 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
-                <div id="image-dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"></div>
+                <button onclick="prevImg()" class="absolute left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/80 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors z-10"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                <button onclick="nextImg()" class="absolute right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/80 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors z-10"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                <div id="image-dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10"></div>
             </div>
             
             <div class="w-full md:w-2/5 p-6 md:p-12 flex flex-col bg-black text-left shrink-0 overflow-y-auto pb-24 text-left">
@@ -329,7 +379,7 @@ faq
                         <i id="icon-details" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
                     </button>
                     <div id="accordion-details" class="hidden py-6 text-left w-full border-b border-white/10 bg-[#050505] px-4 rounded-sm">
-                        <div id="details-body" class="text-[10px] md:text-[11px] font-inter font-light leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap uppercase tracking-wider"></div>
+                        <div id="details-body" class="text-[10px] md:text-[11px] font-inter font-light leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap uppercase tracking-wider text-left"></div>
                     </div>
 
                     <button id="btn-wash" onclick="toggleAccordion('wash')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
@@ -340,10 +390,9 @@ faq
                         <i id="icon-wash" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
                     </button>
                     <div id="accordion-wash" class="hidden py-6 text-left w-full border-b border-white/10 bg-[#050505] px-4 rounded-sm">
-                        <div id="wash-body" class="text-[10px] md:text-[11px] font-inter font-light leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap uppercase tracking-wider"></div>
+                        <div id="wash-body" class="text-[10px] md:text-[11px] font-inter font-light leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap uppercase tracking-wider text-left"></div>
                     </div>
 
-                    <!-- REFINED SIZE GUIDE SECTION -->
                     <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
                             <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯆꯥꯡ</span>
@@ -378,20 +427,18 @@ faq
                         </div>
                     </div>
 
-                    <!-- SHOPPING PROTOCOL -->
-                    <button id="btn-protocol" onclick="toggleAccordion('protocol')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
+                    <button id="btn-protocol" onclick="toggleAccordion('protocol')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group text-left">
                         <div class="flex flex-col text-left">
                             <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5 transition-colors">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
-                            <span class="font-inter text-[9px] tracking-widest uppercase text-pe-red/60 font-bold leading-none">Shopping Protocol</span>
+                            <span class="font-inter text-[9px] tracking-widest uppercase text-pe-red/60 font-bold leading-none text-left">Shopping Protocol</span>
                         </div>
                         <i id="icon-protocol" data-lucide="shield-alert" class="w-5 h-5 text-pe-red/40 group-hover:text-pe-red transition-colors"></i>
                     </button>
                     <div id="accordion-protocol" class="hidden py-6 text-left w-full border-b border-white/10 bg-pe-red/5 px-4 rounded-sm">
-                        <div class="space-y-4 font-inter text-[10px] md:text-[11px] leading-relaxed text-gray-400 uppercase tracking-wider">
-                            <p><span class="text-white font-bold">● Quality:</span> Every piece is crafted with premium fabrics. We treat our art with respect and hope you do too.</p>
-                            <p><span class="text-white font-bold">● No COD:</span> As a small, root-driven project, we currently only accept prepaid orders to ensure committed delivery.</p>
-                            <p><span class="text-white font-bold">● Returns:</span> We humble ask you to double-check your size. We cannot accept returns for size differences as each unit is processed specifically for you.</p>
-                            <p><span class="text-white font-bold">● Checkout:</span> After selecting your variant, click Add to Cart. You will checkout via WhatsApp where our team will assist you personally.</p>
+                        <div class="space-y-4 font-inter text-[10px] md:text-[11px] leading-relaxed text-gray-400 uppercase tracking-wider text-left">
+                            <p><span class="text-white font-bold">● Made for You:</span> Every item is printed just for you. Stock is not ready-made, ensuring quality and uniqueness.</p>
+                            <p><span class="text-white font-bold">● No COD:</span> To support our root-driven mission, we accept prepaid only (UPI/Card).</p>
+                            <p><span class="text-white font-bold">● Selection:</span> Size exchanges are unavailable for made-to-order units. Please choose carefully using the guide above.</p>
                         </div>
                     </div>
                 </div>
@@ -400,14 +447,22 @@ faq
         <button onclick="closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-2 md:p-3 text-left"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
     </div>
 
-    <!-- AI CHAT BOT -->
+    <!-- AI CHAT BOT TRIGGER -->
     <div id="ai-bot-trigger" class="fixed bottom-6 right-6 z-[150] bot-bubble w-14 h-14 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center cursor-pointer transition-all p-1 overflow-hidden shadow-2xl">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="55" r="32" fill="#FFE0BD"/><path d="M50 23 Q 55 10 60 18" fill="none" stroke="#4a3000" stroke-width="2.5"/><circle cx="42" cy="48" r="4.5" fill="#000"/><circle cx="58" cy="48" r="4.5" fill="#000"/><circle cx="36" cy="58" r="6" fill="#FFADAD" opacity="0.4"/><circle cx="64" cy="58" r="6" fill="#FFADAD" opacity="0.4"/><g transform="rotate(-10 50 70)"><rect x="42" y="55" width="16" height="28" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5" /><rect x="42" y="55" width="16" height="4" fill="#88FF88" stroke="#000" stroke-width="1"/><line x1="45" y1="62" x2="55" y2="62" stroke="#0000FF" stroke-width="1" opacity="0.3"/><line x1="45" y1="68" x2="55" y2="68" stroke="#0000FF" stroke-width="1" opacity="0.3"/></g><path d="M30 65 Q 40 75 48 70" fill="none" stroke="#000" stroke-width="2.5"/><path d="M70 65 Q 60 75 52 70" fill="none" stroke="#000" stroke-width="2.5"/></svg>
     </div>
 
+    <div id="ai-chat-modal" class="invisible opacity-0 fixed inset-0 z-[2800] bg-black/80 flex items-end md:items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden w-full h-[100dvh]" onclick="if(event.target === this) toggleAIChat()">
+        <div id="chat-container" class="popup-anim w-full md:max-w-md bg-[#050505] tactical-border h-[80vh] md:h-[600px] flex flex-col rounded-t-xl md:rounded-xl overflow-hidden cursor-default translate-y-20">
+            <div class="p-6 bg-white text-black flex justify-between items-center shrink-0 text-left"><div class="flex items-center gap-3 text-left"><span class="text-2xl text-left">👶</span><div class="flex flex-col text-left"><span class="font-mayek font-black text-pe-red text-lg leading-none mb-0.5 text-left">ꯄꯨꯔꯩ</span><span class="font-inter font-black text-[9px] tracking-widest uppercase text-black/60 text-left text-left">Purei</span></div></div><button onclick="toggleAIChat()" class="text-black/50 hover:text-pe-red transition-colors p-2 text-left"><i data-lucide="x"></i></button></div>
+            <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 bg-black font-inter text-[13px] md:text-sm leading-relaxed hide-scrollbar text-white w-full break-words text-left"></div>
+            <div class="p-4 border-t border-white/5 bg-[#050505] shrink-0 text-left"><div class="flex gap-2 text-left"><input id="chat-input" type="text" placeholder="Ask Purei..." class="flex-grow bg-white/5 p-4 text-sm outline-none focus:border-pe-red border border-transparent transition-colors font-inter text-white rounded-sm w-full text-left"><button onclick="sendMessage()" class="bg-white text-black px-5 active:scale-95 transition-transform rounded-sm shrink-0 text-left"><i data-lucide="send" class="w-5 h-5"></i></button></div></div>
+        </div>
+    </div>
+
     <!-- SCRIPTS -->
     <script>
-        // Logic Metadata
+        // 1. Logic Metadata
         const COLOR_MAP = {
             "Light Baby Pink": "#FFD1DC", "Flamingo": "#F19CBB", "Baby Blue": "#89CFF0",
             "Lavender": "#E6E6FA", "Maroon": "#500000", "Navy Blue": "#000080",
@@ -418,24 +473,139 @@ faq
 
         const SALAI_COLORS = ["#FF3B30", "#FFFFFF", "#444444", "#FFD600", "#FF47B6", "#A100FF", "#00D1FF"];
 
-        let PRODUCT_DATA = [];
+        // HARDCODED FALLBACK to ensure no blank screens locally or in preview
+        const FALLBACK_DATA = [
+            {
+                "id": 101, "name": "KANGLASHA - Guardian of Roots | Oversized Tee", "price": "₹1299",
+                "desc": "Sacred guardian of Kangla Fort — symbol of protection, authority, and identity. Built for bold presence with structured oversized silhouette.",
+                "lore": "Kangla Sha is not just a creature — it is a gatekeeper of power. Standing at the ancient Kangla Fort, it has witnessed kings rise, kingdoms fall, and history reshape itself. This design captures that silent dominance — not loud, not chaotic, but unshakable. The sharp edges, the stance, the symmetry — everything reflects authority without needing to prove it. This is not fashion. This is presence.",
+                "loreMayek": "ꯀꯪꯂꯥ ꯁꯥ ꯑꯁꯤ ꯊꯋꯥꯏ ꯄꯥꯟꯕꯥ ꯍꯤꯡꯆꯥꯕꯥ ꯑꯃꯈꯛ ꯅꯠꯇꯦ - ꯑꯁꯤ ꯁꯛꯇꯤꯒꯤ ꯊꯣꯡꯉꯥꯜ ꯉꯥꯛꯄꯥ ꯑꯃꯅꯤ꯫",
+                "details": "• 240–260 GSM Premium Terry Cotton\n• Oversized drop-shoulder fit\n• High-density screen print\n• Breathable + structured drape\n• Built for daily wear + statement styling\n\n⚠️ Check size chart before ordering. Oversized fit — do not assume your regular size.",
+                "wash": "• Machine wash cold (inside-out)\n• Do not bleach\n• Do not iron directly on print\n• Dry in shade (prevents fading)\n• Avoid high heat drying",
+                "colors": ["White", "Off White"],
+                "images": ["images/kangla_sha/front.jpg", "images/kangla_sha/Front_1_c_1.jpg", "images/kangla_sha/Front_1_c_61.jpg", "images/kangla_sha/back.jpg", "images/kangla_sha/Back_2_c_61.jpg"]
+            },
+            {
+                "id": 102, "name": "KHAMBA - Kao Trial Edition | UT27", "price": "₹999",
+                "desc": "Inspired by Khamba Na Kao Phaba — where strength meets calm, and control defeats chaos.",
+                "lore": "When the raging Kao was unleashed, it was not just a battle of strength — it was a test of spirit. Khamba did not fight the bull with fear. He faced it with control. This design captures that moment — tension, movement, and raw force frozen in time. The aggressive strokes represent chaos. The central structure represents calm. Because true power is not in dominance — it is in control.",
+                "loreMayek": "",
+                "details": "• UT27 Unisex Terry Oversized Tee\n• Heavyweight premium cotton\n• Sharp black knockout graphic\n• Streetwear-ready silhouette\n• Designed for durability + daily wear\n\n⚠️ Check size before ordering. Oversized fit — size down if unsure.",
+                "wash": "• Wash inside-out\n• Cold wash only\n• No bleach\n• Avoid direct ironing on design\n• Air dry recommended",
+                "colors": ["Flamingo", "Lavender", "Baby Blue", "Jade", "Off White", "White"],
+                "images": ["images/khamba_trial/front.jpg", "images/khamba_trial/Front_1_c_45.jpg", "images/khamba_trial/Front_1_c_49.jpg", "images/khamba_trial/Front_1_c_54.jpg", "images/khamba_trial/Front_1_c_56.jpg", "images/khamba_trial/Front_1_c_57.jpg", "images/khamba_trial/Front_1_c_61.jpg"]
+            },
+            {
+                "id": 104, "name": "LAI KHUTSHANGBI - Phunga Wari Edition", "price": "₹899",
+                "desc": "Inspired by childhood Phunga Wari — where fear lived in imagination and shadows had meaning.",
+                "lore": "In the quiet nights, when children gathered around the fire, stories were not told for entertainment — they were warnings. Lai Khutshangbi was never clearly seen. She existed in the corners. In the silence. In the fear of being watched. This design reflects that imagination: Blurred form. Elongated presence. Uncertain boundaries. It is not what you see. It is what you feel.",
+                "loreMayek": "",
+                "details": "• Premium oversized cotton tee\n• Soft yet structured fabric\n• High contrast horror silhouette design\n• Inspired by oral folklore storytelling\n\n⚠️ Important: Check size chart before ordering. Oversized fit.",
+                "wash": "• Wash inside-out\n• Cold gentle cycle\n• No harsh detergents\n• Do not tumble dry high heat\n• Dry in shade",
+                "colors": ["Jade", "White", "Bottle Green", "Lavender", "Baby Blue", "Flamingo"],
+                "images": ["images/lai_phunga/front.jpg", "images/lai_phunga/Front_1_c_1.jpg", "images/lai_phunga/Front_1_c_49.jpg", "images/lai_phunga/Front_1_c_54.jpg", "images/lai_phunga/Front_1_c_56.jpg", "images/lai_phunga/Front_1_c_57.jpg", "images/lai_phunga/Front_1_c_8.jpg"]
+            },
+            {
+                "id": 105, "name": "LAI KHUTSHANGBI - She Reaches", "price": "₹899",
+                "desc": "She does not knock. She reaches.",
+                "lore": "Lai Khutshangbi is known not by sight — but by reach. Her arms extend beyond what should be possible. Her presence arrives before she is seen. This design focuses on that moment: The stretch. The tension. The inevitability. It is not chasing you. It has already reached.",
+                "loreMayek": "",
+                "details": "• Oversized UT27 fit\n• High-density black + red graphic\n• Horror-inspired folklore streetwear\n\n⚠️ Check size chart before ordering.",
+                "wash": "• Wash cold inside-out\n• Do not iron print\n• Hang dry preferred",
+                "colors": ["Red", "Black", "Navy Blue", "Bottle Green", "Maroon", "Lavender", "Baby Blue", "Flamingo", "Jade"],
+                "images": ["images/lai_reaches/front.jpg", "images/lai_reaches/Front_1_c_10.jpg", "images/lai_reaches/Front_1_c_2.jpg", "images/lai_reaches/Front_1_c_25.jpg", "images/lai_reaches/Front_1_c_3.jpg", "images/lai_reaches/Front_1_c_49.jpg", "images/lai_reaches/Front_1_c_54.jpg", "images/lai_reaches/Front_1_c_56.jpg", "images/lai_reaches/Front_1_c_57.jpg", "images/lai_reaches/Front_1_c_8.jpg"]
+            },
+            {
+                "id": 107, "name": "SANGAI - Dancing Deer", "price": "₹899",
+                "desc": "Symbol of balance — where every step is survival.",
+                "lore": "The Sangai does not run wildly. It walks carefully — balancing on floating land that can collapse at any moment. Each step is calculated. Each movement is survival. This design captures that fragile strength — where grace is not beauty, but necessity.",
+                "loreMayek": "",
+                "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + symbolic design\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
+                "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
+                "colors": ["Yellow", "White", "Grey", "Lavender", "Maroon"],
+                "images": ["images/sangai_dancing/front.jpg", "images/sangai_dancing/alt_2.jpg", "images/sangai_dancing/alt_3.jpg", "images/sangai_dancing/alt_4.jpg", "images/sangai_dancing/alt_5.jpg"]
+            },
+            {
+                "id": 109, "name": "THANGAL - Warrior Legacy", "price": "₹899",
+                "desc": "A tribute to Lungthoubu Thangal — strength, loyalty, and resistance.",
+                "lore": "Thangal was not born into greatness. He earned it through guidance and resistance. From guiding kings through unknown lands to standing firm against colonial power — his life was built on action, not title. No excess. No noise. Just strength.",
+                "loreMayek": "",
+                "details": "• UT27 oversized fit\n• Durable cotton build\n• Strong minimal graphic identity\n• Designed for everyday + statement wear\n\n⚠️ Check size before ordering.",
+                "wash": "• Wash inside-out\n• Cold water\n• Avoid heavy machine drying\n• Do not iron print",
+                "colors": ["Maroon", "Navy Blue", "Bottle Green", "Black"],
+                "images": ["images/thangal_warrior/alt_1.jpg", "images/thangal_warrior/alt_2.jpg", "images/thangal_warrior/alt_3.jpg", "images/thangal_warrior/alt_4.jpg"]
+            },
+            {
+                "id": 110, "name": "KHAMBA - Core Edition", "price": "₹899",
+                "desc": "Embodiment of raw strength — stripped of excess, built on legacy.",
+                "lore": "Khamba is not loud. His strength does not seek attention. It exists — steady, unshaken, undeniable. Rooted in courage and resilience, he stands as a symbol of quiet power.",
+                "loreMayek": "",
+                "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + bold identity\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
+                "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
+                "colors": ["Black"],
+                "images": ["images/khamba_v1/front.jpg", "images/khamba_v1/alt_1.jpg", "images/khamba_v1/alt_2.jpg"]
+            },
+            {
+                "id": 111, "name": "LAI KHUTSHANGBI - Concept V1", "price": "₹799",
+                "desc": "The first reach — where presence begins to take form.",
+                "lore": "She does not arrive fully formed. She reaches first. Lai Khutshangbi exists between seen and unseen — her presence defined by motion, by extension, by touch that never fully reveals itself.",
+                "loreMayek": "",
+                "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Concept experimental design\n• Limited early drop\n\n⚠️ Check size chart before ordering.",
+                "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
+                "colors": ["Red", "Black", "Maroon", "Bottle Green"],
+                "images": ["images/lai_v1/front.jpg", "images/lai_v1/alt_1.jpg", "images/lai_v1/alt_2.jpg", "images/lai_v1/alt_3.jpg"]
+            },
+            {
+                "id": 112, "name": "SANGAI - Spirit Form", "price": "₹899",
+                "desc": "A silent watcher — existing beyond sight, beyond certainty.",
+                "lore": "You do not see the spirit. But it sees you. The Sangai, in its spirit form, is not bound to land or body. It moves between worlds — quiet, observing, present without proof.",
+                "loreMayek": "",
+                "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + atmospheric design\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
+                "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
+                "colors": ["Black"],
+                "images": ["images/sangai_spirit/front_.jpg", "images/sangai_spirit/back_.jpg"]
+            }
+        ];
+
+        let PRODUCT_DATA_LOADED = FALLBACK_DATA; 
         let cart = JSON.parse(localStorage.getItem('pe_cart')) || [];
         let currentProdIdx = 0, currentImgIdx = 0;
         let selectedSize = 'M', selectedColor = null;
-        let audioCtx, hardwareReady = false, isAddingToCart = false;
+        let audioCtx, hardwareReady = false;
 
-        // Premium Swipe State
         let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
 
-        // Data Engine
+        const FAQ_CONTENT = [
+            { t: "🛍️ How your order works", c: "Every product is made specially for you after you place an order. We don’t keep ready stock — your item is printed, packed, and shipped just for you.<br><br>Once your order is confirmed, it goes into production, then handed over to courier partners for delivery.<br><br>This process helps us deliver unique designs while maintaining quality." },
+            { t: "🚚 Delivery & shipping timeline", c: "We aim to deliver your order as quickly and safely as possible. Here’s what you can expect:<br><br>• <b>Production time:</b> 2–3 business days<br>• <b>Shipping time (India):</b> 2–5 days after dispatch<br><br>So overall, most orders are delivered within <b class='text-pe-red'>4–8 days</b>." },
+            { t: "🏙️ Metro Cities (Fast Delivery)", c: "For metro cities like Delhi, Mumbai, Bangalore, etc., delivery is usually faster and may arrive within 3–5 days after dispatch." },
+            { t: "🌄 Remote & Northeast Regions", c: "For regions like Northeast India (Manipur, Mizoram, Nagaland, etc.) and other remote locations, delivery may take longer depending on courier serviceability.<br><br>In such cases, delivery can take approximately <b>5–10 days or more</b>.<br><br>Some remote pincodes may be serviced via India Post, which can take longer and may have limited tracking updates." },
+            { t: "⚠️ Important Delivery Note", c: "We work with multiple courier partners like Delhivery, BlueDart, Ekart, etc., depending on your location.<br><br>Delays may occur due to weather, location, or courier issues. While we always try to assist, these are outside our direct control." },
+            { t: "📦 Tracking your order", c: "Once your order is shipped, a tracking ID will be provided so you can follow your delivery in real time.<br><br>Tracking details include courier partner, delivery status, and estimated arrival." },
+            { t: "🎯 What we promise", c: "✔ Good quality fabric and printing<br>✔ Careful packaging under our brand<br>✔ Support if something goes wrong<br>✔ Transparent communication<br><br>If there’s a genuine issue, we will always try our best to resolve it." },
+            { t: "🎨 Product & color expectations", c: "Product images are mockups for reference. Actual colors may slightly vary due to fabric, lighting, and screen differences.<br><br>This is normal in print-on-demand products." },
+            { t: "📏 Size & fit", c: "Please check the size chart carefully before placing your order.<br><br>Since each item is made specifically for you, size changes are not possible after production starts.<br><br>A small variation (1–2 cm) may occur." },
+            { t: "🔁 Returns & replacements", c: "We’re here to help if something genuinely goes wrong.<br><br><b>We will support you if:</b><br>✔ You receive a damaged product<br>✔ There is a printing defect<br>✔ You receive the wrong item<br><br>Please report within 7 days with photos or unboxing video.<br><br><b>Not covered:</b><br>✘ Wrong size selected<br>✘ Change of mind<br>✘ Minor color differences" },
+            { t: "💸 Payments & COD", c: "Orders are processed after payment confirmation.<br><br>Cash on Delivery may not be available in all locations, especially remote areas." },
+            { t: "❌ Delivery issues", c: "If delivery fails due to incorrect address, unavailability, or refusal, the order may be returned to the warehouse.<br><br>In such cases, we can arrange re-shipping. Additional shipping charges may apply." },
+            { t: "💬 Support", c: "If you have any issues, feel free to contact us on WhatsApp. We’ll do our best to assist you." }
+        ];
+
         async function loadRegistry() {
             try {
                 const res = await fetch('./data/products.json');
-                PRODUCT_DATA = await res.json();
+                if(res.ok) {
+                    const fetchedData = await res.json();
+                    if(fetchedData && fetchedData.length > 0) {
+                        PRODUCT_DATA_LOADED = fetchedData;
+                    }
+                }
+            } catch (err) { 
+                console.log("Running locally/preview. Using bundled fallback data to prevent blank screen.");
+            } finally {
                 renderGrid();
+                renderRegistryAccordion();
                 updateCartUI();
-            } catch (err) {
-                console.error("Registry load error:", err);
             }
         }
 
@@ -496,17 +666,14 @@ faq
                 overlay.classList.add('invisible', 'opacity-0');
                 const scrollY = document.body.dataset.scrollY;
                 document.documentElement.classList.remove('scroll-smooth');
-                document.body.style.position = '';
-                document.body.style.top = '';
+                document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
                 window.scrollTo(0, parseInt(scrollY || '0'));
                 setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
             } else {
                 updateCartUI();
                 const scrollY = window.scrollY;
                 document.body.dataset.scrollY = scrollY;
-                document.body.style.position = 'fixed';
-                document.body.style.top = `-${scrollY}px`;
-                document.body.style.width = '100%';
+                document.body.style.position = 'fixed'; document.body.style.top = `-${scrollY}px`; document.body.style.width = '100%';
                 sidebar.classList.remove('translate-x-full');
                 overlay.classList.remove('invisible', 'opacity-0');
             }
@@ -521,10 +688,9 @@ faq
             overlay.classList.toggle('hidden');
         };
 
-        // Modal Engine
         const openModal = (idx) => {
             currentProdIdx = idx; currentImgIdx = 0; selectedColor = null; selectedSize = 'M';
-            const p = PRODUCT_DATA[idx];
+            const p = PRODUCT_DATA_LOADED[idx];
             const nameParts = splitName(p.name);
             
             document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[9px] text-white/50 font-black tracking-[0.3em] uppercase text-left">${nameParts.eng}</span>`;
@@ -577,22 +743,18 @@ faq
             
             const scrollY = window.scrollY;
             document.body.dataset.scrollY = scrollY;
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.width = '100%';
+            document.body.style.position = 'fixed'; document.body.style.top = `-${scrollY}px`; document.body.style.width = '100%';
 
             document.getElementById('product-modal').classList.remove('invisible');
             document.getElementById('product-modal').classList.add('opacity-100');
             document.getElementById('modal-container').classList.remove('translate-y-10');
 
-            // Attach premium swipe listeners
             const swipeZone = document.getElementById('swipe-zone');
             swipeZone.addEventListener('touchstart', touchStart, {passive: true});
             swipeZone.addEventListener('touchmove', touchMove, {passive: true});
             swipeZone.addEventListener('touchend', touchEnd);
         };
 
-        // Swipe Functionality
         function touchStart(e) { startX = e.touches[0].clientX; isDragging = true; animationID = requestAnimationFrame(animation); document.getElementById('modal-images').style.transition = 'none'; }
         function touchMove(e) { if (isDragging) { const currentX = e.touches[0].clientX; currentTranslate = prevTranslate + currentX - startX; } }
         function touchEnd() {
@@ -600,7 +762,7 @@ faq
             const imgContainer = document.getElementById('modal-images');
             imgContainer.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
             const movedBy = currentTranslate - prevTranslate;
-            if (movedBy < -100 && currentImgIdx < PRODUCT_DATA[currentProdIdx].images.length - 1) currentImgIdx++;
+            if (movedBy < -100 && currentImgIdx < PRODUCT_DATA_LOADED[currentProdIdx].images.length - 1) currentImgIdx++;
             else if (movedBy > 100 && currentImgIdx > 0) currentImgIdx--;
             setPositionByIndex();
         }
@@ -618,8 +780,7 @@ faq
             document.getElementById('product-modal').classList.remove('opacity-100');
             const scrollY = document.body.dataset.scrollY;
             document.documentElement.classList.remove('scroll-smooth');
-            document.body.style.position = '';
-            document.body.style.top = '';
+            document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
             window.scrollTo(0, parseInt(scrollY || '0'));
             setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
             playTock();
@@ -647,7 +808,7 @@ faq
         const updateBuyButtonState = () => {
             const btn = document.getElementById('add-to-cart-btn');
             if (!btn) return;
-            const p = PRODUCT_DATA[currentProdIdx];
+            const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const inCart = cart.find(item => item.id === p.id && item.size === selectedSize && item.color === selectedColor);
             if (!selectedColor) {
                 btn.disabled = true;
@@ -673,12 +834,8 @@ faq
         };
 
         const addToCart = () => {
-            const p = PRODUCT_DATA[currentProdIdx];
-            cart.push({
-                id: p.id, name: p.name, price: p.price,
-                numPrice: parseInt(p.price.replace(/[^0-9]/g, '')),
-                size: selectedSize, color: selectedColor, image: p.images[0]
-            });
+            const p = PRODUCT_DATA_LOADED[currentProdIdx];
+            cart.push({ id: p.id, name: p.name, price: p.price, numPrice: parseInt(p.price.replace(/[^0-9]/g, '')), size: selectedSize, color: selectedColor, image: p.images[0] });
             saveCart(); updateBuyButtonState(); playTock();
         };
 
@@ -687,8 +844,7 @@ faq
             const reviewed = document.getElementById('order-review-check').checked;
             if (!reviewed) {
                 const label = document.getElementById('order-review-check').parentElement;
-                label.classList.add('bg-pe-red/20');
-                setTimeout(() => label.classList.remove('bg-pe-red/20'), 500);
+                label.classList.add('bg-pe-red/10'); setTimeout(() => label.classList.remove('bg-pe-red/10'), 600);
                 return;
             }
             playTock();
@@ -713,47 +869,70 @@ faq
             playTock();
         };
 
+        const toggleMainFAQ = (idx) => {
+            const target = document.getElementById(`main-faq-content-${idx}`);
+            const icon = document.getElementById(`main-faq-icon-${idx}`);
+            const isOpen = !target.classList.contains('hidden');
+            document.querySelectorAll('[id^="main-faq-content-"]').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('[id^="main-faq-icon-"]').forEach(el => el.classList.remove('rotate-180'));
+            if (!isOpen) { target.classList.remove('hidden'); icon.classList.add('rotate-180'); }
+            playTock();
+        };
+
+        const renderRegistryAccordion = () => {
+            const container = document.getElementById('registry-accordion');
+            container.innerHTML = FAQ_CONTENT.map((item, idx) => `
+                <div class="border-b border-white/10 group">
+                    <button onclick="toggleMainFAQ(${idx})" class="w-full flex items-center justify-between py-6 md:py-8 text-left group">
+                        <span class="font-inter text-[11px] md:text-[13px] font-black uppercase tracking-[0.3em] text-white/80 group-hover:text-pe-red transition-colors">${item.t}</span>
+                        <i id="main-faq-icon-${idx}" data-lucide="chevron-down" class="w-4 h-4 text-white/20 group-hover:text-white transition-all"></i>
+                    </button>
+                    <div id="main-faq-content-${idx}" class="hidden pb-8">
+                        <p class="font-inter text-[12px] md:text-sm text-white/50 leading-relaxed max-w-3xl">${item.c}</p>
+                    </div>
+                </div>
+            `).join('');
+        };
+
         const updateGallery = () => {
-            const p = PRODUCT_DATA[currentProdIdx];
+            const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const container = document.getElementById('modal-images');
-            container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0 pointer-events-none">`).join('');
+            container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0 pointer-events-none text-left">`).join('');
             currentTranslate = 0; prevTranslate = 0; container.style.transform = `translateX(0px)`;
             updateDots();
         };
 
         const updateDots = () => {
-            const p = PRODUCT_DATA[currentProdIdx];
-            document.getElementById('image-dots').innerHTML = p.images.map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'}"></div>`).join('');
+            const p = PRODUCT_DATA_LOADED[currentProdIdx];
+            document.getElementById('image-dots').innerHTML = (p.images || []).map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'} text-left"></div>`).join('');
         };
-
-        const nextImg = () => { if (currentImgIdx < PRODUCT_DATA[currentProdIdx].images.length - 1) { currentImgIdx++; setPositionByIndex(); playTock(); } };
-        const prevImg = () => { if (currentImgIdx > 0) { currentImgIdx--; setPositionByIndex(); playTock(); } };
 
         const renderGrid = () => {
             const grid = document.getElementById('product-grid');
-            grid.innerHTML = PRODUCT_DATA.map((p, idx) => {
+            grid.innerHTML = PRODUCT_DATA_LOADED.map((p, idx) => {
                 const nameParts = splitName(p.name);
                 return `
-                <div class="group cursor-pointer flex flex-col relative" onclick="openModal(${idx})">
-                    <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm">
-                        <img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="group cursor-pointer flex flex-col relative text-left" onclick="openModal(${idx})">
+                    <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm text-left">
+                        <img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 text-left">
                     </div>
-                    <div class="space-y-1 px-1">
-                        <span class="block font-mayek text-[13px] md:text-[15px] text-white leading-tight truncate text-left">${nameParts.mayek}</span>
-                        <span class="block font-inter text-[8px] text-white/50 tracking-[0.2em] font-bold uppercase truncate mb-3 text-left">${nameParts.eng}</span>
-                        <div class="flex justify-between items-center border-t border-white/5 pt-3">
-                            <span class="text-xs font-inter font-light text-white/80">₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}</span>
-                            <div class="flex flex-col items-end text-right">
-                                <span class="font-mayek text-pe-red text-[11px] font-black leading-none mb-1 uppercase tracking-widest">ꯑꯀꯨꯞꯄ</span>
-                                <span class="font-inter text-[7px] text-white/40 tracking-[0.2em] font-black uppercase leading-none">Details</span>
+                    <div class="space-y-1 px-1 text-left">
+                        <span class="block font-mayek text-[13px] md:text-[15px] text-white leading-tight truncate text-left text-left">${nameParts.mayek}</span>
+                        <span class="block font-inter text-[8px] text-white/50 tracking-[0.2em] font-bold uppercase truncate mb-3 text-left text-left">${nameParts.eng}</span>
+                        <div class="flex justify-between items-center border-t border-white/5 pt-3 text-left">
+                            <span class="text-xs font-inter font-light text-white/80 text-left">₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}</span>
+                            <div class="flex flex-col items-end text-right shrink-0">
+                                <span class="font-mayek text-pe-red text-[11px] font-black leading-none mb-1 uppercase tracking-widest text-left">ꯑꯀꯨꯞꯄ</span>
+                                <span class="font-inter text-[7px] text-white/40 tracking-[0.2em] font-black uppercase leading-none text-left text-left">Details</span>
                             </div>
                         </div>
                     </div>
                 </div>`
             }).join('');
+            lucide.createIcons();
         };
 
-        // Splash Effects
+        // Effects
         const handleInteraction = (e) => {
             if(document.getElementById('loader').style.display !== 'none') return;
             primeHardware(); playTock();
@@ -768,52 +947,43 @@ faq
                 p.style.setProperty('--tx', `${(Math.random()-0.5)*200}px`);
                 p.style.setProperty('--ty', `${-150-Math.random()*200}px`);
                 p.style.setProperty('--tr', `${(Math.random()-0.5)*360}deg`);
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 1200);
+                document.body.appendChild(p); setTimeout(() => p.remove(), 1200);
             }
         };
+        window.addEventListener('mousedown', handleInteraction); window.addEventListener('touchstart', handleInteraction, {passive:true});
 
-        window.addEventListener('mousedown', handleInteraction);
-        window.addEventListener('touchstart', handleInteraction, {passive:true});
-
-        // Matrix Engine
+        // Matrix
         const canvas = document.getElementById('matrix-canvas'), ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        const fontSize = 22, columns = Math.floor(canvas.width / fontSize), drops = new Array(columns).fill(1);
         const drawM = () => {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.15)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.font = `bold ${fontSize}px "Noto Sans Meetei Mayek"`;
-            drops.forEach((d, i) => {
+            ctx.font = `bold 22px "Noto Sans Meetei Mayek"`;
+            if (!window.drops) window.drops = new Array(Math.floor(canvas.width/22)).fill(1);
+            window.drops.forEach((d, i) => {
                 const char = "ꯀꯁꯂꯃꯄꯅ"[Math.floor(Math.random() * 6)];
-                const x = i * fontSize, y = d * fontSize;
-                ctx.fillStyle = '#FFFFFF'; ctx.fillText(char, x, y);
-                ctx.fillStyle = '#FF3B30'; ctx.fillText(char, x, y - fontSize);
-                if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
+                ctx.fillStyle = '#FFFFFF'; ctx.fillText(char, i * 22, d * 22);
+                ctx.fillStyle = '#FF3B30'; ctx.fillText(char, i * 22, (d - 1) * 22);
+                if (d * 22 > canvas.height && Math.random() > 0.975) window.drops[i] = 0;
+                window.drops[i]++;
             });
         };
         const mInt = setInterval(drawM, 50);
 
         window.onload = () => {
+            lucide.createIcons(); // Base UI icons
             loadRegistry();
             setTimeout(() => {
-                clearInterval(mInt);
-                document.getElementById('matrix-canvas').style.display = 'none';
+                clearInterval(mInt); document.getElementById('matrix-canvas').style.display = 'none';
                 document.getElementById('typewriter-container').classList.remove('hidden');
                 typewrite("ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ", 'typewriter-main', 100, () => {
-                    typewrite("KHURUMJARI", 'typewriter-sub', 80, () => {
-                        setTimeout(() => document.getElementById('loader').style.display = 'none', 1000);
-                    });
+                    typewrite("KHURUMJARI", 'typewriter-sub', 80, () => { setTimeout(() => document.getElementById('loader').style.display = 'none', 1000); });
                 });
             }, 2000);
         };
 
         const typewrite = (t, id, s, cb) => {
             let i = 0; const el = document.getElementById(id);
-            const tmr = setInterval(() => {
-                if(i < t.length) { el.innerHTML += t.charAt(i); i++; }
-                else { clearInterval(tmr); if(cb) cb(); }
-            }, s);
+            const tmr = setInterval(() => { if(i < t.length) { el.innerHTML += t.charAt(i); i++; } else { clearInterval(tmr); if(cb) cb(); } }, s);
         };
 
         const primeHardware = () => { if (!hardwareReady) { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); hardwareReady = true; } };
@@ -837,6 +1007,48 @@ faq
             if(window.scrollY > 50) nav.classList.add('glass', 'tactical-border');
             else nav.classList.remove('glass', 'tactical-border');
         };
+        
+        const toggleAIChat = () => {
+            const m = document.getElementById('ai-chat-modal');
+            const cont = document.getElementById('chat-container');
+            const isOpen = !m.classList.contains('invisible');
+            playTock();
+            if (!isOpen) {
+                m.classList.remove('invisible'); m.classList.add('opacity-100');
+                cont.classList.remove('translate-y-20');
+            } else {
+                m.classList.add('invisible'); m.classList.remove('opacity-100');
+                cont.classList.add('translate-y-20');
+            }
+        };
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const container = document.getElementById('chat-messages');
+            const raw = input.value.trim();
+            if (!raw) return;
+            playTock();
+            
+            const userMsg = document.createElement('div');
+            userMsg.className = "bg-white/5 p-4 tactical-border ml-12 text-white font-medium rounded-sm mb-4 text-left";
+            userMsg.innerText = raw;
+            container.appendChild(userMsg);
+            input.value = "";
+            container.scrollTop = container.scrollHeight;
+
+            if(raw.toUpperCase().includes("THON THON")) {
+                setTimeout(() => {
+                    const botMsg = document.createElement('div');
+                    botMsg.className = "bg-neutral-900 p-4 border-l-2 border-pe-red mr-12 text-white font-medium rounded-sm text-left";
+                    botMsg.innerText = "Purei: I love you mumma🥰😘";
+                    container.appendChild(botMsg);
+                    container.scrollTop = container.scrollHeight;
+                    playTock();
+                }, 600);
+                return;
+            }
+        }
+        document.getElementById('ai-bot-trigger').onclick = toggleAIChat;
     </script>
 </body>
 </html>
