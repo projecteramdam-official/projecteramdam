@@ -1,4 +1,4 @@
-1.34 color added
+details added
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -351,6 +351,30 @@
                         <div id="lore-body" class="text-sm md:text-base font-inter font-light italic leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap text-left"></div>
                     </div>
 
+                    <!-- New: Product Details Accordion -->
+                    <button id="btn-details" onclick="toggleAccordion('details')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
+                        <div class="flex flex-col text-left">
+                            <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯑꯀꯨꯞꯄ</span>
+                            <span class="font-inter text-[9px] tracking-widest uppercase text-white/40 font-bold leading-none">Product Details</span>
+                        </div>
+                        <i id="icon-details" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
+                    </button>
+                    <div id="accordion-details" class="hidden py-6 text-left w-full border-b border-white/10 bg-[#050505] px-4 rounded-sm">
+                        <div id="details-body" class="text-[10px] md:text-[11px] font-inter font-light leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap uppercase tracking-wider"></div>
+                    </div>
+
+                    <!-- New: Wash Care Accordion -->
+                    <button id="btn-wash" onclick="toggleAccordion('wash')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
+                        <div class="flex flex-col text-left">
+                            <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯁꯦꯡꯗꯣꯛꯄꯥ</span>
+                            <span class="font-inter text-[9px] tracking-widest uppercase text-white/40 font-bold leading-none">Wash Care</span>
+                        </div>
+                        <i id="icon-wash" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
+                    </button>
+                    <div id="accordion-wash" class="hidden py-6 text-left w-full border-b border-white/10 bg-[#050505] px-4 rounded-sm">
+                        <div id="wash-body" class="text-[10px] md:text-[11px] font-inter font-light leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap uppercase tracking-wider"></div>
+                    </div>
+
                     <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
                             <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯆꯥꯡ</span>
@@ -488,13 +512,24 @@
             if (isOpen) {
                 sidebar.classList.add('translate-x-full');
                 overlay.classList.add('invisible', 'opacity-0');
+                
+                // Restore scroll
+                const scrollY = document.body.dataset.scrollY;
                 document.body.style.position = '';
+                document.body.style.top = '';
+                window.scrollTo(0, parseInt(scrollY || '0'));
             } else {
                 updateCartUI();
+                
+                // Save scroll position
+                const scrollY = window.scrollY;
+                document.body.dataset.scrollY = scrollY;
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${scrollY}px`;
+                document.body.style.width = '100%';
+                
                 sidebar.classList.remove('translate-x-full');
                 overlay.classList.remove('invisible', 'opacity-0');
-                document.body.style.position = 'fixed';
-                document.body.style.width = '100%';
             }
         };
 
@@ -517,6 +552,20 @@
             document.getElementById('modal-price').innerText = p.price;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('lore-body').innerText = p.lore;
+
+            // Populate extra sections from JSON
+            document.getElementById('details-body').innerText = p.details || "Details coming soon...";
+            document.getElementById('wash-body').innerText = p.wash || "Handle with care.";
+            
+            // Hide specific accordions if data is completely missing
+            document.getElementById('btn-details').style.display = p.details ? 'flex' : 'none';
+            document.getElementById('btn-wash').style.display = p.wash ? 'flex' : 'none';
+
+            // Ensure sections are reset
+            ['lore', 'details', 'wash', 'size'].forEach(s => {
+                document.getElementById(`accordion-${s}`).classList.add('hidden');
+                document.getElementById(`icon-${s}`).classList.remove('rotate-180');
+            });
 
             const buyContainer = document.getElementById('modal-buy-container');
             buyContainer.innerHTML = `
@@ -551,18 +600,29 @@
             updateBuyButtonState();
             lucide.createIcons();
             
+            // Save scroll position for modal
+            const scrollY = window.scrollY;
+            document.body.dataset.scrollY = scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+
             document.getElementById('product-modal').classList.remove('invisible');
             document.getElementById('product-modal').classList.add('opacity-100');
             document.getElementById('modal-container').classList.remove('translate-y-10');
-            document.body.style.position = 'fixed';
-            document.body.style.width = '100%';
         };
 
         const closeModal = () => {
             document.getElementById('product-modal').classList.add('invisible');
             document.getElementById('product-modal').classList.remove('opacity-100');
             document.getElementById('modal-container').classList.add('translate-y-10');
+            
+            // Restore scroll position
+            const scrollY = document.body.dataset.scrollY;
             document.body.style.position = '';
+            document.body.style.top = '';
+            window.scrollTo(0, parseInt(scrollY || '0'));
+            
             playTock();
         };
 
@@ -652,7 +712,7 @@
 
         const toggleAccordion = (id) => {
             playTock();
-            const sections = ['lore', 'size'];
+            const sections = ['lore', 'details', 'wash', 'size'];
             sections.forEach(s => {
                 const el = document.getElementById(`accordion-${s}`);
                 const icon = document.getElementById(`icon-${s}`);
