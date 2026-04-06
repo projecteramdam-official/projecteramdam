@@ -1,4 +1,4 @@
-Payments
+Whatsapp
 
 
 ```html
@@ -129,6 +129,12 @@ Payments
             border: 1px solid rgba(255, 255, 255, 0.1);
             flex-shrink: 0;
         }
+
+        /* ERROR HIGHLIGHT CSS */
+        .input-error {
+            border-color: #FF3B30 !important;
+            background-color: rgba(255, 59, 48, 0.05) !important;
+        }
     </style>
 </head>
 <body class="bg-black text-white">
@@ -217,6 +223,9 @@ Payments
                     <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span>
                     <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none text-center">Proceed to Checkout</span>
                 </button>
+                <div class="flex justify-center items-center gap-2 mt-4 text-white/30 text-[9px] font-inter tracking-widest uppercase">
+                    <i data-lucide="lock" class="w-3 h-3"></i> Secure Checkout
+                </div>
             </div>
         </div>
 
@@ -227,13 +236,17 @@ Payments
                 <div class="border border-white/10 rounded-sm p-5 bg-[#0a0a0a]">
                     <h3 class="font-inter text-white font-bold text-[11px] uppercase tracking-widest mb-4">Delivery Details</h3>
                     <div class="space-y-3">
-                        <input id="dlv-name" placeholder="Full Name" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter focus:border-pe-red transition-colors outline-none" oninput="saveUserData(); validateCheckoutForm()">
-                        <input id="dlv-phone" placeholder="Phone Number (10 digits)" type="tel" maxlength="10" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter focus:border-pe-red transition-colors outline-none" oninput="saveUserData(); validateCheckoutForm()">
-                        <textarea id="dlv-address" placeholder="Full Address (House, Area, Landmark)" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter focus:border-pe-red transition-colors outline-none h-20 resize-none" oninput="saveUserData(); validateCheckoutForm()"></textarea>
+                        <input id="dlv-name" placeholder="Full Name" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none" oninput="clearError(this); saveUserData(); validateCheckoutForm()">
+                        <input id="dlv-phone" placeholder="Phone Number (10 digits)" type="tel" maxlength="10" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none" oninput="clearError(this); saveUserData(); validateCheckoutForm()">
+                        <textarea id="dlv-address" placeholder="House no, area, landmark (required)" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none h-20 resize-none" oninput="clearError(this); saveUserData(); validateCheckoutForm()"></textarea>
                         <div class="flex gap-3">
-                            <input id="dlv-city" placeholder="City" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter focus:border-pe-red transition-colors outline-none" oninput="saveUserData(); validateCheckoutForm()">
-                            <input id="dlv-pincode" placeholder="Pincode (6 digits)" type="tel" maxlength="6" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter focus:border-pe-red transition-colors outline-none" oninput="saveUserData(); validateCheckoutForm()">
+                            <input id="dlv-pincode" placeholder="Pincode (6 digits)" type="tel" maxlength="6" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none" oninput="clearError(this); handlePincodeInput(this.value)">
+                            <input id="dlv-city" placeholder="City" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none" oninput="clearError(this); saveUserData(); validateCheckoutForm()">
                         </div>
+                        <!-- SAFETY TEXT -->
+                        <p class="font-inter text-[9px] text-white/40 mt-3 leading-relaxed tracking-wide">
+                            We deliver across India. Remote areas may take longer. If your location is not serviceable, we will inform you or issue a refund.
+                        </p>
                     </div>
                 </div>
 
@@ -244,7 +257,7 @@ Payments
                     
                     <div class="h-px bg-white/10 w-full mb-4"></div>
                     
-                    <p class="font-inter text-[10px] text-white/50 tracking-wide leading-relaxed">
+                    <p id="dynamic-delivery-estimate" class="font-inter text-[10px] text-white/50 tracking-wide leading-relaxed">
                         <span class="text-white font-bold">Estimated Delivery:</span><br>
                         • Metro cities: 4–6 days<br>
                         • Northeast & remote areas: 6–10 days
@@ -266,11 +279,14 @@ Payments
                 </div>
             </div>
             <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
-                <button id="proceedToPaymentBtn" onclick="switchSidebarState('payment')" class="w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center opacity-50 cursor-not-allowed" disabled>
-                    <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯁꯦꯟꯊꯨꯡ</span>
-                    <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none text-center">Proceed to Payment</span>
-                </button>
-                <p id="checkoutHint" class="text-[9px] text-pe-red text-center mt-3 font-inter tracking-widest uppercase h-3"></p>
+                <!-- Wrapper to catch clicks when button is disabled to show red errors -->
+                <div onclick="triggerErrorHighlight()" class="w-full cursor-pointer rounded-sm">
+                    <button id="proceedToPaymentBtn" onclick="switchSidebarState('payment')" class="w-full bg-white text-black py-4 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center opacity-50 pointer-events-none" disabled>
+                        <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯁꯦꯟꯊꯨꯡ</span>
+                        <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none text-center">Proceed to Payment</span>
+                    </button>
+                </div>
+                <p id="checkoutHint" class="text-[10px] text-pe-red text-center mt-3 font-inter tracking-widest uppercase h-3"></p>
             </div>
         </div>
 
@@ -323,10 +339,19 @@ Payments
                     </div>
                 </div>
 
+                <!-- NEW: VISUAL ORDER STATUS TIMELINE -->
                 <div class="border border-white/10 rounded-sm p-5 bg-[#111111]">
-                    <h3 class="font-inter text-white font-bold text-[11px] uppercase tracking-widest mb-4">What Happens Next</h3>
-                    <ul class="space-y-3 font-inter text-[11px] text-white/70 leading-relaxed tracking-wide">
-                        <li class="flex items-start gap-3"><span class="text-pe-red font-black">✔</span> Order processing begins within 24-48 hours.</li>
+                    <h3 class="font-inter text-white font-bold text-[11px] uppercase tracking-widest mb-4">Order Status</h3>
+                    <div class="space-y-4 font-inter text-xs text-white/80 tracking-wide">
+                        <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-[#25D366] shadow-[0_0_10px_#25D366]"></div> <span class="font-bold">Order Placed ✔</span></div>
+                        <div class="flex items-center gap-3 opacity-40"><div class="w-2 h-2 rounded-full bg-white"></div> <span>Processing ⏳</span></div>
+                        <div class="flex items-center gap-3 opacity-40"><div class="w-2 h-2 rounded-full bg-white"></div> <span>Shipped 🚚</span></div>
+                        <div class="flex items-center gap-3 opacity-40"><div class="w-2 h-2 rounded-full bg-white"></div> <span>Delivered 📦</span></div>
+                    </div>
+                    
+                    <div class="h-px bg-white/10 w-full my-5"></div>
+                    <ul class="space-y-3 font-inter text-[10px] text-white/60 leading-relaxed tracking-wide">
+                        <li class="flex items-start gap-3"><span class="text-pe-red font-black">✔</span> Processing begins within 24-48 hours.</li>
                         <li class="flex items-start gap-3"><span class="text-pe-red font-black">✔</span> Active tracking link shared after dispatch.</li>
                         <li class="flex items-start gap-3 text-pe-red font-bold mt-2 pt-2 border-t border-white/5"><span class="text-pe-red font-black">!</span> In rare cases of stock or production issues, we will inform you immediately and provide a replacement or refund.</li>
                     </ul>
@@ -649,6 +674,8 @@ Payments
                     </button>
                     <div id="accordion-details" class="hidden py-6 text-left w-full border-b border-white/10 bg-[#050505] px-4 rounded-sm">
                         <div id="details-body" class="text-[10px] md:text-[11px] font-inter font-light leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap uppercase tracking-wider text-left"></div>
+                        <!-- TRUST MICROCOPY -->
+                        <p class="font-inter text-[9px] text-white/30 tracking-widest uppercase mt-4">Color may slightly vary due to lighting and fabric.</p>
                     </div>
 
                     <button id="btn-wash" onclick="toggleAccordion('wash')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
@@ -803,7 +830,73 @@ Payments
         let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
         let isProductModalOpen = false, isCartSidebarOpen = false, isMobileMenuOpen = false;
 
-        // MULTI-STEP SIDEBAR ENGINE
+        // HIGHLIGHT FIXTURES
+        function clearError(el) {
+            el.classList.remove('input-error');
+        }
+
+        function triggerErrorHighlight() {
+            const btn = document.getElementById('proceedToPaymentBtn');
+            if(!btn || !btn.disabled) return;
+            
+            const nameEl = document.getElementById("dlv-name");
+            const phoneEl = document.getElementById("dlv-phone");
+            const addrEl = document.getElementById("dlv-address");
+            const cityEl = document.getElementById("dlv-city");
+            const pinEl = document.getElementById("dlv-pincode");
+            const cb = document.getElementById("finalConfirm");
+            const cbContainer = cb ? cb.closest('.bg-[#0a0a0a]') : null;
+
+            [nameEl, phoneEl, addrEl, cityEl, pinEl].forEach(el => el.classList.remove('input-error'));
+            if(cbContainer) cbContainer.classList.remove('border-pe-red', 'bg-pe-red/10');
+
+            if (!nameEl.value.trim()) nameEl.classList.add('input-error');
+            else if (!/^[6-9]\d{9}$/.test(phoneEl.value.trim())) phoneEl.classList.add('input-error');
+            else if (addrEl.value.trim().length < 10) addrEl.classList.add('input-error');
+            else if (!/^\d{6}$/.test(pinEl.value.trim())) pinEl.classList.add('input-error');
+            else if (!cityEl.value.trim()) cityEl.classList.add('input-error');
+            else if (cb && !cb.checked && cbContainer) {
+                cbContainer.classList.add('border-pe-red', 'bg-pe-red/10');
+                setTimeout(() => cbContainer.classList.remove('border-pe-red', 'bg-pe-red/10'), 600);
+            }
+            playTock();
+        }
+
+        // PINCODE AUTO-FILL API
+        async function handlePincodeInput(pin) {
+            updateDeliveryEstimate(pin);
+            if (pin.length === 6) {
+                try {
+                    let res = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
+                    let data = await res.json();
+                    if (data[0].Status === "Success") {
+                        let info = data[0].PostOffice[0];
+                        let cityInput = document.getElementById("dlv-city");
+                        if(info.District) {
+                            cityInput.value = info.District;
+                            cityInput.classList.remove('input-error');
+                            saveUserData();
+                            validateCheckoutForm();
+                        }
+                    }
+                } catch(e) { console.log("Pincode API failed", e); }
+            }
+            saveUserData();
+            validateCheckoutForm();
+        }
+
+        function updateDeliveryEstimate(pin) {
+            const estEl = document.getElementById('dynamic-delivery-estimate');
+            if(!estEl) return;
+            if(pin && pin.startsWith("79")) {
+                estEl.innerHTML = `<span class="text-white font-bold">Estimated Delivery:</span><br>• Northeast & remote areas: 6–10 days`;
+            } else if (pin && pin.length >= 2) {
+                estEl.innerHTML = `<span class="text-white font-bold">Estimated Delivery:</span><br>• Standard Delivery: 4–6 days`;
+            } else {
+                estEl.innerHTML = `<span class="text-white font-bold">Estimated Delivery:</span><br>• Metro cities: 4–6 days<br>• Northeast & remote areas: 6–10 days`;
+            }
+        }
+
         const switchSidebarState = (targetState) => {
             if(targetState === 'checkout' && cart.length === 0) return;
             
@@ -837,12 +930,11 @@ Payments
                 backBtn.classList.remove('hidden');
                 backBtn.onclick = () => switchSidebarState('checkout');
                 
-                // Set total for payment screen
                 let total = 0;
                 cart.forEach(item => total += item.numPrice);
                 document.getElementById('payment-total-display').innerText = `₹${total.toLocaleString('en-IN')}`;
             } else if (targetState === 'success') {
-                titleMayek.innerText = "ꯑꯣꯔꯗꯔ"; titleEng.innerText = "Order Received";
+                titleMayek.innerText = "ꯑꯣꯔꯗꯔ"; titleEng.innerText = "Order Status";
                 backBtn.classList.add('hidden');
             }
             playTock();
@@ -899,7 +991,10 @@ Payments
                     if(data.phone) document.getElementById("dlv-phone").value = data.phone;
                     if(data.address) document.getElementById("dlv-address").value = data.address;
                     if(data.city) document.getElementById("dlv-city").value = data.city;
-                    if(data.pincode) document.getElementById("dlv-pincode").value = data.pincode;
+                    if(data.pincode) {
+                        document.getElementById("dlv-pincode").value = data.pincode;
+                        updateDeliveryEstimate(data.pincode);
+                    }
                 }
             } catch(e) {}
         }
@@ -940,7 +1035,6 @@ Payments
                 }
                 lucide.createIcons();
                 
-                // If cart is emptied while in checkout/payment, push them back to cart
                 if(!document.getElementById('state-checkout').classList.contains('hidden') || !document.getElementById('state-payment').classList.contains('hidden')) {
                     switchSidebarState('cart');
                 }
@@ -1005,7 +1099,6 @@ Payments
                 window.scrollTo(0, parseInt(scrollY || '0'));
                 setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
                 
-                // If closing while in success, reset to cart for next time
                 if(!document.getElementById('state-success').classList.contains('hidden')) {
                     switchSidebarState('cart');
                 }
@@ -1170,13 +1263,11 @@ Payments
             else if (isMobileMenuOpen) toggleMenu(true);
         });
 
-        // CENTRAL RESET LOGIC
         const resetConfirmation = () => {
             const cb = document.getElementById('modal-ack-check');
             if (cb) cb.checked = false;
         };
 
-        // NEW SIZE SELECTION WITH AUTO-SCROLL
         const selectSize = (size) => {
             selectedSize = size;
             document.querySelectorAll('.size-btn').forEach(btn => {
@@ -1198,7 +1289,6 @@ Payments
             }, 150);
         };
 
-        // NEW VISUAL COLOR SELECTION
         const selectColor = (c) => {
             selectedColor = c;
             document.querySelectorAll('.color-option').forEach(el => {
@@ -1215,7 +1305,6 @@ Payments
             playTock();
         };
 
-        // MASTER VALIDATION (HINTS + PREVIEW + BUTTON LOGIC)
         const validateForm = () => {
             const btn = document.getElementById('add-to-cart-btn');
             const hint = document.getElementById('formHint');
@@ -1286,9 +1375,11 @@ Payments
             let city = document.getElementById("dlv-city").value.trim();
             let pincode = document.getElementById("dlv-pincode").value.trim();
 
-            if (!name || !phone || !address || !city || !pincode) return "Please fill all delivery details";
-            if (!/^\d{10}$/.test(phone)) return "Enter valid 10-digit phone number";
-            if (!/^\d{6}$/.test(pincode)) return "Enter valid 6-digit pincode";
+            if (!name) return "Enter your full name";
+            if (!/^[6-9]\d{9}$/.test(phone)) return "Enter a valid 10-digit mobile number";
+            if (address.length < 10) return "Enter a complete address (min 10 chars)";
+            if (!/^\d{6}$/.test(pincode)) return "Enter a valid 6-digit pincode";
+            if (!city) return "Enter your city";
             return null;
         };
 
@@ -1357,11 +1448,8 @@ Payments
                 
                 switchSidebarState('success');
                 
-                // Try to auto-open WhatsApp (some mobile browsers block window.open without direct user click, 
-                // but the giant green button is our fallback safety net).
                 try { window.open(waUrl, '_blank'); } catch(e) {}
                 
-                // Reset cart in background
                 cart = [];
                 localStorage.removeItem('pe_cart');
                 document.getElementById('cart-badge').classList.add('hidden');
@@ -1374,7 +1462,7 @@ Payments
                     btn.innerHTML = `<span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯄꯤꯊꯣꯛꯂꯦ</span><span class="font-inter text-[10px] font-black tracking-[0.3em] uppercase leading-none text-center">I Have Paid</span>`;
                 }
                 
-            }, 800);
+            }, 1500);
         };
 
         const toggleAccordion = (id) => {
@@ -1581,4 +1669,5 @@ Payments
 
 
 ```
+
 
