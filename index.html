@@ -1,4 +1,5 @@
-swpie fixed
+faq
+
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -74,12 +75,19 @@ swpie fixed
             max-height: 300px;
             overflow-y: auto;
         }
+
+        /* Snap Gallery Engine */
+        #modal-images {
+            will-change: transform;
+            touch-action: pan-y pinch-zoom;
+        }
     </style>
 </head>
 <body class="bg-black text-white">
 
     <div id="scroll-progress"></div>
 
+    <!-- LOADER -->
     <div id="loader" class="fixed inset-0 z-[3000] bg-black flex flex-col items-center justify-center">
         <canvas id="matrix-canvas" class="absolute inset-0 opacity-60"></canvas>
         <div id="typewriter-container" class="relative z-10 text-center hidden px-6 flex flex-col items-center w-full">
@@ -88,6 +96,7 @@ swpie fixed
         </div>
     </div>
 
+    <!-- NAVIGATION -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-4 md:py-6 bg-transparent">
         <div class="max-w-7xl mx-auto px-5 md:px-6 flex justify-between items-center text-left">
             <div class="flex flex-col text-left flex-1 min-w-0 pr-4">
@@ -113,6 +122,7 @@ swpie fixed
         </div>
     </nav>
 
+    <!-- MOBILE MENU DROPDOWN -->
     <div id="mobile-menu-overlay" onclick="toggleMenu()" class="fixed inset-0 z-[2400] hidden bg-pe-black/40 backdrop-blur-sm"></div>
     <div id="mobile-menu" class="fixed top-[70px] right-5 w-48 bg-[#0a0a0a] tactical-border z-[2500] hidden flex-col py-2 shadow-2xl rounded-sm">
         <a href="#drop" onclick="toggleMenu()" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
@@ -129,6 +139,7 @@ swpie fixed
         </a>
     </div>
 
+    <!-- CART SIDEBAR -->
     <div id="cart-sidebar-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[3500] invisible opacity-0 transition-all duration-300"></div>
     <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[420px] bg-[#050505] z-[3600] translate-x-full transition-transform duration-300 flex flex-col tactical-border border-r-0 border-y-0">
         <div class="p-6 border-b border-white/10 flex justify-between items-center bg-black">
@@ -140,6 +151,14 @@ swpie fixed
         </div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4 hide-scrollbar bg-[#050505]"></div>
         <div class="p-6 border-t border-white/10 bg-black">
+            <div class="mb-4">
+                <label class="flex items-start gap-3 cursor-pointer group">
+                    <input type="checkbox" id="order-review-check" class="mt-1 accent-pe-red bg-black border border-white/20 w-4 h-4 rounded-sm shrink-0">
+                    <span class="font-inter text-[9px] text-white/40 uppercase tracking-widest leading-relaxed group-hover:text-white/60 transition-colors">
+                        I have reviewed my order details and understand this is a <span class="text-pe-red font-black">made-to-order</span> product.
+                    </span>
+                </label>
+            </div>
             <div class="flex justify-between items-end mb-6">
                 <span class="text-[10px] font-inter font-black tracking-[0.3em] uppercase text-gray-500 mb-1">Total</span>
                 <span id="cart-total" class="text-2xl font-inter font-black tracking-tight text-white leading-none">₹0</span>
@@ -151,6 +170,7 @@ swpie fixed
         </div>
     </div>
 
+    <!-- MAIN PAGE CONTENT -->
     <section class="relative h-[100vh] flex items-center justify-center overflow-hidden w-full">
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=1920" class="ken-burns w-full h-full object-cover opacity-60 grayscale contrast-[1.1]" alt="Hero">
@@ -174,11 +194,12 @@ swpie fixed
         </div>
     </div>
 
+    <!-- MANIFESTO -->
     <section id="manifesto" class="py-20 md:py-32 px-6 manifesto-gradient border-b border-white/5 relative z-10 w-full overflow-hidden">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center text-left">
             <div class="text-left w-full">
                 <div class="mb-10">
-                    <h3 class="font-mayek text-4xl md:text-6xl font-black text-white leading-none mb-3">ꯍꯧꯔꯀꯐꯝ</h3>
+                    <h3 class="font-mayek text-4xl md:text-6xl font-black text-white leading-none mb-3">ꯍꯧꯔꯀꐐꯝ</h3>
                     <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase">Origin Manifesto</h4>
                 </div>
                 <div class="space-y-6 md:space-y-8 text-sm sm:text-base md:text-xl font-light leading-relaxed text-gray-300 border-l border-white/20 pl-6 md:pl-8 text-left w-full">
@@ -193,86 +214,7 @@ swpie fixed
         </div>
     </section>
 
-    <section class="py-20 md:py-32 px-5 md:px-6 border-b border-white/10 bg-neutral-950/50 relative z-10 text-center w-full">
-        <div class="max-w-7xl mx-auto w-full">
-            <div class="mb-12 md:mb-20 flex flex-col items-center">
-                <h3 class="font-mayek text-3xl md:text-4xl font-black text-white leading-none mb-3">ꯒ꯭ꯋꯥꯔꯦꯟꯇꯤ</h3>
-                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-center">Quality Spec</h4>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center w-full">
-                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
-                    <i data-lucide="target" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
-                    <div class="flex flex-col items-center">
-                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯃꯈꯜ ꯐꯕꯥ</span>
-                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Premium Fabric</span>
-                    </div>
-                </div>
-                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
-                    <i data-lucide="shield" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
-                    <div class="flex flex-col items-center">
-                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
-                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Secure Checkout</span>
-                    </div>
-                </div>
-                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
-                    <i data-lucide="locate" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
-                    <div class="flex flex-col items-center">
-                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯌꯧꯍꯟꯕꯥ</span>
-                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Pan India Delivery</span>
-                    </div>
-                </div>
-                <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center space-y-4 text-center">
-                    <i data-lucide="activity" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
-                    <div class="flex flex-col items-center">
-                        <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯃꯤꯠꯌꯦꯡ</span>
-                        <span class="font-inter font-black text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-white/60 text-center">Unit Tracking</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="process" class="py-20 md:py-32 px-5 md:px-6 max-w-7xl mx-auto text-center relative z-10 w-full">
-        <div class="mb-12 md:mb-20 flex flex-col items-center text-center">
-            <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-center">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</h3>
-            <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white uppercase text-center">How To Order</h4>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center w-full">
-            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
-                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">1</span>
-                <i data-lucide="mouse-pointer-click" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
-                <div class="flex flex-col items-center text-center">
-                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯈꯟꯕꯥ</span>
-                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">Select Piece</span>
-                </div>
-            </div>
-            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
-                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">2</span>
-                <i data-lucide="message-circle" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
-                <div class="flex flex-col items-center text-center">
-                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯄꯥꯎ</span>
-                    <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase text-white/60">WA Confirm</span>
-                </div>
-            </div>
-            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
-                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">3</span>
-                <i data-lucide="shield-check" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
-                <div class="flex flex-col items-center text-center">
-                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯁꯦꯟ</span>
-                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">UPI Signature</span>
-                </div>
-            </div>
-            <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-10 flex flex-col items-center justify-center overflow-hidden text-center">
-                <span class="text-6xl md:text-7xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-2 -right-2 font-inter">4</span>
-                <i data-lucide="truck" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110"></i>
-                <div class="flex flex-col items-center text-center">
-                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯌꯧꯔꯛꯄꯥ</span>
-                    <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">Unit Deployed</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- DROP -->
     <section id="drop" class="py-20 md:py-32 px-5 md:px-6 border-t border-white/5 relative z-10 text-left w-full">
         <div id="drop-trigger" class="text-center mb-16 md:mb-24 flex flex-col items-center">
             <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-center">ꯗ ꯗ꯭ꯔꯣꯄ</h3>
@@ -281,25 +223,52 @@ swpie fixed
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-10 text-left w-full max-w-7xl mx-auto px-1"></div>
     </section>
 
+    <!-- FAQ (REGISTRY) -->
     <section id="faq" class="py-20 md:py-32 px-6 border-t border-white/10 relative z-10 text-left w-full overflow-hidden">
-        <div class="max-w-7xl mx-auto text-left w-full">
+        <div class="max-w-5xl mx-auto text-left w-full">
             <div class="mb-12 md:mb-20 flex flex-col text-left items-start">
                 <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-left">ꯄꯥꯎꯈꯨꯝ</h3>
-                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-left">Registry / FAQ</h4>
+                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-left">Registry / What to Expect</h4>
             </div>
-            <div class="space-y-2 text-left w-full">
-                <div class="faq-item grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 text-left py-6 md:py-8 border-b border-white/5">
-                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-black uppercase tracking-widest text-white flex items-start gap-4"><span class="text-pe-white font-mayek text-lg leading-none shrink-0">꯱</span> HOW DO THE PIECES FIT?</div>
-                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-light text-gray-400 leading-relaxed break-words text-left">Designed for a relaxed silhouette. Refer to our size chart inside the product view for exact measurements.</div>
+            
+            <div class="grid grid-cols-1 gap-12 md:gap-16">
+                <!-- Delivery Section -->
+                <div class="space-y-6">
+                    <h3 class="font-inter text-[11px] font-black text-pe-red uppercase tracking-[0.4em] flex items-center gap-3">
+                        <i data-lucide="truck" class="w-4 h-4"></i> Delivery & Shipping
+                    </h3>
+                    <div class="space-y-4 font-inter text-[13px] md:text-sm text-white/60 leading-relaxed max-w-3xl">
+                        <p>Every product is made specially for you after order. We aim for <span class="text-white font-black">4–8 days</span> delivery for Metro cities (Delhi, Mumbai, Bangalore).</p>
+                        <p>For <span class="text-white font-black">Northeast India & Remote Regions</span>, delivery typically takes <span class="text-white font-black">5–10 days</span> depending on India Post serviceability.</p>
+                        <p class="text-[11px] border-l-2 border-pe-red pl-4 italic">Note: While we aim for speed, delays due to weather or courier logistics are outside our direct control.</p>
+                    </div>
                 </div>
-                <div class="faq-item grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 text-left py-6 md:py-8 border-b border-white/5">
-                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-black uppercase tracking-widest text-white flex items-start gap-4"><span class="text-pe-white font-mayek text-lg leading-none shrink-0">꯲</span> WHEN WILL MY ORDER ARRIVE?</div>
-                    <div class="text-[12px] sm:text-[13px] md:text-[15px] font-inter font-light text-gray-400 leading-relaxed break-words text-left">Standard delivery takes 5-7 business days across India. Tracking details are shared via WhatsApp once deployed.</div>
+
+                <!-- Quality & Color Section -->
+                <div class="space-y-6">
+                    <h3 class="font-inter text-[11px] font-black text-pe-red uppercase tracking-[0.4em] flex items-center gap-3">
+                        <i data-lucide="palette" class="w-4 h-4"></i> Product Expectations
+                    </h3>
+                    <div class="space-y-4 font-inter text-[13px] md:text-sm text-white/60 leading-relaxed max-w-3xl">
+                        <p>We promise premium fabric and transparent communication. Note that actual colors may slightly vary from mockups due to screen differences and POD fabric absorption.</p>
+                    </div>
+                </div>
+
+                <!-- Returns Section -->
+                <div class="space-y-6">
+                    <h3 class="font-inter text-[11px] font-black text-pe-red uppercase tracking-[0.4em] flex items-center gap-3">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> Returns & Replacements
+                    </h3>
+                    <div class="space-y-4 font-inter text-[13px] md:text-sm text-white/60 leading-relaxed max-w-3xl">
+                        <p>We support genuine issues: damaged products, printing defects, or wrong items. Please report within <span class="text-white font-black">7 days</span> with an unboxing video.</p>
+                        <p>We cannot cover <span class="text-pe-red">wrong size selection</span> or change of mind as items are printed on demand.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="py-20 md:py-24 px-6 border-t border-white/10 bg-[#050505] relative z-10 text-center md:text-left w-full overflow-hidden">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 md:gap-20 w-full text-left">
             <div class="flex flex-col items-center md:items-start w-full text-left">
@@ -320,11 +289,13 @@ swpie fixed
         </div>
     </footer>
 
+    <!-- PRODUCT MODAL -->
     <div id="product-modal" class="overlay-base fixed inset-0 z-[2000] bg-black invisible opacity-0 flex items-center justify-center md:p-10 cursor-pointer w-full h-[100dvh]">
         <div id="modal-container" class="popup-anim w-full max-w-6xl h-[100dvh] md:h-[85vh] bg-black md:tactical-border overflow-y-auto flex flex-col md:flex-row translate-y-10 cursor-default relative text-left shadow-2xl">
             
+            <!-- SWIPE GALLERY -->
             <div id="swipe-zone" class="relative w-full md:w-3/5 h-[60vh] md:h-full bg-[#050505] overflow-hidden shrink-0">
-                <div id="modal-images" class="flex h-full transition-transform duration-500"></div>
+                <div id="modal-images" class="flex h-full"></div>
                 <button onclick="prevImg()" class="absolute left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/80 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
                 <button onclick="nextImg()" class="absolute right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/80 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
                 <div id="image-dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"></div>
@@ -372,28 +343,56 @@ swpie fixed
                         <div id="wash-body" class="text-[10px] md:text-[11px] font-inter font-light leading-relaxed text-gray-300 w-full break-words whitespace-pre-wrap uppercase tracking-wider"></div>
                     </div>
 
+                    <!-- REFINED SIZE GUIDE SECTION -->
                     <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
                             <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯆꯥꯡ</span>
-                            <span class="font-inter text-[9px] tracking-widest uppercase text-white/40 font-bold leading-none">Size Chart</span>
+                            <span class="font-inter text-[9px] tracking-widest uppercase text-white/40 font-bold leading-none">Size Chart & Guide</span>
                         </div>
                         <i id="icon-size" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
                     </button>
 
                     <div id="accordion-size" class="hidden py-6 w-full border-b border-white/10 bg-[#050505] px-4 rounded-sm overflow-x-auto text-left">
-                        <table class="w-full text-left min-w-[250px] text-[10px] font-inter font-bold text-white/80">
-                          <tr class="border-b border-white/10">
-                            <th class="py-3 text-pe-red uppercase text-sm font-mayek">ꯆꯥꯡ <span class="font-inter text-[8px] text-white/50 ml-1 tracking-widest">SIZE</span></th>
-                            <th class="uppercase font-inter text-pe-red">CHEST (IN)</th>
-                            <th class="uppercase font-inter text-pe-red">LENGTH (IN)</th>
-                          </tr>
-                          <tr class="border-b border-white/5 font-inter text-white/70"><td>S <span class="text-[8px] text-white/40">(Small)</span></td><td>38"</td><td>26"</td></tr>
-                          <tr class="border-b border-white/5 font-inter text-white/70"><td>M <span class="text-[8px] text-white/40">(Medium)</span></td><td>40"</td><td>27"</td></tr>
-                          <tr class="border-b border-white/5 font-inter text-white/70"><td>L <span class="text-[8px] text-white/40">(Large)</span></td><td>42"</td><td>28"</td></tr>
-                          <tr class="border-b border-white/5 font-inter text-white/70"><td>XL <span class="text-[8px] text-white/40">(X-Large)</span></td><td>44"</td><td>29"</td></tr>
-                          <tr class="border-b border-white/5 font-inter text-white/70"><td>XXL <span class="text-[8px] text-white/40">(XX-Large)</span></td><td>46"</td><td>30"</td></tr>
-                        </table>
-                        <p class="text-[9px] font-inter text-white/40 mt-4">Measurements may vary ±1 inch. For a relaxed fit, choose one size up.</p>
+                        <div class="space-y-6">
+                            <table class="w-full text-left min-w-[250px] text-[10px] font-inter font-bold text-white/80">
+                              <tr class="border-b border-white/10">
+                                <th class="py-3 text-pe-red uppercase text-sm font-mayek">ꯆꯥꯡ <span class="font-inter text-[8px] text-white/50 ml-1 tracking-widest">SIZE</span></th>
+                                <th class="uppercase font-inter text-pe-red">CHEST (IN)</th>
+                                <th class="uppercase font-inter text-pe-red">LENGTH (IN)</th>
+                              </tr>
+                              <tr class="border-b border-white/5 font-inter text-white/70"><td>S <span class="text-[8px] text-white/40">(Small)</span></td><td>38"</td><td>26"</td></tr>
+                              <tr class="border-b border-white/5 font-inter text-white/70"><td>M <span class="text-[8px] text-white/40">(Medium)</span></td><td>40"</td><td>27"</td></tr>
+                              <tr class="border-b border-white/5 font-inter text-white/70"><td>L <span class="text-[8px] text-white/40">(Large)</span></td><td>42"</td><td>28"</td></tr>
+                              <tr class="border-b border-white/5 font-inter text-white/70"><td>XL <span class="text-[8px] text-white/40">(X-Large)</span></td><td>44"</td><td>29"</td></tr>
+                              <tr class="border-b border-white/5 font-inter text-white/70"><td>XXL <span class="text-[8px] text-white/40">(XX-Large)</span></td><td>46"</td><td>30"</td></tr>
+                            </table>
+                            
+                            <div class="space-y-4 font-inter text-[10px] uppercase tracking-wider text-white/60">
+                                <h4 class="text-white font-black">How to choose your Correct Size</h4>
+                                <p>Lay a flat t-shirt you already wear. Measure from pit to pit and multiply by 2. Compare with chart above.</p>
+                                <h4 class="text-white font-black">Quick Guidance</h4>
+                                <p>✔ Medium (M) in most brands → choose M</p>
+                                <p>✔ Large (L) and prefer relaxed fit → choose L or XL</p>
+                                <p>✔ Between sizes → Go one size up for comfort.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SHOPPING PROTOCOL -->
+                    <button id="btn-protocol" onclick="toggleAccordion('protocol')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
+                        <div class="flex flex-col text-left">
+                            <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5 transition-colors">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
+                            <span class="font-inter text-[9px] tracking-widest uppercase text-pe-red/60 font-bold leading-none">Shopping Protocol</span>
+                        </div>
+                        <i id="icon-protocol" data-lucide="shield-alert" class="w-5 h-5 text-pe-red/40 group-hover:text-pe-red transition-colors"></i>
+                    </button>
+                    <div id="accordion-protocol" class="hidden py-6 text-left w-full border-b border-white/10 bg-pe-red/5 px-4 rounded-sm">
+                        <div class="space-y-4 font-inter text-[10px] md:text-[11px] leading-relaxed text-gray-400 uppercase tracking-wider">
+                            <p><span class="text-white font-bold">● Quality:</span> Every piece is crafted with premium fabrics. We treat our art with respect and hope you do too.</p>
+                            <p><span class="text-white font-bold">● No COD:</span> As a small, root-driven project, we currently only accept prepaid orders to ensure committed delivery.</p>
+                            <p><span class="text-white font-bold">● Returns:</span> We humble ask you to double-check your size. We cannot accept returns for size differences as each unit is processed specifically for you.</p>
+                            <p><span class="text-white font-bold">● Checkout:</span> After selecting your variant, click Add to Cart. You will checkout via WhatsApp where our team will assist you personally.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -401,35 +400,20 @@ swpie fixed
         <button onclick="closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-2 md:p-3 text-left"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
     </div>
 
+    <!-- AI CHAT BOT -->
     <div id="ai-bot-trigger" class="fixed bottom-6 right-6 z-[150] bot-bubble w-14 h-14 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center cursor-pointer transition-all p-1 overflow-hidden shadow-2xl">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="55" r="32" fill="#FFE0BD"/><path d="M50 23 Q 55 10 60 18" fill="none" stroke="#4a3000" stroke-width="2.5"/><circle cx="42" cy="48" r="4.5" fill="#000"/><circle cx="58" cy="48" r="4.5" fill="#000"/><circle cx="36" cy="58" r="6" fill="#FFADAD" opacity="0.4"/><circle cx="64" cy="58" r="6" fill="#FFADAD" opacity="0.4"/><g transform="rotate(-10 50 70)"><rect x="42" y="55" width="16" height="28" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5" /><rect x="42" y="55" width="16" height="4" fill="#88FF88" stroke="#000" stroke-width="1"/><line x1="45" y1="62" x2="55" y2="62" stroke="#0000FF" stroke-width="1" opacity="0.3"/><line x1="45" y1="68" x2="55" y2="68" stroke="#0000FF" stroke-width="1" opacity="0.3"/></g><path d="M30 65 Q 40 75 48 70" fill="none" stroke="#000" stroke-width="2.5"/><path d="M70 65 Q 60 75 52 70" fill="none" stroke="#000" stroke-width="2.5"/></svg>
     </div>
 
-    <div id="ai-chat-modal" class="invisible opacity-0 fixed inset-0 z-[2800] bg-black/80 flex items-end md:items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden w-full h-[100dvh]" onclick="if(event.target === this) toggleAIChat()">
-        <div id="chat-container" class="popup-anim w-full md:max-w-md bg-[#050505] tactical-border h-[80vh] md:h-[600px] flex flex-col rounded-t-xl md:rounded-xl overflow-hidden cursor-default translate-y-20">
-            <div class="p-6 bg-white text-black flex justify-between items-center shrink-0 text-left"><div class="flex items-center gap-3 text-left"><span class="text-2xl text-left">👶</span><div class="flex flex-col text-left"><span class="font-mayek font-black text-pe-red text-lg leading-none mb-0.5 text-left">ꯄꯨꯔꯩ</span><span class="font-inter font-black text-[9px] tracking-widest uppercase text-black/60 text-left text-left">Purei</span></div></div><button onclick="toggleAIChat()" class="text-black/50 hover:text-pe-red transition-colors p-2 text-left"><i data-lucide="x"></i></button></div>
-            <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 bg-black font-inter text-[13px] md:text-sm leading-relaxed hide-scrollbar text-white w-full break-words text-left"></div>
-            <div class="p-4 border-t border-white/5 bg-[#050505] shrink-0 text-left"><div class="flex gap-2 text-left"><input id="chat-input" type="text" placeholder="Ask Purei..." class="flex-grow bg-white/5 p-4 text-sm outline-none focus:border-pe-red border border-transparent transition-colors font-inter text-white rounded-sm w-full text-left"><button onclick="sendMessage()" class="bg-white text-black px-5 active:scale-95 transition-transform rounded-sm shrink-0 text-left"><i data-lucide="send" class="w-5 h-5"></i></button></div></div>
-        </div>
-    </div>
-
+    <!-- SCRIPTS -->
     <script>
-        // 1. Logic Metadata
+        // Logic Metadata
         const COLOR_MAP = {
-            "Light Baby Pink": "#FFD1DC",
-            "Flamingo": "#F19CBB",
-            "Baby Blue": "#89CFF0",
-            "Lavender": "#E6E6FA",
-            "Maroon": "#500000",
-            "Navy Blue": "#000080",
-            "Black": "#000000",
-            "White": "#FFFFFF",
-            "Off White": "#FAF9F6",
-            "Bottle Green": "#006A4E",
-            "Red": "#FF0000",
-            "Jade": "#00A86B",
-            "Yellow": "#FFD600",
-            "Grey": "#9CA3AF"
+            "Light Baby Pink": "#FFD1DC", "Flamingo": "#F19CBB", "Baby Blue": "#89CFF0",
+            "Lavender": "#E6E6FA", "Maroon": "#500000", "Navy Blue": "#000080",
+            "Black": "#000000", "White": "#FFFFFF", "Off White": "#FAF9F6",
+            "Bottle Green": "#006A4E", "Red": "#FF0000", "Jade": "#00A86B",
+            "Yellow": "#FFD600", "Grey": "#9CA3AF"
         };
 
         const SALAI_COLORS = ["#FF3B30", "#FFFFFF", "#444444", "#FFD600", "#FF47B6", "#A100FF", "#00D1FF"];
@@ -439,13 +423,11 @@ swpie fixed
         let currentProdIdx = 0, currentImgIdx = 0;
         let selectedSize = 'M', selectedColor = null;
         let audioCtx, hardwareReady = false, isAddingToCart = false;
-        const apiKey = "";
 
-        // Swipe Variables
-        let touchStartX = 0;
-        let touchEndX = 0;
+        // Premium Swipe State
+        let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
 
-        // 2. Data Engine
+        // Data Engine
         async function loadRegistry() {
             try {
                 const res = await fetch('./data/products.json');
@@ -457,7 +439,6 @@ swpie fixed
             }
         }
 
-        // 3. UI Helpers
         const splitName = (name) => {
             const match = name.match(/^([ꯀ-꯿\s]+)\s+(.*)$/);
             if(match) return { mayek: match[1].trim(), eng: match[2].trim() };
@@ -513,13 +494,10 @@ swpie fixed
             if (isOpen) {
                 sidebar.classList.add('translate-x-full');
                 overlay.classList.add('invisible', 'opacity-0');
-                
-                // RESTORE SCROLL: Disable smooth temporarily to avoid jumping/sliding visual
                 const scrollY = document.body.dataset.scrollY;
                 document.documentElement.classList.remove('scroll-smooth');
                 document.body.style.position = '';
                 document.body.style.top = '';
-                document.body.style.width = '';
                 window.scrollTo(0, parseInt(scrollY || '0'));
                 setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
             } else {
@@ -529,7 +507,6 @@ swpie fixed
                 document.body.style.position = 'fixed';
                 document.body.style.top = `-${scrollY}px`;
                 document.body.style.width = '100%';
-                
                 sidebar.classList.remove('translate-x-full');
                 overlay.classList.remove('invisible', 'opacity-0');
             }
@@ -544,7 +521,7 @@ swpie fixed
             overlay.classList.toggle('hidden');
         };
 
-        // 4. Modal Engine
+        // Modal Engine
         const openModal = (idx) => {
             currentProdIdx = idx; currentImgIdx = 0; selectedColor = null; selectedSize = 'M';
             const p = PRODUCT_DATA[idx];
@@ -554,14 +531,13 @@ swpie fixed
             document.getElementById('modal-price').innerText = p.price;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('lore-body').innerText = p.lore;
-
             document.getElementById('details-body').innerText = p.details || "Details coming soon...";
             document.getElementById('wash-body').innerText = p.wash || "Handle with care.";
             
             document.getElementById('btn-details').style.display = p.details ? 'flex' : 'none';
             document.getElementById('btn-wash').style.display = p.wash ? 'flex' : 'none';
 
-            ['lore', 'details', 'wash', 'size'].forEach(s => {
+            ['lore', 'details', 'wash', 'size', 'protocol'].forEach(s => {
                 document.getElementById(`accordion-${s}`).classList.add('hidden');
                 document.getElementById(`icon-${s}`).classList.remove('rotate-180');
             });
@@ -599,7 +575,6 @@ swpie fixed
             updateBuyButtonState();
             lucide.createIcons();
             
-            // SAVE SCROLL POSITION
             const scrollY = window.scrollY;
             document.body.dataset.scrollY = scrollY;
             document.body.style.position = 'fixed';
@@ -610,64 +585,63 @@ swpie fixed
             document.getElementById('product-modal').classList.add('opacity-100');
             document.getElementById('modal-container').classList.remove('translate-y-10');
 
-            // Attach swipe events
+            // Attach premium swipe listeners
             const swipeZone = document.getElementById('swipe-zone');
-            swipeZone.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive: true});
-            swipeZone.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleGallerySwipe();
-            }, {passive: true});
+            swipeZone.addEventListener('touchstart', touchStart, {passive: true});
+            swipeZone.addEventListener('touchmove', touchMove, {passive: true});
+            swipeZone.addEventListener('touchend', touchEnd);
         };
 
-        const handleGallerySwipe = () => {
-            const threshold = 50;
-            if (touchStartX - touchEndX > threshold) {
-                nextImg(); // Swiped left
-            } else if (touchEndX - touchStartX > threshold) {
-                prevImg(); // Swiped right
-            }
-        };
+        // Swipe Functionality
+        function touchStart(e) { startX = e.touches[0].clientX; isDragging = true; animationID = requestAnimationFrame(animation); document.getElementById('modal-images').style.transition = 'none'; }
+        function touchMove(e) { if (isDragging) { const currentX = e.touches[0].clientX; currentTranslate = prevTranslate + currentX - startX; } }
+        function touchEnd() {
+            isDragging = false; cancelAnimationFrame(animationID);
+            const imgContainer = document.getElementById('modal-images');
+            imgContainer.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+            const movedBy = currentTranslate - prevTranslate;
+            if (movedBy < -100 && currentImgIdx < PRODUCT_DATA[currentProdIdx].images.length - 1) currentImgIdx++;
+            else if (movedBy > 100 && currentImgIdx > 0) currentImgIdx--;
+            setPositionByIndex();
+        }
+        function animation() { setSliderPosition(); if (isDragging) requestAnimationFrame(animation); }
+        function setSliderPosition() { document.getElementById('modal-images').style.transform = `translateX(${currentTranslate}px)`; }
+        function setPositionByIndex() {
+            currentTranslate = currentImgIdx * -document.getElementById('swipe-zone').offsetWidth;
+            prevTranslate = currentTranslate;
+            setSliderPosition();
+            updateDots();
+        }
 
         const closeModal = () => {
             document.getElementById('product-modal').classList.add('invisible');
             document.getElementById('product-modal').classList.remove('opacity-100');
-            document.getElementById('modal-container').classList.add('translate-y-10');
-            
-            // RESTORE SCROLL: Instantly return to position
             const scrollY = document.body.dataset.scrollY;
             document.documentElement.classList.remove('scroll-smooth');
             document.body.style.position = '';
             document.body.style.top = '';
-            document.body.style.width = '';
             window.scrollTo(0, parseInt(scrollY || '0'));
             setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
-            
             playTock();
         };
 
         const selectSize = (size) => {
             selectedSize = size;
             document.querySelectorAll('.size-btn').forEach(btn => {
-                if (btn.dataset.size === size) { btn.classList.add('bg-white', 'text-black', 'border-white'); btn.classList.remove('text-white', 'border-white/20'); }
-                else { btn.classList.remove('bg-white', 'text-black', 'border-white'); btn.classList.add('text-white', 'border-white/20'); }
+                if (btn.dataset.size === size) btn.classList.add('bg-white', 'text-black', 'border-white');
+                else btn.classList.remove('bg-white', 'text-black', 'border-white');
             });
-            updateBuyButtonState();
-            playTock();
+            updateBuyButtonState(); playTock();
         };
 
-        const toggleColorDropdown = () => {
-            document.getElementById('color-dropdown-list').classList.toggle('open');
-            playTock();
-        };
-
+        const toggleColorDropdown = () => { document.getElementById('color-dropdown-list').classList.toggle('open'); playTock(); };
         const selectColor = (c) => {
             selectedColor = c;
             document.getElementById('selected-color-name').innerText = c;
             document.getElementById('selected-color-name').classList.replace('text-white/60', 'text-white');
             document.getElementById('selected-color-swatch').style.backgroundColor = COLOR_MAP[c];
             document.getElementById('color-dropdown-list').classList.remove('open');
-            updateBuyButtonState();
-            playTock();
+            updateBuyButtonState(); playTock();
         };
 
         const updateBuyButtonState = () => {
@@ -675,14 +649,12 @@ swpie fixed
             if (!btn) return;
             const p = PRODUCT_DATA[currentProdIdx];
             const inCart = cart.find(item => item.id === p.id && item.size === selectedSize && item.color === selectedColor);
-
             if (!selectedColor) {
                 btn.disabled = true;
                 btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all opacity-40 cursor-not-allowed bg-neutral-900 border border-white/10 text-center";
                 btn.innerHTML = `<span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase">Select Color First</span>`;
                 return;
             }
-
             btn.disabled = false;
             if (inCart) {
                 btn.onclick = () => removeFromCartByVariant(p.id, selectedSize, selectedColor);
@@ -703,21 +675,22 @@ swpie fixed
         const addToCart = () => {
             const p = PRODUCT_DATA[currentProdIdx];
             cart.push({
-                id: p.id,
-                name: p.name,
-                price: p.price,
+                id: p.id, name: p.name, price: p.price,
                 numPrice: parseInt(p.price.replace(/[^0-9]/g, '')),
-                size: selectedSize,
-                color: selectedColor,
-                image: p.images[0]
+                size: selectedSize, color: selectedColor, image: p.images[0]
             });
-            saveCart();
-            updateBuyButtonState();
-            playTock();
+            saveCart(); updateBuyButtonState(); playTock();
         };
 
         const checkoutCart = () => {
             if (cart.length === 0) return;
+            const reviewed = document.getElementById('order-review-check').checked;
+            if (!reviewed) {
+                const label = document.getElementById('order-review-check').parentElement;
+                label.classList.add('bg-pe-red/20');
+                setTimeout(() => label.classList.remove('bg-pe-red/20'), 500);
+                return;
+            }
             playTock();
             let message = "Hi PE! I would like to place an order:%0A%0A";
             let total = 0;
@@ -730,49 +703,49 @@ swpie fixed
         };
 
         const toggleAccordion = (id) => {
-            playTock();
-            const sections = ['lore', 'details', 'wash', 'size'];
+            const sections = ['lore', 'details', 'wash', 'size', 'protocol'];
             sections.forEach(s => {
                 const el = document.getElementById(`accordion-${s}`);
                 const icon = document.getElementById(`icon-${s}`);
-                if(s === id) {
-                    el.classList.toggle('hidden');
-                    icon.classList.toggle('rotate-180');
-                } else {
-                    el.classList.add('hidden');
-                    icon.classList.remove('rotate-180');
-                }
+                if(s === id) { el.classList.toggle('hidden'); icon.classList.toggle('rotate-180'); }
+                else { el.classList.add('hidden'); icon.classList.remove('rotate-180'); }
             });
+            playTock();
         };
 
         const updateGallery = () => {
             const p = PRODUCT_DATA[currentProdIdx];
             const container = document.getElementById('modal-images');
-            container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0 text-left">`).join('');
-            container.style.transform = `translateX(-${currentImgIdx * 100}%)`;
-            document.getElementById('image-dots').innerHTML = p.images.map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'} text-left"></div>`).join('');
+            container.innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0 pointer-events-none">`).join('');
+            currentTranslate = 0; prevTranslate = 0; container.style.transform = `translateX(0px)`;
+            updateDots();
         };
 
-        const nextImg = () => { currentImgIdx = (currentImgIdx + 1) % PRODUCT_DATA[currentProdIdx].images.length; updateGallery(); playTock(); };
-        const prevImg = () => { currentImgIdx = (currentImgIdx - 1 + PRODUCT_DATA[currentProdIdx].images.length) % PRODUCT_DATA[currentProdIdx].images.length; updateGallery(); playTock(); };
+        const updateDots = () => {
+            const p = PRODUCT_DATA[currentProdIdx];
+            document.getElementById('image-dots').innerHTML = p.images.map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'}"></div>`).join('');
+        };
+
+        const nextImg = () => { if (currentImgIdx < PRODUCT_DATA[currentProdIdx].images.length - 1) { currentImgIdx++; setPositionByIndex(); playTock(); } };
+        const prevImg = () => { if (currentImgIdx > 0) { currentImgIdx--; setPositionByIndex(); playTock(); } };
 
         const renderGrid = () => {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = PRODUCT_DATA.map((p, idx) => {
                 const nameParts = splitName(p.name);
                 return `
-                <div class="group cursor-pointer flex flex-col relative text-left" onclick="openModal(${idx})">
-                    <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm text-left">
-                        <img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 text-left">
+                <div class="group cursor-pointer flex flex-col relative" onclick="openModal(${idx})">
+                    <div class="aspect-[4/5] bg-neutral-900 overflow-hidden relative mb-4 rounded-sm">
+                        <img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
-                    <div class="space-y-1 px-1 text-left">
+                    <div class="space-y-1 px-1">
                         <span class="block font-mayek text-[13px] md:text-[15px] text-white leading-tight truncate text-left">${nameParts.mayek}</span>
                         <span class="block font-inter text-[8px] text-white/50 tracking-[0.2em] font-bold uppercase truncate mb-3 text-left">${nameParts.eng}</span>
-                        <div class="flex justify-between items-center border-t border-white/5 pt-3 text-left">
-                            <span class="text-xs font-inter font-light text-white/80 text-left">₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}</span>
-                            <div class="flex flex-col items-end text-right shrink-0">
-                                <span class="font-mayek text-pe-red text-[11px] font-black leading-none mb-1 uppercase tracking-widest text-left">ꯑꯀꯨꯞꯄ</span>
-                                <span class="font-inter text-[7px] text-white/40 tracking-[0.2em] font-black uppercase leading-none text-left">Details</span>
+                        <div class="flex justify-between items-center border-t border-white/5 pt-3">
+                            <span class="text-xs font-inter font-light text-white/80">₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}</span>
+                            <div class="flex flex-col items-end text-right">
+                                <span class="font-mayek text-pe-red text-[11px] font-black leading-none mb-1 uppercase tracking-widest">ꯑꯀꯨꯞꯄ</span>
+                                <span class="font-inter text-[7px] text-white/40 tracking-[0.2em] font-black uppercase leading-none">Details</span>
                             </div>
                         </div>
                     </div>
@@ -780,22 +753,17 @@ swpie fixed
             }).join('');
         };
 
-        // 5. Special Effects (Particles & Matrix)
+        // Splash Effects
         const handleInteraction = (e) => {
             if(document.getElementById('loader').style.display !== 'none') return;
-            primeHardware();
-            playTock();
-            const x = e.clientX || (e.touches && e.touches[0].clientX);
-            const y = e.clientY || (e.touches && e.touches[0].clientY);
+            primeHardware(); playTock();
+            const x = e.clientX || (e.touches && e.touches[0].clientX), y = e.clientY || (e.touches && e.touches[0].clientY);
             if(!x || !y) return;
-
             const mayekChars = "ꯀꯁꯂꯃꯄꯅꯆꯇꯈꯉꯊꯋꯌꯍꯎꯏꯐꯑꯒꯓꯔꯕꯖꯗꯘꯙꯚ";
             for(let i=0; i<6; i++) {
                 const p = document.createElement('div');
-                p.className = 'particle';
-                p.innerText = mayekChars[Math.floor(Math.random()*mayekChars.length)];
-                p.style.left = `${x}px`;
-                p.style.top = `${y}px`;
+                p.className = 'particle'; p.innerText = mayekChars[Math.floor(Math.random()*mayekChars.length)];
+                p.style.left = `${x}px`; p.style.top = `${y}px`;
                 p.style.color = SALAI_COLORS[Math.floor(Math.random()*SALAI_COLORS.length)];
                 p.style.setProperty('--tx', `${(Math.random()-0.5)*200}px`);
                 p.style.setProperty('--ty', `${-150-Math.random()*200}px`);
@@ -808,18 +776,15 @@ swpie fixed
         window.addEventListener('mousedown', handleInteraction);
         window.addEventListener('touchstart', handleInteraction, {passive:true});
 
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
+        // Matrix Engine
+        const canvas = document.getElementById('matrix-canvas'), ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         const fontSize = 22, columns = Math.floor(canvas.width / fontSize), drops = new Array(columns).fill(1);
-        const matrixChars = "ꯀꯁꯂꯃꯄꯅ";
-
         const drawM = () => {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.font = `bold ${fontSize}px "Noto Sans Meelei Mayek"`;
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.font = `bold ${fontSize}px "Noto Sans Meetei Mayek"`;
             drops.forEach((d, i) => {
-                const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                const char = "ꯀꯁꯂꯃꯄꯅ"[Math.floor(Math.random() * 6)];
                 const x = i * fontSize, y = d * fontSize;
                 ctx.fillStyle = '#FFFFFF'; ctx.fillText(char, x, y);
                 ctx.fillStyle = '#FF3B30'; ctx.fillText(char, x, y - fontSize);
@@ -828,14 +793,6 @@ swpie fixed
             });
         };
         const mInt = setInterval(drawM, 50);
-
-        const typewrite = (t, id, s, cb) => {
-            let i = 0; const el = document.getElementById(id);
-            const tmr = setInterval(() => {
-                if(i < t.length) { el.innerHTML += t.charAt(i); i++; }
-                else { clearInterval(tmr); if(cb) cb(); }
-            }, s);
-        };
 
         window.onload = () => {
             loadRegistry();
@@ -851,19 +808,20 @@ swpie fixed
             }, 2000);
         };
 
-        const primeHardware = () => { 
-            if (hardwareReady) return; 
-            if (navigator.vibrate) navigator.vibrate(10); 
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); 
-            if (audioCtx.state === 'suspended') audioCtx.resume(); 
-            hardwareReady = true; 
+        const typewrite = (t, id, s, cb) => {
+            let i = 0; const el = document.getElementById(id);
+            const tmr = setInterval(() => {
+                if(i < t.length) { el.innerHTML += t.charAt(i); i++; }
+                else { clearInterval(tmr); if(cb) cb(); }
+            }, s);
         };
+
+        const primeHardware = () => { if (!hardwareReady) { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); hardwareReady = true; } };
         window.addEventListener('pointerdown', primeHardware, { capture: true, once: true });
 
         const playTock = () => {
-            primeHardware();
             if (navigator.vibrate) navigator.vibrate(10);
-            if (!audioCtx) return;
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const o = audioCtx.createOscillator(), g = audioCtx.createGain();
             o.type = 'sine'; o.frequency.setValueAtTime(150, audioCtx.currentTime);
             g.gain.setValueAtTime(0.05, audioCtx.currentTime);
@@ -875,53 +833,10 @@ swpie fixed
         window.onscroll = () => {
             const nav = document.getElementById('navbar');
             const progress = document.getElementById('scroll-progress');
-            const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            progress.style.width = (window.scrollY / scrollTotal) * 100 + '%';
+            progress.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 + '%';
             if(window.scrollY > 50) nav.classList.add('glass', 'tactical-border');
             else nav.classList.remove('glass', 'tactical-border');
         };
-
-        const toggleAIChat = () => {
-            const m = document.getElementById('ai-chat-modal');
-            const cont = document.getElementById('chat-container');
-            const isOpen = !m.classList.contains('invisible');
-            playTock();
-            if (!isOpen) {
-                m.classList.remove('invisible'); m.classList.add('opacity-100');
-                cont.classList.remove('translate-y-20');
-            } else {
-                m.classList.add('invisible'); m.classList.remove('opacity-100');
-                cont.classList.add('translate-y-20');
-            }
-        };
-
-        async function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const container = document.getElementById('chat-messages');
-            const raw = input.value.trim();
-            if (!raw) return;
-            playTock();
-            
-            const userMsg = document.createElement('div');
-            userMsg.className = "bg-white/5 p-4 tactical-border ml-12 text-white font-medium rounded-sm mb-4 text-left";
-            userMsg.innerText = raw;
-            container.appendChild(userMsg);
-            input.value = "";
-            container.scrollTop = container.scrollHeight;
-
-            if(raw.toUpperCase().includes("THON THON")) {
-                setTimeout(() => {
-                    const botMsg = document.createElement('div');
-                    botMsg.className = "bg-neutral-900 p-4 border-l-2 border-pe-red mr-12 text-white font-medium rounded-sm text-left";
-                    botMsg.innerText = "Purei: I love you mumma🥰😘";
-                    container.appendChild(botMsg);
-                    container.scrollTop = container.scrollHeight;
-                    playTock();
-                }, 600);
-                return;
-            }
-        }
-        document.getElementById('ai-bot-trigger').onclick = toggleAIChat;
     </script>
 </body>
 </html>
