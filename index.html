@@ -1,4 +1,5 @@
-New words
+Payments
+
 
 ```html
 <!DOCTYPE html>
@@ -66,19 +67,67 @@ New words
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         img { image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
 
-        .custom-dropdown-list {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .custom-dropdown-list { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .custom-dropdown-list.open { max-height: 300px; overflow-y: auto; }
+        #modal-images { will-change: transform; touch-action: pan-y pinch-zoom; }
+
+        /* CUSTOM CHECKBOX CSS */
+        .custom-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.8);
         }
-        .custom-dropdown-list.open {
-            max-height: 300px;
-            overflow-y: auto;
+        .custom-check input { display: none; }
+        .checkmark {
+            width: 18px;
+            height: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            background: transparent;
+            position: relative;
+            flex-shrink: 0;
+            margin-top: 1px;
+            transition: all 0.2s ease;
+        }
+        .custom-check input:checked + .checkmark {
+            background: #fff;
+            border-color: #fff;
+        }
+        .custom-check input:checked + .checkmark::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid #000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
         }
 
-        #modal-images {
-            will-change: transform;
-            touch-action: pan-y pinch-zoom;
+        /* PREMIUM COLOR SWATCHES */
+        .color-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .color-option.active {
+            border-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .swatch {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -138,40 +187,163 @@ New words
         </a>
     </div>
 
-    <!-- CART SIDEBAR -->
+    <!-- SEMI-AUTOMATED CHECKOUT FUNNEL (SIDEBAR) -->
     <div id="cart-sidebar-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[3500] invisible opacity-0 transition-all duration-300"></div>
     <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[420px] bg-[#050505] z-[3600] translate-x-full transition-transform duration-300 flex flex-col tactical-border border-r-0 border-y-0">
-        <div class="p-6 border-b border-white/10 flex justify-between items-center bg-black">
-            <div class="flex flex-col text-left">
-                <h2 class="font-mayek text-2xl text-white font-black leading-none mb-1">ꯀꯥꯔꯠ</h2>
-                <span class="font-inter text-[9px] text-white/60 tracking-[0.4em] font-black uppercase leading-none">Cart</span>
+        
+        <!-- Funnel Header -->
+        <div class="p-6 border-b border-white/10 flex justify-between items-center bg-black shrink-0 relative z-20">
+            <div class="flex items-center gap-3">
+                <button id="cart-back-btn" onclick="goBackInFunnel()" class="hidden text-white/50 hover:text-white transition-colors p-1 -ml-1"><i data-lucide="arrow-left" class="w-5 h-5"></i></button>
+                <div class="flex flex-col text-left">
+                    <h2 id="cart-main-title" class="font-mayek text-2xl text-white font-black leading-none mb-1 transition-colors">ꯀꯥꯔꯠ</h2>
+                    <span id="cart-sub-title" class="font-inter text-[9px] text-white/60 tracking-[0.4em] font-black uppercase leading-none transition-colors">Cart Checkout</span>
+                </div>
             </div>
             <button onclick="toggleCart()" class="text-white/50 hover:text-pe-red bg-white/5 rounded-full p-2 transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
-        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4 hide-scrollbar bg-[#050505]"></div>
-        <div class="p-6 border-t border-white/10 bg-black">
-            <!-- UPGRADED CHECKOUT CONFIRMATION -->
-            <div class="mb-4 bg-[#0f0f0f] p-4 rounded-lg border border-white/5">
-                <label class="flex items-start gap-3 cursor-pointer group">
-                    <input type="checkbox" id="order-review-check" class="mt-0.5 accent-white bg-black border border-white/20 w-4 h-4 rounded-sm shrink-0">
-                    <span class="font-inter text-[10px] text-white/70 leading-relaxed group-hover:text-white transition-colors select-none">
-                        I've reviewed my final order details and am ready to proceed.
-                    </span>
-                </label>
+
+        <!-- STATE 1: CART ITEMS -->
+        <div id="state-cart" class="flex flex-col h-full overflow-hidden bg-[#050505]">
+            <div class="flex-grow overflow-y-auto hide-scrollbar p-6">
+                <div id="cart-items-wrapper" class="space-y-4"></div>
             </div>
-            <div class="flex justify-between items-end mb-6">
-                <span class="text-[10px] font-inter font-black tracking-[0.3em] uppercase text-gray-500 mb-1">Total</span>
-                <span id="cart-total" class="text-2xl font-inter font-black tracking-tight text-white leading-none">₹0</span>
+            <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
+                <div class="flex justify-between items-end mb-5">
+                    <span class="text-[10px] font-inter font-black tracking-[0.3em] uppercase text-gray-500 mb-1">Subtotal</span>
+                    <span id="cart-total" class="text-2xl font-inter font-black tracking-tight text-white leading-none">₹0</span>
+                </div>
+                <button id="proceedToCheckoutBtn" onclick="switchSidebarState('checkout')" class="w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center hover:bg-gray-100 cursor-pointer">
+                    <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span>
+                    <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none text-center">Proceed to Checkout</span>
+                </button>
             </div>
-            <button onclick="checkoutCart()" class="w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm hover:bg-gray-100 cursor-pointer shadow-xl">
-                <span class="font-mayek text-lg font-black leading-none mb-1.5">ꯂꯧꯁꯤꯟꯕꯥ</span>
-                <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none">Checkout via WhatsApp</span>
-            </button>
-            <!-- NEW MICRO TRUST LINE IN CART -->
-            <p class="text-[9px] text-white/40 text-center mt-3 font-inter tracking-wide">
-                Orders are verified manually before processing for accuracy.
-            </p>
         </div>
+
+        <!-- STATE 2: CHECKOUT DETAILS -->
+        <div id="state-checkout" class="hidden flex-col h-full overflow-hidden bg-[#050505]">
+            <div class="flex-grow overflow-y-auto hide-scrollbar p-6 space-y-6 text-left">
+                <!-- Delivery Form -->
+                <div class="border border-white/10 rounded-sm p-5 bg-[#0a0a0a]">
+                    <h3 class="font-inter text-white font-bold text-[11px] uppercase tracking-widest mb-4">Delivery Details</h3>
+                    <div class="space-y-3">
+                        <input id="dlv-name" placeholder="Full Name" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter focus:border-pe-red transition-colors outline-none" oninput="saveUserData(); validateCheckoutForm()">
+                        <input id="dlv-phone" placeholder="Phone Number (10 digits)" type="tel" maxlength="10" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter focus:border-pe-red transition-colors outline-none" oninput="saveUserData(); validateCheckoutForm()">
+                        <textarea id="dlv-address" placeholder="Full Address (House, Area, Landmark)" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter focus:border-pe-red transition-colors outline-none h-20 resize-none" oninput="saveUserData(); validateCheckoutForm()"></textarea>
+                        <div class="flex gap-3">
+                            <input id="dlv-city" placeholder="City" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter focus:border-pe-red transition-colors outline-none" oninput="saveUserData(); validateCheckoutForm()">
+                            <input id="dlv-pincode" placeholder="Pincode (6 digits)" type="tel" maxlength="6" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter focus:border-pe-red transition-colors outline-none" oninput="saveUserData(); validateCheckoutForm()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Preview -->
+                <div class="border border-white/10 rounded-sm p-5 bg-gradient-to-b from-[#1a0f0f] to-[#120909]">
+                    <h3 class="font-inter text-white font-bold text-[11px] uppercase tracking-widest mb-4">You are ordering:</h3>
+                    <div id="checkout-order-preview" class="font-inter text-[11px] text-white/70 leading-relaxed mb-4 space-y-3"></div>
+                    
+                    <div class="h-px bg-white/10 w-full mb-4"></div>
+                    
+                    <p class="font-inter text-[10px] text-white/50 tracking-wide leading-relaxed">
+                        <span class="text-white font-bold">Estimated Delivery:</span><br>
+                        • Metro cities: 4–6 days<br>
+                        • Northeast & remote areas: 6–10 days
+                    </p>
+                    <p class="font-inter text-[9px] text-pe-red mt-3 tracking-widest uppercase">
+                        Made on demand • No COD • Review details carefully
+                    </p>
+                </div>
+
+                <!-- Confirmation -->
+                <div class="bg-[#0a0a0a] p-4 rounded-sm border border-white/10 transition-colors duration-300">
+                    <label class="custom-check group">
+                        <input type="checkbox" id="finalConfirm" onchange="validateCheckoutForm()">
+                        <span class="checkmark"></span>
+                        <span class="label-text font-inter text-[10px] text-white/80 group-hover:text-white transition-colors leading-relaxed">
+                            I confirm my delivery details and order selection
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
+                <button id="proceedToPaymentBtn" onclick="switchSidebarState('payment')" class="w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center opacity-50 cursor-not-allowed" disabled>
+                    <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯁꯦꯟꯊꯨꯡ</span>
+                    <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none text-center">Proceed to Payment</span>
+                </button>
+                <p id="checkoutHint" class="text-[9px] text-pe-red text-center mt-3 font-inter tracking-widest uppercase h-3"></p>
+            </div>
+        </div>
+
+        <!-- STATE 3: PAYMENT GATEWAY -->
+        <div id="state-payment" class="hidden flex-col h-full overflow-hidden bg-[#050505]">
+            <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col items-center justify-center text-center">
+                <h3 class="font-inter text-white/50 font-bold tracking-widest uppercase text-xs mb-6">Scan to Pay securely</h3>
+                
+                <div class="w-48 h-48 bg-white rounded-lg p-3 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                    <i data-lucide="qr-code" class="w-full h-full text-black"></i>
+                </div>
+                
+                <p class="font-inter text-[10px] uppercase tracking-widest text-white/50 mb-1">Total Amount</p>
+                <p class="font-inter text-4xl font-black text-white mb-6" id="payment-total-display">₹0</p>
+                
+                <div class="bg-white/5 border border-white/10 rounded-sm px-6 py-3 mb-8">
+                    <p class="font-inter text-xs text-white/70 tracking-wide font-medium">UPI ID: projecteramdam@upi</p>
+                </div>
+                
+                <p class="font-inter text-[10px] text-pe-red uppercase tracking-widest max-w-[80%] leading-relaxed font-bold">
+                    Orders are processed ONLY after payment verification.
+                </p>
+            </div>
+            <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
+                <button id="iHavePaidBtn" onclick="processOrderSuccess()" class="w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center hover:bg-gray-100 cursor-pointer">
+                    <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯄꯤꯊꯣꯛꯂꯦ</span>
+                    <span class="font-inter text-[10px] font-black tracking-[0.3em] uppercase leading-none text-center">I Have Paid</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- STATE 4: SUCCESS PAGE -->
+        <div id="state-success" class="hidden flex-col h-full overflow-hidden bg-[#050505] relative z-10">
+            <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col gap-6 text-left">
+                
+                <div class="text-center bg-[#0a0a0a] border border-white/10 p-6 rounded-sm mt-4">
+                    <i data-lucide="check-circle-2" class="w-12 h-12 text-[#25D366] mx-auto mb-4"></i>
+                    <h3 class="font-inter text-white font-black text-xl tracking-wide mb-2">Order Confirmed</h3>
+                    <p class="font-inter text-[11px] text-white/50 leading-relaxed mb-5 px-2">Thanks for your order. We’ve received your request and will verify your payment shortly.</p>
+                    <div id="display-order-id" class="inline-block bg-white/5 border border-white/10 px-4 py-2.5 rounded-sm font-inter text-xs text-white font-bold tracking-widest"></div>
+                </div>
+
+                <div class="border border-white/10 rounded-sm p-5 bg-[#0a0a0a]">
+                    <h3 class="font-inter text-white font-bold text-[11px] uppercase tracking-widest mb-4">Order Summary</h3>
+                    <div id="success-order-items" class="space-y-3 font-inter text-[11px] text-white/70 mb-4"></div>
+                    <div class="h-px bg-white/10 w-full mb-3"></div>
+                    <div class="flex justify-between items-center font-inter font-black text-white text-[13px]">
+                        <span class="uppercase tracking-widest">Total Paid</span>
+                        <span id="success-total"></span>
+                    </div>
+                </div>
+
+                <div class="border border-white/10 rounded-sm p-5 bg-[#111111]">
+                    <h3 class="font-inter text-white font-bold text-[11px] uppercase tracking-widest mb-4">What Happens Next</h3>
+                    <ul class="space-y-3 font-inter text-[11px] text-white/70 leading-relaxed tracking-wide">
+                        <li class="flex items-start gap-3"><span class="text-pe-red font-black">✔</span> Order processing begins within 24-48 hours.</li>
+                        <li class="flex items-start gap-3"><span class="text-pe-red font-black">✔</span> Active tracking link shared after dispatch.</li>
+                        <li class="flex items-start gap-3 text-pe-red font-bold mt-2 pt-2 border-t border-white/5"><span class="text-pe-red font-black">!</span> In rare cases of stock or production issues, we will inform you immediately and provide a replacement or refund.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Success Footer -->
+            <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
+                <a id="whatsapp-final-btn" target="_blank" onclick="toggleCart()" class="w-full bg-[#25D366] text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-[#1ebe5d] block">
+                    <span class="font-inter text-[11px] font-black tracking-[0.2em] uppercase leading-none text-center">Send Screenshot on WhatsApp</span>
+                </a>
+                <p class="text-[9px] text-white/40 text-center mt-4 font-inter tracking-wide leading-relaxed px-4">
+                    Send us your payment screenshot for instant verification.
+                </p>
+            </div>
+        </div>
+
     </div>
 
     <!-- HERO -->
@@ -340,7 +512,6 @@ New words
                 <span class="font-inter text-[10px] font-black tracking-[0.4em] text-white/60 uppercase leading-none">Project Eramdam</span>
             </div>
             <div class="flex flex-col items-center md:items-end gap-8 w-full text-left">
-                <!-- PURE INLINE SVGS FOR FOOTER (Guaranteed not to be blocked by AdBlockers) -->
                 <div class="flex justify-center md:justify-end items-start gap-6 sm:gap-10 text-[9px] md:text-[10px] font-inter font-black uppercase tracking-[0.3em]">
                     <a href="https://instagram.com/projecteramdam.official" target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-pe-red transition-colors flex flex-col items-center gap-2 group">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/30 group-hover:text-pe-red transition-colors shrink-0"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
@@ -375,14 +546,12 @@ New words
                 <div id="modal-title" class="mb-3 w-full"></div>
                 <p id="modal-price" class="text-2xl font-inter font-bold tracking-tight text-white mb-2 text-left"></p>
                 
-                <!-- NEW MICRO TRUST LINE IN MODAL -->
                 <p class="text-[9px] text-white/40 mb-6 uppercase tracking-widest">
                     Made for you after order — not mass produced
                 </p>
 
                 <p id="modal-desc" class="text-gray-400 font-inter text-[10px] md:text-[11px] uppercase tracking-widest mb-8 leading-relaxed w-full break-words text-left"></p>
 
-                <!-- Size and Premium Protocol appear BEFORE Buy Container -->
                 <div class="space-y-0 w-full border-t border-white/10 text-left mb-8">
                     <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
@@ -406,7 +575,6 @@ New words
                               <tr class="border-b border-white/5 font-inter text-white/70"><td>XXL <span class="text-[8px] text-white/40">(XX-Large)</span></td><td>46"</td><td>30"</td></tr>
                             </table>
                             
-                            <!-- UPGRADED SIZE GUIDE -->
                             <div class="space-y-4 font-inter text-[11px] tracking-wide text-white/70">
                                 <h4 class="text-white font-black">How to Measure (Accurate Method)</h4>
                                 <p>
@@ -458,7 +626,7 @@ New words
                     </div>
                 </div>
 
-                <div id="modal-buy-container" class="w-full mb-8 text-left space-y-6"></div>
+                <div id="modal-buy-container" class="w-full mb-8 text-left"></div>
                 
                 <div class="space-y-0 w-full border-t border-white/10 text-left">
                     <button onclick="toggleAccordion('lore')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
@@ -514,7 +682,6 @@ New words
 
     <!-- SCRIPTS -->
     <script>
-        // 1. Logic Metadata
         const COLOR_MAP = {
             "Light Baby Pink": "#FFD1DC", "Flamingo": "#F19CBB", "Baby Blue": "#89CFF0",
             "Lavender": "#E6E6FA", "Maroon": "#500000", "Navy Blue": "#000080",
@@ -525,7 +692,6 @@ New words
 
         const SALAI_COLORS = ["#FF3B30", "#FFFFFF", "#444444", "#FFD600", "#FF47B6", "#A100FF", "#00D1FF"];
 
-        // HARDCODED FALLBACK to ensure no blank screens locally or in preview
         const FALLBACK_DATA = [
             {
                 "id": 101, "name": "KANGLASHA - Guardian of Roots | Oversized Tee", "price": "₹1299",
@@ -631,16 +797,67 @@ New words
         }
         
         let currentProdIdx = 0, currentImgIdx = 0;
-        let selectedSize = 'M', selectedColor = null;
+        let selectedSize = null, selectedColor = null;
         let audioCtx, hardwareReady = false;
 
         let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
+        let isProductModalOpen = false, isCartSidebarOpen = false, isMobileMenuOpen = false;
 
-        let isProductModalOpen = false;
-        let isCartSidebarOpen = false;
-        let isMobileMenuOpen = false;
+        // MULTI-STEP SIDEBAR ENGINE
+        const switchSidebarState = (targetState) => {
+            if(targetState === 'checkout' && cart.length === 0) return;
+            
+            const states = ['cart', 'checkout', 'payment', 'success'];
+            states.forEach(s => {
+                const el = document.getElementById(`state-${s}`);
+                if(el) {
+                    if(s === targetState) {
+                        el.classList.remove('hidden');
+                        el.classList.add('flex');
+                    } else {
+                        el.classList.add('hidden');
+                        el.classList.remove('flex');
+                    }
+                }
+            });
 
-        // UPGRADED PREMIUM FAQ CONTENT
+            const titleMayek = document.getElementById('cart-main-title');
+            const titleEng = document.getElementById('cart-sub-title');
+            const backBtn = document.getElementById('cart-back-btn');
+
+            if (targetState === 'cart') {
+                titleMayek.innerText = "ꯀꯥꯔꯠ"; titleEng.innerText = "Cart Checkout";
+                backBtn.classList.add('hidden');
+            } else if (targetState === 'checkout') {
+                titleMayek.innerText = "ꯆꯦꯛꯑꯥꯎꯠ"; titleEng.innerText = "Delivery Details";
+                backBtn.classList.remove('hidden');
+                backBtn.onclick = () => switchSidebarState('cart');
+            } else if (targetState === 'payment') {
+                titleMayek.innerText = "ꯁꯦꯟꯊꯨꯡ"; titleEng.innerText = "Secure Payment";
+                backBtn.classList.remove('hidden');
+                backBtn.onclick = () => switchSidebarState('checkout');
+                
+                // Set total for payment screen
+                let total = 0;
+                cart.forEach(item => total += item.numPrice);
+                document.getElementById('payment-total-display').innerText = `₹${total.toLocaleString('en-IN')}`;
+            } else if (targetState === 'success') {
+                titleMayek.innerText = "ꯑꯣꯔꯗꯔ"; titleEng.innerText = "Order Received";
+                backBtn.classList.add('hidden');
+            }
+            playTock();
+        };
+
+        const goBackInFunnel = () => {
+            const checkoutEl = document.getElementById('state-checkout');
+            const paymentEl = document.getElementById('state-payment');
+            if(paymentEl && !paymentEl.classList.contains('hidden')) {
+                switchSidebarState('checkout');
+            } else if(checkoutEl && !checkoutEl.classList.contains('hidden')) {
+                switchSidebarState('cart');
+            }
+        };
+
         const FAQ_CONTENT = [
             { icon: "shopping-bag", t: "How your order works", c: "Every product is made specially for you after you place an order. We don’t keep ready stock — your item is printed, packed, and shipped just for you.<br><br>Once your order is confirmed, it goes into production, then handed over to courier partners for delivery.<br><br>This process helps us deliver unique designs while maintaining quality." },
             { icon: "truck", t: "Delivery Timeline (Realistic)", c: "Every order follows a 2-step process:<br><br><b>1. Production:</b> 2–3 days (made after order)<br><b>2. Shipping:</b> depends on your location<br><br><b>Metro Cities:</b> 2–4 days after dispatch<br><b>Tier 2/3 Cities:</b> 3–6 days<br><b>Northeast / Remote Areas:</b> 5–10+ days<br><br>Total delivery time: <b class='text-pe-red'>4–10 days</b>" },
@@ -670,7 +887,32 @@ New words
                 renderGrid();
                 renderRegistryAccordion();
                 updateCartUI();
+                loadUserData();
             }
+        }
+        
+        function loadUserData() {
+            try {
+                const data = JSON.parse(localStorage.getItem("pe_userData"));
+                if(data) {
+                    if(data.name) document.getElementById("dlv-name").value = data.name;
+                    if(data.phone) document.getElementById("dlv-phone").value = data.phone;
+                    if(data.address) document.getElementById("dlv-address").value = data.address;
+                    if(data.city) document.getElementById("dlv-city").value = data.city;
+                    if(data.pincode) document.getElementById("dlv-pincode").value = data.pincode;
+                }
+            } catch(e) {}
+        }
+        
+        function saveUserData() {
+            const data = {
+                name: document.getElementById("dlv-name").value.trim(),
+                phone: document.getElementById("dlv-phone").value.trim(),
+                address: document.getElementById("dlv-address").value.trim(),
+                city: document.getElementById("dlv-city").value.trim(),
+                pincode: document.getElementById("dlv-pincode").value.trim()
+            };
+            localStorage.setItem("pe_userData", JSON.stringify(data));
         }
 
         const splitName = (name) => {
@@ -682,15 +924,33 @@ New words
         const saveCart = () => { localStorage.setItem('pe_cart', JSON.stringify(cart)); updateCartUI(); };
 
         const updateCartUI = () => {
-            const container = document.getElementById('cart-items');
+            const container = document.getElementById('cart-items-wrapper');
+            const checkoutBtn = document.getElementById('proceedToCheckoutBtn');
             const badge = document.getElementById('cart-badge');
             const totalEl = document.getElementById('cart-total');
             let totalQty = 0, totalPrice = 0;
 
             if (cart.length === 0) {
-                container.innerHTML = `<div class="text-center text-gray-600 mt-32 font-inter text-[10px] font-black tracking-[0.4em] uppercase flex flex-col items-center w-full"><i data-lucide="shopping-bag" class="w-8 h-8 mb-4 opacity-20"></i> Cart is empty</div>`;
+                container.innerHTML = `<div class="text-center text-gray-600 mt-20 font-inter text-[10px] font-black tracking-[0.4em] uppercase flex flex-col items-center w-full"><i data-lucide="shopping-bag" class="w-8 h-8 mb-4 opacity-20"></i> Cart is empty</div>`;
+                if(checkoutBtn) {
+                    checkoutBtn.disabled = true;
+                    checkoutBtn.style.opacity = "0.5";
+                    checkoutBtn.classList.add('cursor-not-allowed');
+                    checkoutBtn.classList.remove('hover:bg-gray-100');
+                }
                 lucide.createIcons();
+                
+                // If cart is emptied while in checkout/payment, push them back to cart
+                if(!document.getElementById('state-checkout').classList.contains('hidden') || !document.getElementById('state-payment').classList.contains('hidden')) {
+                    switchSidebarState('cart');
+                }
             } else {
+                if(checkoutBtn) {
+                    checkoutBtn.disabled = false;
+                    checkoutBtn.style.opacity = "1";
+                    checkoutBtn.classList.remove('cursor-not-allowed');
+                    checkoutBtn.classList.add('hover:bg-gray-100');
+                }
                 container.innerHTML = cart.map((item, idx) => {
                     totalQty += 1; totalPrice += item.numPrice;
                     const nameParts = splitName(item.name);
@@ -711,14 +971,25 @@ New words
                         </div>
                     </div>`;
                 }).join('');
+                
+                const previewEl = document.getElementById('checkout-order-preview');
+                if(previewEl) {
+                    previewEl.innerHTML = cart.map(item => `• ${item.name} <br><span class="text-white/40 ml-3">Size: ${item.size} / Color: ${item.color}</span>`).join('<br><br>');
+                }
                 lucide.createIcons();
             }
+            
             badge.innerText = totalQty;
             totalQty > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
-            totalEl.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
+            if(totalEl) totalEl.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
+            
+            const cb = document.getElementById('finalConfirm');
+            if(cb) cb.checked = false;
+            
+            validateCheckoutForm();
         };
 
-        const removeFromCart = (index) => { cart.splice(index, 1); saveCart(); playTock(); if(cart.length === 0) toggleCart(); };
+        const removeFromCart = (index) => { cart.splice(index, 1); saveCart(); playTock(); if(cart.length === 0) { switchSidebarState('cart'); } };
 
         const toggleCart = (fromPopState = false) => {
             const sidebar = document.getElementById('cart-sidebar');
@@ -733,6 +1004,11 @@ New words
                 document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
                 window.scrollTo(0, parseInt(scrollY || '0'));
                 setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
+                
+                // If closing while in success, reset to cart for next time
+                if(!document.getElementById('state-success').classList.contains('hidden')) {
+                    switchSidebarState('cart');
+                }
                 
                 isCartSidebarOpen = false;
                 if (!fromPopState) history.back();
@@ -773,7 +1049,7 @@ New words
         };
 
         const openModal = (idx) => {
-            currentProdIdx = idx; currentImgIdx = 0; selectedColor = null; selectedSize = 'M';
+            currentProdIdx = idx; currentImgIdx = 0; selectedColor = null; selectedSize = null;
             const p = PRODUCT_DATA_LOADED[idx];
             const nameParts = splitName(p.name);
             
@@ -797,42 +1073,39 @@ New words
                 <div class="space-y-3 text-left">
                     <span class="text-[9px] font-inter font-black tracking-widest text-white/40 uppercase text-left">Select Size</span>
                     <div class="flex gap-2 text-left">
-                        ${['S', 'M', 'L', 'XL', 'XXL'].map(s => `<button data-size="${s}" onclick="selectSize('${s}')" class="size-btn flex-1 py-3 border ${s === 'M' ? 'border-white bg-white text-black' : 'border-white/20 text-white'} text-[10px] tracking-widest font-black rounded-sm transition-all text-center">${s}</button>`).join('')}
+                        ${['S', 'M', 'L', 'XL', 'XXL'].map(s => `<button data-size="${s}" onclick="selectSize('${s}')" class="size-btn flex-1 py-3 border border-white/20 text-white text-[10px] tracking-widest font-black rounded-sm transition-all text-center">${s}</button>`).join('')}
                     </div>
                 </div>
-                <div class="space-y-3 relative text-left">
+                
+                <div class="space-y-3 relative text-left mt-6" id="colorSection">
                     <span class="text-[9px] font-inter font-black tracking-widest text-white/40 uppercase text-left">Select Color</span>
-                    <div onclick="toggleColorDropdown()" class="w-full bg-[#0d0d0d] tactical-border p-4 rounded-sm flex items-center justify-between cursor-pointer active:border-pe-red transition-colors text-left">
-                        <div class="flex items-center gap-3 text-left">
-                            <div id="selected-color-swatch" class="w-4 h-4 rounded-sm border border-white/20 bg-transparent shrink-0 text-left"></div>
-                            <span id="selected-color-name" class="font-inter text-xs font-black tracking-widest uppercase text-white/60 text-left">Choose Variant</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-white/30 shrink-0 text-left"></i>
-                    </div>
-                    <div id="color-dropdown-list" class="custom-dropdown-list absolute top-full left-0 right-0 z-50 bg-[#0d0d0d] tactical-border rounded-sm shadow-2xl mt-1 hide-scrollbar text-left">
+                    <div class="flex flex-wrap gap-2" id="color-options-container">
                         ${p.colors.map(c => `
-                            <div onclick="selectColor('${c}')" class="flex items-center gap-4 p-4 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0 cursor-pointer text-left">
-                                <div class="w-4 h-4 rounded-sm border border-white/20 shrink-0 text-left" style="background-color: ${COLOR_MAP[c]}"></div>
-                                <span class="font-inter text-[10px] font-black tracking-widest uppercase text-white/80 text-left">${c}</span>
+                            <div class="color-option group" data-color="${c}" onclick="selectColor('${c}')">
+                                <div class="swatch" style="background-color: ${COLOR_MAP[c]}"></div>
+                                <span class="font-inter text-[10px] font-black tracking-widest uppercase text-white/80 group-hover:text-white">${c}</span>
                             </div>
                         `).join('')}
                     </div>
                 </div>
                 
-                <div id="modal-ack-container" class="mt-5 mb-2 p-4 border border-white/10 bg-[#0f0f0f] rounded-lg transition-colors duration-300">
-                    <label class="flex items-start gap-3 cursor-pointer group">
-                        <input type="checkbox" id="modal-ack-check" onchange="updateBuyButtonState()" class="mt-0.5 accent-white bg-black border border-white/20 w-4 h-4 rounded-sm shrink-0">
-                        <span class="font-inter text-[11px] text-white/80 leading-relaxed transition-colors select-none">
+                <div id="modal-ack-container" class="mt-6 mb-4 p-4 border border-white/10 bg-[#0f0f0f] rounded-lg transition-colors duration-300">
+                    <label class="custom-check group">
+                        <input type="checkbox" id="modal-ack-check" onchange="validateForm()">
+                        <span class="checkmark"></span>
+                        <span class="label-text group-hover:text-white transition-colors">
                             I've reviewed my size and order details before proceeding
                         </span>
                     </label>
                 </div>
                 
-                <button id="add-to-cart-btn" class="w-full text-left mt-2"></button>
+                <p id="orderPreview" class="text-[11px] font-inter font-bold text-white/60 mb-2 text-center h-4"></p>
+                <button id="add-to-cart-btn" class="w-full text-left transition-all duration-300"></button>
+                <p id="formHint" class="text-[10px] font-inter text-pe-red text-center mt-3 h-4 tracking-widest uppercase"></p>
             `;
 
             updateGallery();
-            updateBuyButtonState();
+            validateForm();
             lucide.createIcons();
             
             const scrollY = window.scrollY;
@@ -897,6 +1170,13 @@ New words
             else if (isMobileMenuOpen) toggleMenu(true);
         });
 
+        // CENTRAL RESET LOGIC
+        const resetConfirmation = () => {
+            const cb = document.getElementById('modal-ack-check');
+            if (cb) cb.checked = false;
+        };
+
+        // NEW SIZE SELECTION WITH AUTO-SCROLL
         const selectSize = (size) => {
             selectedSize = size;
             document.querySelectorAll('.size-btn').forEach(btn => {
@@ -908,96 +1188,193 @@ New words
                     btn.classList.remove('bg-white', 'text-black', 'border-white');
                 }
             });
-            updateBuyButtonState(); playTock();
+            resetConfirmation();
+            validateForm(); 
+            playTock();
+            
+            setTimeout(() => {
+                const colorSec = document.getElementById("colorSection");
+                if (colorSec) colorSec.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 150);
         };
 
-        const toggleColorDropdown = () => { document.getElementById('color-dropdown-list').classList.toggle('open'); playTock(); };
+        // NEW VISUAL COLOR SELECTION
         const selectColor = (c) => {
             selectedColor = c;
-            document.getElementById('selected-color-name').innerText = c;
-            document.getElementById('selected-color-name').classList.replace('text-white/60', 'text-white');
-            document.getElementById('selected-color-swatch').style.backgroundColor = COLOR_MAP[c];
-            document.getElementById('color-dropdown-list').classList.remove('open');
-            updateBuyButtonState(); playTock();
+            document.querySelectorAll('.color-option').forEach(el => {
+                if (el.dataset.color === c) {
+                    el.classList.add('border-white', 'bg-white/10');
+                    el.classList.remove('border-white/20');
+                } else {
+                    el.classList.remove('border-white', 'bg-white/10');
+                    el.classList.add('border-white/20');
+                }
+            });
+            resetConfirmation();
+            validateForm(); 
+            playTock();
         };
 
-        const updateBuyButtonState = () => {
+        // MASTER VALIDATION (HINTS + PREVIEW + BUTTON LOGIC)
+        const validateForm = () => {
             const btn = document.getElementById('add-to-cart-btn');
-            if (!btn) return;
+            const hint = document.getElementById('formHint');
+            const preview = document.getElementById('orderPreview');
+            const cb = document.getElementById('modal-ack-check');
+            
+            const isAck = cb ? cb.checked : false;
+            
+            const sizeText = selectedSize || "-";
+            const colorText = selectedColor || "-";
+            if(preview) preview.innerText = `Selected: ${sizeText} / ${colorText}`;
+
+            let msg = "";
+            if (!selectedSize) msg = "Select size to continue";
+            else if (!selectedColor) msg = "Choose a color to continue";
+            else if (!isAck) msg = "Confirm your selection below";
+
+            if(hint) hint.innerText = msg;
+
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const inCart = cart.find(item => item.id === p.id && item.size === selectedSize && item.color === selectedColor);
-            
-            const ackCheck = document.getElementById('modal-ack-check');
-            const isAck = ackCheck ? ackCheck.checked : false;
 
-            if (!selectedColor) {
-                btn.disabled = false;
-                btn.onclick = () => {
-                    const drp = document.querySelector('.custom-dropdown-list').previousElementSibling;
-                    drp.classList.add('border-pe-red');
-                    setTimeout(() => drp.classList.remove('border-pe-red'), 600);
-                    playTock();
-                };
-                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all opacity-40 cursor-pointer bg-neutral-900 border border-white/10 text-center";
-                btn.innerHTML = `<span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase">Select Color First</span>`;
-                return;
-            }
-
-            if (!isAck) {
-                btn.disabled = false;
-                btn.onclick = () => {
-                    const ackContainer = document.getElementById('modal-ack-container');
-                    ackContainer.classList.add('border-pe-red', 'bg-pe-red/10');
-                    setTimeout(() => ackContainer.classList.remove('border-pe-red', 'bg-pe-red/10'), 600);
-                    playTock();
-                };
-                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all opacity-80 cursor-pointer bg-neutral-900 border border-pe-red/30 text-center text-pe-red";
-                btn.innerHTML = `<span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase text-pe-red">Review Details First</span>`;
-                return;
-            }
-
-            btn.disabled = false;
-            if (inCart) {
-                btn.onclick = () => removeFromCartByVariant(p.id, selectedSize, selectedColor);
-                btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5 text-center">ꯂꯧꯊꯣꯛꯄꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase text-center">Remove from Cart</span>`;
-                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-black border border-pe-red text-white text-center cursor-pointer";
+            if (msg) {
+                btn.disabled = true;
+                btn.style.opacity = "0.5";
+                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-neutral-900 border border-white/10 text-center cursor-not-allowed";
+                btn.innerHTML = `<span class="font-mayek text-white/50 text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/40 uppercase text-center">CONTINUE</span>`;
             } else {
-                btn.onclick = addToCart;
-                btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5 text-center">ꯀꯥꯔꯠꯇꯥ ꯍꯄꯆꯤꯟꯕ꯭ꯌꯨ</span><span class="font-inter text-[9px] text-black/70 font-black tracking-[0.4em] uppercase text-center">Add to Cart</span>`;
-                btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-gray-100";
+                btn.disabled = false;
+                btn.style.opacity = "1";
+                if (inCart) {
+                    btn.onclick = () => removeFromCartByVariant(p.id, selectedSize, selectedColor);
+                    btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5 text-center">ꯂꯧꯊꯣꯛꯄꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase text-center">Remove from Cart</span>`;
+                    btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-black border border-pe-red text-white text-center cursor-pointer";
+                } else {
+                    btn.onclick = processAddToCart;
+                    btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] text-black/70 font-black tracking-[0.4em] uppercase text-center">CONTINUE</span>`;
+                    btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-gray-100";
+                }
             }
+        };
+
+        const processAddToCart = () => {
+            const btn = document.getElementById('add-to-cart-btn');
+            btn.disabled = true;
+            btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">PROCESSING...</span>`;
+            playTock();
+            setTimeout(() => {
+                addToCart();
+            }, 400); 
         };
 
         const removeFromCartByVariant = (id, size, color) => {
             const idx = cart.findIndex(item => item.id === id && item.size === size && item.color === color);
-            if (idx !== -1) { cart.splice(idx, 1); saveCart(); updateBuyButtonState(); playTock(); }
+            if (idx !== -1) { cart.splice(idx, 1); saveCart(); validateForm(); playTock(); }
         };
 
         const addToCart = () => {
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             cart.push({ id: p.id, name: p.name, price: p.price, numPrice: parseInt(p.price.replace(/[^0-9]/g, '')), size: selectedSize, color: selectedColor, image: p.images[0] });
-            saveCart(); updateBuyButtonState(); playTock();
+            saveCart(); validateForm(); playTock();
         };
 
-        const checkoutCart = () => {
-            if (cart.length === 0) return;
-            const reviewed = document.getElementById('order-review-check').checked;
-            if (!reviewed) {
-                const label = document.getElementById('order-review-check').parentElement;
-                label.classList.add('bg-pe-red/10', 'border-pe-red'); 
-                setTimeout(() => label.classList.remove('bg-pe-red/10', 'border-pe-red'), 600);
-                return;
+        const validateAddress = () => {
+            let name = document.getElementById("dlv-name").value.trim();
+            let phone = document.getElementById("dlv-phone").value.trim();
+            let address = document.getElementById("dlv-address").value.trim();
+            let city = document.getElementById("dlv-city").value.trim();
+            let pincode = document.getElementById("dlv-pincode").value.trim();
+
+            if (!name || !phone || !address || !city || !pincode) return "Please fill all delivery details";
+            if (!/^\d{10}$/.test(phone)) return "Enter valid 10-digit phone number";
+            if (!/^\d{6}$/.test(pincode)) return "Enter valid 6-digit pincode";
+            return null;
+        };
+
+        const validateCheckoutForm = () => {
+            const cb = document.getElementById('finalConfirm');
+            const btn = document.getElementById('proceedToPaymentBtn');
+            const hint = document.getElementById('checkoutHint');
+            
+            const addrError = validateAddress();
+            const isChecked = cb ? cb.checked : false;
+            
+            let msg = "";
+            if (addrError) msg = addrError;
+            else if (!isChecked) msg = "Confirm details to proceed";
+            
+            if(hint) hint.innerText = msg;
+            
+            if(btn) {
+                if(!msg && cart.length > 0) {
+                    btn.disabled = false;
+                    btn.style.opacity = "1";
+                    btn.classList.remove('cursor-not-allowed');
+                } else {
+                    btn.disabled = true;
+                    btn.style.opacity = "0.5";
+                    btn.classList.add('cursor-not-allowed');
+                }
+            }
+        };
+
+        const processOrderSuccess = () => {
+            const btn = document.getElementById('iHavePaidBtn');
+            if(btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">VERIFYING...</span>`;
             }
             playTock();
-            let message = "Hi PE! I would like to place an order:\n\n";
-            let total = 0;
-            cart.forEach((item, i) => {
-                message += `${i+1}. ${item.name}\n- Size: ${item.size}\n- Color: ${item.color}\n- Price: ₹${item.numPrice.toLocaleString('en-IN')}\n\n`;
-                total += item.numPrice;
-            });
-            message += `*Total: ₹${total.toLocaleString('en-IN')}*\n\nPlease provide UPI details.`;
             
-            window.open(`https://wa.me/919366659414?text=${encodeURIComponent(message)}`, '_blank');
+            setTimeout(() => {
+                let name = document.getElementById("dlv-name").value.trim();
+                let phone = document.getElementById("dlv-phone").value.trim();
+                let address = document.getElementById("dlv-address").value.trim();
+                let city = document.getElementById("dlv-city").value.trim();
+                let pincode = document.getElementById("dlv-pincode").value.trim();
+                
+                const orderId = "ER" + Date.now().toString().slice(-6);
+
+                let message = `Hi PE! I have placed my order and here is my payment screenshot.\n\n*ORDER ID:* ${orderId}\n\n*ORDER DETAILS*\n`;
+                let total = 0;
+                let summaryHTML = "";
+                
+                cart.forEach((item, i) => {
+                    message += `${i+1}. ${item.name}\n- Size: ${item.size}\n- Color: ${item.color}\n- Price: ₹${item.numPrice.toLocaleString('en-IN')}\n\n`;
+                    total += item.numPrice;
+                    summaryHTML += `<div class="flex justify-between gap-4"><span class="truncate">${item.name} <span class="text-white/40">(${item.size}/${item.color})</span></span><span class="shrink-0 text-white">₹${item.numPrice.toLocaleString('en-IN')}</span></div>`;
+                });
+                message += `*Total Amount:* ₹${total.toLocaleString('en-IN')}\n\n`;
+                message += `*DELIVERY DETAILS*\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nCity: ${city}\nPincode: ${pincode}`;
+                
+                document.getElementById('display-order-id').innerText = `Order ID: ${orderId}`;
+                document.getElementById('success-order-items').innerHTML = summaryHTML;
+                document.getElementById('success-total').innerText = `₹${total.toLocaleString('en-IN')}`;
+                
+                const waUrl = `https://wa.me/919366659414?text=${encodeURIComponent(message)}`;
+                document.getElementById('whatsapp-final-btn').href = waUrl;
+                
+                switchSidebarState('success');
+                
+                // Try to auto-open WhatsApp (some mobile browsers block window.open without direct user click, 
+                // but the giant green button is our fallback safety net).
+                try { window.open(waUrl, '_blank'); } catch(e) {}
+                
+                // Reset cart in background
+                cart = [];
+                localStorage.removeItem('pe_cart');
+                document.getElementById('cart-badge').classList.add('hidden');
+                document.getElementById('cart-badge').innerText = "0";
+
+                lucide.createIcons();
+                
+                if(btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯄꯤꯊꯣꯛꯂꯦ</span><span class="font-inter text-[10px] font-black tracking-[0.3em] uppercase leading-none text-center">I Have Paid</span>`;
+                }
+                
+            }, 800);
         };
 
         const toggleAccordion = (id) => {
