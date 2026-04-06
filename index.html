@@ -1,4 +1,4 @@
-red details
+swpie fixed
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -441,6 +441,10 @@ red details
         let audioCtx, hardwareReady = false, isAddingToCart = false;
         const apiKey = "";
 
+        // Swipe Variables
+        let touchStartX = 0;
+        let touchEndX = 0;
+
         // 2. Data Engine
         async function loadRegistry() {
             try {
@@ -510,11 +514,14 @@ red details
                 sidebar.classList.add('translate-x-full');
                 overlay.classList.add('invisible', 'opacity-0');
                 
+                // RESTORE SCROLL: Disable smooth temporarily to avoid jumping/sliding visual
                 const scrollY = document.body.dataset.scrollY;
+                document.documentElement.classList.remove('scroll-smooth');
                 document.body.style.position = '';
                 document.body.style.top = '';
                 document.body.style.width = '';
                 window.scrollTo(0, parseInt(scrollY || '0'));
+                setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
             } else {
                 updateCartUI();
                 const scrollY = window.scrollY;
@@ -592,6 +599,7 @@ red details
             updateBuyButtonState();
             lucide.createIcons();
             
+            // SAVE SCROLL POSITION
             const scrollY = window.scrollY;
             document.body.dataset.scrollY = scrollY;
             document.body.style.position = 'fixed';
@@ -601,6 +609,23 @@ red details
             document.getElementById('product-modal').classList.remove('invisible');
             document.getElementById('product-modal').classList.add('opacity-100');
             document.getElementById('modal-container').classList.remove('translate-y-10');
+
+            // Attach swipe events
+            const swipeZone = document.getElementById('swipe-zone');
+            swipeZone.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive: true});
+            swipeZone.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleGallerySwipe();
+            }, {passive: true});
+        };
+
+        const handleGallerySwipe = () => {
+            const threshold = 50;
+            if (touchStartX - touchEndX > threshold) {
+                nextImg(); // Swiped left
+            } else if (touchEndX - touchStartX > threshold) {
+                prevImg(); // Swiped right
+            }
         };
 
         const closeModal = () => {
@@ -608,11 +633,14 @@ red details
             document.getElementById('product-modal').classList.remove('opacity-100');
             document.getElementById('modal-container').classList.add('translate-y-10');
             
+            // RESTORE SCROLL: Instantly return to position
             const scrollY = document.body.dataset.scrollY;
+            document.documentElement.classList.remove('scroll-smooth');
             document.body.style.position = '';
             document.body.style.top = '';
             document.body.style.width = '';
             window.scrollTo(0, parseInt(scrollY || '0'));
+            setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
             
             playTock();
         };
@@ -789,7 +817,7 @@ red details
         const drawM = () => {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.font = `bold ${fontSize}px "Noto Sans Meetei Mayek"`;
+            ctx.font = `bold ${fontSize}px "Noto Sans Meelei Mayek"`;
             drops.forEach((d, i) => {
                 const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
                 const x = i * fontSize, y = d * fontSize;
