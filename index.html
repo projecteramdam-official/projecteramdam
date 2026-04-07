@@ -1,5 +1,4 @@
-1223
-
+GOOGLESHEET
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -900,7 +899,6 @@
             const cityHint = document.getElementById("city-hint");
 
             if (pin.length === 6) {
-                // Priority 1: Check Manual Override
                 if (PINCODE_OVERRIDE[pin]) {
                     cityInput.value = PINCODE_OVERRIDE[pin].city;
                     stateInput.value = PINCODE_OVERRIDE[pin].state;
@@ -911,7 +909,6 @@
                     return;
                 }
 
-                // Priority 2: API suggestion
                 try {
                     let res = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
                     let data = await res.json();
@@ -1469,6 +1466,36 @@
             }
         };
 
+        // GOOGLE FORM SILENT CAPTURE (FINAL MAPPED VERSION)
+        function sendOrderToGoogleForm(order) {
+          const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse";
+
+          const formData = new FormData();
+
+          formData.append("entry.715690915", order.id);
+          formData.append("entry.2092671810", order.product);
+          formData.append("entry.1214460634", order.size);
+          formData.append("entry.2043910785", order.color || "Default");
+          formData.append("entry.336831517", order.quantity);
+          formData.append("entry.1392433275", order.total);
+
+          formData.append("entry.1712849668", order.name);
+          formData.append("entry.1222474464", order.phone);
+
+          formData.append("entry.1810693968", order.address);
+          formData.append("entry.335078953", order.pincode);
+          formData.append("entry.1982148271", order.city || "Not Provided");
+          formData.append("entry.1464883250", order.state || "Not Provided");
+
+          formData.append("entry.2070227970", "Pending");
+
+          fetch(formURL, {
+            method: "POST",
+            mode: "no-cors",
+            body: formData
+          }).catch(err => console.log("Google Form capture failed", err));
+        }
+
         function generateWhatsAppOrderMessage() {
             let name = document.getElementById("dlv-name").value.trim();
             let phone = document.getElementById("dlv-phone").value.trim();
@@ -1477,46 +1504,77 @@
             let state = document.getElementById("dlv-state").value.trim();
             let pincode = document.getElementById("dlv-pincode").value.trim();
             
-            const orderId = "ER" + Date.now().toString().slice(-6);
+            // GENERATE UNIQUE ORDER ID
+            const orderId = "PE-" + Date.now();
 
             let message = `*ORDER REQUEST*\n\n*ORDER ID:* ${orderId}\n\n`;
             let total = 0;
             
+            // AGGREGATE DATA FOR GOOGLE FORM
+            let productNames = [];
+            let productSizes = [];
+            let productColors = [];
+            let totalQty = cart.length;
+            
             cart.forEach((item, i) => {
                 message += `${i+1}. ${item.name}\n- Variant: ${item.color} / ${item.size}\n- Price: ₹${item.numPrice.toLocaleString('en-IN')}\n\n`;
                 total += item.numPrice;
+                productNames.push(item.name);
+                productSizes.push(item.size);
+                productColors.push(item.color);
             });
             
             message += `*Total:* ₹${total.toLocaleString('en-IN')}\n\n`;
             message += `*DELIVERY DETAILS*\n- Name: ${name}\n- Phone: ${phone}\n- Address: ${address}\n- City: ${city}\n- State: ${state}\n- Pincode: ${pincode}\n\n`;
             message += `Payment done via UPI. Sharing screenshot for confirmation.`;
 
-            return { message, orderId, total };
+            return { 
+                message, 
+                orderData: {
+                    id: orderId,
+                    product: productNames.join(", "),
+                    size: productSizes.join(", "),
+                    color: productColors.join(", "),
+                    quantity: totalQty,
+                    total: total,
+                    name: name,
+                    phone: phone,
+                    address: address,
+                    pincode: pincode,
+                    city: city,
+                    state: state
+                }
+            };
         }
 
         const processOrderSuccess = () => {
             const btn = document.getElementById('iHavePaidBtn');
             if(btn) {
                 btn.disabled = true;
-                btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">OPENING WHATSAPP...</span>`;
+                btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">SENDING ORDER...</span>`;
             }
             playTock();
             
-            const orderData = generateWhatsAppOrderMessage();
-            const waUrl = `https://wa.me/919366659414?text=${encodeURIComponent(orderData.message)}`;
+            const results = generateWhatsAppOrderMessage();
+            
+            // 1. SILENTLY LOG TO GOOGLE SHEET
+            sendOrderToGoogleForm(results.orderData);
+
+            // 2. PREPARE UI FOR SUCCESS STATE
+            const waUrl = `https://wa.me/919366659414?text=${encodeURIComponent(results.message)}`;
             
             setTimeout(() => {
-                // Update Success State UI
-                document.getElementById('display-order-id').innerText = `Order ID: ${orderData.orderId}`;
+                document.getElementById('display-order-id').innerText = `Order ID: ${results.orderData.id}`;
                 let summaryHTML = cart.map(item => `<div class="flex justify-between gap-4"><span class="truncate">${item.name} <span class="text-white/40">(${item.size}/${item.color})</span></span><span class="shrink-0 text-white">₹${item.numPrice.toLocaleString('en-IN')}</span></div>`).join('');
                 document.getElementById('success-order-items').innerHTML = summaryHTML;
-                document.getElementById('success-total').innerText = `₹${orderData.total.toLocaleString('en-IN')}`;
+                document.getElementById('success-total').innerText = `₹${results.orderData.total.toLocaleString('en-IN')}`;
                 document.getElementById('whatsapp-final-btn').href = waUrl;
 
+                // 3. OPEN WHATSAPP
                 switchSidebarState('success');
                 window.open(waUrl, "_blank");
 
-                // Cleanup
+                // 4. CLEANUP CART
                 cart = [];
                 localStorage.removeItem('pe_cart');
                 document.getElementById('cart-badge').classList.add('hidden');
@@ -1731,3 +1789,5 @@
     </script>
 </body>
 </html>
+
+
