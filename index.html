@@ -1,4 +1,5 @@
-shut down
+UPI copy
+
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -335,16 +336,16 @@ shut down
 
         <!-- STATE 3: PAYMENT GATEWAY -->
         <div id="state-payment" class="hidden flex-col h-full overflow-hidden bg-[#050505]">
-            <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col items-center justify-center text-center relative">
-                
-                <!-- Order Lock Banner -->
-                <div class="bg-[#1a0f0f] border border-pe-red/30 w-full p-3 mb-6 rounded-sm flex items-center justify-center gap-3">
-                    <i data-lucide="lock" class="text-pe-red w-5 h-5 shrink-0"></i>
-                    <div class="text-left">
-                        <p class="font-inter text-[10px] font-black tracking-widest uppercase text-white">Order Reserved (<span id="payment-timer">10:00</span>)</p>
-                        <p class="font-inter text-[9px] text-white/60 uppercase tracking-widest mt-0.5">Complete payment to confirm production</p>
-                    </div>
+            <!-- Order Lock Banner (PINNED TO TOP) -->
+            <div class="bg-[#1a0f0f] border-b border-pe-red/30 w-full px-4 py-3 flex items-center justify-center gap-3 shrink-0 z-20">
+                <i data-lucide="lock" class="text-pe-red w-5 h-5 shrink-0"></i>
+                <div class="text-left">
+                    <p class="font-inter text-[10px] font-black tracking-widest uppercase text-white">Order Reserved (<span id="payment-timer">10:00</span>)</p>
+                    <p class="font-inter text-[9px] text-white/60 uppercase tracking-widest mt-0.5">Complete payment to confirm production</p>
                 </div>
+            </div>
+            
+            <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col items-center justify-center text-center relative">
 
                 <!-- Identity Hook -->
                 <div class="mb-6 flex flex-col items-center justify-center">
@@ -369,8 +370,14 @@ shut down
                 <!-- INCREASED VISUAL HIERARCHY -->
                 <p class="font-inter text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" id="payment-total-display">₹0</p>
                 
-                <div class="bg-white/5 border border-white/10 rounded-sm px-6 py-3 mb-6">
-                    <p class="font-inter text-xs text-white/70 tracking-wide font-medium">UPI ID: projecteramdam@upi</p>
+                <!-- INTERACTIVE UPI COPY BLOCK -->
+                <div onclick="copyUPI()" class="bg-white/5 border border-white/10 rounded-sm px-6 py-3 mb-6 flex flex-col items-center justify-center cursor-pointer hover:bg-white/10 transition-colors group relative">
+                    <p class="font-inter text-[9px] text-white/50 tracking-widest uppercase mb-1">UPI ID</p>
+                    <div class="flex items-center gap-2">
+                        <p class="font-inter text-sm text-white tracking-wide font-bold">projecteramdam@upi</p>
+                        <i data-lucide="copy" class="w-4 h-4 text-white/50 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <span id="copy-tooltip" class="absolute -top-8 bg-pe-red text-white text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-sm opacity-0 transition-opacity pointer-events-none">Copied!</span>
                 </div>
                 
                 <!-- Trust Signals -->
@@ -918,6 +925,45 @@ shut down
         let isProductModalOpen = false, isCartSidebarOpen = false, isMobileMenuOpen = false;
         
         let paymentTimerInterval;
+
+        // UPI COPY FUNCTION
+        const copyUPI = () => {
+            const upi = "projecteramdam@upi";
+            navigator.clipboard.writeText(upi).then(() => {
+                const tooltip = document.getElementById('copy-tooltip');
+                if(tooltip) {
+                    tooltip.classList.remove('opacity-0');
+                    tooltip.classList.add('opacity-100');
+                    setTimeout(() => {
+                        tooltip.classList.remove('opacity-100');
+                        tooltip.classList.add('opacity-0');
+                    }, 2000);
+                }
+                playTock();
+            }).catch(err => {
+                // Fallback
+                const textArea = document.createElement("textarea");
+                textArea.value = upi;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    const tooltip = document.getElementById('copy-tooltip');
+                    if(tooltip) {
+                        tooltip.classList.remove('opacity-0');
+                        tooltip.classList.add('opacity-100');
+                        setTimeout(() => {
+                            tooltip.classList.remove('opacity-100');
+                            tooltip.classList.add('opacity-0');
+                        }, 2000);
+                    }
+                    playTock();
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+            });
+        };
 
         // HIGHLIGHT FIXTURES
         function clearError(el) {
