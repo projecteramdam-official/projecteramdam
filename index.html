@@ -1,5 +1,4 @@
-premika
-
+burger
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -173,9 +172,9 @@ premika
                 <span class="text-[7px] sm:text-[9px] md:text-[10px] font-inter font-black tracking-widest text-white/60 uppercase leading-none truncate">Project Eramdam</span>
             </div>
             <div class="hidden lg:flex items-center space-x-12 shrink-0">
-                <a href="#drop" class="text-[9px] font-inter font-black tracking-[0.4em] text-white/60 hover:text-pe-red transition-colors uppercase">The Drop</a>
-                <a href="#manifesto" class="text-[9px] font-inter font-black tracking-[0.4em] text-white/60 hover:text-pe-red transition-colors uppercase">Manifesto</a>
-                <a href="#faq" class="text-[9px] font-inter font-black tracking-[0.4em] text-white/60 hover:text-pe-red transition-colors uppercase">Registry</a>
+                <a href="javascript:void(0)" onclick="handleMobileNav('drop')" class="text-[9px] font-inter font-black tracking-[0.4em] text-white/60 hover:text-pe-red transition-colors uppercase">The Drop</a>
+                <a href="javascript:void(0)" onclick="handleMobileNav('manifesto')" class="text-[9px] font-inter font-black tracking-[0.4em] text-white/60 hover:text-pe-red transition-colors uppercase">Manifesto</a>
+                <a href="javascript:void(0)" onclick="handleMobileNav('faq')" class="text-[9px] font-inter font-black tracking-[0.4em] text-white/60 hover:text-pe-red transition-colors uppercase">Registry</a>
             </div>
             <div class="flex items-center justify-end gap-5 sm:gap-8 shrink-0">
                  <button onclick="toggleCart()" class="relative flex items-center justify-center text-white hover:text-pe-red transition-colors">
@@ -194,15 +193,15 @@ premika
     <!-- MOBILE MENU DROPDOWN -->
     <div id="mobile-menu-overlay" onclick="toggleMenu()" class="fixed inset-0 z-[2400] hidden bg-pe-black/40 backdrop-blur-sm"></div>
     <div id="mobile-menu" class="fixed top-[70px] right-5 w-48 bg-[#0a0a0a] tactical-border z-[2500] hidden flex-col py-2 shadow-2xl rounded-sm">
-        <a href="#drop" onclick="toggleMenu()" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
+        <a href="javascript:void(0)" onclick="handleMobileNav('drop')" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
             <span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯗ ꯗ꯭ꯔꯣꯄ</span>
             <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">The Drop</span>
         </a>
-        <a href="#manifesto" onclick="toggleMenu()" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
+        <a href="javascript:void(0)" onclick="handleMobileNav('manifesto')" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
             <span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯍꯧꯔꯀꯐꯝ</span>
             <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">Manifesto</span>
         </a>
-        <a href="#faq" onclick="toggleMenu()" class="px-5 py-4 flex flex-col hover:bg-white/5 transition-colors">
+        <a href="javascript:void(0)" onclick="handleMobileNav('faq')" class="px-5 py-4 flex flex-col hover:bg-white/5 transition-colors">
             <span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯄꯥꯎꯈꯨꯝ</span>
             <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">Registry</span>
         </a>
@@ -375,11 +374,11 @@ premika
                     <span id="copy-tooltip" class="absolute -top-8 bg-pe-red text-white text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-sm opacity-0 transition-opacity pointer-events-none">Copied!</span>
                 </div>
                 
-                <!-- NAME CLARIFICATION (CRITICAL) -->
-                <div class="bg-pe-red/10 border border-pe-red/20 px-4 py-3 rounded-sm mb-6 max-w-[280px] mx-auto">
+                <!-- NAME CLARIFICATION (GENERIC TRUST) -->
+                <div class="bg-pe-red/10 border border-pe-red/20 px-4 py-3 rounded-sm mb-6 max-w-[280px] mx-auto text-center">
                     <p class="font-inter text-[9px] text-white/80 tracking-wide leading-relaxed">
-                        UPI Name may appear as: <strong class="text-white">Premika Thokchom</strong><br>
-                        <span class="text-white/50 text-[8px] uppercase tracking-widest mt-1 block">Registered payment account</span>
+                        UPI name may appear differently across apps.<br>
+                        <span class="text-white/50 text-[8px] uppercase tracking-widest mt-1 block">All payments go to our officially registered Project Eramdam account.</span>
                     </p>
                 </div>
                 
@@ -663,7 +662,7 @@ premika
                 <div id="modal-title" class="mb-3 w-full"></div>
                 <p id="modal-price" class="text-2xl font-inter font-bold tracking-tight text-white mb-2 text-left"></p>
                 
-                <!-- NEW: SILENT SOCIAL PROOF & SCARCITY -->
+                <!-- SILENT SOCIAL PROOF & SCARCITY -->
                 <div class="flex items-center gap-2 mb-4">
                     <span class="relative flex h-2 w-2">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75"></span>
@@ -928,6 +927,15 @@ premika
         let isProductModalOpen = false, isCartSidebarOpen = false, isMobileMenuOpen = false;
         
         let paymentTimerInterval;
+
+        function handleMobileNav(targetId) {
+            toggleMenu();
+            setTimeout(() => {
+                document.getElementById(targetId)?.scrollIntoView({
+                    behavior: "smooth"
+                });
+            }, 200);
+        }
 
         // UPI COPY FUNCTION & DEEP LINK FUNCTION
         const copyUPI = () => {
@@ -1372,6 +1380,7 @@ premika
                 if (!fromPopState) history.back();
             } else {
                 updateCartUI();
+                switchSidebarState('cart');
                 const scrollY = window.scrollY;
                 document.body.dataset.scrollY = scrollY;
                 document.body.style.position = 'fixed'; document.body.style.top = `-${scrollY}px`; document.body.style.width = '100%';
@@ -1630,7 +1639,9 @@ premika
         const addToCart = () => {
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             cart.push({ id: p.id, name: p.name, price: p.price, numPrice: parseInt(p.price.replace(/[^0-9]/g, '')), size: selectedSize, color: selectedColor, image: p.images[0] });
+            document.getElementById('finalConfirm').checked = false;
             saveCart(); validateForm(); playTock();
+            switchSidebarState('cart');
         };
 
         const validateAddress = () => {
