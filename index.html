@@ -1,7 +1,6 @@
-Whatsapp
+proceed via whatsapp
 
 
-```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -917,6 +916,13 @@ Whatsapp
             const titleMayek = document.getElementById('cart-main-title');
             const titleEng = document.getElementById('cart-sub-title');
             const backBtn = document.getElementById('cart-back-btn');
+            
+            // Auto-scroll sidebar content to top on state switch
+            const activeContainer = document.getElementById(`state-${targetState}`);
+            if(activeContainer) {
+                const scrollable = activeContainer.querySelector('.overflow-y-auto');
+                if(scrollable) scrollable.scrollTop = 0;
+            }
 
             if (targetState === 'cart') {
                 titleMayek.innerText = "ꯀꯥꯔꯠ"; titleEng.innerText = "Cart Checkout";
@@ -1401,11 +1407,11 @@ Whatsapp
                 if(!msg && cart.length > 0) {
                     btn.disabled = false;
                     btn.style.opacity = "1";
-                    btn.classList.remove('cursor-not-allowed');
+                    btn.classList.remove('cursor-not-allowed', 'pointer-events-none');
                 } else {
                     btn.disabled = true;
                     btn.style.opacity = "0.5";
-                    btn.classList.add('cursor-not-allowed');
+                    btn.classList.add('cursor-not-allowed', 'pointer-events-none');
                 }
             }
         };
@@ -1450,6 +1456,7 @@ Whatsapp
                 
                 try { window.open(waUrl, '_blank'); } catch(e) {}
                 
+                // Clear cart only after success transition
                 cart = [];
                 localStorage.removeItem('pe_cart');
                 document.getElementById('cart-badge').classList.add('hidden');
@@ -1666,8 +1673,3 @@ Whatsapp
     </script>
 </body>
 </html>
-
-
-```
-
-
