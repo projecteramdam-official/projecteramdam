@@ -1,4 +1,4 @@
-proceed via whatsapp
+1223
 
 
 <!DOCTYPE html>
@@ -237,13 +237,26 @@ proceed via whatsapp
                     <div class="space-y-3">
                         <input id="dlv-name" placeholder="Full Name" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none" oninput="clearError(this); saveUserData(); validateCheckoutForm()">
                         <input id="dlv-phone" placeholder="Phone Number (10 digits)" type="tel" maxlength="10" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none" oninput="clearError(this); saveUserData(); validateCheckoutForm()">
-                        <textarea id="dlv-address" placeholder="House no, area, landmark (required)" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none h-20 resize-none" oninput="clearError(this); saveUserData(); validateCheckoutForm()"></textarea>
-                        <div class="flex gap-3">
-                            <input id="dlv-pincode" placeholder="Pincode (6 digits)" type="tel" maxlength="6" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none" oninput="clearError(this); handlePincodeInput(this.value)">
+                        
+                        <div class="flex flex-col">
+                            <textarea id="dlv-address" placeholder="House no, area, landmark (required)" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none h-20 resize-none" oninput="clearError(this); saveUserData(); validateCheckoutForm()"></textarea>
+                            <p class="text-[10px] text-white/40 mt-1.5 leading-tight">Include area & landmark for smooth delivery (e.g., near school, road name)</p>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <div class="flex gap-3">
+                                <input id="dlv-pincode" placeholder="Pincode" type="tel" maxlength="6" class="w-1/2 bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none" oninput="clearError(this); handlePincodeInput(this.value)">
+                                <input id="dlv-state" placeholder="State" class="w-1/2 bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none" oninput="clearError(this); saveUserData(); validateCheckoutForm()">
+                            </div>
                             <input id="dlv-city" placeholder="City" class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter transition-colors outline-none" oninput="clearError(this); saveUserData(); validateCheckoutForm()">
+                            
+                            <!-- ATTENTION HINT FOR CITY -->
+                            <p id="city-hint" class="font-inter text-[10px] text-pe-red tracking-wide leading-relaxed hidden">
+                                Please confirm your city & state for accurate delivery
+                            </p>
                         </div>
                         <!-- SAFETY TEXT -->
-                        <p class="font-inter text-[9px] text-white/40 mt-3 leading-relaxed tracking-wide">
+                        <p class="font-inter text-[9px] text-white/30 mt-3 leading-relaxed tracking-wide">
                             We deliver across India. Remote areas may take longer. If your location is not serviceable, we will inform you or issue a refund.
                         </p>
                     </div>
@@ -294,9 +307,13 @@ proceed via whatsapp
             <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col items-center justify-center text-center">
                 <h3 class="font-inter text-white/50 font-bold tracking-widest uppercase text-xs mb-6">Scan to Pay securely</h3>
                 
-                <div class="w-48 h-48 bg-white rounded-lg p-3 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                <div class="w-48 h-48 bg-white rounded-lg p-3 flex items-center justify-center mb-4 shadow-[0_0_40px_rgba(255,255,255,0.1)]">
                     <i data-lucide="qr-code" class="w-full h-full text-black"></i>
                 </div>
+
+                <p class="font-inter text-[10px] text-white/30 uppercase tracking-widest mb-6 max-w-[200px] leading-relaxed">
+                    After payment, tap below to send your order and screenshot on WhatsApp for confirmation.
+                </p>
                 
                 <p class="font-inter text-[10px] uppercase tracking-widest text-white/50 mb-1">Total Amount</p>
                 <p class="font-inter text-4xl font-black text-white mb-6" id="payment-total-display">₹0</p>
@@ -311,8 +328,8 @@ proceed via whatsapp
             </div>
             <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
                 <button id="iHavePaidBtn" onclick="processOrderSuccess()" class="w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center hover:bg-gray-100 cursor-pointer">
-                    <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯄꯤꯊꯣꯛꯂꯦ</span>
-                    <span class="font-inter text-[10px] font-black tracking-[0.3em] uppercase leading-none text-center">I Have Paid</span>
+                    <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯑꯣꯔꯗꯔ ꯊꯥꯕꯤꯌꯨ</span>
+                    <span class="font-inter text-[10px] font-black tracking-[0.3em] uppercase leading-none text-center">Send Order on WhatsApp</span>
                 </button>
             </div>
         </div>
@@ -718,6 +735,15 @@ proceed via whatsapp
 
         const SALAI_COLORS = ["#FF3B30", "#FFFFFF", "#444444", "#FFD600", "#FF47B6", "#A100FF", "#00D1FF"];
 
+        // PROBLEM PINCODES REQUIRING EXTRA VERIFICATION (CITY HIGHLIGHTS)
+        const PINCODE_WARNING = ["795001", "795003", "795004", "795005", "795008", "795010"];
+
+        // SMART PINCODE OVERRIDE MAP (CITY & STATE)
+        const PINCODE_OVERRIDE = {
+          "795002": { city: "Imphal East", state: "Manipur" },
+          "795001": { city: "Imphal West", state: "Manipur" }
+        };
+
         const FALLBACK_DATA = [
             {
                 "id": 101, "name": "KANGLASHA - Guardian of Roots | Oversized Tee", "price": "₹1299",
@@ -838,22 +864,27 @@ proceed via whatsapp
             const btn = document.getElementById('proceedToPaymentBtn');
             if(!btn || !btn.disabled) return;
             
-            const nameEl = document.getElementById("dlv-name");
-            const phoneEl = document.getElementById("dlv-phone");
-            const addrEl = document.getElementById("dlv-address");
-            const cityEl = document.getElementById("dlv-city");
-            const pinEl = document.getElementById("dlv-pincode");
+            const fields = [
+                document.getElementById("dlv-name"),
+                document.getElementById("dlv-phone"),
+                document.getElementById("dlv-address"),
+                document.getElementById("dlv-city"),
+                document.getElementById("dlv-state"),
+                document.getElementById("dlv-pincode")
+            ];
+
             const cb = document.getElementById("finalConfirm");
             const cbContainer = cb ? cb.closest('.bg-[#0a0a0a]') : null;
 
-            [nameEl, phoneEl, addrEl, cityEl, pinEl].forEach(el => el.classList.remove('input-error'));
+            fields.forEach(el => el.classList.remove('input-error'));
             if(cbContainer) cbContainer.classList.remove('border-pe-red', 'bg-pe-red/10');
 
-            if (!nameEl.value.trim()) nameEl.classList.add('input-error');
-            else if (!/^[6-9]\d{9}$/.test(phoneEl.value.trim())) phoneEl.classList.add('input-error');
-            else if (addrEl.value.trim().length < 10) addrEl.classList.add('input-error');
-            else if (!/^\d{6}$/.test(pinEl.value.trim())) pinEl.classList.add('input-error');
-            else if (!cityEl.value.trim()) cityEl.classList.add('input-error');
+            if (!fields[0].value.trim()) fields[0].classList.add('input-error');
+            else if (!/^[6-9]\d{9}$/.test(fields[1].value.trim())) fields[1].classList.add('input-error');
+            else if (fields[2].value.trim().length < 10) fields[2].classList.add('input-error');
+            else if (!/^\d{6}$/.test(fields[5].value.trim())) fields[5].classList.add('input-error');
+            else if (!fields[4].value.trim()) fields[4].classList.add('input-error');
+            else if (!fields[3].value.trim()) fields[3].classList.add('input-error');
             else if (cb && !cb.checked && cbContainer) {
                 cbContainer.classList.add('border-pe-red', 'bg-pe-red/10');
                 setTimeout(() => cbContainer.classList.remove('border-pe-red', 'bg-pe-red/10'), 600);
@@ -864,21 +895,46 @@ proceed via whatsapp
         // PINCODE AUTO-FILL API
         async function handlePincodeInput(pin) {
             updateDeliveryEstimate(pin);
+            const cityInput = document.getElementById("dlv-city");
+            const stateInput = document.getElementById("dlv-state");
+            const cityHint = document.getElementById("city-hint");
+
             if (pin.length === 6) {
+                // Priority 1: Check Manual Override
+                if (PINCODE_OVERRIDE[pin]) {
+                    cityInput.value = PINCODE_OVERRIDE[pin].city;
+                    stateInput.value = PINCODE_OVERRIDE[pin].state;
+                    cityHint.classList.remove('hidden');
+                    cityInput.classList.remove("input-error");
+                    saveUserData();
+                    validateCheckoutForm();
+                    return;
+                }
+
+                // Priority 2: API suggestion
                 try {
                     let res = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
                     let data = await res.json();
                     if (data[0].Status === "Success") {
                         let info = data[0].PostOffice[0];
-                        let cityInput = document.getElementById("dlv-city");
                         if(info.District) {
+                            cityHint.classList.remove('hidden');
                             cityInput.value = info.District;
-                            cityInput.classList.remove('input-error');
+                            stateInput.value = info.State;
+                            
+                            if (PINCODE_WARNING.includes(pin)) {
+                                cityInput.classList.add("input-error");
+                            } else {
+                                cityInput.classList.remove("input-error");
+                            }
+                            
                             saveUserData();
                             validateCheckoutForm();
                         }
                     }
                 } catch(e) { console.log("Pincode API failed", e); }
+            } else {
+                cityHint.classList.add('hidden');
             }
             saveUserData();
             validateCheckoutForm();
@@ -916,13 +972,6 @@ proceed via whatsapp
             const titleMayek = document.getElementById('cart-main-title');
             const titleEng = document.getElementById('cart-sub-title');
             const backBtn = document.getElementById('cart-back-btn');
-            
-            // Auto-scroll sidebar content to top on state switch
-            const activeContainer = document.getElementById(`state-${targetState}`);
-            if(activeContainer) {
-                const scrollable = activeContainer.querySelector('.overflow-y-auto');
-                if(scrollable) scrollable.scrollTop = 0;
-            }
 
             if (targetState === 'cart') {
                 titleMayek.innerText = "ꯀꯥꯔꯠ"; titleEng.innerText = "Cart Checkout";
@@ -997,6 +1046,7 @@ proceed via whatsapp
                     if(data.phone) document.getElementById("dlv-phone").value = data.phone;
                     if(data.address) document.getElementById("dlv-address").value = data.address;
                     if(data.city) document.getElementById("dlv-city").value = data.city;
+                    if(data.state) document.getElementById("dlv-state").value = data.state;
                     if(data.pincode) {
                         document.getElementById("dlv-pincode").value = data.pincode;
                         updateDeliveryEstimate(data.pincode);
@@ -1011,6 +1061,7 @@ proceed via whatsapp
                 phone: document.getElementById("dlv-phone").value.trim(),
                 address: document.getElementById("dlv-address").value.trim(),
                 city: document.getElementById("dlv-city").value.trim(),
+                state: document.getElementById("dlv-state").value.trim(),
                 pincode: document.getElementById("dlv-pincode").value.trim()
             };
             localStorage.setItem("pe_userData", JSON.stringify(data));
@@ -1379,13 +1430,15 @@ proceed via whatsapp
             let phone = document.getElementById("dlv-phone").value.trim();
             let address = document.getElementById("dlv-address").value.trim();
             let city = document.getElementById("dlv-city").value.trim();
+            let state = document.getElementById("dlv-state").value.trim();
             let pincode = document.getElementById("dlv-pincode").value.trim();
 
             if (!name) return "Enter your full name";
             if (!/^[6-9]\d{9}$/.test(phone)) return "Enter a valid 10-digit mobile number";
             if (address.length < 10) return "Enter a complete address (min 10 chars)";
             if (!/^\d{6}$/.test(pincode)) return "Enter a valid 6-digit pincode";
-            if (!city) return "Enter your city";
+            if (!state) return "Enter your state";
+            if (!city) return "Confirm your city"; 
             return null;
         };
 
@@ -1416,60 +1469,65 @@ proceed via whatsapp
             }
         };
 
+        function generateWhatsAppOrderMessage() {
+            let name = document.getElementById("dlv-name").value.trim();
+            let phone = document.getElementById("dlv-phone").value.trim();
+            let address = document.getElementById("dlv-address").value.trim();
+            let city = document.getElementById("dlv-city").value.trim();
+            let state = document.getElementById("dlv-state").value.trim();
+            let pincode = document.getElementById("dlv-pincode").value.trim();
+            
+            const orderId = "ER" + Date.now().toString().slice(-6);
+
+            let message = `*ORDER REQUEST*\n\n*ORDER ID:* ${orderId}\n\n`;
+            let total = 0;
+            
+            cart.forEach((item, i) => {
+                message += `${i+1}. ${item.name}\n- Variant: ${item.color} / ${item.size}\n- Price: ₹${item.numPrice.toLocaleString('en-IN')}\n\n`;
+                total += item.numPrice;
+            });
+            
+            message += `*Total:* ₹${total.toLocaleString('en-IN')}\n\n`;
+            message += `*DELIVERY DETAILS*\n- Name: ${name}\n- Phone: ${phone}\n- Address: ${address}\n- City: ${city}\n- State: ${state}\n- Pincode: ${pincode}\n\n`;
+            message += `Payment done via UPI. Sharing screenshot for confirmation.`;
+
+            return { message, orderId, total };
+        }
+
         const processOrderSuccess = () => {
             const btn = document.getElementById('iHavePaidBtn');
             if(btn) {
                 btn.disabled = true;
-                btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">VERIFYING...</span>`;
+                btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">OPENING WHATSAPP...</span>`;
             }
             playTock();
             
+            const orderData = generateWhatsAppOrderMessage();
+            const waUrl = `https://wa.me/919366659414?text=${encodeURIComponent(orderData.message)}`;
+            
             setTimeout(() => {
-                let name = document.getElementById("dlv-name").value.trim();
-                let phone = document.getElementById("dlv-phone").value.trim();
-                let address = document.getElementById("dlv-address").value.trim();
-                let city = document.getElementById("dlv-city").value.trim();
-                let pincode = document.getElementById("dlv-pincode").value.trim();
-                
-                const orderId = "ER" + Date.now().toString().slice(-6);
-
-                let message = `Hi PE! I have placed my order and here is my payment screenshot.\n\n*ORDER ID:* ${orderId}\n\n*ORDER DETAILS*\n`;
-                let total = 0;
-                let summaryHTML = "";
-                
-                cart.forEach((item, i) => {
-                    message += `${i+1}. ${item.name}\n- Size: ${item.size}\n- Color: ${item.color}\n- Price: ₹${item.numPrice.toLocaleString('en-IN')}\n\n`;
-                    total += item.numPrice;
-                    summaryHTML += `<div class="flex justify-between gap-4"><span class="truncate">${item.name} <span class="text-white/40">(${item.size}/${item.color})</span></span><span class="shrink-0 text-white">₹${item.numPrice.toLocaleString('en-IN')}</span></div>`;
-                });
-                message += `*Total Amount:* ₹${total.toLocaleString('en-IN')}\n\n`;
-                message += `*DELIVERY DETAILS*\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nCity: ${city}\nPincode: ${pincode}`;
-                
-                document.getElementById('display-order-id').innerText = `Order ID: ${orderId}`;
+                // Update Success State UI
+                document.getElementById('display-order-id').innerText = `Order ID: ${orderData.orderId}`;
+                let summaryHTML = cart.map(item => `<div class="flex justify-between gap-4"><span class="truncate">${item.name} <span class="text-white/40">(${item.size}/${item.color})</span></span><span class="shrink-0 text-white">₹${item.numPrice.toLocaleString('en-IN')}</span></div>`).join('');
                 document.getElementById('success-order-items').innerHTML = summaryHTML;
-                document.getElementById('success-total').innerText = `₹${total.toLocaleString('en-IN')}`;
-                
-                const waUrl = `https://wa.me/919366659414?text=${encodeURIComponent(message)}`;
+                document.getElementById('success-total').innerText = `₹${orderData.total.toLocaleString('en-IN')}`;
                 document.getElementById('whatsapp-final-btn').href = waUrl;
-                
+
                 switchSidebarState('success');
-                
-                try { window.open(waUrl, '_blank'); } catch(e) {}
-                
-                // Clear cart only after success transition
+                window.open(waUrl, "_blank");
+
+                // Cleanup
                 cart = [];
                 localStorage.removeItem('pe_cart');
                 document.getElementById('cart-badge').classList.add('hidden');
                 document.getElementById('cart-badge').innerText = "0";
 
                 lucide.createIcons();
-                
                 if(btn) {
                     btn.disabled = false;
-                    btn.innerHTML = `<span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯄꯤꯊꯣꯛꯂꯦ</span><span class="font-inter text-[10px] font-black tracking-[0.3em] uppercase leading-none text-center">I Have Paid</span>`;
+                    btn.innerHTML = `<span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯑꯣꯔꯗꯔ ꯊꯥꯕꯤꯌꯨ</span><span class="font-inter text-[10px] font-black tracking-[0.3em] uppercase leading-none text-center">Send Order on WhatsApp</span>`;
                 }
-                
-            }, 1500);
+            }, 1000);
         };
 
         const toggleAccordion = (id) => {
