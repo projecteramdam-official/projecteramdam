@@ -1,4 +1,4 @@
-Next big:
+shut down
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -153,12 +153,15 @@ Next big:
     </div>
     
     <!-- RESUME ORDER TOAST -->
-    <div id="resume-toast" class="fixed bottom-6 right-6 z-[2000] hidden bg-pe-red text-white p-4 rounded-sm shadow-2xl flex-col gap-1.5 border border-white/20 cursor-pointer hover:bg-red-600 transition-colors toast-anim" onclick="resumePayment()">
-        <div class="flex items-center gap-2">
-            <i data-lucide="alert-circle" class="w-4 h-4 text-white"></i>
-            <span class="font-inter font-black text-[10px] tracking-widest uppercase">Order Pending</span>
+    <div id="resume-toast" class="fixed bottom-6 right-6 z-[2000] hidden bg-pe-red text-white p-4 rounded-sm shadow-2xl flex-col gap-2 border border-white/20 toast-anim">
+        <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="resumePayment()">
+                <i data-lucide="alert-circle" class="w-4 h-4 text-white"></i>
+                <span class="font-inter font-black text-[10px] tracking-widest uppercase">Order Pending</span>
+            </div>
+            <button onclick="clearPendingOrder()" class="text-white/50 hover:text-white transition-colors p-1 -m-1"><i data-lucide="x" class="w-4 h-4"></i></button>
         </div>
-        <span class="font-inter text-xs opacity-90 pl-6">Tap to resume your secure payment</span>
+        <span class="font-inter text-xs opacity-90 pl-6 cursor-pointer" onclick="resumePayment()">Tap to resume your secure payment</span>
     </div>
 
     <!-- NAVIGATION -->
@@ -247,7 +250,7 @@ Next big:
         <div id="state-checkout" class="hidden flex-col h-full overflow-hidden bg-[#050505]">
             <div class="flex-grow overflow-y-auto hide-scrollbar p-6 space-y-6 text-left">
                 
-                <!-- NEW: Welcome Back Message -->
+                <!-- Welcome Back Message -->
                 <div id="welcome-back-msg" class="hidden bg-[#25D366]/10 border border-[#25D366]/30 p-3 rounded-sm flex items-center justify-center gap-2 mb-2 transition-all">
                     <i data-lucide="user-check" class="w-4 h-4 text-[#25D366]"></i>
                     <span class="font-inter text-[10px] text-white font-bold tracking-widest uppercase">Welcome back — details saved</span>
@@ -334,7 +337,7 @@ Next big:
         <div id="state-payment" class="hidden flex-col h-full overflow-hidden bg-[#050505]">
             <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col items-center justify-center text-center relative">
                 
-                <!-- NEW: Order Lock Banner -->
+                <!-- Order Lock Banner -->
                 <div class="bg-[#1a0f0f] border border-pe-red/30 w-full p-3 mb-6 rounded-sm flex items-center justify-center gap-3">
                     <i data-lucide="lock" class="text-pe-red w-5 h-5 shrink-0"></i>
                     <div class="text-left">
@@ -402,7 +405,7 @@ Next big:
                     <p class="font-inter text-[11px] text-white/50 leading-relaxed mb-5 px-2">Thanks for your order. We’ve received your request and will verify your payment shortly.</p>
                     <div id="display-order-id" class="inline-block bg-white/5 border border-white/10 px-4 py-2.5 rounded-sm font-inter text-xs text-white font-bold tracking-widest"></div>
                     
-                    <!-- NEW: POST-ORDER TRUST LOCK -->
+                    <!-- POST-ORDER TRUST LOCK -->
                     <div class="bg-white/5 border border-white/10 p-3 rounded-sm mt-5 flex items-center justify-center gap-2">
                         <i data-lucide="hammer" class="w-4 h-4 text-white/60"></i>
                         <span class="font-inter text-[10px] text-white/80 font-bold tracking-widest uppercase">Your piece is now in the production pipeline</span>
@@ -1079,12 +1082,14 @@ Next big:
                 
                 // Track Payment intent recovery
                 localStorage.setItem("pe_pending_payment", "true");
+                localStorage.setItem("pe_pending_payment_time", Date.now().toString());
                 startPaymentTimer();
             } else if (targetState === 'success') {
                 titleMayek.innerText = "ꯑꯣꯔꯗꯔ"; titleEng.innerText = "Order Status";
                 backBtn.classList.add('hidden');
-                localStorage.removeItem("pe_pending_payment");
-                document.getElementById('resume-toast').classList.add('hidden');
+                
+                // Complete Cleanup after Success
+                clearPendingOrder();
                 clearInterval(paymentTimerInterval);
             }
             playTock();
@@ -1100,6 +1105,16 @@ Next big:
             }
         };
         
+        const clearPendingOrder = () => {
+            localStorage.removeItem("pe_pending_payment");
+            localStorage.removeItem("pe_pending_payment_time");
+            const toast = document.getElementById('resume-toast');
+            if(toast) {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }
+        };
+        
         const resumePayment = () => {
             document.getElementById('resume-toast').classList.add('hidden');
             document.getElementById('resume-toast').classList.remove('flex');
@@ -1111,7 +1126,7 @@ Next big:
             setTimeout(() => {
                 switchSidebarState('payment');
             }, 300);
-        }
+        };
 
         const FAQ_CONTENT = [
             { icon: "shopping-bag", t: "How your order works", c: "Every product is made specially for you after you place an order. We don’t keep ready stock — your item is printed, packed, and shipped just for you.<br><br>Once your order is confirmed, it goes into production, then handed over to courier partners for delivery.<br><br>This process helps us deliver unique designs while maintaining quality." },
@@ -1144,11 +1159,21 @@ Next big:
                 updateCartUI();
                 loadUserData();
                 
-                // Handle Order Recovery
-                if(localStorage.getItem("pe_pending_payment") === "true" && cart.length > 0) {
-                    const toast = document.getElementById('resume-toast');
-                    toast.classList.remove('hidden');
-                    toast.classList.add('flex');
+                // Handle Order Recovery (30 mins expiry limit)
+                const pendingPayment = localStorage.getItem("pe_pending_payment");
+                const pendingTime = localStorage.getItem("pe_pending_payment_time");
+                
+                if (pendingPayment === "true" && pendingTime && cart.length > 0) {
+                    const timeElapsed = Date.now() - parseInt(pendingTime);
+                    if (timeElapsed < 30 * 60 * 1000) { // 30 minutes
+                        const toast = document.getElementById('resume-toast');
+                        if (toast) {
+                            toast.classList.remove('hidden');
+                            toast.classList.add('flex');
+                        }
+                    } else {
+                        clearPendingOrder(); // Expired
+                    }
                 }
             }
         }
