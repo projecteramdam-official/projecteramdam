@@ -1,4 +1,4 @@
-GOOGLESHEET
+refund
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -256,7 +256,7 @@ GOOGLESHEET
                         </div>
                         <!-- SAFETY TEXT -->
                         <p class="font-inter text-[9px] text-white/30 mt-3 leading-relaxed tracking-wide">
-                            We deliver across India. Remote areas may take longer. If your location is not serviceable, we will inform you or issue a refund.
+                            We deliver across India. Remote areas may take longer. <strong class="text-white">If your location is not serviceable, a full refund will be issued immediately.</strong>
                         </p>
                     </div>
                 </div>
@@ -265,6 +265,9 @@ GOOGLESHEET
                 <div class="border border-white/10 rounded-sm p-5 bg-gradient-to-b from-[#1a0f0f] to-[#120909]">
                     <h3 class="font-inter text-white font-bold text-[11px] uppercase tracking-widest mb-4">You are ordering:</h3>
                     <div id="checkout-order-preview" class="font-inter text-[11px] text-white/70 leading-relaxed mb-4 space-y-3"></div>
+                    <div class="bg-pe-red/10 border border-pe-red/20 p-2 rounded-sm mb-4 mt-2 text-center">
+                        <p class="font-inter text-[9px] text-white/80 font-bold uppercase tracking-widest">This is the exact item that will be produced after payment.</p>
+                    </div>
                     
                     <div class="h-px bg-white/10 w-full mb-4"></div>
                     
@@ -283,8 +286,8 @@ GOOGLESHEET
                     <label class="custom-check group">
                         <input type="checkbox" id="finalConfirm" onchange="validateCheckoutForm()">
                         <span class="checkmark"></span>
-                        <span class="label-text font-inter text-[10px] text-white/80 group-hover:text-white transition-colors leading-relaxed">
-                            I confirm my delivery details and order selection
+                        <span class="label-text font-inter text-[10px] text-white/80 group-hover:text-white transition-colors leading-relaxed font-bold">
+                            I confirm this order will be processed after payment and cannot be cancelled
                         </span>
                     </label>
                 </div>
@@ -303,22 +306,48 @@ GOOGLESHEET
 
         <!-- STATE 3: PAYMENT GATEWAY -->
         <div id="state-payment" class="hidden flex-col h-full overflow-hidden bg-[#050505]">
-            <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col items-center justify-center text-center">
-                <h3 class="font-inter text-white/50 font-bold tracking-widest uppercase text-xs mb-6">Scan to Pay securely</h3>
+            <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col items-center justify-center text-center relative">
+                
+                <!-- NEW: Order Lock Banner -->
+                <div class="bg-[#1a0f0f] border border-pe-red/30 w-full p-3 mb-6 rounded-sm flex items-center gap-3">
+                    <i data-lucide="lock" class="text-pe-red w-5 h-5 shrink-0"></i>
+                    <div class="text-left">
+                        <p class="font-inter text-[10px] font-black tracking-widest uppercase text-white">Order Reserved (10:00)</p>
+                        <p class="font-inter text-[9px] text-white/60 uppercase tracking-widest mt-0.5">Complete payment to confirm production</p>
+                    </div>
+                </div>
+
+                <!-- Identity Hook -->
+                <div class="mb-6 flex flex-col items-center justify-center">
+                    <p class="font-mayek text-pe-red text-lg mb-1 leading-none">ꯀꯪꯂꯩꯄꯥꯛ</p>
+                    <p class="font-inter text-[9px] text-white/50 uppercase tracking-widest max-w-[250px] leading-relaxed">
+                        You are not just buying clothing — you are carrying Kangleipak identity.
+                    </p>
+                </div>
+
+                <h3 class="font-inter text-white/50 font-bold tracking-widest uppercase text-xs mb-4">Scan to Pay securely</h3>
                 
                 <div class="w-48 h-48 bg-white rounded-lg p-3 flex items-center justify-center mb-4 shadow-[0_0_40px_rgba(255,255,255,0.1)]">
                     <i data-lucide="qr-code" class="w-full h-full text-black"></i>
                 </div>
 
-                <p class="font-inter text-[10px] text-white/30 uppercase tracking-widest mb-6 max-w-[200px] leading-relaxed">
-                    After payment, tap below to send your order and screenshot on WhatsApp for confirmation.
-                </p>
-                
+                <!-- NEW: Fast-track WhatsApp Button -->
+                <button onclick="processOrderSuccess()" class="bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] px-4 py-2 rounded-full font-inter text-[9px] font-bold tracking-widest uppercase mb-6 flex items-center justify-center gap-2 hover:bg-[#25D366]/20 transition-colors w-[200px]">
+                    <i data-lucide="check-circle-2" class="w-3 h-3"></i> Already paid? Send Order
+                </button>
+
                 <p class="font-inter text-[10px] uppercase tracking-widest text-white/50 mb-1">Total Amount</p>
                 <p class="font-inter text-4xl font-black text-white mb-6" id="payment-total-display">₹0</p>
                 
-                <div class="bg-white/5 border border-white/10 rounded-sm px-6 py-3 mb-8">
+                <div class="bg-white/5 border border-white/10 rounded-sm px-6 py-3 mb-6">
                     <p class="font-inter text-xs text-white/70 tracking-wide font-medium">UPI ID: projecteramdam@upi</p>
+                </div>
+                
+                <!-- NEW: Trust Signals -->
+                <div class="flex flex-col gap-2 text-left w-full max-w-[220px] mb-8 bg-[#0a0a0a] border border-white/5 p-3 rounded-sm">
+                    <div class="flex items-center gap-2 text-[10px] font-inter text-white/60 tracking-wide"><i data-lucide="shield-check" class="w-3 h-3 text-[#25D366]"></i> Verified UPI Business Account</div>
+                    <div class="flex items-center gap-2 text-[10px] font-inter text-white/60 tracking-wide"><i data-lucide="user-check" class="w-3 h-3 text-[#25D366]"></i> Manual payment verification</div>
+                    <div class="flex items-center gap-2 text-[10px] font-inter text-white/60 tracking-wide"><i data-lucide="message-circle" class="w-3 h-3 text-[#25D366]"></i> Direct WhatsApp support</div>
                 </div>
                 
                 <p class="font-inter text-[10px] text-pe-red uppercase tracking-widest max-w-[80%] leading-relaxed font-bold">
@@ -354,7 +383,6 @@ GOOGLESHEET
                     </div>
                 </div>
 
-                <!-- NEW: VISUAL ORDER STATUS TIMELINE -->
                 <div class="border border-white/10 rounded-sm p-5 bg-[#111111]">
                     <h3 class="font-inter text-white font-bold text-[11px] uppercase tracking-widest mb-4">Order Status</h3>
                     <div class="space-y-4 font-inter text-xs text-white/80 tracking-wide">
@@ -376,10 +404,10 @@ GOOGLESHEET
             <!-- Success Footer -->
             <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
                 <a id="whatsapp-final-btn" target="_blank" onclick="toggleCart()" class="w-full bg-[#25D366] text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-[#1ebe5d] block">
-                    <span class="font-inter text-[11px] font-black tracking-[0.2em] uppercase leading-none text-center">Send Screenshot on WhatsApp</span>
+                    <span class="font-inter text-[11px] font-black tracking-[0.2em] uppercase leading-none text-center">Send Payment Screenshot & Stay Updated</span>
                 </a>
                 <p class="text-[9px] text-white/40 text-center mt-4 font-inter tracking-wide leading-relaxed px-4">
-                    Send us your payment screenshot for instant verification.
+                    Need help or want updates? Tap above to stay connected on WhatsApp.
                 </p>
             </div>
         </div>
@@ -709,19 +737,6 @@ GOOGLESHEET
         <button onclick="closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-2 md:p-3 text-left"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
     </div>
 
-    <!-- AI CHAT BOT TRIGGER (HIDDEN FOR NOW) -->
-    <div id="ai-bot-trigger" class="hidden fixed bottom-6 right-6 z-[150] bot-bubble w-14 h-14 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center cursor-pointer transition-all p-1 overflow-hidden shadow-2xl">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="55" r="32" fill="#FFE0BD"/><path d="M50 23 Q 55 10 60 18" fill="none" stroke="#4a3000" stroke-width="2.5"/><circle cx="42" cy="48" r="4.5" fill="#000"/><circle cx="58" cy="48" r="4.5" fill="#000"/><circle cx="36" cy="58" r="6" fill="#FFADAD" opacity="0.4"/><circle cx="64" cy="58" r="6" fill="#FFADAD" opacity="0.4"/><g transform="rotate(-10 50 70)"><rect x="42" y="55" width="16" height="28" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5" /><rect x="42" y="55" width="16" height="4" fill="#88FF88" stroke="#000" stroke-width="1"/><line x1="45" y1="62" x2="55" y2="62" stroke="#0000FF" stroke-width="1" opacity="0.3"/><line x1="45" y1="68" x2="55" y2="68" stroke="#0000FF" stroke-width="1" opacity="0.3"/></g><path d="M30 65 Q 40 75 48 70" fill="none" stroke="#000" stroke-width="2.5"/><path d="M70 65 Q 60 75 52 70" fill="none" stroke="#000" stroke-width="2.5"/></svg>
-    </div>
-
-    <div id="ai-chat-modal" class="hidden invisible opacity-0 fixed inset-0 z-[2800] bg-black/80 flex items-end md:items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden w-full h-[100dvh]" onclick="if(event.target === this) toggleAIChat()">
-        <div id="chat-container" class="popup-anim w-full md:max-w-md bg-[#050505] tactical-border h-[80vh] md:h-[600px] flex flex-col rounded-t-xl md:rounded-xl overflow-hidden cursor-default translate-y-20">
-            <div class="p-6 bg-white text-black flex justify-between items-center shrink-0 text-left"><div class="flex items-center gap-3 text-left"><span class="text-2xl text-left">👶</span><div class="flex flex-col text-left"><span class="font-mayek font-black text-pe-red text-lg leading-none mb-0.5 text-left">ꯄꯨꯔꯩ</span><span class="font-inter font-black text-[9px] tracking-widest uppercase text-black/60 text-left text-left">Purei</span></div></div><button onclick="toggleAIChat()" class="text-black/50 hover:text-pe-red transition-colors p-2 text-left"><i data-lucide="x"></i></button></div>
-            <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 bg-black font-inter text-[13px] md:text-sm leading-relaxed hide-scrollbar text-white w-full break-words text-left"></div>
-            <div class="p-4 border-t border-white/5 bg-[#050505] shrink-0 text-left"><div class="flex gap-2 text-left"><input id="chat-input" type="text" placeholder="Ask Purei..." class="flex-grow bg-white/5 p-4 text-sm outline-none focus:border-pe-red border border-transparent transition-colors font-inter text-white rounded-sm w-full text-left"><button onclick="sendMessage()" class="bg-white text-black px-5 active:scale-95 transition-transform rounded-sm shrink-0 text-left"><i data-lucide="send" class="w-5 h-5"></i></button></div></div>
-        </div>
-    </div>
-
     <!-- SCRIPTS -->
     <script>
         const COLOR_MAP = {
@@ -889,6 +904,14 @@ GOOGLESHEET
                 setTimeout(() => cbContainer.classList.remove('border-pe-red', 'bg-pe-red/10'), 600);
             }
             playTock();
+
+            // Auto-scroll to error
+            setTimeout(() => {
+                document.querySelector('.input-error')?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }, 100);
         }
 
         // PINCODE AUTO-FILL API
@@ -1197,7 +1220,7 @@ GOOGLESHEET
 
         const openModal = (idx) => {
             currentProdIdx = idx; currentImgIdx = 0; selectedColor = null; selectedSize = null;
-            const p = PRODUCT_DATA_LOADED[idx];
+            const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const nameParts = splitName(p.name);
             
             document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[9px] text-white/50 font-black tracking-[0.3em] uppercase text-left">${nameParts.eng}</span>`;
@@ -1464,6 +1487,8 @@ GOOGLESHEET
                     btn.classList.add('cursor-not-allowed', 'pointer-events-none');
                 }
             }
+
+            // Auto-scroll logic happens exclusively inside triggerErrorHighlight now.
         };
 
         // GOOGLE FORM SILENT CAPTURE (FINAL MAPPED VERSION)
@@ -1789,5 +1814,3 @@ GOOGLESHEET
     </script>
 </body>
 </html>
-
-
