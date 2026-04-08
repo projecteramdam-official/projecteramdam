@@ -1,179 +1,289 @@
 [
   {
-    "id": 101,
-    "name": "KANGLASHA - Guardian of Roots | Oversized Tee",
-    "price": "₹1299",
-    "desc": "Sacred guardian of Kangla Fort — symbol of protection, authority, and identity. Built for bold presence with structured oversized silhouette.",
-    "lore": "Kangla Sha is not just a creature — it is a gatekeeper of power. Standing at the ancient Kangla Fort, it has witnessed kings rise, kingdoms fall, and history reshape itself. This design captures that silent dominance — not loud, not chaotic, but unshakable. The sharp edges, the stance, the symmetry — everything reflects authority without needing to prove it. This is not fashion. This is presence.",
-    "loreMayek": "ꯀꯪꯂꯥ ꯁꯥ ꯑꯁꯤ ꯊꯋꯥꯏ ꯄꯥꯟꯕꯥ ꯍꯤꯡꯆꯥꯕꯥ ꯑꯃꯈꯛ ꯅꯠꯇꯦ - ꯑꯁꯤ ꯁꯛꯇꯤꯒꯤ ꯊꯣꯡꯉꯥꯜ ꯉꯥꯛꯄꯥ ꯑꯃꯅꯤ꯫",
-    "details": "• 240–260 GSM Premium Terry Cotton\n• Oversized drop-shoulder fit\n• High-density screen print\n• Breathable + structured drape\n• Built for daily wear + statement styling\n\n⚠️ Check size chart before ordering. Oversized fit — do not assume your regular size.",
-    "wash": "• Machine wash cold (inside-out)\n• Do not bleach\n• Do not iron directly on print\n• Dry in shade (prevents fading)\n• Avoid high heat drying",
-    "colors": ["White", "Off White"],
+    "id": 100,
+    "name": "KANGLA SHA - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Flamingo",
+      "White"
+    ],
     "images": [
-       
-    "images/kangla_sha/Front_1_c_1.jpg",
-
-    "images/kangla_sha/Front_1_c_61.jpg",
-
- "images/kangla_sha/front.jpg",
-
-    "images/kangla_sha/back.jpg",
-
-    "images/kangla_sha/Back_2_c_61.jpg"
+      "images/kangla_sha/back_off_white_2.jpg",
+      "images/kangla_sha/back_white.jpg",
+      "images/kangla_sha/front_flamingo_2.jpg",
+      "images/kangla_sha/front_off_white.jpg",
+      "images/kangla_sha/model_female.jpg",
+      "images/kangla_sha/model_female_1.jpg",
+      "images/kangla_sha/model_female_2.jpg"
+    ]
+  },
+  {
+    "id": 101,
+    "name": "KEIBU KEIOIBA - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Black",
+      "Bottle Green",
+      "Maroon",
+      "Navy"
+    ],
+    "images": [
+      "images/keibu_keioiba/front_black.jpg",
+      "images/keibu_keioiba/front_bottle_green.jpg",
+      "images/keibu_keioiba/front_maroon.jpg",
+      "images/keibu_keioiba/front_navy.jpg",
+      "images/keibu_keioiba/model_female.jpg",
+      "images/keibu_keioiba/model_male.jpg"
     ]
   },
   {
     "id": 102,
-    "name": "KHAMBA - Kao Trial Edition | UT27",
-    "price": "₹999",
-    "desc": "Inspired by Khamba Na Kao Phaba — where strength meets calm, and control defeats chaos.",
-    "lore": "When the raging Kao was unleashed, it was not just a battle of strength — it was a test of spirit. Khamba did not fight the bull with fear. He faced it with control. This design captures that moment — tension, movement, and raw force frozen in time. The aggressive strokes represent chaos. The central structure represents calm. Because true power is not in dominance — it is in control.",
-    "loreMayek": "",
-    "details": "• UT27 Unisex Terry Oversized Tee\n• Heavyweight premium cotton\n• Sharp black knockout graphic\n• Streetwear-ready silhouette\n• Designed for durability + daily wear\n\n⚠️ Check size before ordering. Oversized fit — size down if unsure.",
-    "wash": "• Wash inside-out\n• Cold wash only\n• No bleach\n• Avoid direct ironing on design\n• Air dry recommended",
-    "colors": ["Flamingo", "Lavender", "Baby Blue", "Jade", "Off White", "White"],
+    "name": "KHAMBA KAO PHABA - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Babyblue",
+      "Flamingo",
+      "Jade",
+      "Lavender",
+      "Pink",
+      "White"
+    ],
     "images": [
-      "images/khamba_trial/front.jpg",
-      "images/khamba_trial/Front_1_c_45.jpg",
-      "images/khamba_trial/Front_1_c_49.jpg",
-      "images/khamba_trial/Front_1_c_54.jpg",
-      "images/khamba_trial/Front_1_c_56.jpg",
-      "images/khamba_trial/Front_1_c_57.jpg",
-      "images/khamba_trial/Front_1_c_61.jpg",
-       "images/khamba_trial/model_female.jpg",
-       "images/khamba_trial/model_male.jpg"
+      "images/khamba_trial/front_babyblue.jpg",
+      "images/khamba_trial/front_flamingo.jpg",
+      "images/khamba_trial/front_jade_2.jpg",
+      "images/khamba_trial/front_lavender.jpg",
+      "images/khamba_trial/front_off_white.jpg",
+      "images/khamba_trial/front_pink.jpg",
+      "images/khamba_trial/front_white.jpg",
+      "images/khamba_trial/model_female_1.jpg",
+      "images/khamba_trial/model_male_1.jpg",
+      "images/khamba_trial/model_male_2.jpg"
+    ]
+  },
+  {
+    "id": 103,
+    "name": "KHAMBA KAO PHABA V2 - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Black"
+    ],
+    "images": [
+      "images/khamba_v1/front_black.jpg",
+      "images/khamba_v1/model_female.jpg",
+      "images/khamba_v1/model_male.jpg"
     ]
   },
   {
     "id": 104,
-    "name": "LAI KHUTSHANGBI - Phunga Wari Edition",
-    "price": "₹899",
-    "desc": "Inspired by childhood Phunga Wari — where fear lived in imagination and shadows had meaning.",
-    "lore": "In the quiet nights, when children gathered around the fire, stories were not told for entertainment — they were warnings. Lai Khutshangbi was never clearly seen. She existed in the corners. In the silence. In the fear of being watched. This design reflects that imagination: Blurred form. Elongated presence. Uncertain boundaries. It is not what you see. It is what you feel.",
-    "loreMayek": "",
-    "details": "• Premium oversized cotton tee\n• Soft yet structured fabric\n• High contrast horror silhouette design\n• Inspired by oral folklore storytelling\n\n⚠️ Important: Check size chart before ordering. Oversized fit.",
-    "wash": "• Wash inside-out\n• Cold gentle cycle\n• No harsh detergents\n• Do not tumble dry high heat\n• Dry in shade",
-    "colors": ["Jade", "White", "Bottle Green", "Lavender", "Baby Blue", "Flamingo"],
+    "name": "LAI KHUTSHANGBI PHUNGA WARI - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Blue",
+      "Flamingo",
+      "Green",
+      "Jade",
+      "Lavender",
+      "Maroon",
+      "Pink",
+      "Red",
+      "White"
+    ],
     "images": [
-      "images/lai_phunga/front.jpg",
-      "images/lai_phunga/Front_1_c_1.jpg",
-      "images/lai_phunga/Front_1_c_49.jpg",
-      "images/lai_phunga/Front_1_c_54.jpg",
-      "images/lai_phunga/Front_1_c_56.jpg",
-      "images/lai_phunga/Front_1_c_57.jpg",
-      "images/lai_phunga/Front_1_c_8.jpg",
+      "images/lai_phunga/Front_flamingo.jpg",
+      "images/lai_phunga/front_baby_pink.jpg",
+      "images/lai_phunga/front_blue.jpg",
+      "images/lai_phunga/front_green.jpg",
+      "images/lai_phunga/front_jade.jpg",
+      "images/lai_phunga/front_lavender.jpg",
+      "images/lai_phunga/front_maroon.jpg",
+      "images/lai_phunga/front_off_white.jpg",
+      "images/lai_phunga/front_red.jpg",
+      "images/lai_phunga/front_white.jpg",
       "images/lai_phunga/model_female.jpg",
       "images/lai_phunga/model_male.jpg"
     ]
   },
   {
     "id": 105,
-    "name": "LAI KHUTSHANGBI - She Reaches",
-    "price": "₹899",
-    "desc": "She does not knock. She reaches.",
-    "lore": "Lai Khutshangbi is known not by sight — but by reach. Her arms extend beyond what should be possible. Her presence arrives before she is seen. This design focuses on that moment: The stretch. The tension. The inevitability. It is not chasing you. It has already reached.",
-    "loreMayek": "",
-    "details": "• Oversized UT27 fit\n• High-density black + red graphic\n• Horror-inspired folklore streetwear\n\n⚠️ Check size chart before ordering.",
-    "wash": "• Wash cold inside-out\n• Do not iron print\n• Hang dry preferred",
-    "colors": ["Red", "Black", "Navy Blue", "Bottle Green", "Maroon", "Lavender", "Baby Blue", "Flamingo", "Jade"],
+    "name": "LAI KHUTSHANGBI REACHES - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Black",
+      "Blue",
+      "Green",
+      "Jade",
+      "Maroon",
+      "Navy",
+      "Pink",
+      "Red"
+    ],
     "images": [
-      "images/lai_reaches/front.jpg",
-      "images/lai_reaches/Front_1_c_10.jpg",
-      "images/lai_reaches/Front_1_c_2.jpg",
-      "images/lai_reaches/Front_1_c_25.jpg",
-      "images/lai_reaches/Front_1_c_3.jpg",
-      "images/lai_reaches/Front_1_c_49.jpg",
-      "images/lai_reaches/Front_1_c_54.jpg",
-      "images/lai_reaches/Front_1_c_56.jpg",
-      "images/lai_reaches/Front_1_c_57.jpg",
-      "images/lai_reaches/Front_1_c_8.jpg",
+      "images/lai_reaches/front_black.jpg",
+      "images/lai_reaches/front_blue.jpg",
+      "images/lai_reaches/front_green.jpg",
+      "images/lai_reaches/front_jade.jpg",
+      "images/lai_reaches/front_maroon_3.jpg",
+      "images/lai_reaches/front_maroon_8.jpg",
+      "images/lai_reaches/front_navy_blue.jpg",
+      "images/lai_reaches/front_pink.jpg",
+      "images/lai_reaches/front_red.jpg",
       "images/lai_reaches/model_female.jpg",
       "images/lai_reaches/model_male.jpg"
     ]
   },
   {
-    "id": 107,
-    "name": "SANGAI - Dancing Deer",
-    "price": "₹899",
-    "desc": "Symbol of balance — where every step is survival.",
-    "lore": "The Sangai does not run wildly. It walks carefully — balancing on floating land that can collapse at any moment. Each step is calculated. Each movement is survival. This design captures that fragile strength — where grace is not beauty, but necessity.",
-    "loreMayek": "",
-    "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + symbolic design\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
-    "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
-    "colors": ["Yellow", "White", "Grey", "Lavender", "Maroon"],
+    "id": 106,
+    "name": "LAI KHUTSGHANGBI V2 - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Black",
+      "Maroon",
+      "Red"
+    ],
     "images": [
-      "images/sangai_dancing/front.jpg",
-      "images/sangai_dancing/alt_2.jpg",
-      "images/sangai_dancing/alt_3.jpg",
-      "images/sangai_dancing/alt_4.jpg",
-      "images/sangai_dancing/alt_5.jpg",
-      "images/sangai_dancing/model_male.jpg",
-      "images/sangai_dancing/model_female.jpg"
+      "images/lai_v1/front_black.jpg",
+      "images/lai_v1/front_black_1.jpg",
+      "images/lai_v1/front_maroon_1.jpg",
+      "images/lai_v1/front_red.jpg",
+      "images/lai_v1/model_female.jpg",
+      "images/lai_v1/model_male.jpg"
+    ]
+  },
+  {
+    "id": 107,
+    "name": "SANGAI DANCING - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Babyblue",
+      "Lavender",
+      "Maroon",
+      "White",
+      "Yellow"
+    ],
+    "images": [
+      "images/sangai_dancing/front_babyblue.jpg",
+      "images/sangai_dancing/front_lavender.jpg",
+      "images/sangai_dancing/front_maroon (2).jpg",
+      "images/sangai_dancing/front_white.jpg",
+      "images/sangai_dancing/front_yellow.jpg",
+      "images/sangai_dancing/model_female.jpg",
+      "images/sangai_dancing/model_male.jpg"
+    ]
+  },
+  {
+    "id": 108,
+    "name": "SANGAI SPIRIT - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Black"
+    ],
+    "images": [
+      "images/sangai_spirit/front_black.jpg",
+      "images/sangai_spirit/model_male.jpg"
     ]
   },
   {
     "id": 109,
-    "name": "THANGAL - Warrior Legacy",
-    "price": "₹899",
-    "desc": "A tribute to Lungthoubu Thangal — strength, loyalty, and resistance.",
-    "lore": "Thangal was not born into greatness. He earned it through guidance and resistance. From guiding kings through unknown lands to standing firm against colonial power — his life was built on action, not title. No excess. No noise. Just strength.",
-    "loreMayek": "",
-    "details": "• UT27 oversized fit\n• Durable cotton build\n• Strong minimal graphic identity\n• Designed for everyday + statement wear\n\n⚠️ Check size before ordering.",
-    "wash": "• Wash inside-out\n• Cold water\n• Avoid heavy machine drying\n• Do not iron print",
-    "colors": ["Maroon", "Navy Blue", "Bottle Green", "Black"],
+    "name": "SANGAI V3 - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "White",
+      "Yellow"
+    ],
     "images": [
-      "images/thangal_warrior/alt_1.jpg",
-      "images/thangal_warrior/alt_2.jpg",
-      "images/thangal_warrior/alt_3.jpg",
-      "images/thangal_warrior/alt_4.jpg"
+      "images/sangai_v3/front_off_white.jpg",
+      "images/sangai_v3/front_white.jpg",
+      "images/sangai_v3/front_yellow.jpg",
+      "images/sangai_v3/model_female.png"
     ]
   },
   {
     "id": 110,
-    "name": "KHAMBA - Core Edition",
-    "price": "₹899",
-    "desc": "Embodiment of raw strength — stripped of excess, built on legacy.",
-    "lore": "Khamba is not loud. His strength does not seek attention. It exists — steady, unshaken, undeniable. Rooted in courage and resilience, he stands as a symbol of quiet power.",
-    "loreMayek": "",
-    "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + bold identity\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
-    "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
-    "colors": ["Black"],
+    "name": "SANGAI V4 - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Black",
+      "Maroon"
+    ],
     "images": [
-      "images/khamba_v1/Front_1_c_2.jpg",
-      "images/khamba_v1/model_female.jpg",
-      "images/khamba_v1/model_male.jpg"
+      "images/sangai_v4/front_black.jpg",
+      "images/sangai_v4/front_maroon_1.jpg",
+      "images/sangai_v4/model_female.jpg"
     ]
   },
   {
     "id": 111,
-    "name": "LAI KHUTSHANGBI - Concept V1",
-    "price": "₹799",
-    "desc": "The first reach — where presence begins to take form.",
-    "lore": "She does not arrive fully formed. She reaches first. Lai Khutshangbi exists between seen and unseen — her presence defined by motion, by extension, by touch that never fully reveals itself.",
-    "loreMayek": "",
-    "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Concept experimental design\n• Limited early drop\n\n⚠️ Check size chart before ordering.",
-    "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
-    "colors": ["Red", "Black", "Maroon", "Bottle Green"],
+    "name": "THANGAL WARRIOR - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Black",
+      "Green",
+      "Maroon",
+      "Navy"
+    ],
     "images": [
-      "images/lai_v1/front.jpg",
-      "images/lai_v1/alt_1.jpg",
-      "images/lai_v1/alt_2.jpg",
-      "images/lai_v1/alt_3.jpg"
+      "images/thangal_warrior/front_black.jpg",
+      "images/thangal_warrior/front_green.jpg",
+      "images/thangal_warrior/front_maroon.jpg",
+      "images/thangal_warrior/front_navy.jpg",
+      "images/thangal_warrior/model_female_1.jpg",
+      "images/thangal_warrior/model_male_1.jpg"
     ]
   },
   {
     "id": 112,
-    "name": "SANGAI - Spirit Form",
-    "price": "₹899",
-    "desc": "A silent watcher — existing beyond sight, beyond certainty.",
-    "lore": "You do not see the spirit. But it sees you. The Sangai, in its spirit form, is not bound to land or body. It moves between worlds — quiet, observing, present without proof.",
-    "loreMayek": "",
-    "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + atmospheric design\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
-    "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
-    "colors": ["Black"],
+    "name": "UCHEK LANGMEIDONG - Edition",
+    "price": "₹XXX",
+    "desc": "Description coming soon.",
+    "lore": "Lore coming soon.",
+    "colors": [
+      "Babyblue",
+      "Flamingo",
+      "Green",
+      "Jade",
+      "Lavender",
+      "Maroon",
+      "Pink",
+      "White"
+    ],
     "images": [
-      "images/sangai_spirit/front_.jpg",
-      "images/sangai_spirit/back_.jpg"
+      "images/uchek_langmeidong/front_babyblue.jpg",
+      "images/uchek_langmeidong/front_flamingo.jpg",
+      "images/uchek_langmeidong/front_green.jpg",
+      "images/uchek_langmeidong/front_jade.jpg",
+      "images/uchek_langmeidong/front_lavender.jpg",
+      "images/uchek_langmeidong/front_maroon.jpg",
+      "images/uchek_langmeidong/front_maroon_1.jpg",
+      "images/uchek_langmeidong/front_off_white.jpg",
+      "images/uchek_langmeidong/front_pink.jpg",
+      "images/uchek_langmeidong/front_white.jpg",
+      "images/uchek_langmeidong/model_female_1.jpg",
+      "images/uchek_langmeidong/model_female_2.jpg"
     ]
   }
 ]
