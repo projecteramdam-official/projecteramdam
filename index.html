@@ -1,4 +1,4 @@
-cart logic V2
+cart logic V3
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1333,7 +1333,7 @@ cart logic V2
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Size: <span class="text-pe-red">${item.size}</span></div>
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Color: <span class="text-pe-red">${item.color}</span></div>
                             </div>
-                            <span class="text-sm font-inter font-black text-white mt-3 text-left">₹${item.numPrice.toLocaleString('en-IN')}</span>
+                            <span class="text-sm font-inter font-black text-white mt-3 text-left">₹${(item.numPrice || 0).toLocaleString('en-IN')}</span>
                         </div>
                     </div>`;
                 }).join('');
@@ -1642,7 +1642,7 @@ cart logic V2
         id: p.id,
         name: p.name,
         price: p.price,
-        numPrice: parseInt(p.price.replace(/[^0-9]/g, '')),
+        numPrice: p.price ? parseInt(String(p.price).replace(/[^0-9]/g, '')) || 0 : 0,
         size: selectedSize,
         color: selectedColor,
         image: p.images[0]
@@ -1782,7 +1782,7 @@ cart logic V2
             let totalQty = cart.length;
             
             cart.forEach((item, i) => {
-                message += `${i+1}. ${item.name}\n- Variant: ${item.color} / ${item.size}\n- Price: ₹${item.numPrice.toLocaleString('en-IN')}\n`;
+                message += `${i+1}. ${item.name}\n- Variant: ${item.color} / ${item.size}\n- Price: ₹${(item.numPrice || 0).toLocaleString('en-IN')}\n`;
                 // Qikink Confirm String logic added
                 let cStrProduct = item.name.substring(0, 10).toUpperCase().replace(/\s/g,'');
                 let cStrSize = item.size.toUpperCase();
@@ -1852,7 +1852,7 @@ cart logic V2
                 
                 setTimeout(() => {
                     document.getElementById('display-order-id').innerText = `Order ID: ${results.orderData.id}`;
-                    let summaryHTML = cart.map(item => `<div class="flex justify-between gap-4"><span class="truncate">${item.name} <span class="text-white/40">(${item.size}/${item.color})</span></span><span class="shrink-0 text-white">₹${item.numPrice.toLocaleString('en-IN')}</span></div>`).join('');
+                    let summaryHTML = cart.map(item => `<div class="flex justify-between gap-4"><span class="truncate">${item.name} <span class="text-white/40">(${item.size}/${item.color})</span></span><span class="shrink-0 text-white">₹${(item.numPrice || 0).toLocaleString('en-IN')}</span></div>`).join('');
                     document.getElementById('success-order-items').innerHTML = summaryHTML;
                     document.getElementById('success-total').innerText = `₹${results.orderData.total.toLocaleString('en-IN')}`;
                     document.getElementById('whatsapp-final-btn').href = waUrl;
