@@ -1,5 +1,6 @@
-V7 4:07 fixed next buttons
+Upi logic
 
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -973,7 +974,7 @@ V7 4:07 fixed next buttons
             window.open('https://wa.me/919366659414?text=Hi%20Project%20Eramdam%20Support!%20I%20have%20a%20query...', '_blank');
         }
 
-        // UPI COPY FUNCTION & DEEP LINK FUNCTION
+        // UPI COPY FUNCTION
         const copyUPI = () => {
             const upi = "projecteramdam@upi";
             navigator.clipboard.writeText(upi).then(() => {
@@ -1011,18 +1012,36 @@ V7 4:07 fixed next buttons
             });
         };
 
+        // FIXED: DEEP LINK FUNCTION
         const openUPIApp = () => {
             let total = 0;
-            cart.forEach(item => total += item.numPrice);
+            cart.forEach(item => {
+                const price = typeof item.numPrice === 'number' ? item.numPrice : parseInt(String(item.price).replace(/[^0-9]/g, ''));
+                total += (price || 0);
+            });
+            
             if (total <= 0) return;
             
             playTock();
             const upiId = "projecteramdam@upi";
-            const name = encodeURIComponent("Project Eramdam");
-            const upiLink = `upi://pay?pa=${upiId}&pn=${name}&am=${total}&cu=INR`;
+            const payeeName = "Project Eramdam";
+            const transactionNote = "Order from Project Eramdam";
             
-            // Attempt to open the UPI deep link
-            window.location.href = upiLink;
+            // Constructing a robust UPI URI with standard parameters
+            const upiLink = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${total}&cu=INR&tn=${encodeURIComponent(transactionNote)}`;
+            
+            // Using a hidden anchor click method as it is more reliable than window.location.href 
+            // for custom protocol handling in various mobile browsers and iOS/Android systems.
+            const link = document.createElement('a');
+            link.href = upiLink;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            
+            // Brief cleanup delay
+            setTimeout(() => {
+                if (link.parentNode) document.body.removeChild(link);
+            }, 100);
         };
 
         // HIGHLIGHT FIXTURES
@@ -1353,8 +1372,8 @@ V7 4:07 fixed next buttons
                             <img src="${item.image}" class="w-full h-full object-contain">
                         </div>
                         <div class="flex-grow flex flex-col justify-center min-w-0 text-left">
-                            <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate text-left text-left">${nameParts.mayek}</h4>
-                            <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3 text-left text-left text-left">${nameParts.eng}</span>
+                            <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate text-left text-left text-left text-left">${nameParts.mayek}</h4>
+                            <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3 text-left text-left text-left text-left text-left">${nameParts.eng}</span>
                             <div class="flex flex-wrap gap-2 text-left">
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Size: <span class="text-pe-red">${item.size}</span></div>
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Color: <span class="text-pe-red">${item.color}</span></div>
@@ -1419,7 +1438,7 @@ V7 4:07 fixed next buttons
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const nameParts = splitName(p.name);
             
-            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[10px] text-white/80 font-bold tracking-[0.3em] uppercase text-left text-left text-left">${nameParts.eng}</span>`;
+            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[10px] text-white/80 font-bold tracking-[0.3em] uppercase text-left text-left text-left text-left text-left">${nameParts.eng}</span>`;
             document.getElementById('modal-price').innerText = p.price;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('lore-body').innerText = p.lore;
@@ -1659,3 +1678,4 @@ V7 4:07 fixed next buttons
 </html>
 
 ```
+
