@@ -1,10 +1,13 @@
-Fixed v6 cart logic added:
+Button fixed
 
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <!-- Declare dark scheme to prevent system "Force Dark" from inverting colors incorrectly -->
+    <meta name="color-scheme" content="dark only">
     <title>PE | Project Eramdam - Kangleipak Streetwear</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,8 +36,19 @@ Fixed v6 cart logic added:
     
     <style>
         * { -webkit-tap-highlight-color: transparent; outline: none; }
+        :root { color-scheme: dark; } /* Explicitly tell browser this is a dark theme */
+        
         body { background-color: #000000; color: #ffffff; overflow-x: hidden; touch-action: pan-y; user-select: none; text-align: left; font-family: 'Inter', sans-serif; }
         
+        /* HARD OVERRIDE FOR PRIMARY BUTTONS - Prevents system dark mode inversion */
+        .force-white-button {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+        .force-white-button * {
+            color: #000000 !important;
+        }
+
         @keyframes kenBurns { 0%, 100% { transform: scale(1) translateZ(0); } 50% { transform: scale(1.08) translateZ(0); } }
         .ken-burns { animation: kenBurns 20s ease-in-out infinite; will-change: transform; }
 
@@ -69,7 +83,7 @@ Fixed v6 cart logic added:
         .custom-dropdown-list.open { max-height: 300px; overflow-y: auto; }
         #modal-images { will-change: transform; touch-action: pan-y pinch-zoom; }
 
-        /* CUSTOM CHECKBOX CSS */
+        /* CUSTOM CHECKBOX CSS - INCREASED VISIBILITY */
         .custom-check {
             display: flex;
             align-items: flex-start;
@@ -79,9 +93,9 @@ Fixed v6 cart logic added:
         }
         .custom-check input { display: none; }
         .checkmark {
-            width: 22px;
-            height: 22px;
-            border: 2px solid rgba(255, 255, 255, 0.7);
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.8); /* Thicker and brighter */
             border-radius: 4px;
             background: rgba(255, 255, 255, 0.1);
             position: relative;
@@ -96,8 +110,8 @@ Fixed v6 cart logic added:
         .custom-check input:checked + .checkmark::after {
             content: "";
             position: absolute;
-            left: 7px;
-            top: 3px;
+            left: 8px;
+            top: 4px;
             width: 5px;
             height: 10px;
             border: solid #000;
@@ -233,7 +247,7 @@ Fixed v6 cart logic added:
                     <span class="text-[10px] font-inter font-black tracking-[0.3em] uppercase text-gray-500 mb-1">Subtotal</span>
                     <span id="cart-total" class="text-2xl font-inter font-black tracking-tight text-white leading-none">₹0</span>
                 </div>
-                <button id="proceedToCheckoutBtn" onclick="switchSidebarState('checkout')" class="w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center hover:bg-gray-200 cursor-pointer border-transparent">
+                <button id="proceedToCheckoutBtn" onclick="switchSidebarState('checkout')" class="w-full force-white-button py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer border-transparent">
                     <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span>
                     <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none text-center">Proceed to Checkout</span>
                 </button>
@@ -321,7 +335,7 @@ Fixed v6 cart logic added:
             <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
                 <!-- Wrapper to catch clicks when button is disabled to show red errors -->
                 <div onclick="triggerErrorHighlight()" class="w-full cursor-pointer rounded-sm">
-                    <button id="proceedToPaymentBtn" onclick="switchSidebarState('payment')" class="w-full bg-white text-black py-4 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center opacity-50 pointer-events-none hover:bg-gray-200" disabled>
+                    <button id="proceedToPaymentBtn" onclick="switchSidebarState('payment')" class="w-full py-4 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center opacity-50 pointer-events-none" disabled>
                         <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯁꯦꯟꯊꯨꯡ</span>
                         <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none text-center">Proceed to Payment</span>
                     </button>
@@ -351,7 +365,7 @@ Fixed v6 cart logic added:
                 <p class="font-inter text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" id="payment-total-display">₹0</p>
 
                 <!-- PRIMARY ACTION: Deep Link -->
-                <button onclick="openUPIApp()" class="w-full max-w-[280px] bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-[0_0_20px_rgba(255,255,255,0.2)] text-center cursor-pointer hover:bg-gray-200 mb-3 mx-auto">
+                <button onclick="openUPIApp()" class="w-full max-w-[280px] force-white-button py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-[0_0_20px_rgba(255,255,255,0.2)] text-center cursor-pointer hover:bg-gray-200 mb-3 mx-auto">
                     <span class="flex items-center gap-2 font-inter text-[12px] font-black tracking-[0.2em] uppercase leading-none text-center">
                         <i data-lucide="smartphone" class="w-4 h-4"></i> Pay via UPI App
                     </span>
@@ -393,7 +407,7 @@ Fixed v6 cart logic added:
             <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
                 <!-- Fast-track WhatsApp Button inside bottom action bar for higher visibility -->
                 <button id="iHavePaidBtn" onclick="processOrderSuccess()" class="w-full bg-[#25D366] text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center hover:bg-[#1ebe5d] cursor-pointer">
-                    <span class="flex items-center gap-2 font-inter text-[12px] font-black tracking-[0.1em] uppercase leading-none text-center mb-1.5">
+                    <span class="flex items-center gap-2 font-inter text-[12px] font-black tracking-[0.1em] uppercase text-white leading-none text-center mb-1.5">
                         <i data-lucide="check-circle-2" class="w-4 h-4"></i> Already Paid? Send Order
                     </span>
                     <span class="font-inter text-[9px] font-bold tracking-[0.2em] text-white/80 uppercase leading-none text-center">On WhatsApp for Confirmation</span>
@@ -473,9 +487,9 @@ Fixed v6 cart logic added:
             <h1 class="font-mayek text-5xl sm:text-6xl md:text-[8rem] font-black text-white leading-none mb-4 text-center">ꯃꯔꯨ ꯁꯦꯠꯂꯨ</h1>
             <h2 class="font-inter text-sm sm:text-lg md:text-2xl font-black tracking-[0.5em] md:tracking-[0.8em] text-white/60 uppercase mb-12 text-center">Wear Your Roots</h2>
             
-            <button onclick="document.getElementById('drop').scrollIntoView({behavior: 'smooth'}); playTock();" class="bg-white text-black px-12 py-4 active:scale-95 transition-all flex flex-col items-center justify-center mx-auto rounded-sm hover:bg-gray-100 shadow-2xl">
-                <span class="font-mayek text-xl font-black leading-none mb-1.5 text-black">ꯗ꯭ꯔꯣꯄ ꯌꯦꯡꯕꯤꯌꯨ</span>
-                <span class="font-inter text-[8px] font-black tracking-[0.4em] uppercase leading-none text-black/70">Explore Drop</span>
+            <button onclick="document.getElementById('drop').scrollIntoView({behavior: 'smooth'}); playTock();" class="force-white-button px-12 py-4 active:scale-95 transition-all flex flex-col items-center justify-center mx-auto rounded-sm hover:bg-gray-100 shadow-2xl">
+                <span class="font-mayek text-xl font-black leading-none mb-1.5">ꯗ꯭ꯔꯣꯄ ꯌꯦꯡꯕꯤꯌꯨ</span>
+                <span class="font-inter text-[8px] font-black tracking-[0.4em] uppercase leading-none">Explore Drop</span>
             </button>
         </div>
     </section>
@@ -493,7 +507,7 @@ Fixed v6 cart logic added:
             <div class="text-left w-full">
                 <div class="mb-10">
                     <h3 class="font-mayek text-4xl md:text-6xl font-black text-white leading-none mb-3">ꯍꯧꯔꯀꯐꯝ</h3>
-                    <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-left">Origin Manifesto</h4>
+                    <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase">Origin Manifesto</h4>
                 </div>
                 <div class="space-y-6 md:space-y-8 text-sm sm:text-base md:text-xl font-light leading-relaxed text-gray-300 border-l border-white/20 pl-6 md:pl-8 text-left w-full">
                     <p>Before trends, there was a land of strength, stories, and legacy — <span class="text-white font-bold uppercase tracking-widest">KANGLEIPAK</span>.</p>
@@ -680,8 +694,8 @@ Fixed v6 cart logic added:
                 <div class="space-y-0 w-full border-t border-white/10 text-left mb-8">
                     <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
-                            <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯆꯥꯡ</span>
-                            <span class="font-inter text-[9px] tracking-widest uppercase text-white/40 font-bold leading-none">Size Chart & Guide</span>
+                            <span class="font-mayek text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯆꯥꯡ</span>
+                            <span class="font-inter text-[10px] tracking-widest uppercase text-white/80 font-bold leading-none">Size Chart & Guide</span>
                         </div>
                         <i id="icon-size" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
                     </button>
@@ -724,8 +738,8 @@ Fixed v6 cart logic added:
 
                     <button id="btn-protocol" onclick="toggleAccordion('protocol')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group text-left">
                         <div class="flex flex-col text-left">
-                            <span class="font-mayek text-pe-red text-lg font-black leading-none mb-1.5 transition-colors">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
-                            <span class="font-inter text-[9px] tracking-widest uppercase text-pe-red/60 font-bold leading-none text-left text-left">Shopping Protocol</span>
+                            <span class="font-mayek text-pe-red text-lg font-bold leading-none mb-1.5 transition-colors">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
+                            <span class="font-inter text-[10px] tracking-widest uppercase text-pe-red/90 font-bold leading-none text-left">Shopping Protocol</span>
                         </div>
                         <i id="icon-protocol" data-lucide="shield-alert" class="w-5 h-5 text-pe-red/40 group-hover:text-pe-red transition-colors"></i>
                     </button>
@@ -756,8 +770,8 @@ Fixed v6 cart logic added:
                 <div class="space-y-0 w-full border-t border-white/10 text-left">
                     <button onclick="toggleAccordion('lore')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
-                            <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯋꯥꯔꯤ</span>
-                            <span class="font-inter text-[9px] tracking-widest uppercase text-white/40 font-bold leading-none">Lore & Origin</span>
+                            <span class="font-mayek text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯋꯥꯔꯤ</span>
+                            <span class="font-inter text-[10px] tracking-widest uppercase text-white/80 font-bold leading-none text-left">Lore & Origin</span>
                         </div>
                         <i id="icon-lore" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
                     </button>
@@ -767,8 +781,8 @@ Fixed v6 cart logic added:
 
                     <button id="btn-details" onclick="toggleAccordion('details')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
-                            <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯑꯀꯨꯞꯄ</span>
-                            <span class="font-inter text-[9px] tracking-widest uppercase text-white/40 font-bold leading-none">Product Details</span>
+                            <span class="font-mayek text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯑꯀꯨꯞꯄ</span>
+                            <span class="font-inter text-[10px] tracking-widest uppercase text-white/80 font-bold leading-none text-left">Product Details</span>
                         </div>
                         <i id="icon-details" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
                     </button>
@@ -780,8 +794,8 @@ Fixed v6 cart logic added:
 
                     <button id="btn-wash" onclick="toggleAccordion('wash')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
-                            <span class="font-mayek text-white text-lg font-black leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯁꯦꯡꯗꯣꯛꯄꯥ</span>
-                            <span class="font-inter text-[9px] tracking-widest uppercase text-white/40 font-bold leading-none">Wash Care</span>
+                            <span class="font-mayek text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯁꯦꯡꯗꯣꯛꯄꯥ</span>
+                            <span class="font-inter text-[10px] tracking-widest uppercase text-white/80 font-bold leading-none text-left">Wash Care</span>
                         </div>
                         <i id="icon-wash" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
                     </button>
@@ -1301,9 +1315,9 @@ Fixed v6 cart logic added:
                 container.innerHTML = `<div class="text-center text-gray-600 mt-20 font-inter text-[10px] font-black tracking-[0.4em] uppercase flex flex-col items-center w-full"><i data-lucide="shopping-bag" class="w-8 h-8 mb-4 opacity-20"></i> Cart is empty</div>`;
                 if(checkoutBtn) {
                     checkoutBtn.disabled = true;
+                    checkoutBtn.classList.remove('force-white-button');
+                    checkoutBtn.classList.add('bg-[#0a0a0a]', 'text-white/20');
                     checkoutBtn.style.opacity = "0.5";
-                    checkoutBtn.classList.add('cursor-not-allowed');
-                    checkoutBtn.classList.remove('hover:bg-gray-200');
                 }
                 lucide.createIcons();
                 
@@ -1313,9 +1327,8 @@ Fixed v6 cart logic added:
             } else {
                 if(checkoutBtn) {
                     checkoutBtn.disabled = false;
+                    checkoutBtn.classList.add('force-white-button');
                     checkoutBtn.style.opacity = "1";
-                    checkoutBtn.classList.remove('cursor-not-allowed');
-                    checkoutBtn.classList.add('hover:bg-gray-200');
                 }
                 container.innerHTML = cart.map((item, idx) => {
                     totalQty += 1; totalPrice += item.numPrice;
@@ -1366,26 +1379,18 @@ Fixed v6 cart logic added:
             if (isOpen) {
                 sidebar.classList.add('translate-x-full');
                 overlay.classList.add('invisible', 'opacity-0');
-                
-                // RESTORE SCROLL
                 document.body.style.overflow = '';
-                
                 if(!document.getElementById('state-success').classList.contains('hidden')) {
                     switchSidebarState('cart');
                 }
-                
                 isCartSidebarOpen = false;
                 if (!fromPopState) history.back();
             } else {
                 updateCartUI();
                 switchSidebarState('cart');
-                
-                // LOCK SCROLL
                 document.body.style.overflow = 'hidden';
-                
                 sidebar.classList.remove('translate-x-full');
                 overlay.classList.remove('invisible', 'opacity-0');
-                
                 isCartSidebarOpen = true;
                 history.pushState({ modal: 'cart' }, "");
             }
@@ -1396,13 +1401,11 @@ Fixed v6 cart logic added:
             const overlay = document.getElementById('mobile-menu-overlay');
             const isOpen = !menu.classList.contains('hidden');
             playTock();
-            
             if (isOpen) {
                 menu.classList.add('hidden');
                 menu.classList.remove('flex');
                 overlay.classList.add('hidden');
                 document.body.style.overflow = '';
-                
                 isMobileMenuOpen = false;
                 if(!fromPopState) history.back();
             } else {
@@ -1410,7 +1413,6 @@ Fixed v6 cart logic added:
                 menu.classList.add('flex');
                 overlay.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
-                
                 isMobileMenuOpen = true;
                 history.pushState({ modal: 'menu' }, "");
             }
@@ -1421,7 +1423,7 @@ Fixed v6 cart logic added:
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const nameParts = splitName(p.name);
             
-            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[9px] text-white/50 font-black tracking-[0.3em] uppercase text-left text-left text-left">${nameParts.eng}</span>`;
+            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[10px] text-white/80 font-bold tracking-[0.3em] uppercase text-left text-left text-left">${nameParts.eng}</span>`;
             document.getElementById('modal-price').innerText = p.price;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('lore-body').innerText = p.lore;
@@ -1461,7 +1463,7 @@ Fixed v6 cart logic added:
                     <label class="custom-check group">
                         <input type="checkbox" id="modal-ack-check" onchange="validateForm()">
                         <span class="checkmark"></span>
-                        <span class="label-text group-hover:text-white transition-colors text-white/70 text-[10px] font-bold uppercase tracking-wider leading-relaxed">
+                        <span class="label-text group-hover:text-white transition-colors text-white/90 text-[10px] font-bold uppercase tracking-wider leading-relaxed">
                             I've reviewed my size and order details before proceeding
                         </span>
                     </label>
@@ -1475,10 +1477,7 @@ Fixed v6 cart logic added:
             updateGallery();
             validateForm();
             lucide.createIcons();
-            
-            // LOCK SCROLL
             document.body.style.overflow = 'hidden';
-
             document.getElementById('product-modal').classList.remove('invisible');
             document.getElementById('product-modal').classList.add('opacity-100');
             document.getElementById('modal-container').classList.remove('translate-y-10');
@@ -1487,7 +1486,6 @@ Fixed v6 cart logic added:
             swipeZone.addEventListener('touchstart', touchStart, {passive: true});
             swipeZone.addEventListener('touchmove', touchMove, {passive: true});
             swipeZone.addEventListener('touchend', touchEnd);
-            
             isProductModalOpen = true;
             history.pushState({ modal: 'product' }, "");
         };
@@ -1515,16 +1513,11 @@ Fixed v6 cart logic added:
         function closeModal(fromPopState = false) {
             const modal = document.getElementById('product-modal');
             if (!modal) return;
-
             modal.classList.add('opacity-0', 'invisible');
-
-            // RESTORE SCROLL
             document.body.style.overflow = '';
-            
             currentTranslate = 0; 
             prevTranslate = 0;
             playTock();
-            
             if (isProductModalOpen) {
                 isProductModalOpen = false;
                 if (!fromPopState) history.back();
@@ -1556,7 +1549,6 @@ Fixed v6 cart logic added:
             resetConfirmation();
             validateForm(); 
             playTock();
-            
             setTimeout(() => {
                 const colorSec = document.getElementById("colorSection");
                 if (colorSec) colorSec.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -1584,9 +1576,7 @@ Fixed v6 cart logic added:
             const hint = document.getElementById('formHint');
             const preview = document.getElementById('orderPreview');
             const cb = document.getElementById('modal-ack-check');
-            
             const isAck = cb ? cb.checked : false;
-            
             const sizeText = selectedSize || "-";
             const colorText = selectedColor || "-";
             if(preview) preview.innerText = `Selected: ${sizeText} / ${colorText}`;
@@ -1597,24 +1587,26 @@ Fixed v6 cart logic added:
             else if (!isAck) msg = "Confirm your selection below";
 
             if(hint) hint.innerText = msg;
-
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const inCart = cart.find(item => item.id === p.id && item.size === selectedSize && item.color === selectedColor);
 
             if (msg) {
                 btn.disabled = true;
+                btn.classList.remove('force-white-button');
                 btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-[#0a0a0a] border border-white/5 text-center cursor-not-allowed";
                 btn.innerHTML = `<span class="font-mayek text-white/20 text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/10 uppercase text-center text-center">CONTINUE</span>`;
             } else {
                 btn.disabled = false;
                 if (inCart) {
                     btn.onclick = () => toggleCart();
+                    btn.classList.remove('force-white-button');
                     btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5 text-center">ꯐꯥꯎꯅꯕꯤꯌꯨ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase text-center text-center">View Cart</span>`;
                     btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-black border border-white/20 text-white text-center cursor-pointer";
                 } else {
                     btn.onclick = processAddToCart;
-                    btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] text-black/70 font-black tracking-[0.4em] uppercase text-center text-center">Add to Cart</span>`;
-                    btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-gray-100";
+                    btn.classList.add('force-white-button');
+                    btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] text-black font-black tracking-[0.4em] uppercase text-center text-center">Add to Cart</span>`;
+                    btn.className = "w-full force-white-button py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-gray-100";
                 }
             }
         };
@@ -1645,13 +1637,11 @@ Fixed v6 cart logic added:
                 color: selectedColor,
                 image: p.images[0]
             });
-
             document.getElementById('finalConfirm').checked = false;
             saveCart();
             validateForm();
             playTock();
             showCartFeedback();
-
             const sidebar = document.getElementById('cart-sidebar');
             if (sidebar && sidebar.classList.contains('translate-x-full')) {
                 toggleCart();
@@ -1665,7 +1655,6 @@ Fixed v6 cart logic added:
             let city = document.getElementById("dlv-city").value.trim();
             let state = document.getElementById("dlv-state").value.trim();
             let pincode = document.getElementById("dlv-pincode").value.trim();
-
             if (!name) return "Enter your full name";
             if (!/^[6-9]\d{9}$/.test(phone)) return "Enter a valid 10-digit mobile number";
             if (address.length < 10) return "Enter a complete address (min 10 chars)";
@@ -1679,30 +1668,27 @@ Fixed v6 cart logic added:
             const cb = document.getElementById('finalConfirm');
             const btn = document.getElementById('proceedToPaymentBtn');
             const hint = document.getElementById('checkoutHint');
-            
             const addrError = validateAddress();
             const isChecked = cb ? cb.checked : false;
-            
             let msg = "";
             if (addrError) msg = addrError;
             else if (!isChecked) msg = "Confirm details to proceed";
-            
             if(hint) hint.innerText = msg;
-            
             if(btn) {
                 if(!msg && cart.length > 0) {
                     btn.disabled = false;
+                    btn.classList.add('force-white-button');
                     btn.style.opacity = "1";
                     btn.classList.remove('cursor-not-allowed', 'pointer-events-none');
                 } else {
                     btn.disabled = true;
+                    btn.classList.remove('force-white-button');
                     btn.style.opacity = "0.5";
                     btn.classList.add('cursor-not-allowed', 'pointer-events-none');
                 }
             }
         };
 
-        // INTELLIGENCE FUNCTIONS
         function getOrderQuality(order) {
             let score = 0;
             if (order.address && order.address.length > 15) score++;
@@ -1711,21 +1697,17 @@ Fixed v6 cart logic added:
             if (/^\d{6}$/.test(order.pincode)) score++;
             return score;
         }
-
         function isSuspicious(order) {
             if (!order.name || order.name.length < 3) return true;
             if (!/^[6-9]/.test(order.phone)) return true;
             if (!order.address || order.address.length < 8) return true;
             return false;
         }
-
         function getPriority(order) {
             if (order.total >= 1500) return "HIGH";
             if (order.quantity >= 2) return "MEDIUM";
             return "NORMAL";
         }
-
-        // GOOGLE FORM SILENT CAPTURE
         function sendOrderToGoogleForm(order) {
           const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse";
           const formData = new FormData();
@@ -1742,14 +1724,8 @@ Fixed v6 cart logic added:
           formData.append("entry.1982148271", order.city || "Not Provided");
           formData.append("entry.1464883250", order.state || "Not Provided");
           formData.append("entry.2070227970", `Pending | Prio: ${order.priority} | Qual: ${order.qualityScore}/4 | Suspicious: ${order.suspicious ? 'YES' : 'NO'}`);
-
-          fetch(formURL, {
-            method: "POST",
-            mode: "no-cors",
-            body: formData
-          }).catch(err => console.log("Google Form capture failed", err));
+          fetch(formURL, { method: "POST", mode: "no-cors", body: formData }).catch(err => console.log("Google Form capture failed", err));
         }
-
         function generateWhatsAppOrderMessage() {
             let name = document.getElementById("dlv-name").value.trim();
             let phone = document.getElementById("dlv-phone").value.trim();
@@ -1758,12 +1734,10 @@ Fixed v6 cart logic added:
             let state = document.getElementById("dlv-state").value.trim();
             let pincode = document.getElementById("dlv-pincode").value.trim();
             const orderId = "PE-" + Date.now();
-
             let message = `*ORDER REQUEST*\n\n*ORDER ID:* ${orderId}\n\n`;
             let total = 0;
             let productNames = [], productSizes = [], productColors = [];
             let totalQty = cart.length;
-            
             cart.forEach((item, i) => {
                 message += `${i+1}. ${item.name}\n- Variant: ${item.color} / ${item.size}\n- Price: ₹${(item.numPrice || 0).toLocaleString('en-IN')}\n`;
                 let cStrProduct = item.name.substring(0, 10).toUpperCase().replace(/\s/g,'');
@@ -1771,40 +1745,25 @@ Fixed v6 cart logic added:
                 let cStrColor = item.color.toUpperCase().replace(/\s/g,'');
                 message += `*CONFIRM:* ${cStrProduct}-${cStrSize}-${cStrColor}\n\n`;
                 total += item.numPrice;
-                productNames.push(item.name);
-                productSizes.push(item.size);
-                productColors.push(item.color);
+                productNames.push(item.name); productSizes.push(item.size); productColors.push(item.color);
             });
-            
             message += `*Total:* ₹${total.toLocaleString('en-IN')}\n\n`;
             message += `*DELIVERY DETAILS*\n- Name: ${name}\n- Phone: ${phone}\n- Address: ${address}\n- City: ${city}\n- State: ${state}\n- Pincode: ${pincode}\n\n`;
-            
-            const orderData = {
-                id: orderId, product: productNames.join(", "), size: productSizes.join(", "),
-                color: productColors.join(", "), quantity: totalQty, total: total,
-                name: name, phone: phone, address: address, pincode: pincode, city: city, state: state
-            };
-
+            const orderData = { id: orderId, product: productNames.join(", "), size: productSizes.join(", "), color: productColors.join(", "), quantity: totalQty, total: total, name: name, phone: phone, address: address, pincode: pincode, city: city, state: state };
             orderData.qualityScore = getOrderQuality(orderData);
             orderData.suspicious = isSuspicious(orderData);
             orderData.priority = getPriority(orderData);
-
             message += `*[PROCESS TAGS]*\nPayment: Pending Verify\nPriority: ${orderData.priority}\nQuality: ${orderData.qualityScore}/4\nSuspicious: ${orderData.suspicious ? 'YES ⚠️' : 'NO'}\n\n`;
             message += `Payment done via UPI. Sharing screenshot for confirmation.`;
             return { message, orderData };
         }
-
         const processOrderSuccess = () => {
             const btn = document.getElementById('iHavePaidBtn');
-            if(btn) {
-                btn.disabled = true;
-                btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">SECURING ORDER...</span>`;
-            }
+            if(btn) { btn.disabled = true; btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">SECURING ORDER...</span>`; }
             playTock();
             const results = generateWhatsAppOrderMessage();
             sendOrderToGoogleForm(results.orderData);
             const waUrl = `https://wa.me/919366659414?text=${encodeURIComponent(results.message)}`;
-            
             setTimeout(() => {
                 if(btn) btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">REDIRECTING...</span>`;
                 setTimeout(() => {
@@ -1815,15 +1774,13 @@ Fixed v6 cart logic added:
                     document.getElementById('whatsapp-final-btn').href = waUrl;
                     switchSidebarState('success');
                     window.open(waUrl, "_blank");
-                    cart = [];
-                    localStorage.removeItem('pe_cart');
+                    cart = []; localStorage.removeItem('pe_cart');
                     document.getElementById('cart-badge').classList.add('hidden');
                     document.getElementById('cart-badge').innerText = "0";
                     lucide.createIcons();
                 }, 500);
             }, 600);
         };
-
         const toggleAccordion = (id) => {
             const sections = ['lore', 'details', 'wash', 'size', 'protocol'];
             sections.forEach(s => {
@@ -1834,7 +1791,6 @@ Fixed v6 cart logic added:
             });
             playTock();
         };
-
         const toggleMainFAQ = (idx) => {
             const target = document.getElementById(`main-faq-content-${idx}`);
             const icon = document.getElementById(`main-faq-icon-${idx}`);
@@ -1844,7 +1800,6 @@ Fixed v6 cart logic added:
             if (!isOpen) { target.classList.remove('hidden'); icon.classList.add('rotate-180'); }
             playTock();
         };
-
         const renderRegistryAccordion = () => {
             const container = document.getElementById('registry-accordion');
             container.innerHTML = FAQ_CONTENT.map((item, idx) => `
@@ -1863,7 +1818,6 @@ Fixed v6 cart logic added:
             `).join('');
             lucide.createIcons();
         };
-
         const updateGallery = () => {
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const container = document.getElementById('modal-images');
@@ -1871,12 +1825,10 @@ Fixed v6 cart logic added:
             currentTranslate = 0; prevTranslate = 0; container.style.transform = `translateX(0px)`;
             updateDots();
         };
-
         const updateDots = () => {
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             document.getElementById('image-dots').innerHTML = (p.images || []).map((_, i) => `<div class="h-1 w-8 rounded-full transition-all ${i === currentImgIdx ? 'bg-white' : 'bg-white/20'} text-left"></div>`).join('');
         };
-
         const renderGrid = () => {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = PRODUCT_DATA_LOADED.map((p, idx) => {
@@ -1888,7 +1840,7 @@ Fixed v6 cart logic added:
                     </div>
                     <div class="px-1 text-left flex flex-col flex-grow text-left">
                         <span class="block font-mayek text-[13px] md:text-[15px] text-white leading-tight line-clamp-2 mb-1 text-left text-left">${nameParts.mayek}</span>
-                        ${nameParts.eng ? `<span class="block font-inter text-[8px] text-white/50 tracking-[0.2em] font-bold uppercase truncate mb-2 text-left text-left">${nameParts.eng}</span>` : ''}
+                        ${nameParts.eng ? `<span class="block font-inter text-[9px] text-white/80 font-bold uppercase truncate mb-2 text-left text-left">${nameParts.eng}</span>` : ''}
                         <div class="flex justify-between items-center border-t border-white/5 pt-3 text-left mt-auto shrink-0">
                             <span class="text-xs font-inter font-light text-white/80 text-left text-left">₹${parseInt(p.price.replace(/[^0-9]/g, '')).toLocaleString('en-IN')}</span>
                             <div class="flex flex-col items-end text-right shrink-0">
@@ -1901,7 +1853,6 @@ Fixed v6 cart logic added:
             }).join('');
             lucide.createIcons();
         };
-
         const handleInteraction = (e) => {
             if(document.getElementById('loader').style.display !== 'none') return;
             primeHardware(); playTock();
@@ -1913,14 +1864,11 @@ Fixed v6 cart logic added:
                 p.className = 'particle'; p.innerText = mayekChars[Math.floor(Math.random()*mayekChars.length)];
                 p.style.left = `${x}px`; p.style.top = `${y}px`;
                 p.style.color = SALAI_COLORS[Math.floor(Math.random()*SALAI_COLORS.length)];
-                p.style.setProperty('--tx', `${(Math.random()-0.5)*200}px`);
-                p.style.setProperty('--ty', `${-150-Math.random()*200}px`);
-                p.style.setProperty('--tr', `${(Math.random()-0.5)*360}deg`);
+                p.style.setProperty('--tx', `${(Math.random()-0.5)*200}px`); p.style.setProperty('--ty', `${-150-Math.random()*200}px`); p.style.setProperty('--tr', `${(Math.random()-0.5)*360}deg`);
                 document.body.appendChild(p); setTimeout(() => p.remove(), 1200);
             }
         };
         window.addEventListener('mousedown', handleInteraction); window.addEventListener('touchstart', handleInteraction, {passive:true});
-
         const canvas = document.getElementById('matrix-canvas'), ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         const drawM = () => {
@@ -1936,10 +1884,8 @@ Fixed v6 cart logic added:
             });
         };
         const mInt = setInterval(drawM, 50);
-
         window.onload = () => {
-            lucide.createIcons();
-            loadRegistry();
+            lucide.createIcons(); loadRegistry();
             setTimeout(() => {
                 clearInterval(mInt); document.getElementById('matrix-canvas').style.display = 'none';
                 document.getElementById('typewriter-container').classList.remove('hidden');
@@ -1948,95 +1894,30 @@ Fixed v6 cart logic added:
                 });
             }, 2000);
         };
-
         const typewrite = (t, id, s, cb) => {
             let i = 0; const el = document.getElementById(id);
             if(!el) return;
             const tmr = setInterval(() => { if(i < t.length) { el.innerHTML += t.charAt(i); i++; } else { clearInterval(tmr); if(cb) cb(); } }, s);
         };
-
-        const primeHardware = () => { 
-            if (!hardwareReady) { 
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                if (audioCtx.state === 'suspended') audioCtx.resume(); 
-                hardwareReady = true; 
-            } 
-        };
+        const primeHardware = () => { if (!hardwareReady) { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if (audioCtx.state === 'suspended') audioCtx.resume(); hardwareReady = true; } };
         window.addEventListener('pointerdown', primeHardware, { capture: true, once: true });
-
         const playTock = () => {
             if (navigator.vibrate) navigator.vibrate(10);
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const o = audioCtx.createOscillator(), g = audioCtx.createGain();
             o.type = 'sine'; o.frequency.setValueAtTime(150, audioCtx.currentTime);
-            g.gain.setValueAtTime(0.05, audioCtx.currentTime);
-            g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-            o.connect(g); g.connect(audioCtx.destination);
-            o.start(); o.stop(audioCtx.currentTime + 0.1);
+            g.gain.setValueAtTime(0.05, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.1);
         };
-
         window.onscroll = () => {
             const nav = document.getElementById('navbar');
             const progress = document.getElementById('scroll-progress');
             progress.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 + '%';
-            if(window.scrollY > 50) nav.classList.add('glass', 'tactical-border');
-            else nav.classList.remove('glass', 'tactical-border');
+            if(window.scrollY > 50) nav.classList.add('glass', 'tactical-border'); else nav.classList.remove('glass', 'tactical-border');
         };
-
-        async function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const container = document.getElementById('chat-messages');
-            const raw = input.value.trim();
-            if (!raw) return;
-            playTock();
-            const userMsg = document.createElement('div');
-            userMsg.className = "bg-white/5 p-4 tactical-border ml-12 text-white font-medium rounded-sm mb-4 text-left text-left";
-            userMsg.innerText = raw;
-            container.appendChild(userMsg);
-            input.value = "";
-            container.scrollTop = container.scrollHeight;
-            if(raw.toUpperCase().includes("THON THON")) {
-                setTimeout(() => {
-                    const botMsg = document.createElement('div');
-                    botMsg.className = "bg-neutral-900 p-4 border-l-2 border-pe-red mr-12 text-white font-medium rounded-sm text-left text-left text-left";
-                    botMsg.innerText = "Purei: I love you mumma🥰😘";
-                    container.appendChild(botMsg);
-                    container.scrollTop = container.scrollHeight;
-                    playTock();
-                }, 600);
-            }
-        }
-
-        function touchStart(e) { startX = e.touches[0].clientX; isDragging = true; animationID = requestAnimationFrame(animation); document.getElementById('modal-images').style.transition = 'none'; }
-        function touchMove(e) { if (isDragging) { const currentX = e.touches[0].clientX; currentTranslate = prevTranslate + currentX - startX; } }
-        function touchEnd() {
-            isDragging = false; cancelAnimationFrame(animationID);
-            const imgContainer = document.getElementById('modal-images');
-            imgContainer.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
-            const movedBy = currentTranslate - prevTranslate;
-            if (movedBy < -100 && currentImgIdx < PRODUCT_DATA_LOADED[currentProdIdx].images.length - 1) currentImgIdx++;
-            else if (movedBy > 100 && currentImgIdx > 0) currentImgIdx--;
-            setPositionByIndex();
-        }
-        function animation() { setSliderPosition(); if (isDragging) requestAnimationFrame(animation); }
-        function setSliderPosition() { document.getElementById('modal-images').style.transform = `translateX(${currentTranslate}px)`; }
-        function setPositionByIndex() {
-            currentTranslate = currentImgIdx * -document.getElementById('swipe-zone').offsetWidth;
-            prevTranslate = currentTranslate;
-            setSliderPosition();
-            updateDots();
-        }
-
         function showCartFeedback() {
-            const el = document.getElementById("cart-feedback");
-            if (!el) return;
-            el.style.opacity = "1";
-            el.style.pointerEvents = "auto";
-            clearTimeout(window.cartFeedbackTimer);
-            window.cartFeedbackTimer = setTimeout(() => {
-                el.style.opacity = "0";
-                el.style.pointerEvents = "none";
-            }, 1500);
+            const el = document.getElementById("cart-feedback"); if (!el) return; el.style.opacity = "1"; el.style.pointerEvents = "auto";
+            clearTimeout(window.cartFeedbackTimer); window.cartFeedbackTimer = setTimeout(() => { el.style.opacity = "0"; el.style.pointerEvents = "none"; }, 1500);
         }
     </script>
 
@@ -2053,5 +1934,4 @@ Fixed v6 cart logic added:
 </html>
 
 ```
-
 
