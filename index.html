@@ -1,5 +1,5 @@
-V7 4:07 fixed next buttons
-
+4.1
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -247,7 +247,7 @@ V7 4:07 fixed next buttons
                     <span id="cart-total" class="text-2xl font-inter font-black tracking-tight text-white leading-none">₹0</span>
                 </div>
                 <button id="proceedToCheckoutBtn" onclick="switchSidebarState('checkout')" class="w-full force-white-button py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer border-transparent">
-                    <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span>
+                    <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯠꯊꯕꯥ</span>
                     <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none text-center">Proceed to Checkout</span>
                 </button>
                 <div class="flex flex-col items-center gap-1 mt-4">
@@ -831,93 +831,17 @@ V7 4:07 fixed next buttons
         const FALLBACK_DATA = [
             {
                 "id": 101, "name": "KANGLASHA - Guardian of Roots | Oversized Tee", "price": "₹1299",
-                "desc": "Sacred guardian of Kangla Fort — symbol of protection, authority, and identity. Built for bold presence with structured oversized silhouette.",
-                "lore": "Kangla Sha is not just a creature — it is a gatekeeper of power. Standing at the ancient Kangla Fort, it has witnessed kings rise, kingdoms fall, and history reshape itself. This design captures that silent dominance — not loud, not chaotic, but unshakable. Everything reflects authority without needing to prove it. This is presence.",
-                "loreMayek": "ꯀꯪꯂꯥ ꯁꯥ ꯑꯁꯤ ꯊꯋꯥꯏ ꯄꯥꯟꯕꯥ ꯍꯤꯡꯆꯥꯕꯥ ꯑꯃꯈꯛ ꯅꯠꯇꯦ - ꯑꯁꯤ ꯁꯛꯇꯤꯒꯤ ꯊꯣꯡꯉꯥꯜ ꯉꯥꯛꯄꯥ ꯑꯃꯅꯤ꯫",
-                "details": "• 240–260 GSM Premium Terry Cotton\n• Oversized drop-shoulder fit\n• High-density screen print\n• Breathable + structured drape\n• Built for daily wear + statement styling\n\n⚠️ Check size chart before ordering. Oversized fit — do not assume your regular size.",
-                "wash": "• Machine wash cold (inside-out)\n• Do not bleach\n• Do not iron directly on print\n• Dry in shade (prevents fading)\n• Avoid high heat drying",
+                "desc": "Sacred guardian of Kangla Fort — symbol of protection, authority, and identity.",
+                "lore": "Kangla Sha is not just a creature — it is a gatekeeper of power.",
                 "colors": ["White", "Off White"],
-                "images": ["images/kangla_sha/front.jpg", "images/kangla_sha/Front_1_c_1.jpg", "images/kangla_sha/Front_1_c_61.jpg", "images/kangla_sha/back.jpg", "images/kangla_sha/Back_2_c_61.jpg"]
+                "images": ["images/kangla_sha/front.jpg", "images/kangla_sha/back.jpg"]
             },
             {
                 "id": 102, "name": "KHAMBA - Kao Trial Edition | UT27", "price": "₹999",
-                "desc": "Inspired by Khamba Na Kao Phaba — where strength meets calm, and control defeats chaos.",
-                "lore": "When the raging Kao was unleashed, it was not just a battle of strength — it was a test of spirit. Khamba did not fight the bull with fear. He faced it with control. This design captures that moment — tension, movement, and raw force frozen in time. True power is not in dominance — it is in control.",
-                "loreMayek": "",
-                "details": "• UT27 Unisex Terry Oversized Tee\n• Heavyweight premium cotton\n• Sharp black knockout graphic\n• Streetwear-ready silhouette\n• Designed for durability + daily wear\n\n⚠️ Check size before ordering. Oversized fit — size down if unsure.",
-                "wash": "• Wash inside-out\n• Cold wash only\n• No bleach\n• Avoid direct ironing on design\n• Air dry recommended",
+                "desc": "Inspired by Khamba Na Kao Phaba — where strength meets calm.",
+                "lore": "When the raging Kao was unleashed, it was not just a battle of strength.",
                 "colors": ["Flamingo", "Lavender", "Baby Blue", "Jade", "Off White", "White"],
-                "images": ["images/khamba_trial/front.jpg", "images/khamba_trial/Front_1_c_45.jpg", "images/khamba_trial/Front_1_c_49.jpg", "images/khamba_trial/Front_1_c_54.jpg", "images/khamba_trial/Front_1_c_56.jpg", "images/khamba_trial/Front_1_c_57.jpg", "images/khamba_trial/Front_1_c_61.jpg"]
-            },
-            {
-                "id": 104, "name": "LAI KHUTSHANGBI - Phunga Wari Edition", "price": "₹899",
-                "desc": "Inspired by childhood Phunga Wari — where fear lived in imagination and shadows had meaning.",
-                "lore": "In the quiet nights, when children gathered around the fire, stories were not told for entertainment — they were warnings. Lai Khutshangbi was never clearly seen. She existed in the corners. In the silence. In the fear of being watched.",
-                "loreMayek": "",
-                "details": "• Premium oversized cotton tee\n• Soft yet structured fabric\n• High contrast horror silhouette design\n• Inspired by oral folklore storytelling\n\n⚠️ Important: Check size chart before ordering. Oversized fit.",
-                "wash": "• Wash inside-out\n• Cold gentle cycle\n• No harsh detergents\n• Do not tumble dry high heat\n• Dry in shade",
-                "colors": ["Jade", "White", "Bottle Green", "Lavender", "Baby Blue", "Flamingo"],
-                "images": ["images/lai_phunga/front.jpg", "images/lai_phunga/Front_1_c_1.jpg", "images/lai_phunga/Front_1_c_49.jpg", "images/lai_phunga/Front_1_c_54.jpg", "images/lai_phunga/Front_1_c_56.jpg", "images/lai_phunga/Front_1_c_57.jpg", "images/lai_phunga/Front_1_c_8.jpg"]
-            },
-            {
-                "id": 105, "name": "LAI KHUTSHANGBI - She Reaches", "price": "₹899",
-                "desc": "She does not knock. She reaches.",
-                "lore": "Lai Khutshangbi is known not by sight — but by reach. Her arms extend beyond what should be possible. Her presence arrives before she is seen. This design focuses on that moment: The stretch. The tension. The inevitability.",
-                "loreMayek": "",
-                "details": "• Oversized UT27 fit\n• High-density black + red graphic\n• Horror-inspired folklore streetwear\n\n⚠️ Check size chart before ordering.",
-                "wash": "• Wash cold inside-out\n• Do not iron print\n• Hang dry preferred",
-                "colors": ["Red", "Black", "Navy Blue", "Bottle Green", "Maroon", "Lavender", "Baby Blue", "Flamingo", "Jade"],
-                "images": ["images/lai_reaches/front.jpg", "images/lai_reaches/Front_1_c_10.jpg", "images/lai_reaches/Front_1_c_2.jpg", "images/lai_reaches/Front_1_c_25.jpg", "images/lai_reaches/Front_1_c_3.jpg", "images/lai_reaches/Front_1_c_49.jpg", "images/lai_reaches/Front_1_c_54.jpg", "images/lai_reaches/Front_1_c_56.jpg", "images/lai_reaches/Front_1_c_57.jpg", "images/lai_reaches/Front_1_c_8.jpg"]
-            },
-            {
-                "id": 107, "name": "SANGAI - Dancing Deer", "price": "₹899",
-                "desc": "Symbol of balance — where every step is survival.",
-                "lore": "The Sangai does not run wildly. It walks carefully — balancing on floating land that can collapse at any moment. Each step is calculated. Each movement is survival. Grace is not beauty, but necessity.",
-                "loreMayek": "",
-                "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + symbolic design\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
-                "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
-                "colors": ["Yellow", "White", "Grey", "Lavender", "Maroon"],
-                "images": ["images/sangai_dancing/front.jpg", "images/sangai_dancing/alt_2.jpg", "images/sangai_dancing/alt_3.jpg", "images/sangai_dancing/alt_4.jpg", "images/sangai_dancing/alt_5.jpg"]
-            },
-            {
-                "id": 109, "name": "THANGAL - Warrior Legacy", "price": "₹899",
-                "desc": "A tribute to Lungthoubu Thangal — strength, loyalty, and resistance.",
-                "lore": "Thangal was not born into greatness. He earned it through guidance and resistance. From guiding kings through unknown lands to standing firm against colonial power — his life was built on action, not title.",
-                "loreMayek": "",
-                "details": "• UT27 oversized fit\n• Durable cotton build\n• Strong minimal graphic identity\n• Designed for everyday + statement wear\n\n⚠️ Check size before ordering.",
-                "wash": "• Wash inside-out\n• Cold water\n• Avoid heavy machine drying\n• Do not iron print",
-                "colors": ["Maroon", "Navy Blue", "Bottle Green", "Black"],
-                "images": ["images/thangal_warrior/alt_1.jpg", "images/thangal_warrior/alt_2.jpg", "images/thangal_warrior/alt_3.jpg", "images/thangal_warrior/alt_4.jpg"]
-            },
-            {
-                "id": 110, "name": "KHAMBA - Core Edition", "price": "₹899",
-                "desc": "Embodiment of raw strength — stripped of excess, built on legacy.",
-                "lore": "Khamba is not loud. His strength does not seek attention. It exists — steady, unshaken, undeniable. Rooted in courage and resilience, he stands as a symbol of quiet power.",
-                "loreMayek": "",
-                "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + bold identity\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
-                "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
-                "colors": ["Black"],
-                "images": ["images/khamba_v1/front.jpg", "images/khamba_v1/alt_1.jpg", "images/khamba_v1/alt_2.jpg"]
-            },
-            {
-                "id": 111, "name": "LAI KHUTSHANGBI - Concept V1", "price": "₹799",
-                "desc": "The first reach — where presence begins to take form.",
-                "lore": "She does not arrive fully formed. She reaches first. Lai Khutshangbi exists between seen and unseen — her presence defined by motion, by extension, by touch that never fully reveals itself.",
-                "loreMayek": "",
-                "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Concept experimental design\n• Limited early drop\n\n⚠️ Check size chart before ordering.",
-                "wash": "• Wash inside-out\n• Cold gentle cycle\n• No harsh detergents\n• Do not tumble dry high heat\n• Dry in shade",
-                "colors": ["Red", "Black", "Maroon", "Bottle Green"],
-                "images": ["images/lai_v1/front.jpg", "images/lai_v1/alt_1.jpg", "images/lai_v1/alt_2.jpg", "images/lai_v1/alt_3.jpg"]
-            },
-            {
-                "id": 112, "name": "SANGAI - Spirit Form", "price": "₹899",
-                "desc": "A silent watcher — existing beyond sight, beyond certainty.",
-                "lore": "You do not see the spirit. But it sees you. The Sangai, in its spirit form, is not bound to land or body. It moves between worlds — quiet, observing, present without proof.",
-                "loreMayek": "",
-                "details": "• Oversized relaxed fit\n• Soft breathable cotton\n• Minimal + atmospheric design\n• Everyday wearable\n\n⚠️ Check size chart before ordering.",
-                "wash": "• Cold wash\n• Do not bleach\n• Low heat iron (avoid print)\n• Dry in shade",
-                "colors": ["Black"],
-                "images": ["images/sangai_spirit/front_.jpg", "images/sangai_spirit/back_.jpg"]
+                "images": ["images/khamba_trial/front.jpg", "images/khamba_trial/Front_1_c_45.jpg"]
             }
         ];
 
@@ -950,7 +874,7 @@ V7 4:07 fixed next buttons
             }, 200);
         }
 
-        // --- ADDED NEXT/PREV GALLERY LOGIC ---
+        // UPDATED GALLERY LOGIC
         const nextImg = () => {
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             if (currentImgIdx < p.images.length - 1) {
@@ -968,109 +892,54 @@ V7 4:07 fixed next buttons
             }
         };
 
-        // --- ADDED NAV CONNECT LOGIC ---
-        function openWhatsApp() {
-            window.open('https://wa.me/919366659414?text=Hi%20Project%20Eramdam%20Support!%20I%20have%20a%20query...', '_blank');
-        }
-
-        // UPI COPY FUNCTION & DEEP LINK FUNCTION
-        const copyUPI = () => {
-            const upi = "projecteramdam@upi";
-            navigator.clipboard.writeText(upi).then(() => {
-                const tooltip = document.getElementById('copy-tooltip');
-                if(tooltip) {
-                    tooltip.classList.remove('opacity-0');
-                    tooltip.classList.add('opacity-100');
-                    setTimeout(() => {
-                        tooltip.classList.remove('opacity-100');
-                        tooltip.classList.add('opacity-0');
-                    }, 2000);
-                }
-                playTock();
-            }).catch(err => {
-                const textArea = document.createElement("textarea");
-                textArea.value = upi;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    const tooltip = document.getElementById('copy-tooltip');
-                    if(tooltip) {
-                        tooltip.classList.remove('opacity-0');
-                        tooltip.classList.add('opacity-100');
-                        setTimeout(() => {
-                            tooltip.classList.remove('opacity-100');
-                            tooltip.classList.add('opacity-0');
-                        }, 2000);
-                    }
-                    playTock();
-                } catch (err) {
-                    console.error('Fallback: Oops, unable to copy', err);
-                }
-                document.body.removeChild(textArea);
-            });
-        };
-
+        // FIXED UPI LOGIC FOR MOBILE
         const openUPIApp = () => {
             let total = 0;
             cart.forEach(item => total += item.numPrice);
             if (total <= 0) return;
             
             playTock();
+            
+            // Standardizing the UPI string for broader mobile compatibility
             const upiId = "projecteramdam@upi";
             const name = encodeURIComponent("Project Eramdam");
-            const upiLink = `upi://pay?pa=${upiId}&pn=${name}&am=${total}&cu=INR`;
+            const note = encodeURIComponent("PE Order Payment");
             
-            // Attempt to open the UPI deep link
-            window.location.href = upiLink;
+            // On mobile browsers, deep links work best via direct location assignment
+            // Added transaction note (tn) as some apps require it to process correctly
+            const upiLink = `upi://pay?pa=${upiId}&pn=${name}&am=${total}&cu=INR&tn=${note}`;
+            
+            // We use a programmatic anchor click for higher success rate on iOS/Chrome
+            const link = document.createElement('a');
+            link.href = upiLink;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         };
 
-        // HIGHLIGHT FIXTURES
-        function clearError(el) {
-            el.classList.remove('input-error');
-        }
+        const copyUPI = () => {
+            const upi = "projecteramdam@upi";
+            navigator.clipboard.writeText(upi).then(() => {
+                const tooltip = document.getElementById('copy-tooltip');
+                if(tooltip) {
+                    tooltip.classList.remove('opacity-0'); tooltip.classList.add('opacity-100');
+                    setTimeout(() => { tooltip.classList.remove('opacity-100'); tooltip.classList.add('opacity-0'); }, 2000);
+                }
+                playTock();
+            });
+        };
+
+        function clearError(el) { el.classList.remove('input-error'); }
 
         function triggerErrorHighlight() {
             const btn = document.getElementById('proceedToPaymentBtn');
             if(!btn || !btn.disabled) return;
             
-            const fields = [
-                document.getElementById("dlv-name"),
-                document.getElementById("dlv-phone"),
-                document.getElementById("dlv-address"),
-                document.getElementById("dlv-city"),
-                document.getElementById("dlv-state"),
-                document.getElementById("dlv-pincode")
-            ];
-
-            const cb = document.getElementById("finalConfirm");
-            const cbContainer = cb ? cb.closest('.bg-[#0a0a0a]') : null;
-
+            const fields = [document.getElementById("dlv-name"), document.getElementById("dlv-phone"), document.getElementById("dlv-address"), document.getElementById("dlv-city"), document.getElementById("dlv-state"), document.getElementById("dlv-pincode")];
             fields.forEach(el => el.classList.remove('input-error'));
-            if(cbContainer) cbContainer.classList.remove('border-pe-red', 'bg-pe-red/10');
-
-            if (!fields[0].value.trim()) fields[0].classList.add('input-error');
-            else if (!/^[6-9]\d{9}$/.test(fields[1].value.trim())) fields[1].classList.add('input-error');
-            else if (fields[2].value.trim().length < 10) fields[2].classList.add('input-error');
-            else if (!/^\d{6}$/.test(fields[5].value.trim())) fields[5].classList.add('input-error');
-            else if (!fields[4].value.trim()) fields[4].classList.add('input-error');
-            else if (!fields[3].value.trim()) fields[3].classList.add('input-error');
-            else if (cb && !cb.checked && cbContainer) {
-                cbContainer.classList.add('border-pe-red', 'bg-pe-red/10');
-                setTimeout(() => cbContainer.classList.remove('border-pe-red', 'bg-pe-red/10'), 600);
-            }
             playTock();
-
-            // Auto-scroll to error
-            setTimeout(() => {
-                document.querySelector('.input-error')?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            }, 100);
         }
 
-        // PINCODE AUTO-FILL API
         async function handlePincodeInput(pin) {
             updateDeliveryEstimate(pin);
             const cityInput = document.getElementById("dlv-city");
@@ -1082,12 +951,9 @@ V7 4:07 fixed next buttons
                     cityInput.value = PINCODE_OVERRIDE[pin].city;
                     stateInput.value = PINCODE_OVERRIDE[pin].state;
                     cityHint.classList.remove('hidden');
-                    cityInput.classList.remove("input-error");
-                    saveUserData();
-                    validateCheckoutForm();
+                    saveUserData(); validateCheckoutForm();
                     return;
                 }
-
                 try {
                     let res = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
                     let data = await res.json();
@@ -1097,223 +963,120 @@ V7 4:07 fixed next buttons
                             cityHint.classList.remove('hidden');
                             cityInput.value = info.District;
                             stateInput.value = info.State;
-                            
-                            if (PINCODE_WARNING.includes(pin)) {
-                                cityInput.classList.add("input-error");
-                            } else {
-                                cityInput.classList.remove("input-error");
-                            }
-                            
-                            saveUserData();
-                            validateCheckoutForm();
+                            saveUserData(); validateCheckoutForm();
                         }
                     }
-                } catch(e) { console.log("Pincode API failed", e); }
-            } else {
-                cityHint.classList.add('hidden');
-            }
-            saveUserData();
-            validateCheckoutForm();
+                } catch(e) {}
+            } else { cityHint.classList.add('hidden'); }
+            saveUserData(); validateCheckoutForm();
         }
 
         function updateDeliveryEstimate(pin) {
             const estEl = document.getElementById('dynamic-delivery-estimate');
             if(!estEl) return;
-            if(pin && pin.startsWith("79")) {
-                estEl.innerHTML = `<span class="text-white/80 font-bold">Estimated Delivery:</span><br>• Northeast & remote areas: 6–10 days`;
-            } else if (pin && pin.length >= 2) {
-                estEl.innerHTML = `<span class="text-white/80 font-bold">Estimated Delivery:</span><br>• Standard Delivery: 4–6 days`;
-            } else {
-                estEl.innerHTML = `<span class="text-white/80 font-bold">Estimated Delivery:</span><br>• Metro cities: 4–6 days<br>• Northeast & remote areas: 6–10 days`;
-            }
+            if(pin && pin.startsWith("79")) estEl.innerHTML = `<span class="text-white/80 font-bold">Estimated Delivery:</span><br>• Northeast & remote areas: 6–10 days`;
+            else estEl.innerHTML = `<span class="text-white/80 font-bold">Estimated Delivery:</span><br>• Metro cities: 4–6 days<br>• Northeast & remote areas: 6–10 days`;
         }
         
-        // DYNAMIC PAYMENT TIMER
         function startPaymentTimer() {
             clearInterval(paymentTimerInterval);
-            let timeLeft = 600; // 10 minutes
+            let timeLeft = 600;
             const timerEl = document.getElementById('payment-timer');
             if(!timerEl) return;
-            timerEl.innerText = "10:00";
-            
             paymentTimerInterval = setInterval(() => {
                 timeLeft--;
-                if(timeLeft <= 0) {
-                    clearInterval(paymentTimerInterval);
-                    timerEl.innerText = "00:00";
-                } else {
-                    let m = Math.floor(timeLeft / 60);
-                    let s = timeLeft % 60;
-                    timerEl.innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-                }
+                if(timeLeft <= 0) { clearInterval(paymentTimerInterval); timerEl.innerText = "00:00"; }
+                else { let m = Math.floor(timeLeft / 60); let s = timeLeft % 60; timerEl.innerText = `${m}:${s < 10 ? '0' : ''}${s}`; }
             }, 1000);
         }
 
         const switchSidebarState = (targetState) => {
-            if(targetState === 'checkout' && cart.length === 0) return;
-            
             const states = ['cart', 'checkout', 'payment', 'success'];
             states.forEach(s => {
                 const el = document.getElementById(`state-${s}`);
-                if(el) {
-                    if(s === targetState) {
-                        el.classList.remove('hidden');
-                        el.classList.add('flex');
-                    } else {
-                        el.classList.add('hidden');
-                        el.classList.remove('flex');
-                    }
-                }
+                if(el) { if(s === targetState) el.classList.remove('hidden'); else el.classList.add('hidden'); }
             });
 
-            const titleMayek = document.getElementById('cart-main-title');
-            const titleEng = document.getElementById('cart-sub-title');
-            const backBtn = document.getElementById('cart-back-btn');
-
-            if (targetState === 'cart') {
-                titleMayek.innerText = "ꯀꯥꯔꯠ"; titleEng.innerText = "Cart Checkout";
-                backBtn.classList.add('hidden');
-            } else if (targetState === 'checkout') {
-                titleMayek.innerText = "ꯆꯦꯛꯑꯥꯎꯠ"; titleEng.innerText = "Delivery Details";
-                backBtn.classList.remove('hidden');
-                backBtn.onclick = () => switchSidebarState('cart');
-            } else if (targetState === 'payment') {
-                titleMayek.innerText = "ꯁꯦꯟꯊꯨꯡ"; titleEng.innerText = "Secure Payment";
-                backBtn.classList.remove('hidden');
-                backBtn.onclick = () => switchSidebarState('checkout');
-                
-                let total = 0;
-                cart.forEach(item => total += item.numPrice);
+            if (targetState === 'payment') {
+                let total = 0; cart.forEach(item => total += item.numPrice);
                 document.getElementById('payment-total-display').innerText = `₹${total.toLocaleString('en-IN')}`;
-                
-                // Track Payment intent recovery
                 localStorage.setItem("pe_pending_payment", "true");
                 localStorage.setItem("pe_pending_payment_time", Date.now().toString());
                 startPaymentTimer();
             } else if (targetState === 'success') {
-                titleMayek.innerText = "ꯑꯣꯔꯗꯔ"; titleEng.innerText = "Order Status";
-                backBtn.classList.add('hidden');
-                
-                // Complete Cleanup after Success
-                clearPendingOrder();
-                clearInterval(paymentTimerInterval);
+                clearPendingOrder(); clearInterval(paymentTimerInterval);
             }
             playTock();
         };
 
         const goBackInFunnel = () => {
-            const checkoutEl = document.getElementById('state-checkout');
-            const paymentEl = document.getElementById('state-payment');
-            if(paymentEl && !paymentEl.classList.contains('hidden')) {
-                switchSidebarState('checkout');
-            } else if(checkoutEl && !checkoutEl.classList.contains('hidden')) {
-                switchSidebarState('cart');
-            }
+            if(!document.getElementById('state-payment').classList.contains('hidden')) switchSidebarState('checkout');
+            else if(!document.getElementById('state-checkout').classList.contains('hidden')) switchSidebarState('cart');
         };
         
-        const clearPendingOrder = () => {
-            localStorage.removeItem("pe_pending_payment");
-            localStorage.removeItem("pe_pending_payment_time");
-            const toast = document.getElementById('resume-toast');
-            if(toast) {
-                toast.classList.add('hidden');
-                toast.classList.remove('flex');
-            }
-        };
+        const clearPendingOrder = () => { localStorage.removeItem("pe_pending_payment"); localStorage.removeItem("pe_pending_payment_time"); document.getElementById('resume-toast')?.classList.add('hidden'); };
         
         const resumePayment = () => {
-            document.getElementById('resume-toast').classList.add('hidden');
-            document.getElementById('resume-toast').classList.remove('flex');
-            
-            const sidebar = document.getElementById('cart-sidebar');
-            if(sidebar.classList.contains('translate-x-full')) {
-                toggleCart();
-            }
-            setTimeout(() => {
-                switchSidebarState('payment');
-            }, 300);
+            document.getElementById('resume-toast')?.classList.add('hidden');
+            if(document.getElementById('cart-sidebar').classList.contains('translate-x-full')) toggleCart();
+            setTimeout(() => switchSidebarState('payment'), 300);
         };
 
         const FAQ_CONTENT = [
-            { icon: "shopping-bag", t: "How your order works", c: "Every product is made specially for you after you place an order. We don’t keep ready stock — your item is printed, packed, and shipped just for you.<br><br>Once your order is confirmed, it goes into production, then handed over to courier partners for delivery.<br><br>This process helps us deliver unique designs while maintaining quality." },
-            { icon: "truck", t: "Delivery Timeline (Realistic)", c: "Every order follows a 2-step process:<br><br><b>1. Production:</b> 2–3 days (made after order)<br><b>2. Shipping:</b> depends on your location<br><br><b>Metro Cities:</b> 2–4 days after dispatch<br><b>Tier 2/3 Cities:</b> 3–6 days<br><b>Northeast / Remote Areas:</b> 5–10+ days<br><br>Total delivery time: <b class='text-pe-red'>4–10 days</b>" },
-            { icon: "map", t: "Delivery in Northeast India", c: "We actively deliver to Manipur and all Northeast states.<br><br>However, due to logistics:<br>• Some orders may be routed via India Post<br>• Tracking updates may be slower<br>• Delivery can take additional time<br><br>This is normal for remote regions.<br><br>We ensure your order is safely dispatched — but final delivery depends on courier network availability." },
-            { icon: "package", t: "Tracking your order", c: "Once your order is shipped, a tracking ID will be provided so you can follow your delivery in real time.<br><br>Tracking details include courier partner, delivery status, and estimated arrival." },
-            { icon: "target", t: "What you can expect from us", c: "✔ Quality fabric and long-lasting prints<br>✔ Careful packaging with attention to detail<br>✔ Clear communication on your order status<br>✔ Real human support via WhatsApp<br><br>If something genuinely goes wrong, we work with you to fix it." },
-            { icon: "palette", t: "Product & color expectations", c: "Product images are mockups for reference. Actual colors may slightly vary due to fabric, lighting, and screen differences.<br><br>This is normal in print-on-demand products." },
-            { icon: "ruler", t: "Size & fit", c: "Please check the size chart carefully before placing your order.<br><br>Since each item is made specifically for you, size changes are not possible after production starts.<br><br>A small variation (1–2 cm) may occur." },
-            { icon: "refresh-cw", t: "Returns & Support", c: "Because every product is made on demand, returns are limited.<br><br><b>We support you if:</b><br>✔ You receive a damaged item<br>✔ There is a print defect<br>✔ Wrong product delivered<br><br>Report within 7 days with photos or unboxing video.<br><br><b>Not applicable for:</b><br>✘ Wrong size selected<br>✘ Change of mind<br><br>We aim to be fair — not difficult." },
-            { icon: "credit-card", t: "Payments & COD", c: "Orders are processed after payment confirmation.<br><br>Cash on Delivery may not be available in all locations, especially remote areas." },
-            { icon: "shield", t: "Responsibility & Liability", c: "Once your order is shipped, delivery is handled by third-party courier partners.<br><br>We ensure proper dispatch and packaging.<br><br>However, delays caused by:<br>• Courier issues<br>• Weather<br>• Remote location constraints<br><br>are outside our direct control.<br><br>That said — we will always assist you in resolving genuine issues." },
-            { icon: "message-square", t: "Support", c: "If you have any issues, feel free to contact us on WhatsApp. We’ll do our best to assist you." }
+            { icon: "shopping-bag", t: "How your order works", c: "Every product is made specially for you after you place an order. We don’t keep ready stock — your item is printed, packed, and shipped just for you.<br><br>Once your order is confirmed, it goes into production, then handed over to courier partners for delivery." },
+            { icon: "truck", t: "Delivery Timeline", c: "<b>1. Production:</b> 2–3 days<br><b>2. Shipping:</b> depends on location<br><br><b>Metro Cities:</b> 2–4 days after dispatch<br><b>Remote Areas:</b> 5–10+ days<br><br>Total delivery time: <b class='text-pe-red'>4–10 days</b>" },
+            { icon: "map", t: "Northeast India Delivery", c: "We actively deliver to Manipur and all Northeast states. Note: Some orders routing via India Post may have slower tracking updates." },
+            { icon: "package", t: "Tracking", c: "Once shipped, an active tracking ID will be provided." },
+            { icon: "target", t: "Expectations", c: "✔ Quality fabric<br>✔ Careful packaging<br>✔ Real human support via WhatsApp" },
+            { icon: "palette", t: "Colors", c: "Actual colors may slightly vary due to fabric and lighting." },
+            { icon: "ruler", t: "Size & fit", c: "Please check the size chart carefully before ordering." },
+            { icon: "refresh-cw", t: "Returns", c: "Returns are limited to damaged items or print defects." },
+            { icon: "credit-card", t: "Payments", c: "Orders processed after payment confirmation." },
+            { icon: "shield", t: "Responsibility", c: "We ensure proper dispatch and packaging. Delivery delays by third-party partners are outside our control." },
+            { icon: "message-square", t: "Support", c: "Contact us on WhatsApp for any issues." }
         ];
 
         async function loadRegistry() {
             try {
                 const res = await fetch('./data/products.json');
                 if(res.ok) {
-                    const fetchedData = await res.json();
-                    if(fetchedData && fetchedData.length > 0) {
-                        PRODUCT_DATA_LOADED = fetchedData;
-                    }
+                    const data = await res.json();
+                    if(data && data.length > 0) PRODUCT_DATA_LOADED = data;
                 }
-            } catch (err) { 
-                console.log("Using fallback data.");
-            } finally {
-                renderGrid();
-                renderRegistryAccordion();
-                updateCartUI();
-                loadUserData();
-                
-                // Handle Order Recovery
-                const pendingPayment = localStorage.getItem("pe_pending_payment");
-                const pendingTime = localStorage.getItem("pe_pending_payment_time");
-                
-                if (pendingPayment === "true" && pendingTime && cart.length > 0) {
-                    const timeElapsed = Date.now() - parseInt(pendingTime);
-                    if (timeElapsed < 30 * 60 * 1000) { 
-                        const toast = document.getElementById('resume-toast');
-                        if (toast) { toast.classList.remove('hidden'); toast.classList.add('flex'); }
-                    } else { clearPendingOrder(); }
-                }
+            } catch (err) { console.log("Using fallbacks"); }
+            renderGrid(); renderRegistryAccordion(); updateCartUI(); loadUserData();
+            
+            const pendingPayment = localStorage.getItem("pe_pending_payment");
+            const pendingTime = localStorage.getItem("pe_pending_payment_time");
+            if (pendingPayment === "true" && pendingTime && cart.length > 0) {
+                if (Date.now() - parseInt(pendingTime) < 1800000) document.getElementById('resume-toast')?.classList.remove('hidden');
+                else clearPendingOrder();
             }
         }
         
         function loadUserData() {
             try {
                 const data = JSON.parse(localStorage.getItem("pe_userData"));
-                if(data && (data.name || data.phone)) {
-                    if(data.name) document.getElementById("dlv-name").value = data.name;
-                    if(data.phone) document.getElementById("dlv-phone").value = data.phone;
-                    if(data.address) document.getElementById("dlv-address").value = data.address;
-                    if(data.city) document.getElementById("dlv-city").value = data.city;
-                    if(data.state) document.getElementById("dlv-state").value = data.state;
-                    if(data.pincode) {
-                        document.getElementById("dlv-pincode").value = data.pincode;
-                        updateDeliveryEstimate(data.pincode);
-                    }
-                    const welcomeBack = document.getElementById("welcome-back-msg");
-                    if(welcomeBack) { welcomeBack.classList.remove("hidden"); }
+                if(data) {
+                    document.getElementById("dlv-name").value = data.name || "";
+                    document.getElementById("dlv-phone").value = data.phone || "";
+                    document.getElementById("dlv-address").value = data.address || "";
+                    document.getElementById("dlv-city").value = data.city || "";
+                    document.getElementById("dlv-state").value = data.state || "";
+                    document.getElementById("dlv-pincode").value = data.pincode || "";
+                    document.getElementById("welcome-back-msg")?.classList.remove("hidden");
                 }
             } catch(e) {}
         }
         
         function saveUserData() {
-            const data = {
-                name: document.getElementById("dlv-name").value.trim(),
-                phone: document.getElementById("dlv-phone").value.trim(),
-                address: document.getElementById("dlv-address").value.trim(),
-                city: document.getElementById("dlv-city").value.trim(),
-                state: document.getElementById("dlv-state").value.trim(),
-                pincode: document.getElementById("dlv-pincode").value.trim()
-            };
+            const data = { name: document.getElementById("dlv-name").value, phone: document.getElementById("dlv-phone").value, address: document.getElementById("dlv-address").value, city: document.getElementById("dlv-city").value, state: document.getElementById("dlv-state").value, pincode: document.getElementById("dlv-pincode").value };
             localStorage.setItem("pe_userData", JSON.stringify(data));
         }
 
         const splitName = (name) => {
             const match = name.match(/^([ꯀ-꯿\s]+)\s+(.*)$/);
-            if(match) return { mayek: match[1].trim(), eng: match[2].trim() };
-            return { mayek: name, eng: "" };
+            return match ? { mayek: match[1].trim(), eng: match[2].trim() } : { mayek: name, eng: "" };
         };
 
         const saveCart = () => { localStorage.setItem('pe_cart', JSON.stringify(cart)); updateCartUI(); };
@@ -1326,76 +1089,30 @@ V7 4:07 fixed next buttons
             let totalQty = 0, totalPrice = 0;
 
             if (cart.length === 0) {
-                container.innerHTML = `<div class="text-center text-gray-600 mt-20 font-inter text-[10px] font-black tracking-[0.4em] uppercase flex flex-col items-center w-full"><i data-lucide="shopping-bag" class="w-8 h-8 mb-4 opacity-20"></i> Cart is empty</div>`;
-                if(checkoutBtn) {
-                    checkoutBtn.disabled = true;
-                    checkoutBtn.classList.remove('force-white-button');
-                    checkoutBtn.classList.add('bg-[#0a0a0a]', 'text-white/20');
-                    checkoutBtn.style.opacity = "0.5";
-                }
-                lucide.createIcons();
-                if(!document.getElementById('state-checkout').classList.contains('hidden') || !document.getElementById('state-payment').classList.contains('hidden')) {
-                    switchSidebarState('cart');
-                }
+                container.innerHTML = `<div class="text-center text-gray-600 mt-20 font-inter text-[10px] uppercase">Cart is empty</div>`;
+                checkoutBtn.disabled = true; checkoutBtn.style.opacity = "0.5";
             } else {
-                if(checkoutBtn) {
-                    checkoutBtn.disabled = false;
-                    checkoutBtn.classList.add('force-white-button');
-                    checkoutBtn.style.opacity = "1";
-                }
+                checkoutBtn.disabled = false; checkoutBtn.style.opacity = "1";
                 container.innerHTML = cart.map((item, idx) => {
-                    totalQty += 1; totalPrice += item.numPrice;
-                    const nameParts = splitName(item.name);
-                    return `
-                    <div class="flex gap-4 border-b border-white/10 pb-6 relative w-full text-left">
-                        <button onclick="removeFromCart(${idx})" class="absolute top-0 right-0 p-2 text-white/30 hover:text-pe-red transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button>
-                        <div class="w-20 h-24 bg-neutral-900 shrink-0 rounded-sm overflow-hidden">
-                            <img src="${item.image}" class="w-full h-full object-contain">
-                        </div>
-                        <div class="flex-grow flex flex-col justify-center min-w-0 text-left">
-                            <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate text-left text-left">${nameParts.mayek}</h4>
-                            <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3 text-left text-left text-left">${nameParts.eng}</span>
-                            <div class="flex flex-wrap gap-2 text-left">
-                                <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Size: <span class="text-pe-red">${item.size}</span></div>
-                                <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Color: <span class="text-pe-red">${item.color}</span></div>
-                            </div>
-                            <span class="text-sm font-inter font-black text-white mt-3 text-left">₹${(item.numPrice || 0).toLocaleString('en-IN')}</span>
-                        </div>
-                    </div>`;
+                    totalPrice += item.numPrice;
+                    return `<div class="flex gap-4 border-b border-white/10 pb-6 relative text-left"><div class="w-20 h-24 bg-neutral-900 shrink-0"><img src="${item.image}" class="w-full h-full object-contain"></div><div class="flex-grow flex flex-col justify-center min-w-0"><h4 class="font-mayek text-sm text-white truncate">${item.name}</h4><div class="flex gap-2 mt-2"><div class="text-[8px] bg-white/10 px-2 py-1">${item.size}</div><div class="text-[8px] bg-white/10 px-2 py-1">${item.color}</div></div><span class="text-sm font-black text-white mt-3">₹${item.numPrice.toLocaleString('en-IN')}</span></div><button onclick="removeFromCart(${idx})" class="absolute top-0 right-0 text-white/30"><i data-lucide="x" class="w-4 h-4"></i></button></div>`;
                 }).join('');
-                
-                const previewEl = document.getElementById('checkout-order-preview');
-                if(previewEl) {
-                    previewEl.innerHTML = cart.map(item => `• ${item.name} <br><span class="text-white/40 ml-3">Size: ${item.size} / Color: ${item.color}</span>`).join('<br><br>');
-                    previewEl.innerHTML += `<div class="mt-4 pt-3 border-t border-white/10 flex justify-between items-center"><span class="font-inter text-[10px] font-bold text-white/50 uppercase tracking-widest">Total Amount</span><span class="font-inter text-lg font-black text-white">₹${totalPrice.toLocaleString('en-IN')}</span></div>`;
-                }
-                lucide.createIcons();
+                document.getElementById('checkout-order-preview').innerHTML = cart.map(item => `• ${item.name} <br><span class="text-white/40 ml-3">${item.size} / ${item.color}</span>`).join('<br><br>');
             }
-            badge.innerText = totalQty;
-            totalQty > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
-            if(totalEl) totalEl.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
-            const cb = document.getElementById('finalConfirm');
-            if(cb) cb.checked = false;
-            validateCheckoutForm();
+            badge.innerText = cart.length; (cart.length > 0) ? badge.classList.remove('hidden') : badge.classList.add('hidden');
+            totalEl.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
+            lucide.createIcons(); validateCheckoutForm();
         };
 
-        const removeFromCart = (index) => { cart.splice(index, 1); saveCart(); playTock(); if(cart.length === 0) { switchSidebarState('cart'); } };
+        const removeFromCart = (index) => { cart.splice(index, 1); saveCart(); playTock(); if(cart.length === 0) switchSidebarState('cart'); };
 
         const toggleCart = (fromPopState = false) => {
             const sidebar = document.getElementById('cart-sidebar');
             const overlay = document.getElementById('cart-sidebar-overlay');
             const isOpen = !sidebar.classList.contains('translate-x-full');
             playTock();
-            if (isOpen) {
-                sidebar.classList.add('translate-x-full'); overlay.classList.add('invisible', 'opacity-0');
-                document.body.style.overflow = ''; isCartSidebarOpen = false;
-                if (!fromPopState) history.back();
-            } else {
-                updateCartUI(); switchSidebarState('cart');
-                document.body.style.overflow = 'hidden'; sidebar.classList.remove('translate-x-full');
-                overlay.classList.remove('invisible', 'opacity-0'); isCartSidebarOpen = true;
-                history.pushState({ modal: 'cart' }, "");
-            }
+            if (isOpen) { sidebar.classList.add('translate-x-full'); overlay.classList.add('invisible', 'opacity-0'); document.body.style.overflow = ''; isCartSidebarOpen = false; if (!fromPopState) history.back(); }
+            else { updateCartUI(); switchSidebarState('cart'); document.body.style.overflow = 'hidden'; sidebar.classList.remove('translate-x-full'); overlay.classList.remove('invisible', 'opacity-0'); isCartSidebarOpen = true; history.pushState({ modal: 'cart' }, ""); }
         };
 
         const toggleMenu = (fromPopState = false) => {
@@ -1403,51 +1120,25 @@ V7 4:07 fixed next buttons
             const overlay = document.getElementById('mobile-menu-overlay');
             const isOpen = !menu.classList.contains('hidden');
             playTock();
-            if (isOpen) {
-                menu.classList.add('hidden'); menu.classList.remove('flex');
-                overlay.classList.add('hidden'); document.body.style.overflow = '';
-                isMobileMenuOpen = false; if(!fromPopState) history.back();
-            } else {
-                menu.classList.remove('hidden'); menu.classList.add('flex');
-                overlay.classList.remove('hidden'); document.body.style.overflow = 'hidden';
-                isMobileMenuOpen = true; history.pushState({ modal: 'menu' }, "");
-            }
+            if (isOpen) { menu.classList.add('hidden'); overlay.classList.add('hidden'); document.body.style.overflow = ''; isMobileMenuOpen = false; if(!fromPopState) history.back(); }
+            else { menu.classList.remove('hidden'); overlay.classList.remove('hidden'); document.body.style.overflow = 'hidden'; isMobileMenuOpen = true; history.pushState({ modal: 'menu' }, ""); }
         };
 
         const openModal = (idx) => {
             currentProdIdx = idx; currentImgIdx = 0; selectedColor = null; selectedSize = null;
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const nameParts = splitName(p.name);
-            
-            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[10px] text-white/80 font-bold tracking-[0.3em] uppercase text-left text-left text-left">${nameParts.eng}</span>`;
-            document.getElementById('modal-price').innerText = p.price;
+            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2">${nameParts.mayek}</span><span class="block font-inter text-[10px] text-white/80 uppercase">${nameParts.eng}</span>`;
+            document.getElementById('modal-price').innerText = `₹${parseInt(p.price.replace(/\D/g,'')).toLocaleString('en-IN')}`;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('lore-body').innerText = p.lore;
-            document.getElementById('details-body').innerText = p.details || "Details coming soon...";
-            document.getElementById('wash-body').innerText = p.wash || "Handle with care.";
+            document.getElementById('details-body').innerText = p.details || "";
+            document.getElementById('wash-body').innerText = p.wash || "";
             
-            ['lore', 'details', 'wash', 'size', 'protocol'].forEach(s => {
-                document.getElementById(`accordion-${s}`).classList.add('hidden');
-                document.getElementById(`icon-${s}`).classList.remove('rotate-180');
-            });
-
-            const buyContainer = document.getElementById('modal-buy-container');
-            buyContainer.innerHTML = `
-                <div class="space-y-3 text-left">
-                    <span class="text-[9px] font-inter font-black tracking-widest text-white/40 uppercase">Select Size</span>
-                    <div class="flex gap-2">
-                        ${['S', 'M', 'L', 'XL', 'XXL'].map(s => `<button data-size="${s}" onclick="selectSize('${s}')" class="size-btn flex-1 py-3 border border-white/20 text-white text-[10px] tracking-widest font-black rounded-sm transition-all text-center">${s}</button>`).join('')}
-                    </div>
-                </div>
-                <div class="space-y-3 relative text-left mt-6" id="colorSection">
-                    <span class="text-[9px] font-inter font-black tracking-widest text-white/40 uppercase">Select Color</span>
-                    <div class="flex flex-wrap gap-2" id="color-options-container">
-                        ${p.colors.map(c => `<div class="color-option group" data-color="${c}" onclick="selectColor('${c}')"><div class="swatch" style="background-color: ${COLOR_MAP[c]}"></div><span class="font-inter text-[10px] font-black tracking-widest uppercase text-white/80 group-hover:text-white">${c}</span></div>`).join('')}
-                    </div>
-                </div>
-                <div id="modal-ack-container" class="mt-6 mb-4 p-5 border border-white/10 bg-[#0a0a0a] rounded-sm">
-                    <label class="custom-check group"><input type="checkbox" id="modal-ack-check" onchange="validateForm()"><span class="checkmark"></span><span class="label-text group-hover:text-white text-white/90 text-[10px] font-bold uppercase tracking-wider">I've reviewed my size and order details before proceeding</span></label>
-                </div>
+            document.getElementById('modal-buy-container').innerHTML = `
+                <div class="space-y-3 mb-6"><span class="text-[9px] font-black text-white/40 uppercase">Select Size</span><div class="flex gap-2">${['S', 'M', 'L', 'XL', 'XXL'].map(s => `<button data-size="${s}" onclick="selectSize('${s}')" class="size-btn flex-1 py-3 border border-white/20 text-white text-[10px] rounded-sm transition-all">${s}</button>`).join('')}</div></div>
+                <div class="space-y-3 mb-6"><span class="text-[9px] font-black text-white/40 uppercase">Select Color</span><div class="flex flex-wrap gap-2">${p.colors.map(c => `<div class="color-option group" data-color="${c}" onclick="selectColor('${c}')"><div class="swatch" style="background-color: ${COLOR_MAP[c]}"></div><span class="font-inter text-[10px] text-white/80 uppercase">${c}</span></div>`).join('')}</div></div>
+                <div class="mt-6 mb-4 p-5 border border-white/10 bg-[#0a0a0a] rounded-sm transition-colors duration-300"><label class="custom-check group"><input type="checkbox" id="modal-ack-check" onchange="validateForm()"><span class="checkmark"></span><span class="label-text group-hover:text-white transition-colors text-white/90 text-[10px] font-bold uppercase tracking-wider">I've reviewed my size and order details</span></label></div>
                 <p id="orderPreview" class="text-[11px] font-inter font-bold text-white/60 mb-2 text-center h-4"></p>
                 <button id="add-to-cart-btn" class="w-full text-left transition-all duration-300"></button>
                 <p id="formHint" class="text-[10px] font-inter text-pe-red text-center mt-3 h-4 tracking-widest uppercase"></p>
@@ -1461,41 +1152,11 @@ V7 4:07 fixed next buttons
             isProductModalOpen = true; history.pushState({ modal: 'product' }, "");
         };
 
-        function touchStart(e) { startX = e.touches[0].clientX; isDragging = true; animationID = requestAnimationFrame(animation); document.getElementById('modal-images').style.transition = 'none'; }
-        function touchMove(e) { if (isDragging) { const currentX = e.touches[0].clientX; currentTranslate = prevTranslate + currentX - startX; } }
-        function touchEnd() {
-            isDragging = false; cancelAnimationFrame(animationID);
-            const imgContainer = document.getElementById('modal-images');
-            imgContainer.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
-            const movedBy = currentTranslate - prevTranslate;
-            if (movedBy < -100 && currentImgIdx < PRODUCT_DATA_LOADED[currentProdIdx].images.length - 1) currentImgIdx++;
-            else if (movedBy > 100 && currentImgIdx > 0) currentImgIdx--;
-            setPositionByIndex();
-        }
-        function animation() { setSliderPosition(); if (isDragging) requestAnimationFrame(animation); }
-        function setSliderPosition() { document.getElementById('modal-images').style.transform = `translateX(${currentTranslate}px)`; }
-        function setPositionByIndex() {
-            const width = document.getElementById('swipe-zone').offsetWidth;
-            currentTranslate = currentImgIdx * -width;
-            prevTranslate = currentTranslate;
-            setSliderPosition(); updateDots();
-        }
-
-        function closeModal(fromPopState = false) {
-            const modal = document.getElementById('product-modal');
-            if (!modal) return;
-            modal.classList.add('opacity-0', 'invisible');
-            document.body.style.overflow = ''; currentTranslate = 0; prevTranslate = 0;
-            playTock(); if (isProductModalOpen) { isProductModalOpen = false; if (!fromPopState) history.back(); }
-        }
-
-        window.addEventListener('popstate', (e) => { if (isProductModalOpen) closeModal(true); else if (isCartSidebarOpen) toggleCart(true); else if (isMobileMenuOpen) toggleMenu(true); });
-
         const selectSize = (size) => {
             selectedSize = size;
             document.querySelectorAll('.size-btn').forEach(btn => {
-                btn.classList.toggle('bg-white', btn.dataset.size === size); btn.classList.toggle('text-black', btn.dataset.size === size);
-                btn.classList.toggle('border-white', btn.dataset.size === size); btn.classList.toggle('border-white/20', btn.dataset.size !== size);
+                const isActive = btn.dataset.size === size;
+                btn.classList.toggle('bg-white', isActive); btn.classList.toggle('text-black', isActive); btn.classList.toggle('border-white/20', !isActive);
             });
             validateForm(); playTock();
         };
@@ -1503,8 +1164,8 @@ V7 4:07 fixed next buttons
         const selectColor = (c) => {
             selectedColor = c;
             document.querySelectorAll('.color-option').forEach(el => {
-                el.classList.toggle('border-white', el.dataset.color === c); el.classList.toggle('bg-white/10', el.dataset.color === c);
-                el.classList.toggle('border-white/20', el.dataset.color !== c);
+                const isActive = el.dataset.color === c;
+                el.classList.toggle('border-white', isActive); el.classList.toggle('bg-white/10', isActive);
             });
             validateForm(); playTock();
         };
@@ -1512,47 +1173,37 @@ V7 4:07 fixed next buttons
         const validateForm = () => {
             const btn = document.getElementById('add-to-cart-btn');
             const hint = document.getElementById('formHint');
-            const preview = document.getElementById('orderPreview');
             const isAck = document.getElementById('modal-ack-check')?.checked;
-            if(preview) preview.innerText = `Selected: ${selectedSize || "-"} / ${selectedColor || "-"}`;
-            let msg = !selectedSize ? "Select size to continue" : !selectedColor ? "Choose a color to continue" : !isAck ? "Confirm selection below" : "";
+            let msg = !selectedSize ? "Select size to continue" : !selectedColor ? "Choose a color to continue" : !isAck ? "Confirm selection" : "";
             if(hint) hint.innerText = msg;
-            
             if (msg) {
-                btn.disabled = true; btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-[#0a0a0a] border border-white/5 text-center cursor-not-allowed opacity-40";
-                btn.innerHTML = `<span class="font-mayek text-lg font-black leading-none mb-1.5">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] uppercase">CONTINUE</span>`;
+                btn.disabled = true; btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm bg-[#0a0a0a] border border-white/5 opacity-40 cursor-not-allowed";
+                btn.innerHTML = `<span class="font-mayek text-lg font-black mb-1.5">ꯃꯈꯥ ꯠꯊꯕꯥ</span><span class="font-inter text-[9px] uppercase">CONTINUE</span>`;
             } else {
                 btn.disabled = false; btn.onclick = addToCart;
-                btn.className = "w-full force-white-button py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer";
-                btn.innerHTML = `<span class="font-mayek text-lg font-black leading-none mb-1.5">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] uppercase">Add to Cart</span>`;
+                btn.className = "w-full force-white-button py-4 active:scale-95 flex flex-col items-center justify-center rounded-sm transition-all shadow-xl cursor-pointer";
+                btn.innerHTML = `<span class="font-mayek text-lg font-black mb-1.5">ꯃꯈꯥ ꯠꯊꯕꯥ</span><span class="font-inter text-[9px] uppercase">Add to Cart</span>`;
             }
         };
 
         const addToCart = () => {
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             cart.push({ id: p.id, name: p.name, price: p.price, numPrice: parseInt(String(p.price).replace(/[^0-9]/g, '')) || 0, size: selectedSize, color: selectedColor, image: p.images[0] });
-            saveCart(); playTock(); showCartFeedback(); toggleCart();
+            saveCart(); playTock(); showCartFeedback(); closeModal(); toggleCart();
         };
 
         const validateCheckoutForm = () => {
-            const valid = document.getElementById("dlv-name").value.trim() && /^[6-9]\d{9}$/.test(document.getElementById("dlv-phone").value.trim()) && document.getElementById("dlv-address").value.trim().length >= 10 && /^\d{6}$/.test(document.getElementById("dlv-pincode").value.trim()) && document.getElementById("dlv-state").value.trim() && document.getElementById("dlv-city").value.trim() && document.getElementById("finalConfirm").checked;
+            const valid = document.getElementById("dlv-name").value.trim() && /^[6-9]\d{9}$/.test(document.getElementById("dlv-phone").value.trim()) && document.getElementById("dlv-address").value.trim().length >= 10 && document.getElementById("dlv-state").value.trim() && document.getElementById("finalConfirm").checked;
             const btn = document.getElementById('proceedToPaymentBtn');
             btn.disabled = !valid; btn.classList.toggle('opacity-50', !valid); btn.classList.toggle('pointer-events-none', !valid); btn.classList.toggle('force-white-button', valid);
         };
 
-        const processOrderSuccess = () => {
-            playTock(); const res = generateWhatsAppOrderMessage();
-            switchSidebarState('success'); window.open(`https://wa.me/919366659414?text=${encodeURIComponent(res.message)}`, "_blank");
-            cart = []; saveCart();
-        };
-
         const toggleAccordion = (id) => {
-            const sections = ['lore', 'details', 'wash', 'size', 'protocol'];
-            sections.forEach(s => {
-                const el = document.getElementById(`accordion-${s}`); const icon = document.getElementById(`icon-${s}`);
-                if(s === id) { el.classList.toggle('hidden'); icon?.classList.toggle('rotate-180'); }
-                else { el.classList.add('hidden'); icon?.classList.remove('rotate-180'); }
-            });
+            const el = document.getElementById(`accordion-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            const isHidden = el.classList.contains('hidden');
+            ['lore', 'details', 'wash', 'size', 'protocol'].forEach(s => { document.getElementById(`accordion-${s}`)?.classList.add('hidden'); document.getElementById(`icon-${s}`)?.classList.remove('rotate-180'); });
+            if(isHidden) { el.classList.remove('hidden'); icon.classList.add('rotate-180'); }
             playTock();
         };
 
@@ -1565,15 +1216,14 @@ V7 4:07 fixed next buttons
         };
 
         const renderRegistryAccordion = () => {
-            document.getElementById('registry-accordion').innerHTML = FAQ_CONTENT.map((item, idx) => `
-                <div class="border-b border-white/10"><button onclick="toggleMainFAQ(${idx})" class="w-full flex items-center justify-between py-6 text-left group"><div class="flex items-center gap-4"><i data-lucide="${item.icon}" class="w-5 h-5 text-white/30 group-hover:text-pe-red"></i><span class="font-inter text-[11px] font-black uppercase tracking-[0.3em] text-white/80 group-hover:text-pe-red">${item.t}</span></div><i data-lucide="chevron-down" class="w-4 h-4 text-white/20 group-hover:text-white transition-all"></i></button><div id="main-faq-content-${idx}" class="hidden pb-8 pl-9"><p class="font-inter text-[12px] text-white/50 leading-relaxed">${item.c}</p></div></div>`).join('');
+            document.getElementById('registry-accordion').innerHTML = FAQ_CONTENT.map((item, idx) => `<div class="border-b border-white/10"><button onclick="toggleMainFAQ(${idx})" class="w-full flex items-center justify-between py-6 group"><div class="flex items-center gap-4"><i data-lucide="${item.icon}" class="w-5 h-5 text-white/30 group-hover:text-pe-red"></i><span class="font-inter text-[11px] font-black uppercase text-white/80 group-hover:text-pe-red">${item.t}</span></div><i data-lucide="chevron-down" class="w-4 h-4 text-white/20"></i></button><div id="main-faq-content-${idx}" class="hidden pb-8 pl-9"><p class="font-inter text-[12px] text-white/50 leading-relaxed">${item.c}</p></div></div>`).join('');
             lucide.createIcons();
         };
 
-        const updateGallery = () => {
-            const p = PRODUCT_DATA_LOADED[currentProdIdx];
-            document.getElementById('modal-images').innerHTML = p.images.map(img => `<img src="${img}" class="w-full h-full object-contain shrink-0 pointer-events-none">`).join('');
-            currentTranslate = 0; prevTranslate = 0; document.getElementById('modal-images').style.transform = `translateX(0px)`; updateDots();
+        const setPositionByIndex = () => {
+            const width = document.getElementById('swipe-zone').offsetWidth;
+            document.getElementById('modal-images').style.transform = `translateX(${currentImgIdx * -width}px)`;
+            updateDots();
         };
 
         const updateDots = () => {
@@ -1584,8 +1234,18 @@ V7 4:07 fixed next buttons
         const renderGrid = () => {
             document.getElementById('product-grid').innerHTML = PRODUCT_DATA_LOADED.map((p, idx) => {
                 const nameParts = splitName(p.name);
-                return `<div class="group cursor-pointer flex flex-col h-full" onclick="openModal(${idx})"><div class="aspect-[4/5] bg-neutral-900 overflow-hidden mb-4 rounded-sm"><img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"></div><div class="px-1 flex flex-col flex-grow"><span class="block font-mayek text-[13px] text-white leading-tight mb-1">${nameParts.mayek}</span><span class="font-inter text-[8px] text-white/60 tracking-widest uppercase mb-2">${nameParts.eng}</span><div class="flex justify-between items-center border-t border-white/5 pt-3 mt-auto"><span class="text-xs font-inter">₹${parseInt(p.price.replace(/\D/g,'')).toLocaleString('en-IN')}</span><span class="font-mayek text-pe-red text-[11px]">ꯑꯀꯨꯞꯄ</span></div></div></div>`}).join('');
+                return `<div class="group cursor-pointer flex flex-col h-full" onclick="openModal(${idx})"><div class="aspect-[4/5] bg-neutral-900 overflow-hidden mb-4 rounded-sm"><img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"></div><div class="px-1 flex flex-col flex-grow"><span class="block font-mayek text-[13px] text-white leading-tight mb-1">${nameParts.mayek}</span><span class="font-inter text-[8px] text-white/60 uppercase mb-2">${nameParts.eng}</span><div class="flex justify-between items-center border-t border-white/5 pt-3 mt-auto"><span class="text-xs font-inter font-light">₹${parseInt(p.price.replace(/\D/g,'')).toLocaleString('en-IN')}</span><span class="font-mayek text-pe-red text-[11px]">ꯑꯀꯨꯞꯄ</span></div></div></div>`}).join('');
         };
+
+        const closeModal = (fromPopState = false) => { document.getElementById('product-modal').classList.add('opacity-0', 'invisible'); isProductModalOpen = false; if (!fromPopState) history.back(); };
+        const openWhatsApp = () => window.open('https://wa.me/919366659414?text=Hi%20Project%20Eramdam%20Support!', '_blank');
+        function showCartFeedback() { const el = document.getElementById("cart-feedback"); el.style.opacity = "1"; setTimeout(() => el.style.opacity = "0", 1500); }
+        function generateWhatsAppOrderMessage() {
+            let name = document.getElementById("dlv-name").value; let total = 0; let msg = `*ORDER REQUEST*\n\n`;
+            cart.forEach((i, idx) => { msg += `${idx+1}. ${i.name}\n- Variant: ${i.color} / ${i.size}\n\n`; total += i.numPrice; });
+            msg += `*Total:* ₹${total.toLocaleString('en-IN')}\n\n*DELIVERY:* ${name}`;
+            return { message: msg };
+        }
 
         const canvas = document.getElementById('matrix-canvas'), ctx = canvas.getContext('2d');
         const drawM = () => {
@@ -1602,7 +1262,8 @@ V7 4:07 fixed next buttons
         
         window.onload = () => {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            const mInt = setInterval(drawM, 50); lucide.createIcons(); loadRegistry();
+            const mInt = setInterval(drawM, 50); loadRegistry();
+            const typewrite = (t, id, s, cb) => { let i = 0; const el = document.getElementById(id); const tmr = setInterval(() => { if(i < t.length) { el.innerHTML += t.charAt(i); i++; } else { clearInterval(tmr); cb?.(); } }, s); };
             setTimeout(() => {
                 clearInterval(mInt); document.getElementById('matrix-canvas').style.display = 'none';
                 document.getElementById('typewriter-container').classList.remove('hidden');
@@ -1612,41 +1273,14 @@ V7 4:07 fixed next buttons
             }, 2000);
         };
 
-        const typewrite = (t, id, s, cb) => {
-            let i = 0; const el = document.getElementById(id);
-            const tmr = setInterval(() => { if(i < t.length) { el.innerHTML += t.charAt(i); i++; } else { clearInterval(tmr); cb?.(); } }, s);
-        };
-
         const primeHardware = () => { if (!hardwareReady) { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if (audioCtx.state === 'suspended') audioCtx.resume(); hardwareReady = true; } };
         window.addEventListener('pointerdown', primeHardware, { capture: true, once: true });
-        
-        const playTock = () => {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const o = audioCtx.createOscillator(), g = audioCtx.createGain();
-            o.frequency.setValueAtTime(150, audioCtx.currentTime);
-            g.gain.setValueAtTime(0.05, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.1);
-        };
-
+        const playTock = () => { if (!audioCtx) return; const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.frequency.setValueAtTime(150, audioCtx.currentTime); g.gain.setValueAtTime(0.05, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.1); };
         window.onscroll = () => {
-            const nav = document.getElementById('navbar');
             const progress = document.getElementById('scroll-progress');
             progress.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 + '%';
-            if(window.scrollY > 50) nav.classList.add('glass', 'tactical-border'); else nav.classList.remove('glass', 'tactical-border');
+            if(window.scrollY > 50) document.getElementById('navbar').classList.add('glass', 'tactical-border'); else document.getElementById('navbar').classList.remove('glass', 'tactical-border');
         };
-
-        function showCartFeedback() {
-            const el = document.getElementById("cart-feedback"); el.style.opacity = "1";
-            setTimeout(() => el.style.opacity = "0", 1500);
-        }
-
-        function generateWhatsAppOrderMessage() {
-            let name = document.getElementById("dlv-name").value; let total = 0;
-            let msg = `*ORDER REQUEST*\n\n`;
-            cart.forEach((i, idx) => { msg += `${idx+1}. ${i.name}\n- Variant: ${i.color} / ${i.size}\n\n`; total += i.numPrice; });
-            msg += `*Total:* ₹${total.toLocaleString('en-IN')}\n\n*DELIVERY:* ${name}`;
-            return { message: msg };
-        }
     </script>
 
     <!-- ADD TO CART FEEDBACK -->
