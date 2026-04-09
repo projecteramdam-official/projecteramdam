@@ -1,4 +1,4 @@
-Fixed v4
+Fixed v5
 
 ```html
 <!DOCTYPE html>
@@ -70,7 +70,7 @@ Fixed v4
         .custom-dropdown-list.open { max-height: 300px; overflow-y: auto; }
         #modal-images { will-change: transform; touch-action: pan-y pinch-zoom; }
 
-        /* CUSTOM CHECKBOX CSS */
+        /* CUSTOM CHECKBOX CSS - UPDATED FOR VISIBILITY */
         .custom-check {
             display: flex;
             align-items: flex-start;
@@ -80,11 +80,11 @@ Fixed v4
         }
         .custom-check input { display: none; }
         .checkmark {
-            width: 18px;
-            height: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 22px;
+            height: 22px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
             border-radius: 4px;
-            background: transparent;
+            background: rgba(255, 255, 255, 0.05);
             position: relative;
             flex-shrink: 0;
             margin-top: 1px;
@@ -97,8 +97,8 @@ Fixed v4
         .custom-check input:checked + .checkmark::after {
             content: "";
             position: absolute;
-            left: 5px;
-            top: 2px;
+            left: 7px;
+            top: 3px;
             width: 5px;
             height: 10px;
             border: solid #000;
@@ -563,7 +563,7 @@ Fixed v4
                 <span class="text-8xl md:text-9xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-6 -right-4 font-inter z-0 leading-none select-none">1</span>
                 <i data-lucide="mouse-pointer-click" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110 relative z-10"></i>
                 <div class="flex flex-col items-center text-center relative z-10">
-                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯈꯟꯕꯥ</span>
+                    <span class="font-mayek text-white text-base md:text-lg font-black leading-none mb-1.5 text-center">ꯈꯟꯕꯥ</span>
                     <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">Select Piece</span>
                     <p class="font-inter text-[9px] md:text-[10px] text-white/40 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1">Browse the drop and use our real-life size guide to carefully select your perfect fit and color variant.</p>
                 </div>
@@ -572,16 +572,16 @@ Fixed v4
                 <span class="text-8xl md:text-9xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-6 -right-4 font-inter z-0 leading-none select-none">2</span>
                 <i data-lucide="message-circle" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110 relative z-10"></i>
                 <div class="flex flex-col items-center text-center relative z-10">
-                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯄꯥꯎ</span>
+                    <span class="font-mayek text-white text-base md:text-lg font-black leading-none mb-1.5 text-center">ꯄꯥꯎ</span>
                     <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase text-center">WA Confirm</span>
-                    <p class="font-inter text-[9px] text-white/40 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1">Add your chosen piece to the cart and proceed to WhatsApp, where our team will personally assist you.</p>
+                    <p class="font-inter text-[9px] md:text-[10px] text-white/40 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1">Add your chosen piece to the cart and proceed to WhatsApp, where our team will personally assist you.</p>
                 </div>
             </div>
             <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-8 flex flex-col items-center justify-start overflow-hidden text-center relative">
                 <span class="text-8xl md:text-9xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-6 -right-4 font-inter z-0 leading-none select-none">3</span>
                 <i data-lucide="shield-check" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110 relative z-10"></i>
                 <div class="flex flex-col items-center text-center relative z-10">
-                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯁꯦꯟ</span>
+                    <span class="font-mayek text-white text-base md:text-lg font-black leading-none mb-1.5 text-center">ꯁꯦꯟ</span>
                     <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">UPI Signature</span>
                     <p class="font-inter text-[9px] md:text-[10px] text-white/40 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1">Make a safe, secure prepaid payment. To maintain quality control, we do not offer Cash on Delivery.</p>
                 </div>
@@ -590,7 +590,7 @@ Fixed v4
                 <span class="text-8xl md:text-9xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-6 -right-4 font-inter z-0 leading-none select-none">4</span>
                 <i data-lucide="truck" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110 relative z-10"></i>
                 <div class="flex flex-col items-center text-center relative z-10">
-                    <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯌꯧꯔꯛꯄꯥ</span>
+                    <span class="font-mayek text-white text-base md:text-lg font-black leading-none mb-1.5 text-center">ꯌꯧꯔꯛꯄꯥ</span>
                     <span class="font-inter font-black text-[8px] md:text-[9px] tracking-[0.2em] uppercase text-white/60 text-center">Unit Deployed</span>
                     <p class="font-inter text-[9px] md:text-[10px] text-white/40 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1">Your order goes straight into production (2-3 days) before being carefully packed and dispatched to you.</p>
                 </div>
@@ -1368,7 +1368,7 @@ Fixed v4
                 sidebar.classList.add('translate-x-full');
                 overlay.classList.add('invisible', 'opacity-0');
                 
-                // RESTORE SCROLL (standard way)
+                // RESTORE SCROLL
                 document.body.style.overflow = '';
                 
                 if(!document.getElementById('state-success').classList.contains('hidden')) {
@@ -1381,7 +1381,7 @@ Fixed v4
                 updateCartUI();
                 switchSidebarState('cart');
                 
-                // LOCK SCROLL (modern way, no body position change)
+                // LOCK SCROLL
                 document.body.style.overflow = 'hidden';
                 
                 sidebar.classList.remove('translate-x-full');
@@ -1458,11 +1458,11 @@ Fixed v4
                     </div>
                 </div>
                 
-                <div id="modal-ack-container" class="mt-6 mb-4 p-4 border border-white/10 bg-[#0f0f0f] rounded-lg transition-colors duration-300">
+                <div id="modal-ack-container" class="mt-6 mb-4 p-5 border border-white/10 bg-[#0a0a0a] rounded-sm transition-colors duration-300">
                     <label class="custom-check group">
                         <input type="checkbox" id="modal-ack-check" onchange="validateForm()">
                         <span class="checkmark"></span>
-                        <span class="label-text group-hover:text-white transition-colors">
+                        <span class="label-text group-hover:text-white transition-colors text-white/70 text-[10px] font-bold uppercase tracking-wider leading-relaxed">
                             I've reviewed my size and order details before proceeding
                         </span>
                     </label>
@@ -1477,7 +1477,7 @@ Fixed v4
             validateForm();
             lucide.createIcons();
             
-            // LOCK SCROLL (standard modern way)
+            // LOCK SCROLL
             document.body.style.overflow = 'hidden';
 
             document.getElementById('product-modal').classList.remove('invisible');
@@ -1513,10 +1513,6 @@ Fixed v4
             updateDots();
         }
 
-        /**
-         * ISSUE 1 FIX: Simple Close Modal that doesn't reset scroll or navigation incorrectly.
-         * Parameter fromPopState ensures we don't duplicate history.back()
-         */
         function closeModal(fromPopState = false) {
             const modal = document.getElementById('product-modal');
             if (!modal) return;
@@ -1608,12 +1604,10 @@ Fixed v4
 
             if (msg) {
                 btn.disabled = true;
-                btn.style.opacity = "0.5";
-                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-neutral-900 border border-white/10 text-center cursor-not-allowed";
-                btn.innerHTML = `<span class="font-mayek text-white/50 text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/40 uppercase text-center">CONTINUE</span>`;
+                btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-[#0a0a0a] border border-white/5 text-center cursor-not-allowed";
+                btn.innerHTML = `<span class="font-mayek text-white/20 text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/10 uppercase text-center">CONTINUE</span>`;
             } else {
                 btn.disabled = false;
-                btn.style.opacity = "1";
                 if (inCart) {
                     btn.onclick = () => toggleCart();
                     btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5 text-center">ꯐꯥꯎꯅꯕꯤꯌꯨ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase text-center">View Cart</span>`;
@@ -2014,29 +2008,6 @@ Fixed v4
             }
         }
 
-        /**
-         * Product image slider logic
-         */
-        function touchStart(e) { startX = e.touches[0].clientX; isDragging = true; animationID = requestAnimationFrame(animation); document.getElementById('modal-images').style.transition = 'none'; }
-        function touchMove(e) { if (isDragging) { const currentX = e.touches[0].clientX; currentTranslate = prevTranslate + currentX - startX; } }
-        function touchEnd() {
-            isDragging = false; cancelAnimationFrame(animationID);
-            const imgContainer = document.getElementById('modal-images');
-            imgContainer.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
-            const movedBy = currentTranslate - prevTranslate;
-            if (movedBy < -100 && currentImgIdx < PRODUCT_DATA_LOADED[currentProdIdx].images.length - 1) currentImgIdx++;
-            else if (movedBy > 100 && currentImgIdx > 0) currentImgIdx--;
-            setPositionByIndex();
-        }
-        function animation() { setSliderPosition(); if (isDragging) requestAnimationFrame(animation); }
-        function setSliderPosition() { document.getElementById('modal-images').style.transform = `translateX(${currentTranslate}px)`; }
-        function setPositionByIndex() {
-            currentTranslate = currentImgIdx * -document.getElementById('swipe-zone').offsetWidth;
-            prevTranslate = currentTranslate;
-            setSliderPosition();
-            updateDots();
-        }
-
         // SHOW FEEDBACK POPUP
         function showCartFeedback() {
             const el = document.getElementById("cart-feedback");
@@ -2064,5 +2035,4 @@ Fixed v4
 </html>
 
 ```
-
 
