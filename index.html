@@ -751,6 +751,16 @@ cart logic V1
                     </div>
                 </div>
 
+                <div class="bg-[#0a0a0a] p-4 rounded-sm border border-white/10 mb-6">
+    <label class="custom-check group">
+        <input type="checkbox" id="modal-ack-check" onchange="validateForm()">
+        <span class="checkmark"></span>
+        <span class="label-text font-inter text-[10px] text-white/80 group-hover:text-white transition-colors leading-relaxed font-bold">
+            I confirm size & color selection before adding to cart
+        </span>
+    </label>
+</div>
+
                 <div id="modal-buy-container" class="w-full mb-8 text-left"></div>
                 
                 <div class="space-y-0 w-full border-t border-white/10 text-left">
@@ -1467,7 +1477,7 @@ cart logic V1
                 </div>
                 
                 <p id="orderPreview" class="text-[11px] font-inter font-bold text-white/60 mb-2 text-center h-4"></p>
-                <button id="add-to-cart-btn" class="w-full text-left transition-all duration-300"></button>
+                <button id="add-to-cart-btn" type="button" class="w-full text-left transition-all duration-300"></button>
                 <p id="formHint" class="text-[10px] font-inter text-pe-red text-center mt-3 h-4 tracking-widest uppercase"></p>
             `;
 
@@ -1579,17 +1589,53 @@ cart logic V1
             playTock();
         };
 
-        const validateForm = () => {
-            const btn = document.getElementById('add-to-cart-btn');
-            const hint = document.getElementById('formHint');
-            const preview = document.getElementById('orderPreview');
-            const cb = document.getElementById('modal-ack-check');
-            
-            const isAck = cb ? cb.checked : false;
-            
-            const sizeText = selectedSize || "-";
-            const colorText = selectedColor || "-";
-            if(preview) preview.innerText = `Selected: ${sizeText} / ${colorText}`;
+            const validateForm = () => {
+    const btn = document.getElementById('add-to-cart-btn');
+    const hint = document.getElementById('formHint');
+    const preview = document.getElementById('orderPreview');
+    const cb = document.getElementById('modal-ack-check');
+
+    if (!btn) return;
+
+    btn.type = "button";
+
+    const isAck = cb ? cb.checked : false;
+
+    const sizeText = selectedSize || "-";
+    const colorText = selectedColor || "-";
+    if (preview) preview.innerText = `Selected: ${sizeText} / ${colorText}`;
+
+    let msg = "";
+    if (!selectedSize) msg = "Select size to continue";
+    else if (!selectedColor) msg = "Choose a color to continue";
+    else if (!isAck) msg = "Confirm your selection below";
+
+    if (hint) hint.innerText = msg;
+
+    const p = PRODUCT_DATA_LOADED[currentProdIdx];
+    const inCart = !!(p && cart.some(item => item.id === p.id && item.size === selectedSize && item.color === selectedColor));
+
+    if (msg) {
+        btn.disabled = true;
+        btn.style.opacity = "0.5";
+        btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-neutral-900 border border-white/10 text-center cursor-not-allowed";
+        btn.innerHTML = `<span class="font-mayek text-white/50 text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/40 uppercase text-center">CONTINUE</span>`;
+        return;
+    }
+
+    btn.disabled = false;
+    btn.style.opacity = "1";
+
+    if (inCart) {
+        btn.onclick = () => openCartIfClosed();
+        btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5 text-center">ꯐꯥꯎꯅꯕꯤꯌꯨ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase text-center">View Cart</span>`;
+        btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-black border border-white/20 text-white text-center cursor-pointer";
+    } else {
+        btn.onclick = processAddToCart;
+        btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] text-black/70 font-black tracking-[0.4em] uppercase text-center">Add to Cart</span>`;
+        btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-gray-100";
+    }
+};
 
             let msg = "";
             if (!selectedSize) msg = "Select size to continue";
@@ -1620,16 +1666,25 @@ cart logic V1
 }
             }
         };
-
+const openCartIfClosed = () => {
+    const sidebar = document.getElementById('cart-sidebar');
+    if (sidebar && sidebar.classList.contains('translate-x-full')) {
+        toggleCart();
+    }
+};
         const processAddToCart = () => {
-            const btn = document.getElementById('add-to-cart-btn');
-            btn.disabled = true;
-            btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">PROCESSING...</span>`;
-            playTock();
-            setTimeout(() => {
-                addToCart();
-            }, 400); 
-        };
+    const btn = document.getElementById('add-to-cart-btn');
+    if (!btn || btn.disabled) return;
+
+    btn.disabled = true;
+    btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">PROCESSING...</span>`;
+
+    playTock();
+
+    setTimeout(() => {
+        addToCart();
+    }, 200);
+};
 
         const removeFromCartByVariant = (id, size, color) => {
             const idx = cart.findIndex(item => item.id === id && item.size === size && item.color === color);
