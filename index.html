@@ -1,5 +1,6 @@
-cart logic V3
+Fixed v4
 
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -573,7 +574,7 @@ cart logic V3
                 <div class="flex flex-col items-center text-center relative z-10">
                     <span class="font-mayek text-white font-black text-base md:text-lg leading-none mb-1.5 text-center">ꯄꯥꯎ</span>
                     <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase text-center">WA Confirm</span>
-                    <p class="font-inter text-[9px] md:text-[10px] text-white/40 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1">Add your chosen piece to the cart and proceed to WhatsApp, where our team will personally assist you.</p>
+                    <p class="font-inter text-[9px] text-white/40 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1">Add your chosen piece to the cart and proceed to WhatsApp, where our team will personally assist you.</p>
                 </div>
             </div>
             <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-8 flex flex-col items-center justify-start overflow-hidden text-center relative">
@@ -791,7 +792,7 @@ cart logic V3
                 </div>
             </div>
         </div>
-        <button onclick="closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-2 md:p-3 text-left"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
+        <button onclick="event.stopPropagation(); closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-2 md:p-3 text-left"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
     </div>
 
     <!-- SCRIPTS -->
@@ -1366,11 +1367,9 @@ cart logic V3
             if (isOpen) {
                 sidebar.classList.add('translate-x-full');
                 overlay.classList.add('invisible', 'opacity-0');
-                const scrollY = document.body.dataset.scrollY;
-                document.documentElement.classList.remove('scroll-smooth');
-                document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
-                window.scrollTo(0, parseInt(scrollY || '0'));
-                setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
+                
+                // RESTORE SCROLL (standard way)
+                document.body.style.overflow = '';
                 
                 if(!document.getElementById('state-success').classList.contains('hidden')) {
                     switchSidebarState('cart');
@@ -1381,9 +1380,10 @@ cart logic V3
             } else {
                 updateCartUI();
                 switchSidebarState('cart');
-                const scrollY = window.scrollY;
-                document.body.dataset.scrollY = scrollY;
-                document.body.style.position = 'fixed'; document.body.style.top = `-${scrollY}px`; document.body.style.width = '100%';
+                
+                // LOCK SCROLL (modern way, no body position change)
+                document.body.style.overflow = 'hidden';
+                
                 sidebar.classList.remove('translate-x-full');
                 overlay.classList.remove('invisible', 'opacity-0');
                 
@@ -1402,6 +1402,7 @@ cart logic V3
                 menu.classList.add('hidden');
                 menu.classList.remove('flex');
                 overlay.classList.add('hidden');
+                document.body.style.overflow = '';
                 
                 isMobileMenuOpen = false;
                 if(!fromPopState) history.back();
@@ -1409,6 +1410,7 @@ cart logic V3
                 menu.classList.remove('hidden');
                 menu.classList.add('flex');
                 overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
                 
                 isMobileMenuOpen = true;
                 history.pushState({ modal: 'menu' }, "");
@@ -1475,9 +1477,8 @@ cart logic V3
             validateForm();
             lucide.createIcons();
             
-            const scrollY = window.scrollY;
-            document.body.dataset.scrollY = scrollY;
-            document.body.style.position = 'fixed'; document.body.style.top = `-${scrollY}px`; document.body.style.width = '100%';
+            // LOCK SCROLL (standard modern way)
+            document.body.style.overflow = 'hidden';
 
             document.getElementById('product-modal').classList.remove('invisible');
             document.getElementById('product-modal').classList.add('opacity-100');
@@ -1512,24 +1513,28 @@ cart logic V3
             updateDots();
         }
 
-        const closeModal = (fromPopState = false) => {
-            document.getElementById('product-modal').classList.add('invisible');
-            document.getElementById('product-modal').classList.remove('opacity-100');
+        /**
+         * ISSUE 1 FIX: Simple Close Modal that doesn't reset scroll or navigation incorrectly.
+         * Parameter fromPopState ensures we don't duplicate history.back()
+         */
+        function closeModal(fromPopState = false) {
+            const modal = document.getElementById('product-modal');
+            if (!modal) return;
+
+            modal.classList.add('opacity-0', 'invisible');
+
+            // RESTORE SCROLL
+            document.body.style.overflow = '';
             
-            currentTranslate = 0; prevTranslate = 0;
-            
-            const scrollY = document.body.dataset.scrollY;
-            document.documentElement.classList.remove('scroll-smooth');
-            document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
-            window.scrollTo(0, parseInt(scrollY || '0'));
-            setTimeout(() => document.documentElement.classList.add('scroll-smooth'), 50);
+            currentTranslate = 0; 
+            prevTranslate = 0;
             playTock();
             
             if (isProductModalOpen) {
                 isProductModalOpen = false;
                 if (!fromPopState) history.back();
             }
-        };
+        }
 
         window.addEventListener('popstate', (e) => {
             if (isProductModalOpen) closeModal(true);
@@ -1610,14 +1615,14 @@ cart logic V3
                 btn.disabled = false;
                 btn.style.opacity = "1";
                 if (inCart) {
-    btn.onclick = () => toggleCart();
-    btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5 text-center">ꯐꯥꯎꯅꯕꯤꯌꯨ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase text-center">View Cart</span>`;
-    btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-black border border-white/20 text-white text-center cursor-pointer";
-} else {
-    btn.onclick = processAddToCart;
-    btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] text-black/70 font-black tracking-[0.4em] uppercase text-center">Add to Cart</span>`;
-    btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-gray-100";
-}
+                    btn.onclick = () => toggleCart();
+                    btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5 text-center">ꯐꯥꯎꯅꯕꯤꯌꯨ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase text-center">View Cart</span>`;
+                    btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-black border border-white/20 text-white text-center cursor-pointer";
+                } else {
+                    btn.onclick = processAddToCart;
+                    btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] text-black/70 font-black tracking-[0.4em] uppercase text-center">Add to Cart</span>`;
+                    btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-gray-100";
+                }
             }
         };
 
@@ -1637,28 +1642,28 @@ cart logic V3
         };
 
         const addToCart = () => {
-    const p = PRODUCT_DATA_LOADED[currentProdIdx];
-    cart.push({
-        id: p.id,
-        name: p.name,
-        price: p.price,
-        numPrice: p.price ? parseInt(String(p.price).replace(/[^0-9]/g, '')) || 0 : 0,
-        size: selectedSize,
-        color: selectedColor,
-        image: p.images[0]
-    });
+            const p = PRODUCT_DATA_LOADED[currentProdIdx];
+            cart.push({
+                id: p.id,
+                name: p.name,
+                price: p.price,
+                numPrice: p.price ? parseInt(String(p.price).replace(/[^0-9]/g, '')) || 0 : 0,
+                size: selectedSize,
+                color: selectedColor,
+                image: p.images[0]
+            });
 
-    document.getElementById('finalConfirm').checked = false;
-    saveCart();
-    validateForm();
-    playTock();
-    showCartFeedback();
+            document.getElementById('finalConfirm').checked = false;
+            saveCart();
+            validateForm();
+            playTock();
+            showCartFeedback();
 
-    const sidebar = document.getElementById('cart-sidebar');
-    if (sidebar && sidebar.classList.contains('translate-x-full')) {
-        toggleCart();
-    }
-};
+            const sidebar = document.getElementById('cart-sidebar');
+            if (sidebar && sidebar.classList.contains('translate-x-full')) {
+                toggleCart();
+            }
+        };
 
         const validateAddress = () => {
             let name = document.getElementById("dlv-name").value.trim();
@@ -1702,11 +1707,9 @@ cart logic V3
                     btn.classList.add('cursor-not-allowed', 'pointer-events-none');
                 }
             }
-
-            // Auto-scroll logic happens exclusively inside triggerErrorHighlight now.
         };
 
-        // NEW: INTELLIGENCE FUNCTIONS
+        // INTELLIGENCE FUNCTIONS
         function getOrderQuality(order) {
             let score = 0;
             if (order.address && order.address.length > 15) score++;
@@ -1729,29 +1732,22 @@ cart logic V3
             return "NORMAL";
         }
 
-        // GOOGLE FORM SILENT CAPTURE (FINAL MAPPED VERSION)
+        // GOOGLE FORM SILENT CAPTURE
         function sendOrderToGoogleForm(order) {
           const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse";
-
           const formData = new FormData();
-
           formData.append("entry.715690915", order.id);
           formData.append("entry.2092671810", order.product);
           formData.append("entry.1214460634", order.size);
           formData.append("entry.2043910785", order.color || "Default");
           formData.append("entry.336831517", order.quantity);
           formData.append("entry.1392433275", order.total);
-
           formData.append("entry.1712849668", order.name);
           formData.append("entry.1222474464", order.phone);
-
           formData.append("entry.1810693968", order.address);
           formData.append("entry.335078953", order.pincode);
           formData.append("entry.1982148271", order.city || "Not Provided");
           formData.append("entry.1464883250", order.state || "Not Provided");
-
-          // Pushing advanced metrics conceptually into existing status field until unique IDs are provided, 
-          // or you can extract them out when setting up the final sheet columns.
           formData.append("entry.2070227970", `Pending | Prio: ${order.priority} | Qual: ${order.qualityScore}/4 | Suspicious: ${order.suspicious ? 'YES' : 'NO'}`);
 
           fetch(formURL, {
@@ -1768,27 +1764,19 @@ cart logic V3
             let city = document.getElementById("dlv-city").value.trim();
             let state = document.getElementById("dlv-state").value.trim();
             let pincode = document.getElementById("dlv-pincode").value.trim();
-            
-            // GENERATE UNIQUE ORDER ID
             const orderId = "PE-" + Date.now();
 
             let message = `*ORDER REQUEST*\n\n*ORDER ID:* ${orderId}\n\n`;
             let total = 0;
-            
-            // AGGREGATE DATA FOR GOOGLE FORM
-            let productNames = [];
-            let productSizes = [];
-            let productColors = [];
+            let productNames = [], productSizes = [], productColors = [];
             let totalQty = cart.length;
             
             cart.forEach((item, i) => {
                 message += `${i+1}. ${item.name}\n- Variant: ${item.color} / ${item.size}\n- Price: ₹${(item.numPrice || 0).toLocaleString('en-IN')}\n`;
-                // Qikink Confirm String logic added
                 let cStrProduct = item.name.substring(0, 10).toUpperCase().replace(/\s/g,'');
                 let cStrSize = item.size.toUpperCase();
                 let cStrColor = item.color.toUpperCase().replace(/\s/g,'');
                 message += `*CONFIRM:* ${cStrProduct}-${cStrSize}-${cStrColor}\n\n`;
-                
                 total += item.numPrice;
                 productNames.push(item.name);
                 productSizes.push(item.size);
@@ -1799,34 +1787,17 @@ cart logic V3
             message += `*DELIVERY DETAILS*\n- Name: ${name}\n- Phone: ${phone}\n- Address: ${address}\n- City: ${city}\n- State: ${state}\n- Pincode: ${pincode}\n\n`;
             
             const orderData = {
-                id: orderId,
-                product: productNames.join(", "),
-                size: productSizes.join(", "),
-                color: productColors.join(", "),
-                quantity: totalQty,
-                total: total,
-                name: name,
-                phone: phone,
-                address: address,
-                pincode: pincode,
-                city: city,
-                state: state
+                id: orderId, product: productNames.join(", "), size: productSizes.join(", "),
+                color: productColors.join(", "), quantity: totalQty, total: total,
+                name: name, phone: phone, address: address, pincode: pincode, city: city, state: state
             };
 
-            // Operational Intelligence Variables
             orderData.qualityScore = getOrderQuality(orderData);
             orderData.suspicious = isSuspicious(orderData);
             orderData.priority = getPriority(orderData);
 
-            // Add action tags
-            message += `*[PROCESS TAGS]*\n`;
-            message += `Payment: Pending Verify\n`;
-            message += `Priority: ${orderData.priority}\n`;
-            message += `Quality: ${orderData.qualityScore}/4\n`;
-            message += `Suspicious: ${orderData.suspicious ? 'YES ⚠️' : 'NO'}\n\n`;
-
+            message += `*[PROCESS TAGS]*\nPayment: Pending Verify\nPriority: ${orderData.priority}\nQuality: ${orderData.qualityScore}/4\nSuspicious: ${orderData.suspicious ? 'YES ⚠️' : 'NO'}\n\n`;
             message += `Payment done via UPI. Sharing screenshot for confirmation.`;
-
             return { message, orderData };
         }
 
@@ -1837,43 +1808,27 @@ cart logic V3
                 btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">SECURING ORDER...</span>`;
             }
             playTock();
-            
             const results = generateWhatsAppOrderMessage();
-            
-            // 1. SILENTLY LOG TO GOOGLE SHEET
             sendOrderToGoogleForm(results.orderData);
-
-            // 2. PREPARE UI FOR SUCCESS STATE
             const waUrl = `https://wa.me/919366659414?text=${encodeURIComponent(results.message)}`;
             
             setTimeout(() => {
                 if(btn) btn.innerHTML = `<span class="font-inter text-[11px] font-black tracking-[0.3em] uppercase text-black py-2">REDIRECTING...</span>`;
-                playTock();
-                
                 setTimeout(() => {
                     document.getElementById('display-order-id').innerText = `Order ID: ${results.orderData.id}`;
                     let summaryHTML = cart.map(item => `<div class="flex justify-between gap-4"><span class="truncate">${item.name} <span class="text-white/40">(${item.size}/${item.color})</span></span><span class="shrink-0 text-white">₹${(item.numPrice || 0).toLocaleString('en-IN')}</span></div>`).join('');
                     document.getElementById('success-order-items').innerHTML = summaryHTML;
                     document.getElementById('success-total').innerText = `₹${results.orderData.total.toLocaleString('en-IN')}`;
                     document.getElementById('whatsapp-final-btn').href = waUrl;
-
-                    // 3. OPEN WHATSAPP
                     switchSidebarState('success');
                     window.open(waUrl, "_blank");
-
-                    // 4. CLEANUP CART
                     cart = [];
                     localStorage.removeItem('pe_cart');
                     document.getElementById('cart-badge').classList.add('hidden');
                     document.getElementById('cart-badge').innerText = "0";
-
                     lucide.createIcons();
-                    if(btn) {
-                        btn.disabled = false;
-                        btn.innerHTML = `<span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯑꯣꯔꯗꯔ ꯊꯥꯕꯤꯌꯨ</span><span class="font-inter text-[10px] font-black tracking-[0.3em] uppercase leading-none text-center">Send Order on WhatsApp</span>`;
-                    }
-                }, 500); // Micro delay 2
-            }, 600); // Micro delay 1
+                }, 500);
+            }, 600);
         };
 
         const toggleAccordion = (id) => {
@@ -2003,6 +1958,7 @@ cart logic V3
 
         const typewrite = (t, id, s, cb) => {
             let i = 0; const el = document.getElementById(id);
+            if(!el) return;
             const tmr = setInterval(() => { if(i < t.length) { el.innerHTML += t.charAt(i); i++; } else { clearInterval(tmr); if(cb) cb(); } }, s);
         };
 
@@ -2033,20 +1989,6 @@ cart logic V3
             if(window.scrollY > 50) nav.classList.add('glass', 'tactical-border');
             else nav.classList.remove('glass', 'tactical-border');
         };
-        
-        const toggleAIChat = () => {
-            const m = document.getElementById('ai-chat-modal');
-            const cont = document.getElementById('chat-container');
-            const isOpen = !m.classList.contains('invisible');
-            playTock();
-            if (!isOpen) {
-                m.classList.remove('invisible'); m.classList.add('opacity-100');
-                cont.classList.remove('translate-y-20');
-            } else {
-                m.classList.add('invisible'); m.classList.remove('opacity-100');
-                cont.classList.add('translate-y-20');
-            }
-        };
 
         async function sendMessage() {
             const input = document.getElementById('chat-input');
@@ -2054,14 +1996,12 @@ cart logic V3
             const raw = input.value.trim();
             if (!raw) return;
             playTock();
-            
             const userMsg = document.createElement('div');
             userMsg.className = "bg-white/5 p-4 tactical-border ml-12 text-white font-medium rounded-sm mb-4 text-left";
             userMsg.innerText = raw;
             container.appendChild(userMsg);
             input.value = "";
             container.scrollTop = container.scrollHeight;
-
             if(raw.toUpperCase().includes("THON THON")) {
                 setTimeout(() => {
                     const botMsg = document.createElement('div');
@@ -2071,32 +2011,58 @@ cart logic V3
                     container.scrollTop = container.scrollHeight;
                     playTock();
                 }, 600);
-                return;
             }
         }
-// SHOW FEEDBACK POPUP
-function showCartFeedback() {
-    const el = document.getElementById("cart-feedback");
-    if (!el) return;
 
-    el.style.opacity = "1";
-    el.style.pointerEvents = "auto";
+        /**
+         * Product image slider logic
+         */
+        function touchStart(e) { startX = e.touches[0].clientX; isDragging = true; animationID = requestAnimationFrame(animation); document.getElementById('modal-images').style.transition = 'none'; }
+        function touchMove(e) { if (isDragging) { const currentX = e.touches[0].clientX; currentTranslate = prevTranslate + currentX - startX; } }
+        function touchEnd() {
+            isDragging = false; cancelAnimationFrame(animationID);
+            const imgContainer = document.getElementById('modal-images');
+            imgContainer.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+            const movedBy = currentTranslate - prevTranslate;
+            if (movedBy < -100 && currentImgIdx < PRODUCT_DATA_LOADED[currentProdIdx].images.length - 1) currentImgIdx++;
+            else if (movedBy > 100 && currentImgIdx > 0) currentImgIdx--;
+            setPositionByIndex();
+        }
+        function animation() { setSliderPosition(); if (isDragging) requestAnimationFrame(animation); }
+        function setSliderPosition() { document.getElementById('modal-images').style.transform = `translateX(${currentTranslate}px)`; }
+        function setPositionByIndex() {
+            currentTranslate = currentImgIdx * -document.getElementById('swipe-zone').offsetWidth;
+            prevTranslate = currentTranslate;
+            setSliderPosition();
+            updateDots();
+        }
 
-    clearTimeout(window.cartFeedbackTimer);
-    window.cartFeedbackTimer = setTimeout(() => {
-        el.style.opacity = "0";
-        el.style.pointerEvents = "none";
-    }, 1500);
-}
+        // SHOW FEEDBACK POPUP
+        function showCartFeedback() {
+            const el = document.getElementById("cart-feedback");
+            if (!el) return;
+            el.style.opacity = "1";
+            el.style.pointerEvents = "auto";
+            clearTimeout(window.cartFeedbackTimer);
+            window.cartFeedbackTimer = setTimeout(() => {
+                el.style.opacity = "0";
+                el.style.pointerEvents = "none";
+            }, 1500);
+        }
     </script>
-<!-- ADD TO CART FEEDBACK -->
-<div id="cart-feedback" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[4000] opacity-0 pointer-events-none transition-all duration-300">
-    <div class="bg-black/90 border border-white/10 px-5 py-3 rounded-sm text-center shadow-lg">
-        <p class="text-green-400 text-xs font-bold">✔ Added to cart</p>
-        <button onclick="toggleCart()" class="text-white/80 text-[11px] mt-1 border-b border-white/30 hover:border-white">
-            View Cart →
-        </button>
-    </div>
-</div>	
+
+    <!-- ADD TO CART FEEDBACK -->
+    <div id="cart-feedback" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[4000] opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-black/90 border border-white/10 px-5 py-3 rounded-sm text-center shadow-lg">
+            <p class="text-green-400 text-xs font-bold">✔ Added to cart</p>
+            <button onclick="toggleCart()" class="text-white/80 text-[11px] mt-1 border-b border-white/30 hover:border-white">
+                View Cart →
+            </button>
+        </div>
+    </div>  
 </body>
 </html>
+
+```
+
+
