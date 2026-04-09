@@ -1,4 +1,4 @@
-burger
+cart logic V1
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1610,14 +1610,14 @@ burger
                 btn.disabled = false;
                 btn.style.opacity = "1";
                 if (inCart) {
-                    btn.onclick = () => removeFromCartByVariant(p.id, selectedSize, selectedColor);
-                    btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5 text-center">ꯂꯧꯊꯣꯛꯄꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase text-center">Remove from Cart</span>`;
-                    btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-black border border-pe-red text-white text-center cursor-pointer";
-                } else {
-                    btn.onclick = processAddToCart;
-                    btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] text-black/70 font-black tracking-[0.4em] uppercase text-center">CONTINUE</span>`;
-                    btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-gray-100";
-                }
+    btn.onclick = () => toggleCart();
+    btn.innerHTML = `<span class="font-mayek text-white text-lg font-black leading-none mb-1.5 text-center">ꯐꯥꯎꯅꯕꯤꯌꯨ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] text-white/70 uppercase text-center">View Cart</span>`;
+    btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-black border border-white/20 text-white text-center cursor-pointer";
+} else {
+    btn.onclick = processAddToCart;
+    btn.innerHTML = `<span class="font-mayek text-black text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] text-black/70 font-black tracking-[0.4em] uppercase text-center">Add to Cart</span>`;
+    btn.className = "w-full bg-white text-black py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-gray-100";
+}
             }
         };
 
@@ -1637,12 +1637,28 @@ burger
         };
 
         const addToCart = () => {
-            const p = PRODUCT_DATA_LOADED[currentProdIdx];
-            cart.push({ id: p.id, name: p.name, price: p.price, numPrice: parseInt(p.price.replace(/[^0-9]/g, '')), size: selectedSize, color: selectedColor, image: p.images[0] });
-            document.getElementById('finalConfirm').checked = false;
-            saveCart(); validateForm(); playTock();
-            switchSidebarState('cart');
-        };
+    const p = PRODUCT_DATA_LOADED[currentProdIdx];
+    cart.push({
+        id: p.id,
+        name: p.name,
+        price: p.price,
+        numPrice: parseInt(p.price.replace(/[^0-9]/g, '')),
+        size: selectedSize,
+        color: selectedColor,
+        image: p.images[0]
+    });
+
+    document.getElementById('finalConfirm').checked = false;
+    saveCart();
+    validateForm();
+    playTock();
+    showCartFeedback();
+
+    const sidebar = document.getElementById('cart-sidebar');
+    if (sidebar && sidebar.classList.contains('translate-x-full')) {
+        toggleCart();
+    }
+};
 
         const validateAddress = () => {
             let name = document.getElementById("dlv-name").value.trim();
@@ -2058,6 +2074,29 @@ burger
                 return;
             }
         }
+// SHOW FEEDBACK POPUP
+function showCartFeedback() {
+    const el = document.getElementById("cart-feedback");
+    if (!el) return;
+
+    el.style.opacity = "1";
+    el.style.pointerEvents = "auto";
+
+    clearTimeout(window.cartFeedbackTimer);
+    window.cartFeedbackTimer = setTimeout(() => {
+        el.style.opacity = "0";
+        el.style.pointerEvents = "none";
+    }, 1500);
+}
     </script>
+<!-- ADD TO CART FEEDBACK -->
+<div id="cart-feedback" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[4000] opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-black/90 border border-white/10 px-5 py-3 rounded-sm text-center shadow-lg">
+        <p class="text-green-400 text-xs font-bold">✔ Added to cart</p>
+        <button onclick="toggleCart()" class="text-white/80 text-[11px] mt-1 border-b border-white/30 hover:border-white">
+            View Cart →
+        </button>
+    </div>
+</div>	
 </body>
 </html>
