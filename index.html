@@ -1,6 +1,6 @@
-Upi and mayek fixed 4:46
+Swipe logic on phone and UPI apps
 
-```html
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -625,7 +625,7 @@ Upi and mayek fixed 4:46
         <div class="max-w-5xl mx-auto text-left w-full">
             <div class="mb-12 md:mb-20 flex flex-col text-left items-start">
                 <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-left">ꯄꯥꯎꯈꯨꯝ</h3>
-                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-left text-left">Registry / What to Expect</h4>
+                <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-left text-left text-left">Registry / What to Expect</h4>
             </div>
             
             <div id="registry-accordion" class="space-y-0 border-t border-white/5">
@@ -672,7 +672,7 @@ Upi and mayek fixed 4:46
                 <div id="image-dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10"></div>
             </div>
             
-            <div class="w-full md:w-2/5 p-6 md:p-12 flex flex-col bg-black text-left shrink-0 overflow-y-auto pb-24 text-left">
+            <div class="w-full md:w-2/5 p-6 md:p-12 flex flex-col bg-black text-left shrink-0 overflow-y-auto pb-24 text-left text-left">
                 <div id="modal-title" class="mb-3 w-full"></div>
                 <p id="modal-price" class="text-2xl font-inter font-bold tracking-tight text-white mb-2 text-left"></p>
                 
@@ -737,7 +737,7 @@ Upi and mayek fixed 4:46
                     </div>
 
                     <button id="btn-protocol" onclick="toggleAccordion('protocol')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group text-left">
-                        <div class="flex flex-col text-left">
+                        <div class="flex flex-col text-left text-left">
                             <span class="font-mayek text-pe-red text-lg font-bold leading-none mb-1.5 transition-colors">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
                             <span class="font-inter text-[10px] tracking-widest uppercase text-pe-red/90 font-bold leading-none text-left">Shopping Protocol</span>
                         </div>
@@ -765,7 +765,7 @@ Upi and mayek fixed 4:46
                     </div>
                 </div>
 
-                <div id="modal-buy-container" class="w-full mb-8 text-left"></div>
+                <div id="modal-buy-container" class="w-full mb-8 text-left text-left"></div>
                 
                 <div class="space-y-0 w-full border-t border-white/10 text-left">
                     <button onclick="toggleAccordion('lore')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
@@ -805,7 +805,7 @@ Upi and mayek fixed 4:46
                 </div>
             </div>
         </div>
-        <button onclick="event.stopPropagation(); closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-2 md:p-3 text-left text-left"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
+        <button onclick="event.stopPropagation(); closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-2 md:p-3 text-left text-left text-left"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
     </div>
 
     <!-- SCRIPTS -->
@@ -942,8 +942,11 @@ Upi and mayek fixed 4:46
         
         let paymentTimerInterval;
 
-        // RESTORED: COLORFUL MEETEI MAYEK SPLASH EFFECT
+        // RESTORED: COLORFUL MEETEI MAYEK SPLASH EFFECT & VIBRATION
         window.addEventListener('pointerdown', (e) => {
+            // Haptic Feedback
+            if (navigator.vibrate) navigator.vibrate(10);
+
             const characters = "ꯀꯁꯂꯃꯄꯅꯇꯊꯗꯅꯄꯐꯕꯚꯃꯌꯔꯂꯋꯁꯍ";
             const particleCount = 6;
             for (let i = 0; i < particleCount; i++) {
@@ -972,7 +975,7 @@ Upi and mayek fixed 4:46
             }, 200);
         }
 
-        // --- NEXT/PREV GALLERY LOGIC ---
+        // GALLERY NAV
         const nextImg = () => {
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             if (currentImgIdx < p.images.length - 1) {
@@ -990,12 +993,11 @@ Upi and mayek fixed 4:46
             }
         };
 
-        // --- NAV CONNECT LOGIC ---
         function openWhatsApp() {
             window.open('https://wa.me/919366659414?text=Hi%20Project%20Eramdam%20Support!%20I%20have%20a%20query...', '_blank');
         }
 
-        // UPI COPY FUNCTION
+        // UPI COPY
         const copyUPI = () => {
             const upi = "projecteramdam@upi";
             navigator.clipboard.writeText(upi).then(() => {
@@ -1033,7 +1035,7 @@ Upi and mayek fixed 4:46
             });
         };
 
-        // UPDATED: ROBUST UPI DEEP LINK LOGIC
+        // FIXED: DIRECT UPI DEEP LINK TRIGGER
         const openUPIApp = () => {
             let total = 0;
             cart.forEach(item => total += (item.numPrice || 0));
@@ -1041,25 +1043,16 @@ Upi and mayek fixed 4:46
             
             playTock();
             const upiId = "projecteramdam@upi";
-            const payeeName = encodeURIComponent("Project Eramdam");
-            const note = encodeURIComponent("Order Payment");
+            const name = encodeURIComponent("Project Eramdam");
+            const note = encodeURIComponent("Order Secure Payment");
             
-            // Standard UPI URI - Using direct assignment for widest compatibility
-            const upiLink = `upi://pay?pa=${upiId}&pn=${payeeName}&am=${total}&cu=INR&tn=${note}`;
+            // Standard UPI URI format
+            const upiLink = `upi://pay?pa=${upiId}&pn=${name}&am=${total}&cu=INR&tn=${note}`;
             
-            // Attempt standard redirect
+            // Direct browser intent
             window.location.href = upiLink;
-
-            // Secondary fallback for restricted environments
-            setTimeout(() => {
-                const a = document.createElement('a');
-                a.href = upiLink;
-                a.target = '_self';
-                a.click();
-            }, 300);
         };
 
-        // HIGHLIGHT FIXTURES
         function clearError(el) {
             el.classList.remove('input-error');
         }
@@ -1095,7 +1088,6 @@ Upi and mayek fixed 4:46
             }
             playTock();
 
-            // Auto-scroll to error
             setTimeout(() => {
                 document.querySelector('.input-error')?.scrollIntoView({
                     behavior: 'smooth',
@@ -1104,7 +1096,6 @@ Upi and mayek fixed 4:46
             }, 100);
         }
 
-        // PINCODE AUTO-FILL API
         async function handlePincodeInput(pin) {
             updateDeliveryEstimate(pin);
             const cityInput = document.getElementById("dlv-city");
@@ -1162,10 +1153,9 @@ Upi and mayek fixed 4:46
             }
         }
         
-        // DYNAMIC PAYMENT TIMER
         function startPaymentTimer() {
             clearInterval(paymentTimerInterval);
-            let timeLeft = 600; // 10 minutes
+            let timeLeft = 600; 
             const timerEl = document.getElementById('payment-timer');
             if(!timerEl) return;
             timerEl.innerText = "10:00";
@@ -1220,15 +1210,12 @@ Upi and mayek fixed 4:46
                 cart.forEach(item => total += item.numPrice);
                 document.getElementById('payment-total-display').innerText = `₹${total.toLocaleString('en-IN')}`;
                 
-                // Track Payment intent recovery
                 localStorage.setItem("pe_pending_payment", "true");
                 localStorage.setItem("pe_pending_payment_time", Date.now().toString());
                 startPaymentTimer();
             } else if (targetState === 'success') {
                 titleMayek.innerText = "ꯑꯣꯔꯗꯔ"; titleEng.innerText = "Order Status";
                 backBtn.classList.add('hidden');
-                
-                // Complete Cleanup after Success
                 clearPendingOrder();
                 clearInterval(paymentTimerInterval);
             }
@@ -1299,7 +1286,6 @@ Upi and mayek fixed 4:46
                 updateCartUI();
                 loadUserData();
                 
-                // Handle Order Recovery
                 const pendingPayment = localStorage.getItem("pe_pending_payment");
                 const pendingTime = localStorage.getItem("pe_pending_payment_time");
                 
@@ -1360,7 +1346,7 @@ Upi and mayek fixed 4:46
             let totalQty = 0, totalPrice = 0;
 
             if (cart.length === 0) {
-                container.innerHTML = `<div class="text-center text-gray-600 mt-20 font-inter text-[10px] font-black tracking-[0.4em] uppercase flex flex-col items-center w-full"><i data-lucide="shopping-bag" class="w-8 h-8 mb-4 opacity-20"></i> Cart is empty</div>`;
+                container.innerHTML = `<div class="text-center text-gray-600 mt-20 font-inter text-[10px] font-black tracking-[0.4em] uppercase flex flex-col items-center w-full text-left"><i data-lucide="shopping-bag" class="w-8 h-8 mb-4 opacity-20"></i> Cart is empty</div>`;
                 if(checkoutBtn) {
                     checkoutBtn.disabled = true;
                     checkoutBtn.classList.remove('force-white-button');
@@ -1387,8 +1373,8 @@ Upi and mayek fixed 4:46
                             <img src="${item.image}" class="w-full h-full object-contain">
                         </div>
                         <div class="flex-grow flex flex-col justify-center min-w-0 text-left">
-                            <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate text-left text-left text-left text-left text-left text-left">${nameParts.mayek}</h4>
-                            <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3 text-left text-left text-left text-left text-left text-left text-left">${nameParts.eng}</span>
+                            <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate text-left text-left text-left text-left text-left text-left text-left">${nameParts.mayek}</h4>
+                            <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3 text-left text-left text-left text-left text-left text-left text-left text-left">${nameParts.eng}</span>
                             <div class="flex flex-wrap gap-2 text-left">
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Size: <span class="text-pe-red">${item.size}</span></div>
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Color: <span class="text-pe-red">${item.color}</span></div>
@@ -1453,7 +1439,7 @@ Upi and mayek fixed 4:46
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const nameParts = splitName(p.name);
             
-            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[10px] text-white/80 font-bold tracking-[0.3em] uppercase text-left text-left text-left text-left text-left text-left text-left text-left">${nameParts.eng}</span>`;
+            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[10px] text-white/80 font-bold tracking-[0.3em] uppercase text-left text-left text-left text-left text-left text-left text-left text-left text-left">${nameParts.eng}</span>`;
             document.getElementById('modal-price').innerText = p.price;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('lore-body').innerText = p.lore;
@@ -1492,9 +1478,17 @@ Upi and mayek fixed 4:46
             document.getElementById('product-modal').classList.remove('invisible');
             document.getElementById('product-modal').classList.add('opacity-100');
             document.getElementById('modal-container').classList.remove('translate-y-10');
+
+            // RESTORED: ATTACH SWIPE LISTENERS TO MODAL GALLERY
+            const swipeZone = document.getElementById('swipe-zone');
+            swipeZone.addEventListener('touchstart', touchStart, { passive: true });
+            swipeZone.addEventListener('touchmove', touchMove, { passive: true });
+            swipeZone.addEventListener('touchend', touchEnd);
+
             isProductModalOpen = true; history.pushState({ modal: 'product' }, "");
         };
 
+        // RESTORED: SWIPE FUNCTIONS
         function touchStart(e) { startX = e.touches[0].clientX; isDragging = true; animationID = requestAnimationFrame(animation); document.getElementById('modal-images').style.transition = 'none'; }
         function touchMove(e) { if (isDragging) { const currentX = e.touches[0].clientX; currentTranslate = prevTranslate + currentX - startX; } }
         function touchEnd() {
@@ -1502,8 +1496,8 @@ Upi and mayek fixed 4:46
             const imgContainer = document.getElementById('modal-images');
             imgContainer.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
             const movedBy = currentTranslate - prevTranslate;
-            if (movedBy < -100 && currentImgIdx < PRODUCT_DATA_LOADED[currentProdIdx].images.length - 1) currentImgIdx++;
-            else if (movedBy > 100 && currentImgIdx > 0) currentImgIdx--;
+            if (movedBy < -50 && currentImgIdx < PRODUCT_DATA_LOADED[currentProdIdx].images.length - 1) currentImgIdx++;
+            else if (movedBy > 50 && currentImgIdx > 0) currentImgIdx--;
             setPositionByIndex();
         }
         function animation() { setSliderPosition(); if (isDragging) requestAnimationFrame(animation); }
@@ -1600,7 +1594,7 @@ Upi and mayek fixed 4:46
 
         const renderRegistryAccordion = () => {
             document.getElementById('registry-accordion').innerHTML = FAQ_CONTENT.map((item, idx) => `
-                <div class="border-b border-white/10"><button onclick="toggleMainFAQ(${idx})" class="w-full flex items-center justify-between py-6 text-left group"><div class="flex items-center gap-4"><i data-lucide="${item.icon}" class="w-5 h-5 text-white/30 group-hover:text-pe-red"></i><span class="font-inter text-[11px] font-black uppercase tracking-[0.3em] text-white/80 group-hover:text-pe-red">${item.t}</span></div><i data-lucide="chevron-down" class="w-4 h-4 text-white/20 group-hover:text-white transition-all"></i></button><div id="main-faq-content-${idx}" class="hidden pb-8 pl-9"><p class="font-inter text-[12px] text-white/50 leading-relaxed">${item.c}</p></div></div>`).join('');
+                <div class="border-b border-white/10"><button onclick="toggleMainFAQ(${idx})" class="w-full flex items-center justify-between py-6 text-left group"><div class="flex items-center gap-4"><i data-lucide="${item.icon}" class="w-5 h-5 text-white/30 group-hover:text-pe-red"></i><span class="font-inter text-[11px] font-black uppercase tracking-[0.3em] text-white/80 group-hover:text-pe-red">${item.t}</span></div><i data-lucide="chevron-down" class="w-4 h-4 text-white/20 group-hover:text-white transition-all"></i></button><div id="main-faq-content-${idx}" class="hidden pb-8 pl-9"><p class="font-inter text-[12px] text-white/50 leading-relaxed text-left">${item.c}</p></div></div>`).join('');
             lucide.createIcons();
         };
 
@@ -1618,7 +1612,7 @@ Upi and mayek fixed 4:46
         const renderGrid = () => {
             document.getElementById('product-grid').innerHTML = PRODUCT_DATA_LOADED.map((p, idx) => {
                 const nameParts = splitName(p.name);
-                return `<div class="group cursor-pointer flex flex-col h-full" onclick="openModal(${idx})"><div class="aspect-[4/5] bg-neutral-900 overflow-hidden mb-4 rounded-sm"><img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"></div><div class="px-1 flex flex-col flex-grow"><span class="block font-mayek text-[13px] text-white leading-tight mb-1">${nameParts.mayek}</span><span class="font-inter text-[8px] text-white/60 tracking-widest uppercase mb-2">${nameParts.eng}</span><div class="flex justify-between items-center border-t border-white/5 pt-3 mt-auto"><span class="text-xs font-inter">₹${parseInt(p.price.replace(/\D/g,'')).toLocaleString('en-IN')}</span><span class="font-mayek text-pe-red text-[11px]">ꯑꯀꯨꯞꯄ</span></div></div></div>`}).join('');
+                return `<div class="group cursor-pointer flex flex-col h-full" onclick="openModal(${idx})"><div class="aspect-[4/5] bg-neutral-900 overflow-hidden mb-4 rounded-sm"><img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"></div><div class="px-1 flex flex-col flex-grow"><span class="block font-mayek text-[13px] text-white leading-tight mb-1 text-left">${nameParts.mayek}</span><span class="font-inter text-[8px] text-white/60 tracking-widest uppercase mb-2 text-left">${nameParts.eng}</span><div class="flex justify-between items-center border-t border-white/5 pt-3 mt-auto text-left"><span class="text-xs font-inter">₹${parseInt(p.price.replace(/\D/g,'')).toLocaleString('en-IN')}</span><span class="font-mayek text-pe-red text-[11px]">ꯑꯀꯨꯞꯄ</span></div></div></div>`}).join('');
         };
 
         const canvas = document.getElementById('matrix-canvas'), ctx = canvas.getContext('2d');
@@ -1684,7 +1678,7 @@ Upi and mayek fixed 4:46
     </script>
 
     <!-- ADD TO CART FEEDBACK -->
-    <div id="cart-feedback" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[4000] opacity-0 pointer-events-none transition-all duration-300">
+    <div id="cart-feedback" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[4000] opacity-0 pointer-events-none transition-all duration-300 text-left">
         <div class="bg-black/90 border border-white/10 px-5 py-3 rounded-sm text-center shadow-lg">
             <p class="text-green-400 text-xs font-bold">✔ Added to cart</p>
         </div>
