@@ -1,6 +1,5 @@
-Upi app fixed? 
+description added
 
-```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -922,7 +921,7 @@ Upi app fixed?
             }
         ];
 
-        let PRODUCT_DATA_LOADED = FALLBACK_DATA; 
+        let PRODUCT_DATA_LOADED = []; 
         let cart = [];
         
         try {
@@ -1291,35 +1290,44 @@ Upi app fixed?
         ];
 
         async function loadRegistry() {
-            try {
-                const res = await fetch('./data/products.json');
-                if(res.ok) {
-                    const fetchedData = await res.json();
-                    if(fetchedData && fetchedData.length > 0) {
-                        PRODUCT_DATA_LOADED = fetchedData;
-                    }
+    try {
+        const res = await fetch('./data/products.json?ts=' + Date.now()); // prevents stale cache
+        if (!res.ok) throw new Error(`Failed to load products.json: ${res.status}`);
+        const fetchedData = await res.json();
+
+        if (Array.isArray(fetchedData) && fetchedData.length > 0) {
+            PRODUCT_DATA_LOADED = fetchedData;
+        } else {
+            console.warn("products.json is empty or invalid. No products loaded.");
+            PRODUCT_DATA_LOADED = [];
+        }
+    } catch (err) {
+        console.error("Could not load products.json:", err);
+        PRODUCT_DATA_LOADED = [];
+    } finally {
+        renderGrid();
+        renderRegistryAccordion();
+        updateCartUI();
+        loadUserData();
+
+        // Handle Order Recovery
+        const pendingPayment = localStorage.getItem("pe_pending_payment");
+        const pendingTime = localStorage.getItem("pe_pending_payment_time");
+
+        if (pendingPayment === "true" && pendingTime && cart.length > 0) {
+            const timeElapsed = Date.now() - parseInt(pendingTime);
+            if (timeElapsed < 30 * 60 * 1000) {
+                const toast = document.getElementById('resume-toast');
+                if (toast) {
+                    toast.classList.remove('hidden');
+                    toast.classList.add('flex');
                 }
-            } catch (err) { 
-                console.log("Using fallback data.");
-            } finally {
-                renderGrid();
-                renderRegistryAccordion();
-                updateCartUI();
-                loadUserData();
-                
-                // Handle Order Recovery
-                const pendingPayment = localStorage.getItem("pe_pending_payment");
-                const pendingTime = localStorage.getItem("pe_pending_payment_time");
-                
-                if (pendingPayment === "true" && pendingTime && cart.length > 0) {
-                    const timeElapsed = Date.now() - parseInt(pendingTime);
-                    if (timeElapsed < 30 * 60 * 1000) { 
-                        const toast = document.getElementById('resume-toast');
-                        if (toast) { toast.classList.remove('hidden'); toast.classList.add('flex'); }
-                    } else { clearPendingOrder(); }
-                }
+            } else {
+                clearPendingOrder();
             }
         }
+    }
+}
         
         function loadUserData() {
             try {
