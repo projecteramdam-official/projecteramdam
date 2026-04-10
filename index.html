@@ -313,7 +313,7 @@ Meitei Mayek correction 7:12
                     <p id="dynamic-delivery-estimate" class="font-inter text-[10px] text-white/40 tracking-wide leading-relaxed">
                         <span class="text-white/80 font-bold">Estimated Delivery:</span><br>
                         • Metro cities: 4–6 days<br>
-                        • Northeast & remote areas: 6–10 days
+                        • Northeast: 6–10 days
                     </p>
                     <p class="font-inter text-[9px] text-pe-red mt-3 tracking-widest uppercase opacity-90">
                         Made on demand • No COD • Review details carefully
@@ -487,7 +487,7 @@ Meitei Mayek correction 7:12
             <h2 class="font-inter text-sm sm:text-lg md:text-2xl font-black tracking-[0.5em] md:tracking-[0.8em] text-white/60 uppercase mb-12 text-center">Wear Your Roots</h2>
             
             <button onclick="document.getElementById('drop').scrollIntoView({behavior: 'smooth'}); playTock();" class="force-white-button px-12 py-4 active:scale-95 transition-all flex flex-col items-center justify-center mx-auto rounded-sm hover:bg-gray-100 shadow-2xl">
-                <span class="font-mayek text-xl font-black leading-none mb-1.5 text-center">ꯐꯤꯖꯣꯜꯁꯤꯡ ꯌꯦꯡꯕꯤꯌꯨ/span>
+                <span class="font-mayek text-xl font-black leading-none mb-1.5 text-center">ꯐꯤꯖꯣꯜꯁꯤꯡ ꯌꯦꯡꯕꯤꯌꯨ</span>
                 <span class="font-inter text-[8px] font-black tracking-[0.4em] uppercase leading-none text-center">Explore Drop</span>
             </button>
         </div>
@@ -549,7 +549,7 @@ Meitei Mayek correction 7:12
                     <div class="flex flex-col items-center">
                         <span class="font-mayek text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯃꯥꯐꯝ ꯄꯨꯝꯕꯥ ꯌꯧꯍꯟꯂꯤ</span>
                         <span class="font-inter font-bold text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-white/80 text-center">Pan India Delivery</span>
-                        <p class="font-inter text-[10px] md:text-[11px] text-white/70 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1 text-center">Safe delivery across India within 4–8 days. Remote & Northeast regions securely delivered via trusted partners.</p>
+                        <p class="font-inter text-[10px] md:text-[11px] text-white/70 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1 text-center">Safe delivery across India within 4–8 days. Northeast regions securely delivered via trusted partners.</p>
                     </div>
                 </div>
                 <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-8 flex flex-col items-center justify-start space-y-4 text-center">
@@ -613,7 +613,7 @@ Meitei Mayek correction 7:12
     <!-- DROP GRID -->
     <section id="drop" class="py-20 md:py-32 px-5 md:px-6 border-t border-white/5 relative z-10 text-left w-full text-left">
         <div id="drop-trigger" class="text-center mb-16 md:mb-24 flex flex-col items-center">
-            <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-center"> ꯑꯩꯈꯣꯏꯒꯤ ꯗꯤꯖꯣꯜ ꯂꯩꯖꯔꯦ</h3>
+            <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-center"> ꯑꯑꯩꯈꯣꯏꯒꯤ ꯐꯤꯖꯣꯜ ꯂꯩꯖꯥꯔꯦ </h3>
             <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white uppercase text-center">Current Drop</h4>
         </div>
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-10 text-left w-full max-w-7xl mx-auto px-1"></div>
@@ -1161,11 +1161,11 @@ Meitei Mayek correction 7:12
             const estEl = document.getElementById('dynamic-delivery-estimate');
             if(!estEl) return;
             if(pin && pin.startsWith("79")) {
-                estEl.innerHTML = `<span class="text-white/80 font-bold">Estimated Delivery:</span><br>• Northeast & remote areas: 6–10 days`;
+                estEl.innerHTML = `<span class="text-white/80 font-bold">Estimated Delivery:</span><br>• Northeast areas: 6–10 days`;
             } else if (pin && pin.length >= 2) {
                 estEl.innerHTML = `<span class="text-white/80 font-bold">Estimated Delivery:</span><br>• Standard Delivery: 4–6 days`;
             } else {
-                estEl.innerHTML = `<span class="text-white/80 font-bold">Estimated Delivery:</span><br>• Metro cities: 4–6 days<br>• Northeast & remote areas: 6–10 days`;
+                estEl.innerHTML = `<span class="text-white/80 font-bold">Estimated Delivery:</span><br>• Metro cities: 4–6 days<br>• Northeast areas: 6–10 days`;
             }
         }
         
@@ -1277,7 +1277,7 @@ Meitei Mayek correction 7:12
 
         const FAQ_CONTENT = [
             { icon: "shopping-bag", t: "How your order works", c: "Every product is made specially for you after you place an order. We don’t keep ready stock — your item is printed, packed, and shipped just for you.<br><br>Once your order is confirmed, it goes into production, then handed over to courier partners for delivery.<br><br>This process helps us deliver unique designs while maintaining quality." },
-            { icon: "truck", t: "Delivery Timeline (Realistic)", c: "Every order follows a 2-step process:<br><br><b>1. Production:</b> 2–3 days (made after order)<br><b>2. Shipping:</b> depends on your location<br><br><b>Metro Cities:</b> 2–4 days after dispatch<br><b>Tier 2/3 Cities:</b> 3–6 days<br><b>Northeast / Remote Areas:</b> 5–10+ days<br><br>Total delivery time: <b class='text-pe-red'>4–10 days</b>" },
+            { icon: "truck", t: "Delivery Timeline (Realistic)", c: "Every order follows a 2-step process:<br><br><b>1. Production:</b> 2–3 days (made after order)<br><b>2. Shipping:</b> depends on your location<br><br><b>Metro Cities:</b> 2–4 days after dispatch<br><b>Tier 2/3 Cities:</b> 3–6 days<br><b>Northeast:</b> 5–10+ days<br><br>Total delivery time: <b class='text-pe-red'>4–10 days</b>" },
             { icon: "map", t: "Delivery in Northeast India", c: "We actively deliver to Manipur and all Northeast states.<br><br>However, due to logistics:<br>• Some orders may be routed via India Post<br>• Tracking updates may be slower<br>• Delivery can take additional time<br><br>This is normal for remote regions.<br><br>We ensure your order is safely dispatched — but final delivery depends on courier network availability." },
             { icon: "package", t: "Tracking your order", c: "Once your order is shipped, a tracking ID will be provided so you can follow your delivery in real time.<br><br>Tracking details include courier partner, delivery status, and estimated arrival." },
             { icon: "target", t: "What you can expect from us", c: "✔ Quality fabric and long-lasting prints<br>✔ Careful packaging with attention to detail<br>✔ Clear communication on your order status<br>✔ Real human support via WhatsApp<br><br>If something genuinely goes wrong, we work with you to fix it." },
