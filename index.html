@@ -1,4 +1,4 @@
-v redirect
+v2 redirect
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3358,6 +3358,100 @@ document.addEventListener("DOMContentLoaded", function(){
 
 </script>
 
+<script>
 
+// =========================
+// 🚨 GLOBAL FIX — NO NEW TAB, NO REDIRECT BUG
+// =========================
+(function(){
+
+  // ✅ FORCE ALL <a> LINKS TO SAME TAB
+  document.addEventListener("click", function(e){
+
+    const a = e.target.closest("a");
+    if(!a) return;
+
+    const href = a.getAttribute("href");
+
+    // ignore empty or anchors
+    if(!href || href === "#" || href.startsWith("javascript")) return;
+
+    // 🚫 kill default behavior
+    e.preventDefault();
+    e.stopPropagation();
+
+    // ✅ force same tab
+    window.location.href = href;
+
+  }, true);
+
+
+  // =========================
+  // 🚫 BLOCK window.open (ROOT CAUSE)
+  // =========================
+  window.open = function(url){
+    if(url){
+      window.location.href = url;
+    }
+    return null;
+  };
+
+
+  // =========================
+  // 🚫 REMOVE target="_blank" RUNTIME
+  // =========================
+  function stripTargets(){
+    document.querySelectorAll("a[target='_blank']").forEach(a=>{
+      a.removeAttribute("target");
+    });
+  }
+
+  // run now + future
+  stripTargets();
+  setInterval(stripTargets, 1000);
+
+
+  // =========================
+  // 🔥 OVERRIDE WHATSAPP FUNCTION
+  // =========================
+  window.openWhatsApp = function(){
+
+    const message = "Hi Project Eramdam, I want to connect.";
+
+    const url = "https://wa.me/919366659414?text=" + encodeURIComponent(message);
+
+    window.location.href = url; // ✅ SAME TAB ONLY
+  };
+
+
+  // =========================
+  // 🔥 FORCE PAYMENT BUTTON FLOW
+  // =========================
+  document.addEventListener("DOMContentLoaded", function(){
+
+    const btn = document.getElementById("iHavePaidBtn");
+
+    if(btn){
+      btn.type = "button";
+
+      btn.onclick = function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        // save silently if exists
+        if(typeof sendOrderSilentFinal === "function"){
+          sendOrderSilentFinal();
+        }
+
+        // go whatsapp (same tab)
+        window.openWhatsApp();
+      };
+    }
+
+  });
+
+})();
+</script>
+    
 </body>
 </html>
