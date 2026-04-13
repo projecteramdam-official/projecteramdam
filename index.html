@@ -1,4 +1,4 @@
-prefilled message fixed:
+prefilled message fixed v2:
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1661,24 +1661,30 @@ prefilled message fixed:
             let piecesText = "";
 
            cart.forEach((i) => {
-    piecesText += `🧾 ${i.name}\n🎨 ${i.color} / ${i.size}\n💰 ₹${(i.numPrice || 0).toLocaleString('en-IN')}\n\n`;
+    piecesText += `- ${i.name}\n  ${i.color} / ${i.size}\n  Rs ${((i.numPrice || 0)).toLocaleString('en-IN')}\n\n`;
     total += i.numPrice;
 });
 
-const message = `PROJECT ERAMDAM — ORDER CONFIRMATION
+const message = `PROJECT ERAMDAM - ORDER CONFIRMATION
 
 Order ID: ${orderId}
 
 PIECES:
 ${piecesText.trim()}
-${cart.length > 1 ? `\nTOTAL PAID: ₹${total.toLocaleString('en-IN')}\n` : ""}
+${cart.length > 1 ? `\nTOTAL PAID: Rs ${total.toLocaleString('en-IN')}\n` : ""}
 
 DELIVERY DETAILS:
 Name: ${name}
 Phone: ${phone}
-Location: ${city}, ${state}
+Address: ${address}
+City: ${city}
+State: ${state}
+Pincode: ${pincode}
 
 Payment completed. Sharing screenshot below for verification.`;
+
+return { message, orderId, total };
+}
 
 return { message, orderId, total };
 }
@@ -1703,7 +1709,7 @@ const processOrderSuccess = () => {
 
     // ✅ FIXED WHATSAPP ENCODING (CRITICAL)
     const encodedMessage = encodeURIComponent(res.message);
-    window.open(`https://wa.me/919366659414?text=${encodedMessage}`, "_blank");
+window.open(`https://wa.me/919366659414?text=${encodedMessage}`, "_blank");
 
     cart = [];
     saveCart();
