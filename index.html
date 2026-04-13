@@ -1,4 +1,4 @@
-v14 googlesheet
+v15 googlesheet
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3102,6 +3102,154 @@ document.addEventListener("click", function(e){
     e.stopPropagation();
   }
 });
+
+</script>
+
+<!-- =========================
+ADD-ONLY SAFE PATCH v8 (FINAL REAL FIX – CSV + DUPLICATE FIX)
+Paste at VERY BOTTOM before </body>
+========================= -->
+
+<script>
+
+// =========================
+// 🔥 STOP GOOGLE REDIRECT
+// =========================
+(function(){
+  document.addEventListener("submit", e=>{
+    if(e.target && e.target.action && e.target.action.includes("google.com")){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }, true);
+})();
+
+// =========================
+// 🔥 FORCE BUTTON CONTROL
+// =========================
+(function(){
+  function fixBtn(){
+    const btn = document.getElementById("iHavePaidBtn");
+    if(!btn) return;
+
+    const clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+
+    clone.onclick = function(e){
+      e.preventDefault();
+      processOrderSuccessSafe();
+    };
+  }
+  setTimeout(fixBtn, 1000);
+})();
+
+// =========================
+// 🔥 ORDER FLOW
+// =========================
+function processOrderSuccessSafe(){
+
+  const phone = document.getElementById("dlv-phone")?.value || "";
+  if(phone) localStorage.setItem("user_phone", phone.replace(/\D/g,""));
+
+  sendOrderSilentSafe();
+
+  if(typeof switchSidebarState === "function"){
+    switchSidebarState("success");
+  }
+
+  setTimeout(fetchOrdersSafe, 2000);
+}
+
+function sendOrderSilentSafe(){
+
+  const orderId = "PE" + Date.now();
+
+  const params = new URLSearchParams();
+  params.append("entry.715690915", orderId);
+
+  params.append("entry.1222474464", document.getElementById("dlv-phone")?.value || "");
+  params.append("entry.1712849668", document.getElementById("dlv-name")?.value || "");
+  params.append("entry.1810693968", document.getElementById("dlv-address")?.value || "");
+  params.append("entry.335078953", document.getElementById("dlv-pincode")?.value || "");
+
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    body: params
+  });
+}
+
+// =========================
+// 🔥 PROPER CSV PARSER (FIXED)
+// =========================
+function parseCSV(text){
+  const rows = [];
+  let row = [];
+  let current = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+
+    if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
+      row.push(current);
+      current = '';
+    } else if (char === '\n' && !inQuotes) {
+      row.push(current);
+      rows.push(row);
+      row = [];
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+
+  return rows;
+}
+
+// =========================
+// 🔥 HISTORY FIX (REAL)
+// =========================
+async function fetchOrdersSafe(){
+
+  const phone = (localStorage.getItem("user_phone")||"").replace(/\D/g,"");
+  if(!phone) return;
+
+  const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmjBL98bhRf4A1FDyaDpt9ry5fRgo9t0RRmgmYrlmmLTI7s-hPNafQVhoJMP1Oq6iQWR1MRht4pVCY/pub?output=csv");
+  const text = await res.text();
+
+  const rows = parseCSV(text);
+
+  const data = rows.slice(1);
+
+  // 🔥 ONLY VALID ORDERS (PE rows)
+  const validOrders = data.filter(r => r[1] && r[1].startsWith("PE"));
+
+  // 🔥 MATCH PHONE
+  const userOrders = validOrders.filter(r => {
+    return (r[8] || "").replace(/\D/g,"") === phone;
+  });
+
+  const container = document.getElementById("history-container");
+  if(!container) return;
+
+  if(!userOrders.length){
+    container.innerHTML = "<div style='color:#888'>No orders found</div>";
+    return;
+  }
+
+  container.innerHTML = userOrders.map(r=>`
+    <div style="border:1px solid #333;padding:12px;margin-bottom:10px;">
+      <div><b>Order:</b> ${r[1]}</div>
+      <div><b>Status:</b> ${r[14] || "Processing"}</div>
+      <div><b>Tracking:</b> ${r[15] || "Pending"}</div>
+    </div>
+  `).join("");
+}
+
+window.fetchOrders = fetchOrdersSafe;
 
 </script>
 </body>
