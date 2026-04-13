@@ -1,4 +1,4 @@
-v13 googlesheet
+v14 googlesheet
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -2936,5 +2936,173 @@ window.openOrderHistory = function(){
 
 </script>
 
+<!-- =========================
+ADD-ONLY SAFE PATCH v6 (DO NOT DELETE OLD CODE)
+Paste at VERY BOTTOM before </body>
+This will OVERRIDE all broken behavior safely
+========================= -->
+
+<script>
+
+// =========================
+// 🔥 GLOBAL SAFE GUARD (no duplicate crash)
+// =========================
+window.__SAFE_PATCH__ = true;
+
+// =========================
+// 🔥 FORCE STOP GOOGLE REDIRECT (FINAL)
+// =========================
+(function(){
+
+  const isGoogleForm = (url)=> typeof url === "string" && url.includes("docs.google.com");
+
+  // Kill ALL navigation attempts
+  const _open = window.open;
+  window.open = function(url){ if(isGoogleForm(url)) return null; return _open.apply(this, arguments); };
+
+  const _assign = window.location.assign;
+  window.location.assign = function(url){ if(isGoogleForm(url)) return; return _assign.apply(this, arguments); };
+
+  const _replace = window.location.replace;
+  window.location.replace = function(url){ if(isGoogleForm(url)) return; return _replace.apply(this, arguments); };
+
+  // Kill form submit globally
+  document.addEventListener("submit", function(e){
+    const form = e.target;
+    if(form && form.action && form.action.includes("docs.google.com")){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return false;
+    }
+  }, true);
+
+})();
+
+// =========================
+// 🔥 OVERRIDE ORDER FUNCTION (NO REDIRECT VERSION)
+// =========================
+window.processOrderSuccess = function(e){
+
+    if(e) e.preventDefault();
+
+    const phone = document.getElementById("dlv-phone")?.value || "";
+    if(phone) localStorage.setItem("user_phone", phone.replace(/\D/g,""));
+
+    sendOrderSilentSafe();
+
+    if(typeof switchSidebarState === "function"){
+        switchSidebarState("success");
+    }
+
+    setTimeout(fetchOrdersSafe, 2000);
+};
+
+function extractProductDataSafe(){
+    const preview = document.getElementById("checkout-order-preview")?.innerText || "";
+
+    return {
+        product: preview.split("\n")[0] || "Product",
+        size: (preview.match(/Size[:\-]?\s*(\w+)/i)||[])[1] || "M",
+        color: ((preview.match(/Color[:\-]?\s*([\w\s]+)/i)||[])[1]||"Default").trim(),
+        quantity: (preview.match(/Qty[:\-]?\s*(\d+)/i)||[])[1] || "1"
+    };
+}
+
+function sendOrderSilentSafe(){
+
+    const data = extractProductDataSafe();
+    const orderId = "PE" + Date.now();
+
+    const params = new URLSearchParams();
+
+    params.append("entry.715690915", orderId);
+    params.append("entry.2092671810", data.product);
+    params.append("entry.1214460634", data.size);
+    params.append("entry.2043910785", data.color);
+    params.append("entry.336831517", data.quantity);
+    params.append("entry.1392433275", "0");
+
+    params.append("entry.1712849668", document.getElementById("dlv-name")?.value || "");
+    params.append("entry.1222474464", document.getElementById("dlv-phone")?.value || "");
+    params.append("entry.1810693968", document.getElementById("dlv-address")?.value || "");
+    params.append("entry.335078953", document.getElementById("dlv-pincode")?.value || "");
+    params.append("entry.1982148271", document.getElementById("dlv-city")?.value || "");
+    params.append("entry.1464883250", document.getElementById("dlv-state")?.value || "");
+    params.append("entry.2070227970", "Paid");
+
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        body: params
+    });
+}
+
+// =========================
+// 🔥 ORDER HISTORY SAFE FIX
+// =========================
+function parseCSVSafe(text){
+    return text.split("\n").map(r=>r.split(/,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/));
+}
+
+async function fetchOrdersSafe(){
+
+    const phone = (localStorage.getItem("user_phone")||"").replace(/\D/g,"");
+    if(!phone) return;
+
+    const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmjBL98bhRf4A1FDyaDpt9ry5fRgo9t0RRmgmYrlmmLTI7s-hPNafQVhoJMP1Oq6iQWR1MRht4pVCY/pub?output=csv");
+    const text = await res.text();
+
+    const rows = parseCSVSafe(text);
+    const headers = rows[0].map(h=>h.trim().toLowerCase());
+
+    const data = rows.slice(1).map(row=>{
+        let obj={};
+        headers.forEach((h,i)=>obj[h]=(row[i]||"").replace(/\"/g,"").trim());
+        return obj;
+    });
+
+    const userOrders = data.filter(o=>{
+        const sheetPhone = (o["phone"]||"").replace(/\D/g,"");
+        return sheetPhone===phone && o["order id"] && o["order id"].startsWith("PE");
+    });
+
+    displayOrdersSafe(userOrders);
+}
+
+function displayOrdersSafe(orders){
+
+    const container = document.getElementById("history-container");
+    if(!container) return;
+
+    if(!orders.length){
+        container.innerHTML = "<div style='color:#888'>No orders found</div>";
+        return;
+    }
+
+    container.innerHTML = orders.map(o=>`
+        <div style="border:1px solid #333;padding:12px;margin-bottom:10px;">
+            <div><b>Order:</b> ${o["order id"]}</div>
+            <div><b>Status:</b> ${o["order status"]||"Processing"}</div>
+            <div><b>Tracking:</b> ${o["tracking id"]||"Pending"}</div>
+        </div>
+    `).join("");
+}
+
+// =========================
+// 🔥 FORCE CONNECT TO EXISTING BUTTON SYSTEM
+// =========================
+window.fetchOrders = fetchOrdersSafe;
+window.displayOrders = displayOrdersSafe;
+
+// =========================
+// 🔥 FIX CLOSE (NO RELOAD FEEL)
+// =========================
+document.addEventListener("click", function(e){
+  if(e.target && e.target.closest("[onclick='toggleCart()']")){
+    e.stopPropagation();
+  }
+});
+
+</script>
 </body>
 </html>
