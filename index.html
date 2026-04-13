@@ -1,4 +1,4 @@
-v12
+v13
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3301,96 +3301,73 @@ document.addEventListener("submit", function(e){
   }
 }, true);
 
+<script>
 
 // =========================
-// 🚨 BLOCK ANY REDIRECT TO GOOGLE
+// ✅ STEP 1: BLOCK ONLY GOOGLE FORM SUBMIT
 // =========================
-(function(){
+document.addEventListener("submit", function(e){
 
-  const block = (url)=>{
-    return typeof url === "string" && url.includes("docs.google.com");
-  };
+  const form = e.target;
 
-  // kill location.href changes
-  const originalAssign = window.location.assign;
-  window.location.assign = function(url){
-    if(block(url)) return;
-    return originalAssign.call(this, url);
-  };
-
-  const originalReplace = window.location.replace;
-  window.location.replace = function(url){
-    if(block(url)) return;
-    return originalReplace.call(this, url);
-  };
-
-  // kill window.open
-  const originalOpen = window.open;
-  window.open = function(url, ...args){
-    if(block(url)) return null;
-    return originalOpen.call(this, url, ...args);
-  };
-
-})();
-
-
-// =========================
-// 🚨 FORCE ALL GOOGLE FORMS TO SILENT MODE
-// =========================
-document.querySelectorAll("form").forEach(form=>{
-  if(form.action && form.action.includes("docs.google.com")){
-    form.target = "_self";
-    form.style.display = "none"; // hide it completely
+  if(form && form.action && form.action.includes("docs.google.com")){
+    e.preventDefault();
+    return false;
   }
+
+}, true);
+
+
+// =========================
+// ✅ STEP 2: FORCE BUTTON SAFETY (CRITICAL)
+// =========================
+document.addEventListener("DOMContentLoaded", function(){
+
+  // ALL buttons inside checkout must NOT submit
+  document.querySelectorAll("button").forEach(btn=>{
+    if(!btn.type || btn.type === "submit"){
+      btn.type = "button";
+    }
+  });
+
 });
 
 
 // =========================
-// ✅ YOUR SAFE SEND (NO REDIRECT EVER)
+// ✅ STEP 3: SAFE ORDER FLOW (ONLY ONE PATH)
 // =========================
-function sendOrderSilentFinal(){
+function processOrderFinal(e){
 
-  const orderId = "PE" + Date.now();
+  if(e){
+    e.preventDefault();
+    e.stopPropagation();
+  }
 
-  const params = new URLSearchParams();
-  params.append("entry.715690915", orderId);
-  params.append("entry.1222474464", document.getElementById("dlv-phone")?.value || "");
-  params.append("entry.1712849668", document.getElementById("dlv-name")?.value || "");
-  params.append("entry.1810693968", document.getElementById("dlv-address")?.value || "");
-  params.append("entry.335078953", document.getElementById("dlv-pincode")?.value || "");
+  // 👉 SAVE TO SHEET (silent)
+  sendOrderSilentFinal();
 
-  fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
-    method: "POST",
-    mode: "no-cors",
-    body: params
-  }).catch(()=>{});
+  // 👉 WHATSAPP (ONLY REDIRECT)
+  if(typeof openWhatsApp === "function"){
+    openWhatsApp();
+  }
+
+  // 👉 UI STATE
+  if(typeof switchSidebarState === "function"){
+    switchSidebarState("success");
+  }
+
 }
 
 
 // =========================
-// 🔥 FORCE YOUR BUTTON TO USE SAFE FLOW
+// ✅ STEP 4: FORCE BUTTON TO USE SAFE FLOW
 // =========================
 document.addEventListener("DOMContentLoaded", function(){
 
   const btn = document.getElementById("iHavePaidBtn");
 
   if(btn){
-    btn.type = "button"; // critical
-
-    btn.onclick = function(e){
-      e.preventDefault();
-      e.stopPropagation();
-
-      // send silently
-      sendOrderSilentFinal();
-
-      // continue your flow
-      if(typeof processOrderSuccessSafe === "function"){
-        processOrderSuccessSafe();
-      } else if(typeof openWhatsApp === "function"){
-        openWhatsApp();
-      }
-    };
+    btn.onclick = processOrderFinal;
   }
 
 });
