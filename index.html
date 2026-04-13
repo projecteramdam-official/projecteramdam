@@ -1,4 +1,4 @@
-whatsapp prefilled message:
+prefilled message fixed:
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1660,51 +1660,54 @@ whatsapp prefilled message:
             let total = 0;
             let piecesText = "";
 
-            cart.forEach((i) => {
-                piecesText += `🧾 ${i.name}\n🎨 ${i.color} / ${i.size}\n💰 ₹${(i.numPrice || 0).toLocaleString('en-IN')}\n\n`;
-                total += i.numPrice;
-            });
+           cart.forEach((i) => {
+    piecesText += `🧾 ${i.name}\n🎨 ${i.color} / ${i.size}\n💰 ₹${(i.numPrice || 0).toLocaleString('en-IN')}\n\n`;
+    total += i.numPrice;
+});
 
-            const message = `🔴 ERAMDAM DROP CONFIRMATION
+const message = `PROJECT ERAMDAM — ORDER CONFIRMATION
 
 Order ID: ${orderId}
 
-Piece secured:
-
+PIECES:
 ${piecesText.trim()}
-${cart.length > 1 ? `\n💰 Total Paid: ₹${total.toLocaleString('en-IN')}\n` : ""}
-📦 Delivery:
-${name}
-${phone}
-${city}, ${state}
+${cart.length > 1 ? `\nTOTAL PAID: ₹${total.toLocaleString('en-IN')}\n` : ""}
 
-📸 Screenshot attached.
+DELIVERY DETAILS:
+Name: ${name}
+Phone: ${phone}
+Location: ${city}, ${state}
 
-Awaiting verification.`;
+Payment completed. Sharing screenshot below for verification.`;
 
-            return { message, orderId, total };
-        }
+return { message, orderId, total };
+}
 
-        const processOrderSuccess = () => {
-            playTock();
-            const res = generateWhatsAppOrderMessage();
+const processOrderSuccess = () => {
+    playTock();
+    const res = generateWhatsAppOrderMessage();
 
-            // Populate the success UI with the generated order details
-            const displayOrderId = document.getElementById("display-order-id");
-            if (displayOrderId) displayOrderId.innerText = "Order ID: " + res.orderId;
+    // Populate the success UI with the generated order details
+    const displayOrderId = document.getElementById("display-order-id");
+    if (displayOrderId) displayOrderId.innerText = "Order ID: " + res.orderId;
 
-            const successItems = document.getElementById("success-order-items");
-            if (successItems) {
-                successItems.innerHTML = cart.map(i => `• ${i.name} <br><span class="text-white/40 ml-3">Size: ${i.size} / Color: ${i.color}</span>`).join('<br><br>');
-            }
+    const successItems = document.getElementById("success-order-items");
+    if (successItems) {
+        successItems.innerHTML = cart.map(i => `• ${i.name} <br><span class="text-white/40 ml-3">Size: ${i.size} / Color: ${i.color}</span>`).join('<br><br>');
+    }
 
-            const successTotal = document.getElementById("success-total");
-            if (successTotal) successTotal.innerText = `₹${res.total.toLocaleString('en-IN')}`;
+    const successTotal = document.getElementById("success-total");
+    if (successTotal) successTotal.innerText = `₹${res.total.toLocaleString('en-IN')}`;
 
-            switchSidebarState('success');
-            window.open(`https://wa.me/919366659414?text=${encodeURIComponent(res.message)}`, "_blank");
-            cart = []; saveCart();
-        };
+    switchSidebarState('success');
+
+    // ✅ FIXED WHATSAPP ENCODING (CRITICAL)
+    const encodedMessage = encodeURIComponent(res.message);
+    window.open(`https://wa.me/919366659414?text=${encodedMessage}`, "_blank");
+
+    cart = [];
+    saveCart();
+};
 
         const toggleAccordion = (id) => {
             const sections = ['lore', 'details', 'wash', 'size', 'protocol'];
