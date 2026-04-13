@@ -1,4 +1,4 @@
-v10
+v11
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -2935,45 +2935,76 @@ window.openOrderHistory = function(){
 };
 
 </script>
-<!-- =========================
-ADD-ONLY SAFE PATCH v9 (STABLE FIX – NO BREAK)
-Paste at VERY BOTTOM before </body>
-========================= -->
-
 <script>
 
 // =========================
-// 🔥 FIX 1: STOP GOOGLE FORM ONLY (NOT EVERYTHING)
+// ✅ CORE: STOP GOOGLE FORM ONLY
 // =========================
-(function(){
-  document.addEventListener("submit", e=>{
-    const form = e.target;
-    if(!form) return;
+document.addEventListener("submit", function(e){
+  const form = e.target;
+  if(form && form.action && form.action.includes("docs.google.com")){
+    e.preventDefault();
+  }
+}, true);
 
-    // ONLY block Google form
-    if(form.action && form.action.includes("docs.google.com")){
-      e.preventDefault();
-    }
-  }, true);
-})();
 
 // =========================
-// 🔥 FIX 2: KEEP WHATSAPP WORKING
+// ✅ FINAL ORDER FLOW (CLEAN)
 // =========================
-function processOrderSuccessSafe(){
+function processOrderSuccessSafe(e){
 
+  if(e) e.preventDefault();
+
+  const name = document.getElementById("dlv-name")?.value || "";
   const phone = document.getElementById("dlv-phone")?.value || "";
-  if(phone) localStorage.setItem("user_phone", phone.replace(/\D/g,""));
+  const address = document.getElementById("dlv-address")?.value || "";
+  const pincode = document.getElementById("dlv-pincode")?.value || "";
 
-  // send silently
-  sendOrderSilentSafe();
-
-  // ✅ KEEP ORIGINAL WHATSAPP FLOW
-  if(typeof openWhatsApp === "function"){
-    openWhatsApp();
+  if(!name || !phone || !address){
+    alert("Fill all details properly");
+    return;
   }
 
-  // UI success (optional)
+  const cleanPhone = phone.replace(/\D/g,"");
+  localStorage.setItem("user_phone", cleanPhone);
+
+  const orderId = "PE" + Date.now();
+
+  // =========================
+  // ✅ SEND TO GOOGLE SHEET (SILENT)
+  // =========================
+  const params = new URLSearchParams();
+  params.append("entry.715690915", orderId);
+  params.append("entry.1222474464", phone);
+  params.append("entry.1712849668", name);
+  params.append("entry.1810693968", address);
+  params.append("entry.335078953", pincode);
+
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    body: params
+  }).catch(()=>{});
+
+  // =========================
+  // ✅ WHATSAPP MESSAGE
+  // =========================
+  const message = `🧾 *Project Eramdam Order*
+Order ID: ${orderId}
+
+👤 Name: ${name}
+📞 Phone: ${phone}
+📍 Address: ${address}
+📮 Pincode: ${pincode}`;
+
+  const whatsappURL = `https://wa.me/919366659414?text=${encodeURIComponent(message)}`;
+
+  // ✅ REDIRECT (SAFE)
+  window.location.href = whatsappURL;
+
+  // =========================
+  // ✅ UI SUCCESS
+  // =========================
   if(typeof switchSidebarState === "function"){
     switchSidebarState("success");
   }
@@ -2981,74 +3012,24 @@ function processOrderSuccessSafe(){
   setTimeout(fetchOrdersSafe, 2000);
 }
 
-// =========================
-// 🔥 FIX 3: SAFE BUTTON OVERRIDE
-// =========================
-(function(){
-  setTimeout(()=>{
-    const btn = document.getElementById("iHavePaidBtn");
-    if(!btn) return;
-
-    btn.onclick = function(e){
-      e.preventDefault();
-      processOrderSuccessSafe();
-    };
-  },1000);
-})();
 
 // =========================
-// 🔥 FIX 4: SILENT FORM SEND (NO PAGE OPEN)
+// ✅ BUTTON FIX (NO TIMEOUT)
 // =========================
-function sendOrderSilentSafe(){
+document.addEventListener("DOMContentLoaded", function(){
 
-  const orderId = "PE" + Date.now();
+  const btn = document.getElementById("iHavePaidBtn");
 
-  const params = new URLSearchParams();
-  params.append("entry.715690915", orderId);
-  params.append("entry.1222474464", document.getElementById("dlv-phone")?.value || "");
-  params.append("entry.1712849668", document.getElementById("dlv-name")?.value || "");
-  params.append("entry.1810693968", document.getElementById("dlv-address")?.value || "");
-  params.append("entry.335078953", document.getElementById("dlv-pincode")?.value || "");
-
-  fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
-    method: "POST",
-    mode: "no-cors",
-    body: params
-  }).catch(()=>{});
-}
-
-// =========================
-// 🔥 FIX 5: CSV PARSER
-// =========================
-function parseCSV(text){
-  const rows = [];
-  let row = [];
-  let current = '';
-  let inQuotes = false;
-
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-
-    if (char === '"') {
-      inQuotes = !inQuotes;
-    } else if (char === ',' && !inQuotes) {
-      row.push(current);
-      current = '';
-    } else if (char === '\n' && !inQuotes) {
-      row.push(current);
-      rows.push(row);
-      row = [];
-      current = '';
-    } else {
-      current += char;
-    }
+  if(btn){
+    btn.type = "button"; // 🚨 IMPORTANT
+    btn.onclick = processOrderSuccessSafe;
   }
 
-  return rows;
-}
+});
+
 
 // =========================
-// 🔥 FIX 6: ORDER HISTORY (CLEAN)
+// ✅ ORDER HISTORY (KEEP YOURS CLEAN)
 // =========================
 async function fetchOrdersSafe(){
 
@@ -3058,12 +3039,10 @@ async function fetchOrdersSafe(){
   const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmjBL98bhRf4A1FDyaDpt9ry5fRgo9t0RRmgmYrlmmLTI7s-hPNafQVhoJMP1Oq6iQWR1MRht4pVCY/pub?output=csv");
   const text = await res.text();
 
-  const rows = parseCSV(text);
+  const rows = text.split("\n").map(r=>r.split(","));
   const data = rows.slice(1);
 
-  const validOrders = data.filter(r => r[1] && r[1].startsWith("PE"));
-
-  const userOrders = validOrders.filter(r => {
+  const userOrders = data.filter(r=>{
     return (r[8] || "").replace(/\D/g,"") === phone;
   });
 
@@ -3086,73 +3065,168 @@ async function fetchOrdersSafe(){
 
 window.fetchOrders = fetchOrdersSafe;
 
+</script>
+    <!-- =========================
+PREMIUM ORDER STATUS UPGRADE (DROP-IN)
+Adds: Timeline UI + Live feel + Better trust
+Paste BELOW your existing script (no removal needed)
+========================= -->
+
+<style>
+.premium-order {
+  border:1px solid rgba(255,255,255,0.08);
+  background:linear-gradient(180deg,#0a0a0a,#050505);
+  padding:16px;
+  margin-bottom:12px;
+  border-radius:6px;
+}
+
+.timeline {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:10px;
+}
+
+.step {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  opacity:0.4;
+}
+
+.step.active {
+  opacity:1;
+  color:#25D366;
+}
+
+.step.done {
+  opacity:1;
+  color:#25D366;
+}
+
+.dot {
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#666;
+}
+
+.step.active .dot,
+.step.done .dot {
+  background:#25D366;
+  box-shadow:0 0 6px #25D366;
+}
+
+.badge {
+  font-size:9px;
+  padding:2px 6px;
+  border-radius:4px;
+  background:#25D36622;
+  color:#25D366;
+  margin-left:6px;
+}
+</style>
+
+<script>
+
+function buildTimeline(status){
+
+  const steps = [
+    "Order Placed",
+    "Processing",
+    "Shipped",
+    "Delivered"
+  ];
+
+  let currentIndex = steps.findIndex(s =>
+    (status || "").toLowerCase().includes(s.toLowerCase())
+  );
+
+  if(currentIndex === -1) currentIndex = 1; // default Processing
+
+  return steps.map((step, i)=>{
+
+    let cls = "step";
+    if(i < currentIndex) cls += " done";
+    else if(i === currentIndex) cls += " active";
+
+    return `
+      <div class="${cls}">
+        <div class="dot"></div>
+        <span>${step}</span>
+      </div>
+    `;
+
+  }).join("");
+}
 
 
-// =========================
-// 🔥 FIX 7: HARD STOP GOOGLE REDIRECT (REAL FIX)
-// =========================
-(function(){
+// 🔥 ENHANCED RENDER (OVERRIDES OLD)
+async function fetchOrdersPremium(){
 
-  // Stop form target redirect (PC issue)
-  document.querySelectorAll("form").forEach(f=>{
-    if(f.action && f.action.includes("docs.google.com")){
-      f.target = "_self"; // prevent new tab
-    }
+  const phone = (localStorage.getItem("user_phone")||"").replace(/\D/g,"");
+  if(!phone) return;
+
+  const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmjBL98bhRf4A1FDyaDpt9ry5fRgo9t0RRmgmYrlmmLTI7s-hPNafQVhoJMP1Oq6iQWR1MRht4pVCY/pub?output=csv");
+  const text = await res.text();
+
+  const rows = text.split("\n").map(r=>r.split(","));
+  const data = rows.slice(1);
+
+  const normalize = v => (v || "").replace(/\D/g,"");
+
+  const userOrders = data.filter(r=>{
+    return normalize(r[8]) === normalize(phone);
   });
 
-  // Stop window.open to Google (PC redirect issue)
-  const originalOpen = window.open;
-  window.open = function(url, ...args){
-    if(typeof url === "string" && url.includes("docs.google.com")){
-      return null;
-    }
-    return originalOpen.apply(this, [url, ...args]);
-  };
+  const container = document.getElementById("history-container");
+  if(!container) return;
 
-  // Stop location redirect (mobile reload issue)
-  const originalAssign = window.location.assign;
-  window.location.assign = function(url){
-    if(typeof url === "string" && url.includes("docs.google.com")){
-      return;
-    }
-    return originalAssign.apply(this, [url]);
-  };
-
-  const originalReplace = window.location.replace;
-  window.location.replace = function(url){
-    if(typeof url === "string" && url.includes("docs.google.com")){
-      return;
-    }
-    return originalReplace.apply(this, [url]);
-  };
-
-})();
-
-// =========================
-// 🔥 FIX 8: STOP MOBILE RELOAD ON CLOSE
-// =========================
-(function(){
-
-  // Prevent accidental reload from overlay clicks
-  const overlay = document.getElementById("cart-sidebar-overlay");
-  if(overlay){
-    overlay.addEventListener("click", function(e){
-      e.preventDefault();
-    });
+  if(!userOrders.length){
+    container.innerHTML = "<div style='color:#888'>No orders found</div>";
+    return;
   }
 
-  // Fix X button reload issue
-  document.querySelectorAll("button").forEach(btn=>{
-    if(btn.innerHTML.includes("x") || btn.innerText.trim() === ""){
-      btn.addEventListener("click", function(e){
-        e.stopPropagation();
-      });
-    }
-  });
+  container.innerHTML = userOrders.map(r=>{
 
-})();
+    const status = r[14] || "Processing";
+    const tracking = r[15] || "Pending";
+
+    return `
+      <div class="premium-order">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:12px;font-weight:bold;">${r[1]}</div>
+            <div style="font-size:10px;color:#888;">${status} <span class="badge">LIVE</span></div>
+          </div>
+          <div style="font-size:10px;color:#aaa;">${tracking}</div>
+        </div>
+
+        <div class="timeline">
+          ${buildTimeline(status)}
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+// override old function
+window.fetchOrders = fetchOrdersPremium;
 
 </script>
+
+<!-- =========================
+RESULT:
+- Timeline UI (premium feel)
+- Live badge
+- Clean order cards
+- No backend change needed
+========================= -->
+
 
 </body>
 </html>
