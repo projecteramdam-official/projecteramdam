@@ -1,4 +1,4 @@
-v11 googlesheet
+v12 googlesheet
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -2988,5 +2988,246 @@ function openOrderHistory(){
 
 </script>
 
+<!-- =========================
+FINAL FIXED SCRIPT v3 (AUTO-OVERRIDE EVERYTHING — NO DELETE NEEDED)
+Paste at bottom before </body>
+========================= -->
+
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
+<script>
+
+let __formSubmitted = false;
+
+// =========================
+// 🔥 GLOBAL HARD BLOCKS (kill old behavior without deleting)
+// =========================
+(function hardBlock(){
+
+  // 1) Block any navigation to Google Forms
+  const _assign = window.location.assign;
+  const _replace = window.location.replace;
+
+  window.location.assign = function(url){
+    if (typeof url === 'string' && url.includes('docs.google.com/forms')) {
+      console.warn('Blocked redirect to Google Form (assign)');
+      return;
+    }
+    return _assign.apply(this, arguments);
+  };
+
+  window.location.replace = function(url){
+    if (typeof url === 'string' && url.includes('docs.google.com/forms')) {
+      console.warn('Blocked redirect to Google Form (replace)');
+      return;
+    }
+    return _replace.apply(this, arguments);
+  };
+
+  const _open = window.open;
+  window.open = function(url){
+    if (typeof url === 'string' && url.includes('docs.google.com/forms')) {
+      console.warn('Blocked window.open to Google Form');
+      return null;
+    }
+    return _open.apply(this, arguments);
+  };
+
+  // 2) Intercept any form submits to Google Forms and reroute to hidden iframe
+  document.addEventListener('submit', function(e){
+    const form = e.target;
+    if (!form || !form.action) return;
+    if (form.action.includes('docs.google.com/forms')) {
+      e.preventDefault();
+      e.stopPropagation();
+      form.target = 'hidden_iframe';
+      form.style.display = 'none';
+      document.body.appendChild(form);
+      form.submit();
+      console.warn('Intercepted form submit → hidden iframe');
+    }
+  }, true);
+
+  // 3) Remove any existing click handlers on the payment button by cloning it
+  document.addEventListener('DOMContentLoaded', function(){
+    const btn = document.getElementById('iHavePaidBtn');
+    if (!btn) return;
+    const clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+    clone.onclick = processOrderSuccess; // bind ONLY our handler
+  });
+
+})();
+
+// =========================
+// 🔥 HARD OVERRIDE (single source of truth)
+// =========================
+window.processOrderSuccess = function(e){
+    if (e) e.preventDefault();
+
+    if (__formSubmitted) return;
+    __formSubmitted = true;
+
+    saveUserPhone();
+    sendOrderToGoogleForm();
+
+    // stay in app
+    switchSidebarState && switchSidebarState('success');
+
+    // load orders after submit
+    setTimeout(fetchOrders, 1500);
+};
+
+function saveUserPhone() {
+    const phone = document.getElementById("dlv-phone")?.value || "";
+    if (phone) {
+        const clean = phone.replace(/\D/g, "");
+        localStorage.setItem("user_phone", clean);
+        console.log("Saved phone:", clean);
+    }
+}
+
+function extractProductData() {
+    const preview = document.getElementById("checkout-order-preview")?.innerText || "";
+
+    return {
+        product: preview.split("\n")[0] || "Product",
+        size: (preview.match(/Size[:\-]?\s*(\w+)/i) || [])[1] || "M",
+        color: ((preview.match(/Color[:\-]?\s*([\w\s]+)/i) || [])[1] || "Default").trim(),
+        quantity: (preview.match(/Qty[:\-]?\s*(\d+)/i) || [])[1] || "1"
+    };
+}
+
+// =========================
+// 🔥 Silent submit (no redirect)
+// =========================
+function sendOrderToGoogleForm() {
+
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse";
+    form.target = "hidden_iframe";
+    form.style.display = "none";
+
+    function add(name, value) {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.value = value || "";
+        form.appendChild(input);
+    }
+
+    const orderId = "PE" + Date.now();
+    const data = extractProductData();
+    const total = (document.getElementById("cart-total")?.innerText || "0").replace("₹","").trim();
+
+    add("entry.715690915", orderId);
+    add("entry.2092671810", data.product);
+    add("entry.1214460634", data.size);
+    add("entry.2043910785", data.color);
+    add("entry.336831517", data.quantity);
+    add("entry.1392433275", total);
+
+    add("entry.1712849668", document.getElementById("dlv-name")?.value);
+    add("entry.1222474464", document.getElementById("dlv-phone")?.value);
+    add("entry.1810693968", document.getElementById("dlv-address")?.value);
+    add("entry.335078953", document.getElementById("dlv-pincode")?.value);
+    add("entry.1982148271", document.getElementById("dlv-city")?.value);
+    add("entry.1464883250", document.getElementById("dlv-state")?.value);
+    add("entry.2070227970", "Paid");
+
+    document.body.appendChild(form);
+    form.submit();
+
+    console.log("Form submitted silently");
+}
+
+function parseCSV(text) {
+    return text.split("\n").map(r => r.split(/,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/));
+}
+
+// =========================
+// 🔥 Fetch + filter (matches your sheet)
+// =========================
+async function fetchOrders() {
+    try {
+        const phone = (localStorage.getItem("user_phone") || "").replace(/\D/g, "");
+        console.log("Fetching for phone:", phone);
+
+        if (!phone) return;
+
+        const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmjBL98bhRf4A1FDyaDpt9ry5fRgo9t0RRmgmYrlmmLTI7s-hPNafQVhoJMP1Oq6iQWR1MRht4pVCY/pub?output=csv");
+        const text = await res.text();
+
+        const rows = parseCSV(text);
+        const headers = rows[0].map(h => h.trim().toLowerCase());
+
+        const data = rows.slice(1).map(row => {
+            let obj = {};
+            headers.forEach((h, i) => obj[h] = (row[i] || "").replace(/\"/g, "").trim());
+            return obj;
+        });
+
+        const userOrders = data.filter(o => {
+            const sheetPhone = (o["phone"] || "").replace(/\D/g, "");
+
+            if (o["order id"] === "VISITOR") return false;
+            if (!o["product"] || o["product"].includes("•")) return false;
+
+            return sheetPhone === phone;
+        });
+
+        console.log("Orders found:", userOrders);
+
+        displayOrders(userOrders);
+
+    } catch (e) {
+        console.error("Fetch error", e);
+    }
+}
+
+function displayOrders(orders) {
+    const container = document.getElementById("history-container");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (!orders.length) {
+        container.innerHTML = `<div style=\"text-align:center;padding:20px;opacity:0.6;\">No orders found</div>`;
+        return;
+    }
+
+    orders.forEach(order => {
+
+        let status = order["order status"] || "Processing";
+        let tracking = order["tracking id"] || "";
+
+        let trackUI = "Processing";
+
+        if (status.toLowerCase() === "shipped" && tracking) {
+            trackUI = `<a href=\"https://www.google.com/search?q=${tracking}\" target=\"_blank\" style=\"color:#25D366;\">Track Package →</a>`;
+        }
+
+        if (status.toLowerCase() === "delivered") {
+            trackUI = "Delivered";
+        }
+
+        container.innerHTML += `
+        <div style=\"border:1px solid #333;padding:12px;margin-bottom:10px;\">
+            <div><b>Order:</b> ${order["order id"]}</div>
+            <div><b>Product:</b> ${order["product"]}</div>
+            <div><b>Status:</b> ${status}</div>
+            <div><b>Tracking:</b> ${trackUI}</div>
+        </div>`;
+    });
+}
+
+// load when opening history
+function openOrderHistory(){
+    switchSidebarState && switchSidebarState('history');
+    fetchOrders();
+}
+
+</script>
 </body>
 </html>
