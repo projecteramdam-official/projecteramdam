@@ -1,4 +1,4 @@
-v14
+v15
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3290,74 +3290,87 @@ YOU FIXED:
 
 <script>
 
+<script>
+
 // =========================
-// 🚨 BLOCK ALL FORM SUBMISSIONS (FINAL)
+// 🚨 BLOCK ALL NEW TAB OPENING
 // =========================
-document.addEventListener("submit", function(e){
-  e.preventDefault();   // 🔴 stops reload 100%
-  e.stopPropagation();
-  return false;
-}, true);
+(function(){
+
+  const originalOpen = window.open;
+
+  window.open = function(url, target, features){
+
+    // 🚫 Block ALL new tab behavior
+    if(target === "_blank" || !target){
+      console.warn("Blocked new tab:", url);
+
+      // instead → open in same tab
+      if(url){
+        window.location.href = url;
+      }
+
+      return null;
+    }
+
+    return originalOpen.call(this, url, target, features);
+  };
+
+})();
 
 
 // =========================
-// 🚨 BLOCK PROGRAMMATIC SUBMIT (VERY IMPORTANT)
+// 🚨 FIX ALL <a target="_blank">
 // =========================
-HTMLFormElement.prototype.submit = function(){
-  console.warn("Blocked form.submit()");
-  return false;
-};
-
-
-// =========================
-// ✅ FORCE BUTTON SAFETY
-// =========================
-document.addEventListener("DOMContentLoaded", function(){
-
-  document.querySelectorAll("button").forEach(btn=>{
-    btn.type = "button"; // 🔴 prevents hidden submit
-  });
-
+document.querySelectorAll("a[target='_blank']").forEach(a=>{
+  a.removeAttribute("target");
 });
 
 
 // =========================
-// ✅ YOUR CLEAN ORDER FLOW
+// 🚨 FORCE WHATSAPP SAME TAB
 // =========================
-function processOrderFinal(e){
+function openWhatsAppSafe(url){
 
-  if(e){
-    e.preventDefault();
-    e.stopPropagation();
+  if(!url){
+    // fallback to your existing logic if needed
+    if(typeof openWhatsApp === "function"){
+      return openWhatsApp();
+    }
+    return;
   }
 
-  // save silently
-  if(typeof sendOrderSilentFinal === "function"){
-    sendOrderSilentFinal();
-  }
-
-  // whatsapp only redirect
-  if(typeof openWhatsApp === "function"){
-    openWhatsApp();
-  }
-
-  // UI
-  if(typeof switchSidebarState === "function"){
-    switchSidebarState("success");
-  }
-
+  // 🔥 ALWAYS same tab
+  window.location.href = url;
 }
 
 
 // =========================
-// ✅ FORCE BUTTON HOOK
+// 🚨 FORCE BUTTON FLOW
 // =========================
 document.addEventListener("DOMContentLoaded", function(){
 
   const btn = document.getElementById("iHavePaidBtn");
 
   if(btn){
-    btn.onclick = processOrderFinal;
+    btn.onclick = function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      // send silently
+      if(typeof sendOrderSilentFinal === "function"){
+        sendOrderSilentFinal();
+      }
+
+      // 👉 FORCE SAME TAB REDIRECT
+      if(typeof openWhatsApp === "function"){
+        openWhatsApp(); // must internally use location.href
+      }
+
+      if(typeof switchSidebarState === "function"){
+        switchSidebarState("success");
+      }
+    };
   }
 
 });
