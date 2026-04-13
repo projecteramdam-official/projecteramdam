@@ -1,4 +1,4 @@
-v13
+v14
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3288,53 +3288,41 @@ YOU FIXED:
 ========================= -->
 <script>
 
-// =========================
-// 🚨 HARD KILL GOOGLE FORM SUBMISSION (100%)
-// =========================
-document.addEventListener("submit", function(e){
-  const form = e.target;
-
-  if(form && form.action && form.action.includes("docs.google.com")){
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
-  }
-}, true);
-
 <script>
 
 // =========================
-// ✅ STEP 1: BLOCK ONLY GOOGLE FORM SUBMIT
+// 🚨 BLOCK ALL FORM SUBMISSIONS (FINAL)
 // =========================
 document.addEventListener("submit", function(e){
-
-  const form = e.target;
-
-  if(form && form.action && form.action.includes("docs.google.com")){
-    e.preventDefault();
-    return false;
-  }
-
+  e.preventDefault();   // 🔴 stops reload 100%
+  e.stopPropagation();
+  return false;
 }, true);
 
 
 // =========================
-// ✅ STEP 2: FORCE BUTTON SAFETY (CRITICAL)
+// 🚨 BLOCK PROGRAMMATIC SUBMIT (VERY IMPORTANT)
+// =========================
+HTMLFormElement.prototype.submit = function(){
+  console.warn("Blocked form.submit()");
+  return false;
+};
+
+
+// =========================
+// ✅ FORCE BUTTON SAFETY
 // =========================
 document.addEventListener("DOMContentLoaded", function(){
 
-  // ALL buttons inside checkout must NOT submit
   document.querySelectorAll("button").forEach(btn=>{
-    if(!btn.type || btn.type === "submit"){
-      btn.type = "button";
-    }
+    btn.type = "button"; // 🔴 prevents hidden submit
   });
 
 });
 
 
 // =========================
-// ✅ STEP 3: SAFE ORDER FLOW (ONLY ONE PATH)
+// ✅ YOUR CLEAN ORDER FLOW
 // =========================
 function processOrderFinal(e){
 
@@ -3343,15 +3331,17 @@ function processOrderFinal(e){
     e.stopPropagation();
   }
 
-  // 👉 SAVE TO SHEET (silent)
-  sendOrderSilentFinal();
+  // save silently
+  if(typeof sendOrderSilentFinal === "function"){
+    sendOrderSilentFinal();
+  }
 
-  // 👉 WHATSAPP (ONLY REDIRECT)
+  // whatsapp only redirect
   if(typeof openWhatsApp === "function"){
     openWhatsApp();
   }
 
-  // 👉 UI STATE
+  // UI
   if(typeof switchSidebarState === "function"){
     switchSidebarState("success");
   }
@@ -3360,7 +3350,7 @@ function processOrderFinal(e){
 
 
 // =========================
-// ✅ STEP 4: FORCE BUTTON TO USE SAFE FLOW
+// ✅ FORCE BUTTON HOOK
 // =========================
 document.addEventListener("DOMContentLoaded", function(){
 
