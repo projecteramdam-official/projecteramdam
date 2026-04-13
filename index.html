@@ -1,4 +1,4 @@
-v3 redirect
+v4 redirect
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3472,5 +3472,50 @@ document.addEventListener("DOMContentLoaded", function(){
 })();
 </script>
     
+<script>
+
+// =========================
+// 🚨 HARD OVERRIDE (FINAL FIX)
+// =========================
+
+// 🔥 Kill any hidden window.open anywhere
+window.open = function(url){
+  if(url){
+    window.location.href = url;
+  }
+  return null;
+};
+
+
+// 🔥 OVERRIDE YOUR BROKEN FUNCTION
+window.processOrderSuccess = function(){
+
+  // ✅ Step 1: Save order (if exists)
+  if(typeof sendOrderSilentFinal === "function"){
+    sendOrderSilentFinal();
+  }
+
+  // ✅ Step 2: Generate order id
+  const orderId = "PE" + Date.now();
+  localStorage.setItem("last_order_id", orderId);
+
+  // ✅ Step 3: Build message
+  const msg = `Hi, I have completed payment. Order ID: ${orderId}`;
+
+  const url = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
+
+  // 🚨 ONLY SAME TAB REDIRECT
+  window.location.href = url;
+};
+
+
+// 🔥 EXTRA SAFETY: Remove ALL target blank dynamically
+setInterval(()=>{
+  document.querySelectorAll("a[target]").forEach(a=>{
+    a.removeAttribute("target");
+  });
+}, 1000);
+
+</script>
 </body>
 </html>
