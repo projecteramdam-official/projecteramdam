@@ -1,4 +1,4 @@
-prefilled message fixed v7:
+prefilled message fixed v8:
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -468,7 +468,9 @@ prefilled message fixed v7:
 
             <!-- Success Footer -->
             <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
-                <a id="whatsapp-final-btn" target="_blank" onclick="toggleCart()" class="w-full bg-[#25D366] text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-[#1ebe5d] block">
+                <a id="whatsapp-final-btn" target="_blank"
+   onclick="sendFinalWhatsApp()"
+   class="w-full bg-[#25D366] text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-[#1ebe5d] block">
                     <span class="font-inter text-[11px] font-black tracking-[0.2em] uppercase leading-none text-center">Send Payment Screenshot & Stay Updated</span>
                 </a>
                 <p class="text-[9px] text-white/40 text-center mt-4 font-inter tracking-wide leading-relaxed px-4">
@@ -853,7 +855,25 @@ prefilled message fixed v7:
 
     fetch(url, { method: "POST", mode: "no-cors" });
 }
-        const COLOR_MAP = {
+        function sendFinalWhatsApp() {
+    const savedOrder = JSON.parse(localStorage.getItem("lastOrder"));
+
+    if (!savedOrder) {
+        alert("No order found. Please place order again.");
+        return;
+    }
+
+    const message = `Hi, I have already completed payment.
+
+Order ID: ${savedOrder.orderId}
+
+Please verify my payment. I am sharing the screenshot.`;
+
+    window.open(
+        `https://wa.me/919366659414?text=${encodeURIComponent(message)}`,
+        "_blank"
+    );
+}const COLOR_MAP = {
             "Light Baby Pink": "#FFD1DC", "Flamingo": "#F19CBB", "Baby Blue": "#89CFF0",
             "Lavender": "#E6E6FA", "Maroon": "#500000", "Navy Blue": "#000080",
             "Black": "#000000", "White": "#FFFFFF", "Off White": "#FAF9F6",
@@ -1706,6 +1726,17 @@ Payment completed. Sharing screenshot below for verification.`;
 const processOrderSuccess = () => {
     playTock();
     const res = generateWhatsAppOrderMessage();
+    localStorage.setItem("lastOrder", JSON.stringify({
+    orderId: res.orderId,
+    total: res.total,
+    name: document.getElementById("dlv-name").value,
+    phone: document.getElementById("dlv-phone").value,
+    address: document.getElementById("dlv-address").value,
+    city: document.getElementById("dlv-city").value,
+    state: document.getElementById("dlv-state").value,
+    pincode: document.getElementById("dlv-pincode").value,
+    products: cart.map(i => `${i.name} (${i.color}/${i.size})`).join(", ")
+}));
 
     // Populate the success UI with the generated order details
     const displayOrderId = document.getElementById("display-order-id");
@@ -1764,7 +1795,13 @@ saveCart();
             document.getElementById('registry-accordion').innerHTML = FAQ_CONTENT.map((item, idx) => `
                 <div class="border-b border-white/10"><button onclick="toggleMainFAQ(${idx})" class="w-full flex items-center justify-between py-6 text-left group"><div class="flex items-center gap-4"><i data-lucide="${item.icon}" class="w-5 h-5 text-white/30 group-hover:text-pe-red"></i><span class="font-inter text-[11px] font-black uppercase tracking-[0.3em] text-white/80 group-hover:text-pe-red">${item.t}</span></div><i data-lucide="chevron-down" class="w-4 h-4 text-white/20 group-hover:text-white transition-all"></i></button><div id="main-faq-content-${idx}" class="hidden pb-8 pl-9"><p class="font-inter text-[12px] text-white/50 leading-relaxed text-left">${item.c}</p></div></div>`).join('');
             lucide.createIcons();
-        };
+
+window.addEventListener("load", () => {
+    const savedOrder = localStorage.getItem("lastOrder");
+    if (savedOrder) {
+        console.log("User has previous order");
+    }
+});
 
         const updateGallery = () => {
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
