@@ -1,4 +1,5 @@
-UPI QR code and X fixed
+Product Modal fixed
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -1427,11 +1428,13 @@ UPI QR code and X fixed
                     const nameParts = splitName(item.name);
                     return `
                     <div class="flex gap-4 border-b border-white/10 pb-6 relative w-full text-left">
-                        <button onclick="removeFromCart(${idx})" class="absolute top-0 right-0 p-2 text-white/70 hover:text-pe-red transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button>
-                        <div class="w-20 h-24 bg-neutral-900 shrink-0 rounded-sm overflow-hidden">
+                        <button onclick="removeFromCart(${idx})" class="absolute top-0 right-0 p-2 bg-[#1a0f0f] border border-white/10 hover:border-pe-red hover:bg-pe-red/20 rounded-sm text-white/80 hover:text-white transition-colors z-10 flex items-center justify-center shadow-md">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                        </button>
+                        <div class="w-20 h-24 bg-neutral-900 shrink-0 rounded-sm overflow-hidden border border-white/5">
                             <img src="${item.image}" class="w-full h-full object-contain">
                         </div>
-                        <div class="flex-grow flex flex-col justify-center min-w-0 text-left">
+                        <div class="flex-grow flex flex-col justify-center min-w-0 text-left pr-10">
                             <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate text-left">${nameParts.mayek}</h4>
                             <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3 text-left">${nameParts.eng}</span>
                             <div class="flex flex-wrap gap-2 text-left">
@@ -1624,7 +1627,20 @@ UPI QR code and X fixed
         const addToCart = () => {
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             cart.push({ id: p.id, name: p.name, price: p.price, numPrice: parseInt(String(p.price).replace(/[^0-9]/g, '')) || 0, size: selectedSize, color: selectedColor, image: p.images[0] });
-            saveCart(); playTock(); showCartFeedback(); toggleCart();
+            saveCart(); 
+            playTock(); 
+            showCartFeedback(); 
+            
+            // FIX: Explicitly close the product modal first, as its z-index (999999) was hiding the cart sidebar (3600)
+            closeModal();
+            
+            // FIX: Open the cart slightly after the modal closes for a smooth visual transition
+            setTimeout(() => {
+                const sidebar = document.getElementById('cart-sidebar');
+                if (sidebar && sidebar.classList.contains('translate-x-full')) {
+                    toggleCart();
+                }
+            }, 150);
         };
 
         const validateCheckoutForm = () => {
