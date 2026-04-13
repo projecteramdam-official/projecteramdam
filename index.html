@@ -1,5 +1,4 @@
-Join community V2
-
+X button fixed
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -654,6 +653,8 @@ Join community V2
                     <i data-lucide="message-circle" class="w-5 h-5"></i> Add me to drop list
                 </span>
             </a>
+        </div>
+    </section>
 
 
     <!-- FOOTER -->
@@ -684,7 +685,8 @@ Join community V2
     </footer>
 
     <!-- PRODUCT MODAL -->
-    <div id="product-modal" class="overlay-base fixed inset-0 z-[2000] bg-black invisible opacity-0 flex items-center justify-center md:p-10 cursor-pointer w-full h-[100dvh]">
+    <!-- FIX: Increased z-index dramatically, ensuring no overlaps -->
+    <div id="product-modal" class="overlay-base fixed inset-0 z-[999999] bg-black invisible opacity-0 flex items-center justify-center md:p-10 cursor-pointer w-full h-[100dvh] transition-opacity duration-300">
         <div id="modal-container" class="popup-anim w-full max-w-6xl h-[100dvh] md:h-[85vh] bg-black md:tactical-border overflow-y-auto flex flex-col md:flex-row translate-y-10 cursor-default relative text-left shadow-2xl">
             
             <div id="swipe-zone" class="relative w-full md:w-3/5 h-[60vh] md:h-full bg-[#050505] overflow-hidden shrink-0">
@@ -827,7 +829,8 @@ Join community V2
                 </div>
             </div>
         </div>
-        <button onclick="event.stopPropagation(); closeModal()" class="fixed top-4 right-4 md:absolute md:top-6 md:right-6 bg-black/60 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-colors z-[2100] p-2 md:p-3 text-left text-left"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
+        <!-- FIX: Updated positioning to be slightly lower on mobile, increased z-index, added stronger backdrop blur + shadow so it stands completely distinct from any navbar underneath -->
+        <button onclick="event.stopPropagation(); closeModal()" class="fixed top-5 right-5 md:absolute md:top-6 md:right-6 bg-black/80 backdrop-blur-md md:bg-transparent rounded-full text-white hover:text-pe-red transition-all z-[999999] p-2.5 md:p-3 shadow-[0_0_15px_rgba(0,0,0,0.8)] border border-white/20 md:border-transparent md:shadow-none"><i data-lucide="x" class="w-6 h-6 md:w-8 md:h-8"></i></button>
     </div>
 
     <!-- SCRIPTS -->
@@ -1313,44 +1316,44 @@ Join community V2
         ];
 
         async function loadRegistry() {
-    try {
-        const res = await fetch('./data/products.json?ts=' + Date.now()); // prevents stale cache
-        if (!res.ok) throw new Error(`Failed to load products.json: ${res.status}`);
-        const fetchedData = await res.json();
+            try {
+                const res = await fetch('./data/products.json?ts=' + Date.now()); // prevents stale cache
+                if (!res.ok) throw new Error(`Failed to load products.json: ${res.status}`);
+                const fetchedData = await res.json();
 
-        if (Array.isArray(fetchedData) && fetchedData.length > 0) {
-            PRODUCT_DATA_LOADED = fetchedData;
-        } else {
-            console.warn("products.json is empty or invalid. No products loaded.");
-            PRODUCT_DATA_LOADED = [];
-        }
-    } catch (err) {
-        console.error("Could not load products.json:", err);
-        PRODUCT_DATA_LOADED = [];
-    } finally {
-        renderGrid();
-        renderRegistryAccordion();
-        updateCartUI();
-        loadUserData();
-
-        // Handle Order Recovery
-        const pendingPayment = localStorage.getItem("pe_pending_payment");
-        const pendingTime = localStorage.getItem("pe_pending_payment_time");
-
-        if (pendingPayment === "true" && pendingTime && cart.length > 0) {
-            const timeElapsed = Date.now() - parseInt(pendingTime);
-            if (timeElapsed < 30 * 60 * 1000) {
-                const toast = document.getElementById('resume-toast');
-                if (toast) {
-                    toast.classList.remove('hidden');
-                    toast.classList.add('flex');
+                if (Array.isArray(fetchedData) && fetchedData.length > 0) {
+                    PRODUCT_DATA_LOADED = fetchedData;
+                } else {
+                    console.warn("products.json is empty or invalid. No products loaded.");
+                    PRODUCT_DATA_LOADED = FALLBACK_DATA; // using fallback data directly defined in HTML
                 }
-            } else {
-                clearPendingOrder();
+            } catch (err) {
+                console.error("Could not load products.json:", err);
+                PRODUCT_DATA_LOADED = FALLBACK_DATA; // using fallback data
+            } finally {
+                renderGrid();
+                renderRegistryAccordion();
+                updateCartUI();
+                loadUserData();
+
+                // Handle Order Recovery
+                const pendingPayment = localStorage.getItem("pe_pending_payment");
+                const pendingTime = localStorage.getItem("pe_pending_payment_time");
+
+                if (pendingPayment === "true" && pendingTime && cart.length > 0) {
+                    const timeElapsed = Date.now() - parseInt(pendingTime);
+                    if (timeElapsed < 30 * 60 * 1000) {
+                        const toast = document.getElementById('resume-toast');
+                        if (toast) {
+                            toast.classList.remove('hidden');
+                            toast.classList.add('flex');
+                        }
+                    } else {
+                        clearPendingOrder();
+                    }
+                }
             }
         }
-    }
-}
         
         function loadUserData() {
             try {
@@ -1426,8 +1429,8 @@ Join community V2
                             <img src="${item.image}" class="w-full h-full object-contain">
                         </div>
                         <div class="flex-grow flex flex-col justify-center min-w-0 text-left">
-                            <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate text-left text-left text-left text-left text-left text-left text-left">${nameParts.mayek}</h4>
-                            <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">${nameParts.eng}</span>
+                            <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate text-left">${nameParts.mayek}</h4>
+                            <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3 text-left">${nameParts.eng}</span>
                             <div class="flex flex-wrap gap-2 text-left">
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Size: <span class="text-pe-red">${item.size}</span></div>
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Color: <span class="text-pe-red">${item.color}</span></div>
@@ -1492,7 +1495,7 @@ Join community V2
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
             const nameParts = splitName(p.name);
             
-            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[10px] text-white/80 font-bold tracking-[0.3em] uppercase text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">${nameParts.eng}</span>`;
+            document.getElementById('modal-title').innerHTML = `<span class="block font-mayek text-3xl md:text-4xl text-white leading-none mb-2 text-left">${nameParts.mayek}</span><span class="block font-inter text-[10px] text-white/80 font-bold tracking-[0.3em] uppercase text-left text-left">${nameParts.eng}</span>`;
             document.getElementById('modal-price').innerText = p.price;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('lore-body').innerText = p.lore;
@@ -1528,7 +1531,9 @@ Join community V2
 
             updateGallery(); validateForm(); lucide.createIcons();
             document.body.style.overflow = 'hidden';
-            document.getElementById('product-modal').classList.remove('invisible');
+            
+            // FIX: Explicitly remove opacity-0 so the black background applies correctly without transparency clashes
+            document.getElementById('product-modal').classList.remove('invisible', 'opacity-0');
             document.getElementById('product-modal').classList.add('opacity-100');
             document.getElementById('modal-container').classList.remove('translate-y-10');
 
@@ -1565,7 +1570,11 @@ Join community V2
         function closeModal(fromPopState = false) {
             const modal = document.getElementById('product-modal');
             if (!modal) return;
+            
+            // FIX: Properly restore opacity-0 to clean up transparent conflict bugs
             modal.classList.add('opacity-0', 'invisible');
+            modal.classList.remove('opacity-100');
+            
             document.body.style.overflow = ''; currentTranslate = 0; prevTranslate = 0;
             playTock(); if (isProductModalOpen) { isProductModalOpen = false; if (!fromPopState) history.back(); }
         }
