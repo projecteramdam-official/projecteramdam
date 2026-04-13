@@ -1,4 +1,7 @@
-prefilled message fixed v9:
+messed up
+
+
+prefilled message fixed v6:
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -164,20 +167,6 @@ prefilled message fixed v9:
             <p id="typewriter-sub" class="text-xs md:text-sm font-inter tracking-[0.8em] font-black text-pe-red uppercase text-center"></p>
         </div>
     </div>
-    <script>
-window.addEventListener("load", function () {
-    const loader = document.getElementById("loader");
-
-    if (loader) {
-        loader.style.opacity = "0";
-        loader.style.pointerEvents = "none";
-
-        setTimeout(() => {
-            loader.style.display = "none";
-        }, 500);
-    }
-});
-</script>
     
     <!-- RESUME ORDER TOAST -->
     <div id="resume-toast" class="fixed bottom-6 right-6 z-[2000] hidden bg-pe-red text-white p-4 rounded-sm shadow-2xl flex-col gap-2 border border-white/20 toast-anim">
@@ -482,9 +471,7 @@ window.addEventListener("load", function () {
 
             <!-- Success Footer -->
             <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
-                <a id="whatsapp-final-btn" target="_blank"
-   onclick="sendFinalWhatsApp()"
-   class="w-full bg-[#25D366] text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-[#1ebe5d] block">
+                <a id="whatsapp-final-btn" target="_blank" onclick="toggleCart()" class="w-full bg-[#25D366] text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-[#1ebe5d] block">
                     <span class="font-inter text-[11px] font-black tracking-[0.2em] uppercase leading-none text-center">Send Payment Screenshot & Stay Updated</span>
                 </a>
                 <p class="text-[9px] text-white/40 text-center mt-4 font-inter tracking-wide leading-relaxed px-4">
@@ -869,25 +856,7 @@ window.addEventListener("load", function () {
 
     fetch(url, { method: "POST", mode: "no-cors" });
 }
-        function sendFinalWhatsApp() {
-    const savedOrder = JSON.parse(localStorage.getItem("lastOrder"));
-
-    if (!savedOrder) {
-        alert("No order found. Please place order again.");
-        return;
-    }
-
-    const message = `Hi, I have already completed payment.
-
-Order ID: ${savedOrder.orderId}
-
-Please verify my payment. I am sharing the screenshot.`;
-
-    window.open(
-        `https://wa.me/919366659414?text=${encodeURIComponent(message)}`,
-        "_blank"
-    );
-}const COLOR_MAP = {
+        const COLOR_MAP = {
             "Light Baby Pink": "#FFD1DC", "Flamingo": "#F19CBB", "Baby Blue": "#89CFF0",
             "Lavender": "#E6E6FA", "Maroon": "#500000", "Navy Blue": "#000080",
             "Black": "#000000", "White": "#FFFFFF", "Off White": "#FAF9F6",
@@ -1697,26 +1666,27 @@ Please verify my payment. I am sharing the screenshot.`;
             btn.disabled = !valid; btn.classList.toggle('opacity-50', !valid); btn.classList.toggle('pointer-events-none', !valid); btn.classList.toggle('force-white-button', valid);
         };
 
+        // NEW BRAND CODED WHATSAPP BUILDER (Steps 1, 2, 3, 4 implemented)
         function generateWhatsAppOrderMessage() {
-    let piecesText = "";
-    let total = 0;
+            const name = document.getElementById("dlv-name").value || "N/A";
+            const phone = document.getElementById("dlv-phone").value || "N/A";
+            const city = document.getElementById("dlv-city").value || "N/A";
+            const state = document.getElementById("dlv-state").value || "N/A";
 
-    cart.forEach((i) => {
-        piecesText += `${i.name}\n${i.color} / ${i.size}\nRs ${(i.numPrice || 0).toLocaleString('en-IN')}\n\n`;
-        total += i.numPrice || 0;
-    });
+            const orderId = "PE" + Math.floor(10000 + Math.random() * 90000); // 5 digit random number
+            let total = 0;
+            let piecesText = "";
 
-    const orderId = "PE" + Date.now();
+           cart.forEach((i) => {
+    piecesText += `- ${i.name}\n  ${i.color} / ${i.size}\n  Rs ${(i.numPrice || 0).toLocaleString('en-IN')}\n\n`;
+    total += i.numPrice;
+});
 
-    // ✅ FIX: DEFINE ALL VALUES HERE
-    const nameVal = document.getElementById("dlv-name")?.value || "";
-    const phoneVal = document.getElementById("dlv-phone")?.value || "";
-    const addressVal = document.getElementById("dlv-address")?.value || "";
-    const cityVal = document.getElementById("dlv-city")?.value || "";
-    const stateVal = document.getElementById("dlv-state")?.value || "";
-    const pincodeVal = document.getElementById("dlv-pincode")?.value || "";
+// ✅ ADD THESE (CRITICAL FIX)
+const address = document.getElementById("dlv-address").value;
+const pincode = document.getElementById("dlv-pincode").value;
 
-    const message = `PROJECT ERAMDAM — ORDER CONFIRMATION
+const message = `PROJECT ERAMDAM - ORDER CONFIRMATION
 
 Order ID: ${orderId}
 
@@ -1734,23 +1704,12 @@ Pincode: ${pincodeVal}
 
 Payment completed. Sharing screenshot below for verification.`;
 
-    return { message, orderId, total };
+return { message, orderId, total };
 }
 
 const processOrderSuccess = () => {
     playTock();
     const res = generateWhatsAppOrderMessage();
-    localStorage.setItem("lastOrder", JSON.stringify({
-    orderId: res.orderId,
-    total: res.total,
-    name: document.getElementById("dlv-name").value,
-    phone: document.getElementById("dlv-phone").value,
-    address: document.getElementById("dlv-address").value,
-    city: document.getElementById("dlv-city").value,
-    state: document.getElementById("dlv-state").value,
-    pincode: document.getElementById("dlv-pincode").value,
-    products: cart.map(i => `${i.name} (${i.color}/${i.size})`).join(", ")
-}));
 
     // Populate the success UI with the generated order details
     const displayOrderId = document.getElementById("display-order-id");
@@ -1809,13 +1768,7 @@ saveCart();
             document.getElementById('registry-accordion').innerHTML = FAQ_CONTENT.map((item, idx) => `
                 <div class="border-b border-white/10"><button onclick="toggleMainFAQ(${idx})" class="w-full flex items-center justify-between py-6 text-left group"><div class="flex items-center gap-4"><i data-lucide="${item.icon}" class="w-5 h-5 text-white/30 group-hover:text-pe-red"></i><span class="font-inter text-[11px] font-black uppercase tracking-[0.3em] text-white/80 group-hover:text-pe-red">${item.t}</span></div><i data-lucide="chevron-down" class="w-4 h-4 text-white/20 group-hover:text-white transition-all"></i></button><div id="main-faq-content-${idx}" class="hidden pb-8 pl-9"><p class="font-inter text-[12px] text-white/50 leading-relaxed text-left">${item.c}</p></div></div>`).join('');
             lucide.createIcons();
-
-window.addEventListener("load", () => {
-    const savedOrder = localStorage.getItem("lastOrder");
-    if (savedOrder) {
-        console.log("User has previous order");
-    }
-});
+        };
 
         const updateGallery = () => {
             const p = PRODUCT_DATA_LOADED[currentProdIdx];
