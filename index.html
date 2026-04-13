@@ -1,4 +1,4 @@
-prefilled message fixed v4:
+prefilled message fixed v5:
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -838,6 +838,20 @@ prefilled message fixed v4:
     <script>
         function openQR() {
     window.open("images/payment/upi_qr.png", "_blank");
+}
+        function sendToGoogleForm(data) {
+    const url = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse" +
+        "?entry.715690915=" + encodeURIComponent(data.name) +
+        "&entry.2092671810=" + encodeURIComponent(data.phone) +
+        "&entry.1214460634=" + encodeURIComponent(data.address) +
+        "&entry.2043910785=" + encodeURIComponent(data.city) +
+        "&entry.336831517=" + encodeURIComponent(data.state) +
+        "&entry.1392433275=" + encodeURIComponent(data.pincode) +
+        "&entry.1712849668=" + encodeURIComponent(data.orderId) +
+        "&entry.1222474464=" + encodeURIComponent(data.products) +
+        "&entry.1810693968=" + encodeURIComponent(data.total);
+
+    fetch(url, { method: "POST", mode: "no-cors" });
 }
         const COLOR_MAP = {
             "Light Baby Pink": "#FFD1DC", "Flamingo": "#F19CBB", "Baby Blue": "#89CFF0",
@@ -1706,14 +1720,27 @@ const processOrderSuccess = () => {
     const successTotal = document.getElementById("success-total");
     if (successTotal) successTotal.innerText = `₹${res.total.toLocaleString('en-IN')}`;
 
-    switchSidebarState('success');
+   switchSidebarState('success');
 
-    // ✅ FIXED WHATSAPP ENCODING (CRITICAL)
-    const encodedMessage = encodeURIComponent(res.message);
-window.open(`https://wa.me/919366659414?text=${encodedMessage}`, "_blank");
+// ✅ SEND TO GOOGLE SHEET
+sendToGoogleForm({
+    name: name,
+    phone: phone,
+    address: document.getElementById("dlv-address").value,
+    city: city,
+    state: state,
+    pincode: document.getElementById("dlv-pincode").value,
+    orderId: res.orderId,
+    products: cart.map(i => `${i.name} (${i.color}/${i.size})`).join(", "),
+    total: res.total
+});
 
-    cart = [];
-    saveCart();
+// ✅ OPEN WHATSAPP
+window.open(`https://wa.me/919366659414?text=${encodeURIComponent(res.message)}`, "_blank");
+
+// ✅ CLEAR CART
+cart = [];
+saveCart();
 };
 
         const toggleAccordion = (id) => {
