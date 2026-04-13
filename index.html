@@ -1,4 +1,4 @@
-prefilled message fixed v2:
+prefilled message fixed v3:
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1661,9 +1661,15 @@ prefilled message fixed v2:
             let piecesText = "";
 
            cart.forEach((i) => {
-    piecesText += `- ${i.name}\n  ${i.color} / ${i.size}\n  Rs ${((i.numPrice || 0)).toLocaleString('en-IN')}\n\n`;
+    piecesText += `- ${i.name}\n  ${i.color} / ${i.size}\n  Rs ${(i.numPrice || 0).toLocaleString('en-IN')}\n\n`;
     total += i.numPrice;
 });
+
+// ✅ ADD THESE (CRITICAL FIX)
+const address = document.getElementById("dlv-address").value;
+const city = document.getElementById("dlv-city").value;
+const state = document.getElementById("dlv-state").value;
+const pincode = document.getElementById("dlv-pincode").value;
 
 const message = `PROJECT ERAMDAM - ORDER CONFIRMATION
 
@@ -1682,9 +1688,6 @@ State: ${state}
 Pincode: ${pincode}
 
 Payment completed. Sharing screenshot below for verification.`;
-
-return { message, orderId, total };
-}
 
 return { message, orderId, total };
 }
