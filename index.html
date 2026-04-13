@@ -1,4 +1,4 @@
-v9
+v10
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3085,6 +3085,72 @@ async function fetchOrdersSafe(){
 }
 
 window.fetchOrders = fetchOrdersSafe;
+
+
+
+// =========================
+// 🔥 FIX 7: HARD STOP GOOGLE REDIRECT (REAL FIX)
+// =========================
+(function(){
+
+  // Stop form target redirect (PC issue)
+  document.querySelectorAll("form").forEach(f=>{
+    if(f.action && f.action.includes("docs.google.com")){
+      f.target = "_self"; // prevent new tab
+    }
+  });
+
+  // Stop window.open to Google (PC redirect issue)
+  const originalOpen = window.open;
+  window.open = function(url, ...args){
+    if(typeof url === "string" && url.includes("docs.google.com")){
+      return null;
+    }
+    return originalOpen.apply(this, [url, ...args]);
+  };
+
+  // Stop location redirect (mobile reload issue)
+  const originalAssign = window.location.assign;
+  window.location.assign = function(url){
+    if(typeof url === "string" && url.includes("docs.google.com")){
+      return;
+    }
+    return originalAssign.apply(this, [url]);
+  };
+
+  const originalReplace = window.location.replace;
+  window.location.replace = function(url){
+    if(typeof url === "string" && url.includes("docs.google.com")){
+      return;
+    }
+    return originalReplace.apply(this, [url]);
+  };
+
+})();
+
+// =========================
+// 🔥 FIX 8: STOP MOBILE RELOAD ON CLOSE
+// =========================
+(function(){
+
+  // Prevent accidental reload from overlay clicks
+  const overlay = document.getElementById("cart-sidebar-overlay");
+  if(overlay){
+    overlay.addEventListener("click", function(e){
+      e.preventDefault();
+    });
+  }
+
+  // Fix X button reload issue
+  document.querySelectorAll("button").forEach(btn=>{
+    if(btn.innerHTML.includes("x") || btn.innerText.trim() === ""){
+      btn.addEventListener("click", function(e){
+        e.stopPropagation();
+      });
+    }
+  });
+
+})();
 
 </script>
 
