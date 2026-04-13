@@ -2244,37 +2244,57 @@ function saveUserSession() {
 }
 
 </script>
-    <!-- =========================
+   <!-- =========================
 PASTE THIS ENTIRE BLOCK BEFORE </body>
-DO NOT MODIFY EXISTING CODE
+FULLY STABLE + DYNAMIC PRODUCT DATA
 ========================= -->
 
 <script>
 
-// =========================
-// SAFE OVERRIDE (NO BREAK)
-// =========================
 (function(){
 
     const __originalProcessOrder = window.processOrderSuccess;
 
     window.processOrderSuccess = function(){
 
-        // 1. RUN YOUR ORIGINAL FLOW (IMPORTANT)
         if (typeof __originalProcessOrder === "function") {
             __originalProcessOrder();
         }
 
-        // 2. RUN GOOGLE FORM SUBMISSION
         sendOrderToGoogleForm();
     }
 
 })();
 
 
-// =========================
-// MAIN SUBMISSION FUNCTION (POST METHOD)
-// =========================
+function extractProductData() {
+    try {
+        const preview = document.getElementById("checkout-order-preview")?.innerText || "";
+
+        const product = preview.split("\n")[0] || "Product";
+
+        const sizeMatch = preview.match(/Size[:\-]?\s*(\w+)/i);
+        const colorMatch = preview.match(/Color[:\-]?\s*([\w\s]+)/i);
+        const qtyMatch = preview.match(/Qty[:\-]?\s*(\d+)/i);
+
+        return {
+            product,
+            size: sizeMatch ? sizeMatch[1] : "M",
+            color: colorMatch ? colorMatch[1].trim() : "Default",
+            quantity: qtyMatch ? qtyMatch[1] : "1"
+        };
+
+    } catch (e) {
+        return {
+            product: "Product",
+            size: "M",
+            color: "Default",
+            quantity: "1"
+        };
+    }
+}
+
+
 function sendOrderToGoogleForm() {
 
     try {
@@ -2292,13 +2312,9 @@ function sendOrderToGoogleForm() {
             form.appendChild(input);
         }
 
-        // =========================
-        // COLLECT DATA (FROM YOUR UI)
-        // =========================
         const orderId = "PE" + Date.now();
 
-        const preview = document.getElementById("checkout-order-preview")?.innerText || "";
-        const product = preview.split("\n")[0] || "Product";
+        const data = extractProductData();
 
         const total = (document.getElementById("cart-total")?.innerText || "0").replace("₹","").trim();
 
@@ -2309,15 +2325,11 @@ function sendOrderToGoogleForm() {
         const city = document.getElementById("dlv-city")?.value || "";
         const state = document.getElementById("dlv-state")?.value || "";
 
-        // =========================
-        // EXACT FIELD MAPPING (LOCKED)
-        // =========================
-
         addField("entry.715690915", orderId);
-        addField("entry.2092671810", product);
-        addField("entry.1214460634", "M");
-        addField("entry.2043910785", "Default");
-        addField("entry.336831517", "1");
+        addField("entry.2092671810", data.product);
+        addField("entry.1214460634", data.size);
+        addField("entry.2043910785", data.color);
+        addField("entry.336831517", data.quantity);
         addField("entry.1392433275", total);
 
         addField("entry.1712849668", name);
@@ -2329,9 +2341,6 @@ function sendOrderToGoogleForm() {
 
         addField("entry.2070227970", "Paid");
 
-        // =========================
-        // SUBMIT SILENTLY
-        // =========================
         document.body.appendChild(form);
         form.submit();
 
@@ -2343,14 +2352,8 @@ function sendOrderToGoogleForm() {
 </script>
 
 <!-- =========================
-WHAT THIS FIXES
+NOW FULLY DYNAMIC
 ========================= -->
-<!--
-✔ No popup warning
-✔ No wrong column shifting
-✔ Exact Google Form mapping
-✔ No change to your existing checkout flow
-✔ Works with your current button (processOrderSuccess)
--->
+
 </body>
 </html>
