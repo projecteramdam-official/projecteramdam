@@ -1,4 +1,4 @@
-v6 googlesheet
+v8 googlesheet
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -2352,8 +2352,183 @@ function sendOrderToGoogleForm() {
 </script>
 
 <!-- =========================
-NOW FULLY DYNAMIC
+FINAL STABLE SCRIPT (DO NOT TOUCH OTHER CODE)
+PASTE THIS JUST BEFORE </body>
 ========================= -->
 
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
+<script>
+
+// =========================
+// PREVENT DOUBLE SUBMIT
+// =========================
+let __formSubmitted = false;
+
+// =========================
+// SAFE OVERRIDE
+// =========================
+(function(){
+    const __original = window.processOrderSuccess;
+
+    window.processOrderSuccess = function(){
+        if (typeof __original === "function") {
+            __original();
+        }
+
+        if (!__formSubmitted) {
+            __formSubmitted = true;
+            sendOrderToGoogleForm();
+            saveUserPhone();
+        }
+    }
+})();
+
+// =========================
+// SAVE PHONE
+// =========================
+function saveUserPhone() {
+    const phone = document.getElementById("dlv-phone")?.value || "";
+    if (phone) localStorage.setItem("user_phone", phone);
+}
+
+// =========================
+// EXTRACT DATA
+// =========================
+function extractProductData() {
+    const preview = document.getElementById("checkout-order-preview")?.innerText || "";
+
+    const product = preview.split("\n")[0] || "Product";
+
+    const sizeMatch = preview.match(/Size[:\-]?\s*(\w+)/i);
+    const colorMatch = preview.match(/Color[:\-]?\s*([\w\s]+)/i);
+    const qtyMatch = preview.match(/Qty[:\-]?\s*(\d+)/i);
+
+    return {
+        product,
+        size: sizeMatch ? sizeMatch[1] : "M",
+        color: colorMatch ? colorMatch[1].trim() : "Default",
+        quantity: qtyMatch ? qtyMatch[1] : "1"
+    };
+}
+
+// =========================
+// GOOGLE FORM SUBMIT (NO REDIRECT)
+// =========================
+function sendOrderToGoogleForm() {
+
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse";
+    form.target = "hidden_iframe";
+    form.style.display = "none";
+
+    function add(name, value) {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.value = value || "";
+        form.appendChild(input);
+    }
+
+    const orderId = "PE" + Date.now();
+    const data = extractProductData();
+
+    const total = (document.getElementById("cart-total")?.innerText || "0").replace("₹","").trim();
+
+    add("entry.715690915", orderId);
+    add("entry.2092671810", data.product);
+    add("entry.1214460634", data.size || "M");
+    add("entry.2043910785", data.color || "Default");
+    add("entry.336831517", data.quantity || "1");
+    add("entry.1392433275", total);
+
+    add("entry.1712849668", document.getElementById("dlv-name")?.value);
+    add("entry.1222474464", document.getElementById("dlv-phone")?.value);
+    add("entry.1810693968", document.getElementById("dlv-address")?.value);
+    add("entry.335078953", document.getElementById("dlv-pincode")?.value);
+    add("entry.1982148271", document.getElementById("dlv-city")?.value);
+    add("entry.1464883250", document.getElementById("dlv-state")?.value);
+
+    add("entry.2070227970", "Paid");
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+// =========================
+// SAFE CSV PARSER
+// =========================
+function parseCSV(text) {
+    return text.split("\n").map(row => row.split(/,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/));
+}
+
+// =========================
+// FETCH ORDERS
+// =========================
+async function fetchOrders() {
+    try {
+        const phone = localStorage.getItem("user_phone");
+        if (!phone) return;
+
+        const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmjBL98bhRf4A1FDyaDpt9ry5fRgo9t0RRmgmYrlmmLTI7s-hPNafQVhoJMP1Oq6iQWR1MRht4pVCY/pub?output=csv");
+        const text = await res.text();
+
+        const rows = parseCSV(text);
+        const headers = rows[0].map(h => h.trim());
+
+        const data = rows.slice(1).map(row => {
+            let obj = {};
+            headers.forEach((h, i) => obj[h] = (row[i] || "").replace(/\"/g, ""));
+            return obj;
+        });
+
+        const userOrders = data.filter(o => (o.Phone || "").trim() === phone);
+
+        displayOrders(userOrders);
+
+    } catch (e) {
+        console.error("Fetch error", e);
+    }
+}
+
+// =========================
+// DISPLAY
+// =========================
+function displayOrders(orders) {
+    const container = document.getElementById("history-container");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    orders.forEach(order => {
+        let status = order["Order Status"] || "Processing";
+        let tracking = order["Tracking ID"] || "";
+
+        let trackUI = "Not available yet";
+
+        if (status === "Shipped" && tracking) {
+            trackUI = `<a href="https://www.google.com/search?q=${tracking}" target="_blank" style="color:#25D366;">${tracking}</a>`;
+        }
+        if (status === "Delivered") {
+            trackUI = "Completed";
+        }
+
+        container.innerHTML += `
+        <div style="border:1px solid #333;padding:12px;margin-bottom:10px;">
+            <div><b>Order:</b> ${order["Order ID"]}</div>
+            <div><b>Product:</b> ${order["Product"]}</div>
+            <div><b>Status:</b> ${status}</div>
+            <div><b>Tracking:</b> ${trackUI}</div>
+        </div>`;
+    });
+}
+
+// =========================
+// AUTO LOAD
+// =========================
+document.addEventListener("DOMContentLoaded", fetchOrders);
+
+</script>
 </body>
 </html>
