@@ -1,4 +1,4 @@
-v8 googlesheet
+v9 googlesheet
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -2351,6 +2351,110 @@ function sendOrderToGoogleForm() {
 
 </script>
 
+<!-- =========================
+FINAL STABLE SCRIPT (DO NOT TOUCH OTHER CODE)
+PASTE THIS JUST BEFORE </body>
+========================= -->
+
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
+<script>
+
+// =========================
+// PREVENT DOUBLE SUBMIT
+// =========================
+let __formSubmitted = false;
+
+// =========================
+// SAFE OVERRIDE
+// =========================
+(function(){
+    const __original = window.processOrderSuccess;
+
+    window.processOrderSuccess = function(){
+        if (typeof __original === "function") {
+            __original();
+        }
+
+        if (!__formSubmitted) {
+            __formSubmitted = true;
+            sendOrderToGoogleForm();
+            saveUserPhone();
+        }
+    }
+})();
+
+// =========================
+// SAVE PHONE
+// =========================
+function saveUserPhone() {
+    const phone = document.getElementById("dlv-phone")?.value || "";
+    if (phone) localStorage.setItem("user_phone", phone);
+}
+
+// =========================
+// EXTRACT DATA
+// =========================
+function extractProductData() {
+    const preview = document.getElementById("checkout-order-preview")?.innerText || "";
+
+    const product = preview.split("\n")[0] || "Product";
+
+    const sizeMatch = preview.match(/Size[:\-]?\s*(\w+)/i);
+    const colorMatch = preview.match(/Color[:\-]?\s*([\w\s]+)/i);
+    const qtyMatch = preview.match(/Qty[:\-]?\s*(\d+)/i);
+
+    return {
+        product,
+        size: sizeMatch ? sizeMatch[1] : "M",
+        color: colorMatch ? colorMatch[1].trim() : "Default",
+        quantity: qtyMatch ? qtyMatch[1] : "1"
+    };
+}
+
+// =========================
+// GOOGLE FORM SUBMIT (NO REDIRECT)
+// =========================
+function sendOrderToGoogleForm() {
+
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse";
+    form.target = "hidden_iframe";
+    form.style.display = "none";
+
+    function add(name, value) {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.value = value || "";
+        form.appendChild(input);
+    }
+
+    const orderId = "PE" + Date.now();
+    const data = extractProductData();
+
+    const total = (document.getElementById("cart-total")?.innerText || "0").replace("₹","").trim();
+
+    add("entry.715690915", orderId);
+    add("entry.2092671810", data.product);
+    add("entry.1214460634", data.size || "M");
+    add("entry.2043910785", data.color || "Default");
+    add("entry.336831517", data.quantity || "1");
+    add("entry.1392433275", total);
+
+    add("entry.1712849668", document.getElementById("dlv-name")?.value);
+    add("entry.1222474464", document.getElementById("dlv-phone")?.value);
+    add("entry.1810693968", document.getElementById("dlv-address")?.value);
+    add("entry.335078953", document.getElementById("dlv-pincode")?.value);
+    add("entry.1982148271", document.getElementById("dlv-city")?.value);
+    add("entry.1464883250", document.getElementById("dlv-state")?.value);
+
+    add("entry.2070227970", "Paid");
+
+    document.body.appendChild(form);
+    form.submit();
+}
 <!-- =========================
 FINAL STABLE SCRIPT (DO NOT TOUCH OTHER CODE)
 PASTE THIS JUST BEFORE </body>
