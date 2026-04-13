@@ -1,4 +1,4 @@
-order success logic added
+website traffic logic
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -849,20 +849,68 @@ order success logic added
         function openQR() {
             window.open("images/payment/upi_qr.png", "_blank");
         }
+        
+        // ----------------------------------------------------
+        // ✅ GOOGLE FORM EXTENSION: Now supports all 13 parameters
+        // Handles both Orders and Site Visits silently.
+        // ----------------------------------------------------
         function sendToGoogleForm(data) {
-            const url = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse" +
-                "?entry.715690915=" + encodeURIComponent(data.name) +
-                "&entry.2092671810=" + encodeURIComponent(data.phone) +
-                "&entry.1214460634=" + encodeURIComponent(data.address) +
-                "&entry.2043910785=" + encodeURIComponent(data.city) +
-                "&entry.336831517=" + encodeURIComponent(data.state) +
-                "&entry.1392433275=" + encodeURIComponent(data.pincode) +
-                "&entry.1712849668=" + encodeURIComponent(data.orderId) +
-                "&entry.1222474464=" + encodeURIComponent(data.products) +
-                "&entry.1810693968=" + encodeURIComponent(data.total);
+            const url = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse";
+            
+            const formData = new URLSearchParams();
+            formData.append("entry.715690915", data.name || "N/A");
+            formData.append("entry.2092671810", data.phone || "N/A");
+            formData.append("entry.1214460634", data.address || "N/A");
+            formData.append("entry.2043910785", data.city || "N/A");
+            formData.append("entry.336831517", data.state || "N/A");
+            formData.append("entry.1392433275", data.pincode || "N/A");
+            formData.append("entry.1712849668", data.orderId || "N/A");
+            formData.append("entry.1222474464", data.products || "N/A");
+            formData.append("entry.1810693968", data.total || "0");
+            
+            // New Extended Parameters
+            formData.append("entry.335078953", data.recordType || "Order"); 
+            formData.append("entry.1982148271", data.timestamp || new Date().toLocaleString());
+            formData.append("entry.1464883250", data.deviceInfo || navigator.userAgent);
+            formData.append("entry.2070227970", data.referrer || document.referrer || "Direct");
 
-            fetch(url, { method: "POST", mode: "no-cors" }).catch(() => {});
+            fetch(url, { 
+                method: "POST", 
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: formData.toString()
+            }).catch(() => {});
         }
+
+        // ----------------------------------------------------
+        // ✅ NO 3RD-PARTY VISIT TRACKING
+        // Fires automatically to map into Google form once per session
+        // ----------------------------------------------------
+        function recordVisit() {
+            try {
+                if (!sessionStorage.getItem("pe_visited")) {
+                    sendToGoogleForm({
+                        name: "VISITOR",
+                        phone: "N/A",
+                        address: "N/A",
+                        city: Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown",
+                        state: navigator.language || "Unknown",
+                        pincode: "N/A",
+                        orderId: "VISIT-" + Math.floor(Math.random() * 1000000),
+                        products: "Site Visit",
+                        total: "0",
+                        recordType: "Visit",
+                        timestamp: new Date().toLocaleString(),
+                        deviceInfo: screen.width + "x" + screen.height + " | " + navigator.platform,
+                        referrer: document.referrer || "Direct"
+                    });
+                    sessionStorage.setItem("pe_visited", "true");
+                }
+            } catch (e) { console.error("Visit tracking failed", e); }
+        }
+
         const COLOR_MAP = {
             "Light Baby Pink": "#FFD1DC", "Flamingo": "#F19CBB", "Baby Blue": "#89CFF0",
             "Lavender": "#E6E6FA", "Maroon": "#500000", "Navy Blue": "#000080",
@@ -1750,7 +1798,7 @@ Payment completed. Sharing screenshot below for verification.`;
 
             switchSidebarState('success');
 
-            // ✅ SEND TO GOOGLE SHEET
+            // ✅ SEND TO GOOGLE SHEET (Passes all new parameters securely)
             sendToGoogleForm({
                 name: document.getElementById("dlv-name").value,
                 phone: document.getElementById("dlv-phone").value,
@@ -1760,7 +1808,11 @@ Payment completed. Sharing screenshot below for verification.`;
                 pincode: document.getElementById("dlv-pincode").value,
                 orderId: res.orderId,
                 products: cart.map(i => `${i.name} (${i.color}/${i.size})`).join(", "),
-                total: res.total
+                total: res.total,
+                recordType: "Order",
+                timestamp: new Date().toLocaleString(),
+                deviceInfo: screen.width + "x" + screen.height + " | " + navigator.platform,
+                referrer: document.referrer || "Direct"
             });
 
             // ✅ SAVE TO ORDER HISTORY
@@ -1910,6 +1962,10 @@ Payment completed. Sharing screenshot below for verification.`;
         window.onload = () => {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             const mInt = setInterval(drawM, 50); lucide.createIcons(); loadRegistry();
+            
+            // ✅ INITIATE VISIT TRACKING (Will only log once per session)
+            recordVisit();
+
             setTimeout(() => {
                 clearInterval(mInt); document.getElementById('matrix-canvas').style.display = 'none';
                 document.getElementById('typewriter-container').classList.remove('hidden');
