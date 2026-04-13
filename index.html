@@ -1,4 +1,4 @@
-prefilled message fixed v6:
+prefilled message fixed v7:
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1663,27 +1663,26 @@ prefilled message fixed v6:
             btn.disabled = !valid; btn.classList.toggle('opacity-50', !valid); btn.classList.toggle('pointer-events-none', !valid); btn.classList.toggle('force-white-button', valid);
         };
 
-        // NEW BRAND CODED WHATSAPP BUILDER (Steps 1, 2, 3, 4 implemented)
         function generateWhatsAppOrderMessage() {
-            const name = document.getElementById("dlv-name").value || "N/A";
-            const phone = document.getElementById("dlv-phone").value || "N/A";
-            const city = document.getElementById("dlv-city").value || "N/A";
-            const state = document.getElementById("dlv-state").value || "N/A";
+    let piecesText = "";
+    let total = 0;
 
-            const orderId = "PE" + Math.floor(10000 + Math.random() * 90000); // 5 digit random number
-            let total = 0;
-            let piecesText = "";
+    cart.forEach((i) => {
+        piecesText += `${i.name}\n${i.color} / ${i.size}\nRs ${(i.numPrice || 0).toLocaleString('en-IN')}\n\n`;
+        total += i.numPrice || 0;
+    });
 
-           cart.forEach((i) => {
-    piecesText += `- ${i.name}\n  ${i.color} / ${i.size}\n  Rs ${(i.numPrice || 0).toLocaleString('en-IN')}\n\n`;
-    total += i.numPrice;
-});
+    const orderId = "PE" + Date.now();
 
-// ✅ ADD THESE (CRITICAL FIX)
-const address = document.getElementById("dlv-address").value;
-const pincode = document.getElementById("dlv-pincode").value;
+    // ✅ FIX: DEFINE ALL VALUES HERE
+    const nameVal = document.getElementById("dlv-name")?.value || "";
+    const phoneVal = document.getElementById("dlv-phone")?.value || "";
+    const addressVal = document.getElementById("dlv-address")?.value || "";
+    const cityVal = document.getElementById("dlv-city")?.value || "";
+    const stateVal = document.getElementById("dlv-state")?.value || "";
+    const pincodeVal = document.getElementById("dlv-pincode")?.value || "";
 
-const message = `PROJECT ERAMDAM - ORDER CONFIRMATION
+    const message = `PROJECT ERAMDAM — ORDER CONFIRMATION
 
 Order ID: ${orderId}
 
@@ -1701,7 +1700,7 @@ Pincode: ${pincodeVal}
 
 Payment completed. Sharing screenshot below for verification.`;
 
-return { message, orderId, total };
+    return { message, orderId, total };
 }
 
 const processOrderSuccess = () => {
