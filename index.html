@@ -1,4 +1,4 @@
-v15
+v redirect
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3287,60 +3287,47 @@ YOU FIXED:
 ✔ Works even with spelling mistakes
 ========================= -->
 <script>
-
-<script>
-
 <script>
 
 // =========================
-// 🚨 BLOCK ALL NEW TAB OPENING
+// 🚨 KILL ALL NEW TAB BEHAVIOR (FINAL)
 // =========================
 (function(){
 
-  const originalOpen = window.open;
+  // 1. Force ALL links to same tab
+  document.querySelectorAll("a").forEach(a=>{
+    a.removeAttribute("target");
 
-  window.open = function(url, target, features){
-
-    // 🚫 Block ALL new tab behavior
-    if(target === "_blank" || !target){
-      console.warn("Blocked new tab:", url);
-
-      // instead → open in same tab
-      if(url){
-        window.location.href = url;
-      }
-
-      return null;
+    const href = a.getAttribute("href");
+    if(href && href !== "#"){
+      a.addEventListener("click", function(e){
+        e.preventDefault();
+        window.location.href = href;
+      });
     }
+  });
 
-    return originalOpen.call(this, url, target, features);
+  // 2. Kill window.open completely
+  window.open = function(url){
+    if(url){
+      window.location.href = url;
+    }
+    return null;
   };
 
 })();
 
 
 // =========================
-// 🚨 FIX ALL <a target="_blank">
-// =========================
-document.querySelectorAll("a[target='_blank']").forEach(a=>{
-  a.removeAttribute("target");
-});
-
-
-// =========================
 // 🚨 FORCE WHATSAPP SAME TAB
 // =========================
-function openWhatsAppSafe(url){
+function openWhatsApp(){
 
-  if(!url){
-    // fallback to your existing logic if needed
-    if(typeof openWhatsApp === "function"){
-      return openWhatsApp();
-    }
-    return;
-  }
+  const message = "PLACE YOUR MESSAGE LOGIC HERE";
 
-  // 🔥 ALWAYS same tab
+  const url = "https://wa.me/919366659414?text=" + encodeURIComponent(message);
+
+  // 🚨 ONLY THIS LINE
   window.location.href = url;
 }
 
@@ -3353,29 +3340,24 @@ document.addEventListener("DOMContentLoaded", function(){
   const btn = document.getElementById("iHavePaidBtn");
 
   if(btn){
+    btn.type = "button";
+
     btn.onclick = function(e){
       e.preventDefault();
       e.stopPropagation();
 
-      // send silently
       if(typeof sendOrderSilentFinal === "function"){
         sendOrderSilentFinal();
       }
 
-      // 👉 FORCE SAME TAB REDIRECT
-      if(typeof openWhatsApp === "function"){
-        openWhatsApp(); // must internally use location.href
-      }
-
-      if(typeof switchSidebarState === "function"){
-        switchSidebarState("success");
-      }
+      openWhatsApp();
     };
   }
 
 });
 
 </script>
+
 
 </body>
 </html>
