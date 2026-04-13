@@ -1,7 +1,4 @@
-messed up
-
-
-prefilled message fixed v6:
+order success logic added
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -193,6 +190,9 @@ prefilled message fixed v6:
                 <a href="javascript:void(0)" onclick="handleMobileNav('faq')" class="text-[9px] font-inter font-black tracking-[0.4em] text-white/60 hover:text-pe-red transition-colors uppercase">Registry</a>
             </div>
             <div class="flex items-center justify-end gap-5 sm:gap-8 shrink-0">
+                 <button onclick="openOrderHistory()" class="relative flex items-center justify-center text-white hover:text-pe-red transition-colors hidden" id="nav-orders-btn">
+                     <i data-lucide="package" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                 </button>
                  <button onclick="toggleCart()" class="relative flex items-center justify-center text-white hover:text-pe-red transition-colors">
                      <i data-lucide="shopping-bag" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                      <span id="cart-badge" class="absolute -top-1.5 -right-2 bg-pe-red text-white text-[9px] font-black w-[16px] h-[16px] flex items-center justify-center rounded-full hidden">0</span>
@@ -209,6 +209,10 @@ prefilled message fixed v6:
     <!-- MOBILE MENU DROPDOWN -->
     <div id="mobile-menu-overlay" onclick="toggleMenu()" class="fixed inset-0 z-[2400] hidden bg-pe-black/40 backdrop-blur-sm"></div>
     <div id="mobile-menu" class="fixed top-[70px] right-5 w-48 bg-[#0a0a0a] tactical-border z-[2500] hidden flex-col py-2 shadow-2xl rounded-sm">
+        <a href="javascript:void(0)" onclick="handleMobileNav('orders')" class="px-5 py-4 border-b border-white/5 flex-col hover:bg-white/5 transition-colors hidden" id="mobile-orders-btn">
+            <span class="font-mayek text-lg font-black text-pe-red leading-none mb-1.5">ꯑꯣꯔꯗꯔꯁꯤꯡ</span>
+            <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">My Orders</span>
+        </a>
         <a href="javascript:void(0)" onclick="handleMobileNav('drop')" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
             <span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯗ ꯗ꯭ꯔꯣꯄ</span>
             <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">The Drop</span>
@@ -381,8 +385,8 @@ prefilled message fixed v6:
 
                 <!-- QR Code (Backup) -->
                 <div onclick="openQR()" class="w-40 h-40 bg-white rounded-lg p-2.5 flex items-center justify-center mb-4 mx-auto shadow-md cursor-pointer">
-    <img src="images/payment/upi_qr.png" alt="UPI QR Code" class="w-full h-full object-contain">
-</div>
+                    <img src="images/payment/upi_qr.png" alt="UPI QR Code" class="w-full h-full object-contain">
+                </div>
 
                 <!-- INTERACTIVE UPI COPY BLOCK -->
                 <div onclick="copyUPI()" class="bg-white/5 border border-white/10 rounded-sm px-6 py-3 mb-6 flex flex-col items-center justify-center cursor-pointer hover:bg-white/10 transition-colors group relative max-w-[280px] mx-auto w-full">
@@ -469,17 +473,20 @@ prefilled message fixed v6:
                 </div>
             </div>
 
-            <!-- Success Footer -->
-            <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20">
+            <!-- Success Footer dynamically populated on checkout -->
+            <div class="p-6 border-t border-white/10 bg-black shrink-0 relative z-20" id="success-action-footer">
                 <a id="whatsapp-final-btn" target="_blank" onclick="toggleCart()" class="w-full bg-[#25D366] text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer hover:bg-[#1ebe5d] block">
                     <span class="font-inter text-[11px] font-black tracking-[0.2em] uppercase leading-none text-center">Send Payment Screenshot & Stay Updated</span>
                 </a>
-                <p class="text-[9px] text-white/40 text-center mt-4 font-inter tracking-wide leading-relaxed px-4">
-                    Want updates on future drops? Tap above to stay connected on WhatsApp.
-                </p>
             </div>
         </div>
 
+        <!-- STATE 5: ORDER HISTORY -->
+        <div id="state-history" class="hidden flex-col h-full overflow-hidden bg-[#050505] relative z-10">
+            <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col gap-4 text-left" id="history-container">
+                <!-- History items injected dynamically -->
+            </div>
+        </div>
     </div>
 
     <!-- HERO -->
@@ -840,22 +847,22 @@ prefilled message fixed v6:
     <!-- SCRIPTS -->
     <script>
         function openQR() {
-    window.open("images/payment/upi_qr.png", "_blank");
-}
+            window.open("images/payment/upi_qr.png", "_blank");
+        }
         function sendToGoogleForm(data) {
-    const url = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse" +
-        "?entry.715690915=" + encodeURIComponent(data.name) +
-        "&entry.2092671810=" + encodeURIComponent(data.phone) +
-        "&entry.1214460634=" + encodeURIComponent(data.address) +
-        "&entry.2043910785=" + encodeURIComponent(data.city) +
-        "&entry.336831517=" + encodeURIComponent(data.state) +
-        "&entry.1392433275=" + encodeURIComponent(data.pincode) +
-        "&entry.1712849668=" + encodeURIComponent(data.orderId) +
-        "&entry.1222474464=" + encodeURIComponent(data.products) +
-        "&entry.1810693968=" + encodeURIComponent(data.total);
+            const url = "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse" +
+                "?entry.715690915=" + encodeURIComponent(data.name) +
+                "&entry.2092671810=" + encodeURIComponent(data.phone) +
+                "&entry.1214460634=" + encodeURIComponent(data.address) +
+                "&entry.2043910785=" + encodeURIComponent(data.city) +
+                "&entry.336831517=" + encodeURIComponent(data.state) +
+                "&entry.1392433275=" + encodeURIComponent(data.pincode) +
+                "&entry.1712849668=" + encodeURIComponent(data.orderId) +
+                "&entry.1222474464=" + encodeURIComponent(data.products) +
+                "&entry.1810693968=" + encodeURIComponent(data.total);
 
-    fetch(url, { method: "POST", mode: "no-cors" });
-}
+            fetch(url, { method: "POST", mode: "no-cors" }).catch(() => {});
+        }
         const COLOR_MAP = {
             "Light Baby Pink": "#FFD1DC", "Flamingo": "#F19CBB", "Baby Blue": "#89CFF0",
             "Lavender": "#E6E6FA", "Maroon": "#500000", "Navy Blue": "#000080",
@@ -1014,6 +1021,10 @@ prefilled message fixed v6:
 
         function handleMobileNav(targetId) {
             toggleMenu();
+            if (targetId === 'orders') {
+                setTimeout(() => openOrderHistory(), 200);
+                return;
+            }
             setTimeout(() => {
                 document.getElementById(targetId)?.scrollIntoView({
                     behavior: "smooth"
@@ -1240,7 +1251,7 @@ prefilled message fixed v6:
         const switchSidebarState = (targetState) => {
             if(targetState === 'checkout' && cart.length === 0) return;
             
-            const states = ['cart', 'checkout', 'payment', 'success'];
+            const states = ['cart', 'checkout', 'payment', 'success', 'history'];
             states.forEach(s => {
                 const el = document.getElementById(`state-${s}`);
                 if(el) {
@@ -1285,6 +1296,10 @@ prefilled message fixed v6:
                 // Complete Cleanup after Success
                 clearPendingOrder();
                 clearInterval(paymentTimerInterval);
+            } else if (targetState === 'history') {
+                titleMayek.innerText = "ꯑꯣꯔꯗꯔꯁꯤꯡ"; titleEng.innerText = "Order History";
+                backBtn.classList.remove('hidden');
+                backBtn.onclick = () => toggleCart(); // Close on back or go to cart
             }
             playTock();
         };
@@ -1292,10 +1307,13 @@ prefilled message fixed v6:
         const goBackInFunnel = () => {
             const checkoutEl = document.getElementById('state-checkout');
             const paymentEl = document.getElementById('state-payment');
+            const historyEl = document.getElementById('state-history');
             if(paymentEl && !paymentEl.classList.contains('hidden')) {
                 switchSidebarState('checkout');
             } else if(checkoutEl && !checkoutEl.classList.contains('hidden')) {
                 switchSidebarState('cart');
+            } else if(historyEl && !historyEl.classList.contains('hidden')) {
+                toggleCart();
             }
         };
         
@@ -1321,6 +1339,14 @@ prefilled message fixed v6:
                 switchSidebarState('payment');
             }, 300);
         };
+
+        function openOrderHistory() {
+            const sidebar = document.getElementById('cart-sidebar');
+            if (sidebar.classList.contains('translate-x-full')) {
+                toggleCart(); 
+            }
+            switchSidebarState('history');
+        }
 
         const FAQ_CONTENT = [
             { icon: "shopping-bag", t: "How your order works", c: "Every product is made specially for you after you place an order. We don’t keep ready stock — your item is printed, packed, and shipped just for you.<br><br>Once your order is confirmed, it goes into production, then handed over to courier partners for delivery.<br><br>This process helps us deliver unique designs while maintaining quality." },
@@ -1356,6 +1382,7 @@ prefilled message fixed v6:
                 renderRegistryAccordion();
                 updateCartUI();
                 loadUserData();
+                updateOrderHistoryUI();
 
                 // Handle Order Recovery
                 const pendingPayment = localStorage.getItem("pe_pending_payment");
@@ -1666,27 +1693,25 @@ prefilled message fixed v6:
             btn.disabled = !valid; btn.classList.toggle('opacity-50', !valid); btn.classList.toggle('pointer-events-none', !valid); btn.classList.toggle('force-white-button', valid);
         };
 
-        // NEW BRAND CODED WHATSAPP BUILDER (Steps 1, 2, 3, 4 implemented)
+        // NEW BRAND CODED WHATSAPP BUILDER
         function generateWhatsAppOrderMessage() {
-            const name = document.getElementById("dlv-name").value || "N/A";
-            const phone = document.getElementById("dlv-phone").value || "N/A";
-            const city = document.getElementById("dlv-city").value || "N/A";
-            const state = document.getElementById("dlv-state").value || "N/A";
+            const nameVal = document.getElementById("dlv-name").value || "N/A";
+            const phoneVal = document.getElementById("dlv-phone").value || "N/A";
+            const cityVal = document.getElementById("dlv-city").value || "N/A";
+            const stateVal = document.getElementById("dlv-state").value || "N/A";
+            const addressVal = document.getElementById("dlv-address").value || "N/A";
+            const pincodeVal = document.getElementById("dlv-pincode").value || "N/A";
 
             const orderId = "PE" + Math.floor(10000 + Math.random() * 90000); // 5 digit random number
             let total = 0;
             let piecesText = "";
 
-           cart.forEach((i) => {
-    piecesText += `- ${i.name}\n  ${i.color} / ${i.size}\n  Rs ${(i.numPrice || 0).toLocaleString('en-IN')}\n\n`;
-    total += i.numPrice;
-});
+            cart.forEach((i) => {
+                piecesText += `- ${i.name}\n  ${i.color} / ${i.size}\n  Rs ${(i.numPrice || 0).toLocaleString('en-IN')}\n\n`;
+                total += i.numPrice;
+            });
 
-// ✅ ADD THESE (CRITICAL FIX)
-const address = document.getElementById("dlv-address").value;
-const pincode = document.getElementById("dlv-pincode").value;
-
-const message = `PROJECT ERAMDAM - ORDER CONFIRMATION
+            const message = `PROJECT ERAMDAM - ORDER CONFIRMATION
 
 Order ID: ${orderId}
 
@@ -1704,47 +1729,129 @@ Pincode: ${pincodeVal}
 
 Payment completed. Sharing screenshot below for verification.`;
 
-return { message, orderId, total };
-}
+            return { message, orderId, total };
+        }
 
-const processOrderSuccess = () => {
-    playTock();
-    const res = generateWhatsAppOrderMessage();
+        const processOrderSuccess = () => {
+            playTock();
+            const res = generateWhatsAppOrderMessage();
 
-    // Populate the success UI with the generated order details
-    const displayOrderId = document.getElementById("display-order-id");
-    if (displayOrderId) displayOrderId.innerText = "Order ID: " + res.orderId;
+            // Populate the success UI with the generated order details
+            const displayOrderId = document.getElementById("display-order-id");
+            if (displayOrderId) displayOrderId.innerText = "Order ID: " + res.orderId;
 
-    const successItems = document.getElementById("success-order-items");
-    if (successItems) {
-        successItems.innerHTML = cart.map(i => `• ${i.name} <br><span class="text-white/40 ml-3">Size: ${i.size} / Color: ${i.color}</span>`).join('<br><br>');
-    }
+            const successItems = document.getElementById("success-order-items");
+            if (successItems) {
+                successItems.innerHTML = cart.map(i => `• ${i.name} <br><span class="text-white/40 ml-3">Size: ${i.size} / Color: ${i.color}</span>`).join('<br><br>');
+            }
 
-    const successTotal = document.getElementById("success-total");
-    if (successTotal) successTotal.innerText = `₹${res.total.toLocaleString('en-IN')}`;
+            const successTotal = document.getElementById("success-total");
+            if (successTotal) successTotal.innerText = `₹${res.total.toLocaleString('en-IN')}`;
 
-   switchSidebarState('success');
+            switchSidebarState('success');
 
-// ✅ SEND TO GOOGLE SHEET
-sendToGoogleForm({
-    name: document.getElementById("dlv-name").value,
-    phone: document.getElementById("dlv-phone").value,
-    address: document.getElementById("dlv-address").value,
-    city: document.getElementById("dlv-city").value,
-    state: document.getElementById("dlv-state").value,
-    pincode: document.getElementById("dlv-pincode").value,
-    orderId: res.orderId,
-    products: cart.map(i => `${i.name} (${i.color}/${i.size})`).join(", "),
-    total: res.total
-});
+            // ✅ SEND TO GOOGLE SHEET
+            sendToGoogleForm({
+                name: document.getElementById("dlv-name").value,
+                phone: document.getElementById("dlv-phone").value,
+                address: document.getElementById("dlv-address").value,
+                city: document.getElementById("dlv-city").value,
+                state: document.getElementById("dlv-state").value,
+                pincode: document.getElementById("dlv-pincode").value,
+                orderId: res.orderId,
+                products: cart.map(i => `${i.name} (${i.color}/${i.size})`).join(", "),
+                total: res.total
+            });
 
-// ✅ OPEN WHATSAPP
-window.open(`https://wa.me/919366659414?text=${encodeURIComponent(res.message)}`, "_blank");
+            // ✅ SAVE TO ORDER HISTORY
+            const newOrder = {
+                orderId: res.orderId,
+                date: new Date().toISOString(),
+                total: res.total,
+                items: cart,
+                status: 'Processing'
+            };
+            let history = JSON.parse(localStorage.getItem('pe_order_history') || '[]');
+            history.push(newOrder);
+            localStorage.setItem('pe_order_history', JSON.stringify(history));
+            updateOrderHistoryUI();
 
-// ✅ CLEAR CART
-cart = [];
-saveCart();
-};
+            // ✅ SET UP DYNAMIC SUCCESS FOOTER AND LAUNCH WHATSAPP
+            const waLink = `https://wa.me/919366659414?text=${encodeURIComponent(res.message)}`;
+            
+            const successActionDiv = document.getElementById('success-action-footer');
+            if(successActionDiv) {
+                successActionDiv.innerHTML = `
+                    <div class="flex gap-3 w-full mb-3">
+                        <button onclick="toggleCart()" class="flex-1 bg-white/10 text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm hover:bg-white/20">
+                            <span class="font-inter text-[11px] font-black tracking-[0.1em] uppercase leading-none">Close</span>
+                        </button>
+                        <a href="${waLink}" target="_blank" class="flex-1 bg-[#25D366] text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm hover:bg-[#1ebe5d]">
+                            <span class="font-inter text-[11px] font-black tracking-[0.1em] uppercase leading-none text-center">Resend SS</span>
+                        </a>
+                    </div>
+                    <button onclick="openOrderHistory()" class="w-full bg-transparent border border-white/10 text-white py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm hover:border-white/30">
+                        <span class="font-inter text-[10px] font-bold tracking-[0.2em] uppercase leading-none text-center text-white/60">View My Orders</span>
+                    </button>
+                `;
+            }
+
+            // ✅ OPEN WHATSAPP
+            window.open(waLink, "_blank");
+
+            // ✅ CLEAR CART
+            cart = [];
+            saveCart();
+        };
+
+        function updateOrderHistoryUI() {
+            let history = JSON.parse(localStorage.getItem('pe_order_history') || '[]');
+            const historyContainer = document.getElementById('history-container');
+            const navBtn = document.getElementById('nav-orders-btn');
+            const mobileBtn = document.getElementById('mobile-orders-btn');
+
+            if (history.length > 0) {
+                if (navBtn) { navBtn.classList.remove('hidden'); navBtn.classList.add('flex'); }
+                if (mobileBtn) { mobileBtn.classList.remove('hidden'); mobileBtn.classList.add('flex'); }
+
+                // Sort newest first
+                history.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                historyContainer.innerHTML = history.map(order => `
+                    <div class="border border-white/10 rounded-sm p-5 bg-[#0a0a0a] mb-2">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="font-inter text-[10px] text-white/50 tracking-widest uppercase">Order ID</span>
+                            <span class="font-inter text-[10px] text-[#25D366] tracking-widest uppercase font-bold">${order.status || 'Processing'}</span>
+                        </div>
+                        <p class="font-inter text-sm text-white font-black mb-4">${order.orderId}</p>
+                        <div class="space-y-3 mb-4">
+                            ${order.items.map(i => `
+                                <div class="flex gap-3 items-center">
+                                    <div class="w-12 h-16 bg-neutral-900 rounded-sm overflow-hidden shrink-0 border border-white/5">
+                                        <img src="${i.image}" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-mayek text-[11px] text-white">${splitName(i.name).mayek}</span>
+                                        <span class="font-inter text-[8px] text-white/50 tracking-widest uppercase">${i.size} | ${i.color}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="border-t border-white/10 pt-3 flex justify-between items-center">
+                            <span class="font-inter text-[9px] text-white/50 tracking-widest uppercase">Total Paid</span>
+                            <span class="font-inter text-xs font-black text-white">₹${order.total.toLocaleString('en-IN')}</span>
+                        </div>
+                    </div>
+                `).join('');
+                lucide.createIcons();
+            } else {
+                if (navBtn) navBtn.classList.add('hidden');
+                if (mobileBtn) mobileBtn.classList.add('hidden');
+                if (historyContainer) {
+                    historyContainer.innerHTML = `<div class="text-center text-white/40 font-inter text-[10px] font-black tracking-widest uppercase mt-20">No orders found</div>`;
+                }
+            }
+        }
 
         const toggleAccordion = (id) => {
             const sections = ['lore', 'details', 'wash', 'size', 'protocol'];
