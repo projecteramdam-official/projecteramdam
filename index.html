@@ -1,4 +1,4 @@
-v4 redirect
+v5 redirect
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3515,6 +3515,64 @@ setInterval(()=>{
     a.removeAttribute("target");
   });
 }, 1000);
+
+</script>
+    <script>
+
+// =========================
+// 🚨 HARD LOCK FLOW (FINAL FIX)
+// =========================
+
+window.processOrderSuccess = function(){
+
+  // 🚫 STOP EVERYTHING
+  document.body.innerHTML = `
+    <div style="
+      background:#000;
+      color:#fff;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      font-family:Inter, sans-serif;
+      text-align:center;
+      padding:20px;
+    ">
+      <div style="font-size:18px;font-weight:700;margin-bottom:10px;">
+        Redirecting to WhatsApp...
+      </div>
+      <div style="font-size:12px;color:#aaa;">
+        Please wait
+      </div>
+    </div>
+  `;
+
+  // ✅ Generate order
+  const orderId = "PE" + Date.now();
+  localStorage.setItem("last_order_id", orderId);
+
+  const msg = `Hi, I have completed payment. Order ID: ${orderId}`;
+  const url = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
+
+  // 🚨 HARD REDIRECT (NO JS AFTER THIS)
+  setTimeout(()=>{
+    window.location.href = url;
+  }, 200);
+
+};
+
+
+// =========================
+// 🚨 DISABLE ALL OTHER NAV AFTER CLICK
+// =========================
+window.open = function(){ return null; };
+
+document.addEventListener("click", function(e){
+  if(e.target.closest("#iHavePaidBtn")){
+    e.stopImmediatePropagation();
+  }
+}, true);
 
 </script>
 </body>
