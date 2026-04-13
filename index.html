@@ -1,4 +1,4 @@
-menefesto and models
+Join community
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -263,10 +263,14 @@ menefesto and models
         <div id="state-checkout" class="hidden flex-col h-full overflow-hidden bg-[#050505]">
             <div class="flex-grow overflow-y-auto hide-scrollbar p-6 space-y-6 text-left">
                 
-                <!-- Welcome Back Message -->
-                <div id="welcome-back-msg" class="hidden bg-[#25D366]/10 border border-[#25D366]/30 p-3 rounded-sm flex items-center justify-center gap-2 mb-2 transition-all">
+                <!-- Welcome Back Message (HIGHLIGHTED) -->
+                <div id="welcome-back-msg" class="hidden bg-[#25D366]/15 border border-[#25D366]/50 p-3.5 rounded-sm flex items-center justify-center gap-2 mb-4 shadow-[0_0_15px_rgba(37,211,102,0.1)] transition-all">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#25D366]"></span>
+                    </span>
                     <i data-lucide="user-check" class="w-4 h-4 text-[#25D366]"></i>
-                    <span class="font-inter text-[10px] text-white font-bold tracking-widest uppercase">Welcome back — details saved</span>
+                    <span class="font-inter text-[10px] text-white font-bold tracking-widest uppercase">Welcome back — your details are auto-filled</span>
                 </div>
 
                 <!-- Delivery Form -->
@@ -629,6 +633,45 @@ menefesto and models
             
             <div id="registry-accordion" class="space-y-0 border-t border-white/5">
                 <!-- FAQ Items will be injected here via script -->
+            </div>
+        </div>
+    </section>
+
+    <!-- DROP SIGNAL (NEW SECTION) -->
+    <section class="py-20 md:py-28 px-6 bg-[#0a0a0a] border-t border-white/10 relative z-10 text-center w-full">
+        <div class="max-w-3xl mx-auto flex flex-col items-center">
+            <i data-lucide="bell-ring" class="w-10 h-10 text-pe-red mb-6 animate-pulse"></i>
+            <h3 class="font-mayek text-3xl md:text-5xl font-black text-white leading-none mb-3">ꯃꯊꯪꯒꯤ ꯐꯤꯖꯣꯜ ꯉꯥꯏꯕꯤꯌꯨ</h3>
+            <h4 class="font-inter text-[11px] md:text-[13px] font-black tracking-[0.5em] text-white/80 uppercase mb-8">Join The Drop Signal</h4>
+
+            <p class="font-inter text-[11px] md:text-[13px] text-white/60 leading-relaxed mb-10 max-w-lg px-4">
+                Our drops sell out fast. Get notified on WhatsApp the moment a new piece goes live. No spam, only priority access.
+            </p>
+
+            <!-- WhatsApp Button -->
+            <a href="https://wa.me/919366659414?text=Add%20me%20to%20the%20drop%20list!%20%F0%9F%94%94" target="_blank" rel="noopener noreferrer" class="w-full max-w-[320px] bg-[#25D366] text-white py-4 flex flex-col items-center justify-center transition-all rounded-sm shadow-[0_0_20px_rgba(37,211,102,0.2)] hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] hover:bg-[#1ebe5d] cursor-pointer mb-12">
+                <span class="flex items-center gap-2 font-inter text-[13px] font-black tracking-[0.1em] uppercase text-white leading-none text-center mb-1">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i> Add me to drop list
+                </span>
+            </a>
+
+            <!-- 2-3 Trust Lines -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-2xl border-t border-white/10 pt-10">
+                <div class="flex flex-col items-center gap-2 text-center">
+                    <i data-lucide="truck" class="w-5 h-5 text-white/40"></i>
+                    <span class="font-inter text-[10px] font-bold text-white/80 uppercase tracking-widest">Pan India Delivery</span>
+                    <span class="font-inter text-[9px] text-white/40">4-10 days secure transit</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 text-center">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-white/40"></i>
+                    <span class="font-inter text-[10px] font-bold text-white/80 uppercase tracking-widest">Premium Quality</span>
+                    <span class="font-inter text-[9px] text-white/40">Made to order, no mass prod</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 text-center">
+                    <i data-lucide="users" class="w-5 h-5 text-white/40"></i>
+                    <span class="font-inter text-[10px] font-bold text-white/80 uppercase tracking-widest">Dedicated Support</span>
+                    <span class="font-inter text-[9px] text-white/40">Direct WhatsApp assistance</span>
+                </div>
             </div>
         </div>
     </section>
