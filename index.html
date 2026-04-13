@@ -1,4 +1,4 @@
-prefilled message fixed v5:
+prefilled message fixed v6:
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1692,12 +1692,12 @@ ${piecesText.trim()}
 ${cart.length > 1 ? `\nTOTAL PAID: Rs ${total.toLocaleString('en-IN')}\n` : ""}
 
 DELIVERY DETAILS:
-Name: ${name}
-Phone: ${phone}
-Address: ${address}
-City: ${city}
-State: ${state}
-Pincode: ${pincode}
+Name: ${nameVal}
+Phone: ${phoneVal}
+Address: ${addressVal}
+City: ${cityVal}
+State: ${stateVal}
+Pincode: ${pincodeVal}
 
 Payment completed. Sharing screenshot below for verification.`;
 
@@ -1724,11 +1724,11 @@ const processOrderSuccess = () => {
 
 // ✅ SEND TO GOOGLE SHEET
 sendToGoogleForm({
-    name: name,
-    phone: phone,
+    name: document.getElementById("dlv-name").value,
+    phone: document.getElementById("dlv-phone").value,
     address: document.getElementById("dlv-address").value,
-    city: city,
-    state: state,
+    city: document.getElementById("dlv-city").value,
+    state: document.getElementById("dlv-state").value,
     pincode: document.getElementById("dlv-pincode").value,
     orderId: res.orderId,
     products: cart.map(i => `${i.name} (${i.color}/${i.size})`).join(", "),
