@@ -3286,7 +3286,116 @@ YOU FIXED:
 ✔ CSV column shift bug
 ✔ Works even with spelling mistakes
 ========================= -->
+<script>
 
+// =========================
+// 🚨 HARD KILL GOOGLE FORM SUBMISSION (100%)
+// =========================
+document.addEventListener("submit", function(e){
+  const form = e.target;
+
+  if(form && form.action && form.action.includes("docs.google.com")){
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+}, true);
+
+
+// =========================
+// 🚨 BLOCK ANY REDIRECT TO GOOGLE
+// =========================
+(function(){
+
+  const block = (url)=>{
+    return typeof url === "string" && url.includes("docs.google.com");
+  };
+
+  // kill location.href changes
+  const originalAssign = window.location.assign;
+  window.location.assign = function(url){
+    if(block(url)) return;
+    return originalAssign.call(this, url);
+  };
+
+  const originalReplace = window.location.replace;
+  window.location.replace = function(url){
+    if(block(url)) return;
+    return originalReplace.call(this, url);
+  };
+
+  // kill window.open
+  const originalOpen = window.open;
+  window.open = function(url, ...args){
+    if(block(url)) return null;
+    return originalOpen.call(this, url, ...args);
+  };
+
+})();
+
+
+// =========================
+// 🚨 FORCE ALL GOOGLE FORMS TO SILENT MODE
+// =========================
+document.querySelectorAll("form").forEach(form=>{
+  if(form.action && form.action.includes("docs.google.com")){
+    form.target = "_self";
+    form.style.display = "none"; // hide it completely
+  }
+});
+
+
+// =========================
+// ✅ YOUR SAFE SEND (NO REDIRECT EVER)
+// =========================
+function sendOrderSilentFinal(){
+
+  const orderId = "PE" + Date.now();
+
+  const params = new URLSearchParams();
+  params.append("entry.715690915", orderId);
+  params.append("entry.1222474464", document.getElementById("dlv-phone")?.value || "");
+  params.append("entry.1712849668", document.getElementById("dlv-name")?.value || "");
+  params.append("entry.1810693968", document.getElementById("dlv-address")?.value || "");
+  params.append("entry.335078953", document.getElementById("dlv-pincode")?.value || "");
+
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    body: params
+  }).catch(()=>{});
+}
+
+
+// =========================
+// 🔥 FORCE YOUR BUTTON TO USE SAFE FLOW
+// =========================
+document.addEventListener("DOMContentLoaded", function(){
+
+  const btn = document.getElementById("iHavePaidBtn");
+
+  if(btn){
+    btn.type = "button"; // critical
+
+    btn.onclick = function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      // send silently
+      sendOrderSilentFinal();
+
+      // continue your flow
+      if(typeof processOrderSuccessSafe === "function"){
+        processOrderSuccessSafe();
+      } else if(typeof openWhatsApp === "function"){
+        openWhatsApp();
+      }
+    };
+  }
+
+});
+
+</script>
 
 </body>
 </html>
