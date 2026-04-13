@@ -2155,6 +2155,94 @@ WHY THIS IS NOW 100% CORRECT
 ✔ No shifting possible anymore
 ✔ No dependency on localStorage structure
 -->
+<script>
 
+// =========================
+// GLOBAL CONTROL LAYER
+// =========================
+
+// store original function safely
+const __originalProcessOrder = window.processOrderSuccess;
+
+// override safely (no break)
+window.processOrderSuccess = function () {
+
+    // 1. RUN EXISTING SYSTEM (NO CHANGE)
+    if (typeof __originalProcessOrder === "function") {
+        __originalProcessOrder();
+    }
+
+    // 2. RUN ALL NEW FEATURES (CONTROLLED)
+    runEnhancements();
+
+};
+
+
+// =========================
+// MASTER PIPELINE
+// =========================
+function runEnhancements() {
+
+    sendOrderToGoogleForm();   // ✅ your current feature
+    trackVisitorIfEnabled();   // ✅ future toggle system
+    saveUserSession();         // ✅ future login support
+
+}
+
+
+// =========================
+// FEATURE: GOOGLE FORM
+// =========================
+function sendOrderToGoogleForm() {
+
+    const name = document.getElementById("dlv-name")?.value || "";
+    const phone = document.getElementById("dlv-phone")?.value || "";
+    const address = document.getElementById("dlv-address")?.value || "";
+    const pincode = document.getElementById("dlv-pincode")?.value || "";
+    const city = document.getElementById("dlv-city")?.value || "";
+    const state = document.getElementById("dlv-state")?.value || "";
+
+    const preview = document.getElementById("checkout-order-preview")?.innerText || "";
+
+    const orderId = "PE" + Date.now();
+    const total = document.getElementById("cart-total")?.innerText.replace("₹","") || 0;
+
+    const url =
+    "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/viewform?usp=pp_url"
+    + "&entry.715690915=" + encodeURIComponent(orderId)
+    + "&entry.2092671810=" + encodeURIComponent(preview.split("\n")[0] || "Product")
+    + "&entry.1214460634=" + encodeURIComponent("M")
+    + "&entry.2043910785=" + encodeURIComponent("Default")
+    + "&entry.336831517=" + encodeURIComponent("1")
+    + "&entry.1392433275=" + encodeURIComponent(total)
+
+    + "&entry.1712849668=" + encodeURIComponent(name)
+    + "&entry.1222474464=" + encodeURIComponent(phone)
+    + "&entry.1810693968=" + encodeURIComponent(address)
+    + "&entry.335078953=" + encodeURIComponent(pincode)
+    + "&entry.1982148271=" + encodeURIComponent(city)
+    + "&entry.1464883250=" + encodeURIComponent(state)
+
+    + "&entry.2070227970=" + encodeURIComponent("Paid");
+
+    window.open(url, "_blank");
+}
+
+
+// =========================
+// FEATURE PLACEHOLDERS
+// =========================
+
+// future: visitor tracking toggle
+function trackVisitorIfEnabled() {
+    // add later safely
+}
+
+// future: login/session system
+function saveUserSession() {
+    // add later safely
+}
+
+</script>
 </body>
 </html>
