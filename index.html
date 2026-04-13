@@ -376,9 +376,9 @@ X button fixed
                 <p class="font-inter text-[9px] text-white/30 uppercase tracking-widest mb-6">If app does not open, use QR code below</p>
 
                 <!-- QR Code (Backup) -->
-                <div class="w-32 h-32 bg-white rounded-lg p-2.5 flex items-center justify-center mb-4 mx-auto opacity-90 shadow-md">
-                    <i data-lucide="qr-code" class="w-full h-full text-black"></i>
-                </div>
+                <div onclick="openQR()" class="w-40 h-40 bg-white rounded-lg p-2.5 flex items-center justify-center mb-4 mx-auto shadow-md cursor-pointer">
+    <img src="images/payment/upi_qr.png" alt="UPI QR Code" class="w-full h-full object-contain">
+</div>
 
                 <!-- INTERACTIVE UPI COPY BLOCK -->
                 <div onclick="copyUPI()" class="bg-white/5 border border-white/10 rounded-sm px-6 py-3 mb-6 flex flex-col items-center justify-center cursor-pointer hover:bg-white/10 transition-colors group relative max-w-[280px] mx-auto w-full">
@@ -835,6 +835,9 @@ X button fixed
 
     <!-- SCRIPTS -->
     <script>
+        function openQR() {
+    window.open("images/payment/upi_qr.png", "_blank");
+}
         const COLOR_MAP = {
             "Light Baby Pink": "#FFD1DC", "Flamingo": "#F19CBB", "Baby Blue": "#89CFF0",
             "Lavender": "#E6E6FA", "Maroon": "#500000", "Navy Blue": "#000080",
