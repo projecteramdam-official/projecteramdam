@@ -1,4 +1,4 @@
-v8 redirect
+v9 redirect
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3704,6 +3704,162 @@ window.processOrderSuccess = function(){
       originalToggle();
     }
 
+  };
+
+})();
+
+
+<script>
+(function(){
+
+  // =========================
+  // ✅ 1. SAFE TOGGLE (fix close/history bug)
+  // =========================
+  const originalToggle = window.toggleCart;
+
+  window.toggleCart = function(e){
+
+    if(e){
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
+
+    const sidebar = document.getElementById("cart-sidebar");
+    const overlay = document.getElementById("cart-sidebar-overlay");
+
+    if(!sidebar || !overlay) return;
+
+    const isOpen = !sidebar.classList.contains("translate-x-full");
+
+    // 👉 SAFE CLOSE (this was your bug)
+    if(isOpen){
+      sidebar.classList.add("translate-x-full");
+      overlay.classList.add("invisible","opacity-0");
+      return;
+    }
+
+    // 👉 OPEN → normal behavior
+    if(typeof originalToggle === "function"){
+      originalToggle();
+    }
+
+  };
+
+
+  // =========================
+  // ✅ 2. ORDER FLOW (sheet + whatsapp + state)
+  // =========================
+  window.processOrderSuccess = function(){
+
+    const orderId = "PE" + Date.now();
+
+    // store state
+    localStorage.setItem("last_order_id", orderId);
+    localStorage.setItem("order_pending", "true");
+
+    // =========================
+    // 🔥 RELIABLE GOOGLE SHEET SEND (sendBeacon)
+    // =========================
+    try{
+      const params = new URLSearchParams();
+      params.append("entry.715690915", orderId);
+      params.append("entry.1222474464", document.getElementById("dlv-phone")?.value || "");
+      params.append("entry.1712849668", document.getElementById("dlv-name")?.value || "");
+      params.append("entry.1810693968", document.getElementById("dlv-address")?.value || "");
+      params.append("entry.335078953", document.getElementById("dlv-pincode")?.value || "");
+
+      navigator.sendBeacon(
+        "https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse",
+        params
+      );
+    } catch(e){}
+
+    // =========================
+    // ✅ WHATSAPP REDIRECT (clean)
+    // =========================
+    const msg = `Hi, I have completed payment. Order ID: ${orderId}`;
+    const url = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
+
+    setTimeout(()=>{
+      window.location.href = url;
+    }, 500);
+
+  };
+
+
+  // =========================
+  // ✅ 3. RETURN STATE (when user comes back)
+  // =========================
+  document.addEventListener("DOMContentLoaded", function(){
+
+    const isPending = localStorage.getItem("order_pending");
+
+    if(isPending === "true"){
+
+      if(typeof switchSidebarState === "function"){
+        switchSidebarState("success");
+      }
+
+    }
+
+  });
+
+
+  // =========================
+  // ✅ 4. RESEND WHATSAPP
+  // =========================
+  window.handleWhatsAppRedirect = function(type){
+
+    const orderId = localStorage.getItem("last_order_id") || "N/A";
+
+    let msg = "";
+
+    if(type === "order"){
+      msg = `Hi, I have completed payment. Order ID: ${orderId}`;
+    } else {
+      msg = "Hi Project Eramdam";
+    }
+
+    const url = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
+
+    window.location.href = url;
+  };
+
+
+  // =========================
+  // ✅ 5. BACK TO PRODUCTS
+  // =========================
+  window.backToProducts = function(){
+
+    localStorage.removeItem("order_pending");
+
+    if(typeof toggleCart === "function"){
+      toggleCart();
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+
+  // =========================
+  // ✅ 6. FIX ANY target="_blank" RUNTIME
+  // =========================
+  setInterval(()=>{
+    document.querySelectorAll("a[target]").forEach(a=>{
+      a.removeAttribute("target");
+    });
+  }, 1000);
+
+
+  // =========================
+  // ✅ 7. HARD BLOCK window.open (final safety)
+  // =========================
+  window.open = function(url){
+    if(url){
+      window.location.href = url;
+    }
+    return null;
   };
 
 })();
