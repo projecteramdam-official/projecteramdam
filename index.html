@@ -1,4 +1,4 @@
-v7 redirect
+v8 redirect
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3653,6 +3653,60 @@ window.processOrderSuccess = function(){
   // do nothing → fully overridden
 };
 
+</script>
+<script>
+
+// =========================
+// 🚨 SAFE TOGGLE OVERRIDE (FINAL FIX)
+// =========================
+
+(function(){
+
+  const originalToggle = window.toggleCart;
+
+  window.toggleCart = function(e){
+
+    // 🚨 STOP EVENT CHAOS
+    if(e){
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
+
+    const sidebar = document.getElementById("cart-sidebar");
+    const overlay = document.getElementById("cart-sidebar-overlay");
+
+    if(!sidebar || !overlay) return;
+
+    const isOpen = !sidebar.classList.contains("translate-x-full");
+
+    // =========================
+    // 👉 IF CLOSING (THIS IS YOUR BUG CASE)
+    // =========================
+    if(isOpen){
+
+      // 🔥 HARD CLOSE (NO SIDE EFFECTS)
+      sidebar.classList.add("translate-x-full");
+      overlay.classList.add("invisible","opacity-0");
+
+      // 🔥 FORCE STOP ANY CLICK AFTER CLOSE
+      setTimeout(()=>{
+        document.activeElement?.blur();
+      }, 50);
+
+      return; // ❗ DO NOT RUN ORIGINAL LOGIC
+    }
+
+    // =========================
+    // 👉 IF OPENING → USE ORIGINAL
+    // =========================
+    if(typeof originalToggle === "function"){
+      originalToggle();
+    }
+
+  };
+
+})();
 </script>
 </body>
 </html>
