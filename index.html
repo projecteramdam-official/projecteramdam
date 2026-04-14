@@ -1,4 +1,4 @@
-v9 redirect
+v10 redirect
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3861,6 +3861,135 @@ window.processOrderSuccess = function(){
     }
     return null;
   };
+
+})();
+</script>
+<script>
+(function(){
+
+// =========================
+// ✅ 1. FORCE RETURN FLOW FIX
+// =========================
+document.addEventListener("DOMContentLoaded", function(){
+
+  const isPending = localStorage.getItem("order_pending");
+  const orderId = localStorage.getItem("last_order_id");
+
+  if(isPending === "true"){
+
+    // 👉 OPEN CART FORCEFULLY
+    const sidebar = document.getElementById("cart-sidebar");
+    const overlay = document.getElementById("cart-sidebar-overlay");
+
+    if(sidebar && overlay){
+      sidebar.classList.remove("translate-x-full");
+      overlay.classList.remove("invisible","opacity-0");
+    }
+
+    // 👉 WAIT THEN SWITCH STATE
+    setTimeout(()=>{
+
+      if(typeof switchSidebarState === "function"){
+        switchSidebarState("success");
+      }
+
+      // 👉 INJECT ORDER ID
+      const idBox = document.getElementById("display-order-id");
+      if(idBox && orderId){
+        idBox.innerText = orderId;
+      }
+
+      // 👉 ADD BUTTONS (ONLY IF NOT EXIST)
+      const footer = document.getElementById("success-action-footer");
+
+      if(footer && !footer.querySelector(".extra-actions")){
+
+        const wrap = document.createElement("div");
+        wrap.className = "extra-actions";
+        wrap.innerHTML = `
+
+          <div style="display:flex;gap:8px;margin-top:10px;">
+            <button onclick="handleWhatsAppRedirect('order')" style="flex:1;border:1px solid rgba(255,255,255,0.2);padding:12px;font-size:10px;text-transform:uppercase;letter-spacing:1px;">
+              Resend Screenshot
+            </button>
+
+            <button onclick="openOrderHistory()" style="flex:1;border:1px solid rgba(255,255,255,0.2);padding:12px;font-size:10px;text-transform:uppercase;letter-spacing:1px;">
+              Order History
+            </button>
+          </div>
+
+          <button onclick="backToProducts()" style="width:100%;margin-top:10px;border:1px solid rgba(255,255,255,0.1);padding:12px;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);">
+            Back to Products
+          </button>
+        `;
+
+        footer.appendChild(wrap);
+      }
+
+    }, 300);
+
+  }
+
+});
+
+
+// =========================
+// ✅ 2. SAFE WHATSAPP RESEND
+// =========================
+window.handleWhatsAppRedirect = function(type){
+
+  const orderId = localStorage.getItem("last_order_id") || "N/A";
+
+  let msg = "";
+
+  if(type === "order"){
+    msg = `Hi, I have completed payment. Order ID: ${orderId}`;
+  } else {
+    msg = "Hi Project Eramdam";
+  }
+
+  const url = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
+
+  window.location.href = url;
+};
+
+
+// =========================
+// ✅ 3. BACK TO PRODUCTS
+// =========================
+window.backToProducts = function(){
+
+  localStorage.removeItem("order_pending");
+
+  const sidebar = document.getElementById("cart-sidebar");
+  const overlay = document.getElementById("cart-sidebar-overlay");
+
+  if(sidebar && overlay){
+    sidebar.classList.add("translate-x-full");
+    overlay.classList.add("invisible","opacity-0");
+  }
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+
+// =========================
+// ✅ 4. HARD ENSURE ORDER SAVED
+// =========================
+const originalProcess = window.processOrderSuccess;
+
+window.processOrderSuccess = function(){
+
+  const orderId = "PE" + Date.now();
+
+  localStorage.setItem("last_order_id", orderId);
+  localStorage.setItem("order_pending", "true");
+
+  if(typeof originalProcess === "function"){
+    originalProcess();
+  }
+
+};
 
 })();
 </script>
