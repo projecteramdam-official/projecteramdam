@@ -1,4 +1,4 @@
-v5 redirect
+v6 redirect
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3573,6 +3573,46 @@ document.addEventListener("click", function(e){
     e.stopImmediatePropagation();
   }
 }, true);
+
+</script>
+<script>
+
+// =========================
+// 🚨 FIX: REMOVE BROKEN GLOBAL OVERRIDES
+// =========================
+
+// 1. Kill your global click hijack
+document.addEventListener("click", function(e){
+  // DO NOTHING → let browser handle links normally
+}, true);
+
+
+// 2. Restore normal window.open behavior
+window.open = function(url, target){
+  return window.originalOpen
+    ? window.originalOpen(url, target)
+    : window.location.assign(url);
+};
+
+
+// 3. Fix your payment button ONLY (clean control)
+window.processOrderSuccess = function(){
+
+  // save order
+  if(typeof sendOrderSilentFinal === "function"){
+    sendOrderSilentFinal();
+  }
+
+  const orderId = "PE" + Date.now();
+  localStorage.setItem("last_order_id", orderId);
+
+  const msg = `Hi, I have completed payment. Order ID: ${orderId}`;
+  const url = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
+
+  // ✅ OPEN CLEAN (NO CONFLICT)
+  window.open(url, "_blank", "noopener,noreferrer");
+
+};
 
 </script>
 </body>
