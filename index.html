@@ -1,4 +1,4 @@
-v6 redirect
+v7 redirect
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3612,6 +3612,45 @@ window.processOrderSuccess = function(){
   // ✅ OPEN CLEAN (NO CONFLICT)
   window.open(url, "_blank", "noopener,noreferrer");
 
+};
+
+</script>
+<script>
+
+// =========================
+// 🚨 HARD INTERCEPT BEFORE DOCUMENT (FINAL)
+// =========================
+window.addEventListener("click", function(e){
+
+  const target = e.target.closest("#iHavePaidBtn");
+  if(!target) return;
+
+  // 🔥 STOP EVERYTHING BEFORE IT REACHES DOCUMENT
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  // ===== YOUR CLEAN FLOW =====
+  if(typeof sendOrderSilentFinal === "function"){
+    sendOrderSilentFinal();
+  }
+
+  const orderId = "PE" + Date.now();
+  localStorage.setItem("last_order_id", orderId);
+
+  const msg = `Hi, I have completed payment. Order ID: ${orderId}`;
+  const url = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
+
+  // ✅ clean redirect
+  window.location.href = url;
+
+}, true); // ⚠️ capture phase (VERY IMPORTANT)
+
+
+// =========================
+// 🚨 DISABLE BROKEN FUNCTION COMPLETELY
+// =========================
+window.processOrderSuccess = function(){
+  // do nothing → fully overridden
 };
 
 </script>
