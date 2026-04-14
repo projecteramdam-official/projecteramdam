@@ -1,4 +1,4 @@
-v10 redirect
+v11 redirect
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -3867,95 +3867,111 @@ window.processOrderSuccess = function(){
 <script>
 (function(){
 
-// =========================
-// ✅ 1. FORCE RETURN FLOW FIX
-// =========================
-document.addEventListener("DOMContentLoaded", function(){
+<script>
+(function(){
 
-  const isPending = localStorage.getItem("order_pending");
+// =========================
+// 🔥 HARD SUCCESS RENDER (NO DEPENDENCY)
+// =========================
+function forceShowSuccess(){
+
   const orderId = localStorage.getItem("last_order_id");
+  const isPending = localStorage.getItem("order_pending");
 
-  if(isPending === "true"){
+  if(isPending !== "true") return;
 
-    // 👉 OPEN CART FORCEFULLY
-    const sidebar = document.getElementById("cart-sidebar");
-    const overlay = document.getElementById("cart-sidebar-overlay");
+  const sidebar = document.getElementById("cart-sidebar");
+  const overlay = document.getElementById("cart-sidebar-overlay");
 
-    if(sidebar && overlay){
-      sidebar.classList.remove("translate-x-full");
-      overlay.classList.remove("invisible","opacity-0");
-    }
+  if(!sidebar || !overlay) return;
 
-    // 👉 WAIT THEN SWITCH STATE
-    setTimeout(()=>{
+  // ✅ OPEN CART
+  sidebar.classList.remove("translate-x-full");
+  overlay.classList.remove("invisible","opacity-0");
 
-      if(typeof switchSidebarState === "function"){
-        switchSidebarState("success");
-      }
+  // ✅ HIDE ALL STATES
+  const states = [
+    "state-cart",
+    "state-checkout",
+    "state-payment",
+    "state-history"
+  ];
 
-      // 👉 INJECT ORDER ID
-      const idBox = document.getElementById("display-order-id");
-      if(idBox && orderId){
-        idBox.innerText = orderId;
-      }
+  states.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.classList.add("hidden");
+  });
 
-      // 👉 ADD BUTTONS (ONLY IF NOT EXIST)
-      const footer = document.getElementById("success-action-footer");
-
-      if(footer && !footer.querySelector(".extra-actions")){
-
-        const wrap = document.createElement("div");
-        wrap.className = "extra-actions";
-        wrap.innerHTML = `
-
-          <div style="display:flex;gap:8px;margin-top:10px;">
-            <button onclick="handleWhatsAppRedirect('order')" style="flex:1;border:1px solid rgba(255,255,255,0.2);padding:12px;font-size:10px;text-transform:uppercase;letter-spacing:1px;">
-              Resend Screenshot
-            </button>
-
-            <button onclick="openOrderHistory()" style="flex:1;border:1px solid rgba(255,255,255,0.2);padding:12px;font-size:10px;text-transform:uppercase;letter-spacing:1px;">
-              Order History
-            </button>
-          </div>
-
-          <button onclick="backToProducts()" style="width:100%;margin-top:10px;border:1px solid rgba(255,255,255,0.1);padding:12px;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);">
-            Back to Products
-          </button>
-        `;
-
-        footer.appendChild(wrap);
-      }
-
-    }, 300);
-
+  // ✅ SHOW SUCCESS
+  const success = document.getElementById("state-success");
+  if(success){
+    success.classList.remove("hidden");
   }
+
+  // ✅ INJECT ORDER ID
+  const idBox = document.getElementById("display-order-id");
+  if(idBox && orderId){
+    idBox.innerText = orderId;
+  }
+
+  // ✅ ADD BUTTONS
+  const footer = document.getElementById("success-action-footer");
+
+  if(footer && !footer.querySelector(".extra-actions")){
+
+    const wrap = document.createElement("div");
+    wrap.className = "extra-actions";
+
+    wrap.innerHTML = `
+      <div style="display:flex;gap:8px;margin-top:10px;">
+        <button onclick="handleWhatsAppRedirect('order')" style="flex:1;border:1px solid rgba(255,255,255,0.2);padding:12px;font-size:10px;text-transform:uppercase;">
+          Resend Screenshot
+        </button>
+
+        <button onclick="openOrderHistory()" style="flex:1;border:1px solid rgba(255,255,255,0.2);padding:12px;font-size:10px;text-transform:uppercase;">
+          Order History
+        </button>
+      </div>
+
+      <button onclick="backToProducts()" style="width:100%;margin-top:10px;border:1px solid rgba(255,255,255,0.1);padding:12px;font-size:10px;text-transform:uppercase;color:rgba(255,255,255,0.6);">
+        Back to Products
+      </button>
+    `;
+
+    footer.appendChild(wrap);
+  }
+
+}
+
+
+// =========================
+// 🔥 RUN MULTIPLE TIMES (GUARANTEED)
+// =========================
+window.addEventListener("load", ()=>{
+
+  setTimeout(forceShowSuccess, 300);
+  setTimeout(forceShowSuccess, 800);
+  setTimeout(forceShowSuccess, 1500);
 
 });
 
 
 // =========================
-// ✅ 2. SAFE WHATSAPP RESEND
+// 🔥 WHATSAPP RESEND
 // =========================
-window.handleWhatsAppRedirect = function(type){
+window.handleWhatsAppRedirect = function(){
 
   const orderId = localStorage.getItem("last_order_id") || "N/A";
 
-  let msg = "";
-
-  if(type === "order"){
-    msg = `Hi, I have completed payment. Order ID: ${orderId}`;
-  } else {
-    msg = "Hi Project Eramdam";
-  }
-
-  const url = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
+  const url = "https://wa.me/919366659414?text=" +
+    encodeURIComponent("Hi, I have completed payment. Order ID: " + orderId);
 
   window.location.href = url;
 };
 
 
 // =========================
-// ✅ 3. BACK TO PRODUCTS
+// 🔥 BACK TO PRODUCTS
 // =========================
 window.backToProducts = function(){
 
@@ -3969,14 +3985,13 @@ window.backToProducts = function(){
     overlay.classList.add("invisible","opacity-0");
   }
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
 
 // =========================
-// ✅ 4. HARD ENSURE ORDER SAVED
+// 🔥 FORCE SAVE ORDER STATE
 // =========================
-const originalProcess = window.processOrderSuccess;
+const oldProcess = window.processOrderSuccess;
 
 window.processOrderSuccess = function(){
 
@@ -3985,13 +4000,15 @@ window.processOrderSuccess = function(){
   localStorage.setItem("last_order_id", orderId);
   localStorage.setItem("order_pending", "true");
 
-  if(typeof originalProcess === "function"){
-    originalProcess();
+  if(typeof oldProcess === "function"){
+    oldProcess();
   }
 
 };
 
 })();
 </script>
+    
 </body>
+    
 </html>
