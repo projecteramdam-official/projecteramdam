@@ -1,6 +1,4 @@
-color and size
-
-
+SIze and color fixed
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1469,12 +1467,18 @@ color and size
         const selectSize = (size) => {
             selectedSize = size;
             document.querySelectorAll('.size-btn').forEach(btn => {
-                btn.classList.toggle('bg-white', btn.dataset.size === size); btn.classList.toggle('text-black', btn.dataset.size === size);
-                btn.classList.toggle('border-white', btn.dataset.size === size); btn.classList.toggle('border-white/20', btn.dataset.size !== size);
-            });
-            validateForm(); playTock();
-        };
+    btn.classList.toggle('bg-white', btn.dataset.size === size);
+    btn.classList.toggle('text-black', btn.dataset.size === size);
+    btn.classList.toggle('border-white', btn.dataset.size === size);
+    btn.classList.toggle('border-white/20', btn.dataset.size !== size);
 
+    btn.style.color = btn.dataset.size === size ? "#000" : "";
+}); // ← loop ends here
+
+validateForm();
+playTock();
+
+}; // ← function ends here
         const selectColor = (c) => {
             selectedColor = c;
             document.querySelectorAll('.color-option').forEach(el => {
@@ -1973,5 +1977,3 @@ window.fetchOrders = fetchOrdersPremium;
     </script>
 </body>
 </html>
-
-
