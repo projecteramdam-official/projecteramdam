@@ -1,6 +1,4 @@
-track
-
-almost there
+ Product details..
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1890,44 +1888,63 @@ window.backToProducts = function () {
         const tracking = r[15] || "Pending";
 
 return `
-<div class="premium-order">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div>
-            <div style="font-size:12px;font-weight:bold;font-family:'Inter', sans-serif;">${r[1]}</div>
-            <div style="font-size:10px;color:#888;font-family:'Inter', sans-serif;">
+<div class="premium-order" style="padding:12px;border-bottom:1px solid #222;">
+
+    <!-- TOP ROW -->
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+
+        <!-- LEFT SIDE -->
+        <div style="flex:1;">
+            <div style="font-size:12px;font-weight:bold;font-family:'Inter', sans-serif;">
+                Order #${r[1]}
+            </div>
+
+            <div style="font-size:10px;color:#888;font-family:'Inter', sans-serif;margin-top:2px;">
+                ${formatOrderDate(r[0])}
+            </div>
+
+            <div style="font-size:10px;color:#aaa;margin-top:2px;">
                 ${status} <span class="badge">LIVE</span>
             </div>
         </div>
 
-        <div style="text-align:right;">
-    ${r[15] ? `
-        <div style="font-size:10px;color:#aaa;font-family:'Inter', sans-serif;">
-            ID: ${r[15]}
+        <!-- RIGHT SIDE (TRACKING) -->
+        <div style="text-align:right;min-width:90px;">
+            ${r[15] ? `
+                <div style="font-size:10px;color:#aaa;font-family:'Inter', sans-serif;">
+                    ID: ${r[15]}
+                </div>
+
+                ${r[16] ? `
+                    <div style="font-size:9px;color:#666;font-family:'Inter', sans-serif;">
+                        ${r[16]}
+                    </div>
+                ` : ""}
+
+                <a href="${
+                    r[16] 
+                        ? `https://www.google.com/search?q=${r[15]}+${r[16]}+tracking`
+                        : `https://www.google.com/search?q=${r[15]}+tracking`
+                }"
+                target="_blank"
+                style="font-size:11px;color:#25D366;font-weight:bold;display:inline-block;margin-top:3px;">
+                    Track →
+                </a>
+            ` : `
+                <div style="font-size:10px;color:#444;">
+                    Not shipped
+                </div>
+            `}
         </div>
+    </div>
 
-        ${r[16] ? `
-            <div style="font-size:9px;color:#666;font-family:'Inter', sans-serif;">
-                ${r[16]}
-            </div>
-        ` : ""}
+    <!-- PRODUCT DETAILS -->
+    <div style="margin-top:8px;font-size:12px;line-height:1.4;color:#ddd;">
+        ${r[2]}
+    </div>
 
-        <a href="${
-            r[16] 
-                ? `https://www.google.com/search?q=${r[15]}+${r[16]}+tracking`
-                : `https://www.google.com/search?q=${r[15]}+tracking`
-        }"
-        target="_blank"
-        style="font-size:10px;color:#25D366;font-weight:bold;">
-            Track →
-        </a>
-    ` : ""}
 </div>
-    </div>
-
-    <div class="timeline">
-        ${buildTimeline(status)}
-    </div>
-</div>`;    });
+`;    });
 
     container.innerHTML = html.join("");
 }
