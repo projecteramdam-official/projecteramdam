@@ -1,3 +1,5 @@
+1234
+
 fixed all
 
 
@@ -1612,7 +1614,7 @@ fingers crossed
             };
         }
 
-        window.processOrderSuccess = function() {
+window.processOrderSuccess = function() {
     playTock();
     
     const name = document.getElementById("dlv-name")?.value || "";
@@ -1627,7 +1629,7 @@ fingers crossed
         return; 
     }
 
-    // Save phone & pending state
+    // Save state
     localStorage.setItem("user_phone", phone.replace(/\D/g, ""));
     const orderId = "PE" + Date.now();
     localStorage.setItem("last_order_id", orderId);
@@ -1636,7 +1638,7 @@ fingers crossed
     const data = extractProductData();
     const total = (document.getElementById("cart-total")?.innerText || "0").replace("₹","").trim();
 
-    // Google Form submit
+    // Google Form
     const params = new URLSearchParams();
     params.append("entry.715690915", orderId);
     params.append("entry.2092671810", data.product);
@@ -1649,7 +1651,7 @@ fingers crossed
     params.append("entry.1810693968", address);
     params.append("entry.335078953", pincode);
     params.append("entry.1982148271", city);
-    params.append("entry.1464883250", state); // ✅ FIXED
+    params.append("entry.1464883250", state);
     params.append("entry.2070227970", "Paid");
 
     fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
@@ -1658,13 +1660,41 @@ fingers crossed
         body: params
     }).catch(()=>{});
 
-    // WhatsApp message
-    const msg = ` *Project Eramdam Order*
+    // =============================
+    // CLEAR CART AFTER ORDER
+    // =============================
+
+    localStorage.removeItem("cart");
+
+    if (typeof cart !== "undefined") {
+        cart = [];
+    }
+
+    const totalEl = document.getElementById("cart-total");
+    if (totalEl) totalEl.innerText = "₹0";
+
+    if (typeof renderCart === "function") renderCart();
+    if (typeof updateCartBadge === "function") updateCartBadge();
+
+    const wrapper = document.getElementById("cart-items-wrapper");
+    if (wrapper) {
+        wrapper.innerHTML = `
+            <p style="text-align:center; opacity:0.5; font-size:12px;">
+                Your cart is now empty. Add items for a new order.
+            </p>
+        `;
+    }
+
+    // =============================
+    // WHATSAPP REDIRECT (IMPORTANT)
+    // =============================
+
+    const msg = `Project Eramdam Order
 Order ID: ${orderId}
 
- Name: ${name}
- Phone: ${phone}
- Address: ${address}, ${city}, ${state} - ${pincode}
+Name: ${name}
+Phone: ${phone}
+Address: ${address}, ${city}, ${state} - ${pincode}
 
 Product: ${data.product}
 Size: ${data.size}
@@ -1672,17 +1702,23 @@ Color: ${data.color}
 Qty: ${data.quantity}
 Total: ₹${total}
 
-Payment completed. Sharing screenshot below for verification.`;
+Payment completed. Sharing screenshot below.`;
 
     const whatsappURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
 
+    window.location.href = whatsappURL;
+
+    setTimeout(() => {
+        window.open(whatsappURL, "_blank");
+    }, 100);
+};
     // 🚀 DIRECT REDIRECT (NO TIMEOUT)
     window.location.href = whatsappURL;
 
     // fallback safety
     setTimeout(() => {
         window.open(whatsappURL, "_blank");
-    }, 800);
+    }, 100);
 };
         // 2. State Restoration on Return
         function restoreOrderState() {
@@ -1750,18 +1786,32 @@ window.addEventListener("pageshow", function (event) {
             window.location.href = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
         };
 
-        window.backToProducts = function(){
-            localStorage.removeItem("order_pending");
-            cart = []; saveCart(); // Clear cart as order is done
-            const sidebar = document.getElementById("cart-sidebar");
-            const overlay = document.getElementById("cart-sidebar-overlay");
-            if (sidebar && overlay) {
-                sidebar.classList.add("translate-x-full");
-                overlay.classList.add("invisible", "opacity-0");
-            }
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        };
+        window.backToProducts = function () {
+    try {
+        // 1. Close sidebar
+        const sidebar = document.getElementById("cart-sidebar");
+        const overlay = document.getElementById("cart-sidebar-overlay");
 
+        if (sidebar) sidebar.classList.add("translate-x-full");
+        if (overlay) overlay.classList.add("invisible", "opacity-0");
+
+        // 2. Unlock scroll (CRITICAL)
+        document.body.style.overflow = "auto";
+        document.body.classList.remove("overflow-hidden");
+        document.documentElement.style.overflow = "auto"; // ✅ ADD THIS
+
+        // 3. Reset state
+        localStorage.removeItem("order_pending");
+
+        // 4. Scroll to top
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 50);
+
+    } catch (e) {
+        console.error("Back to products failed:", e);
+    }
+};
         // 3. Premium Order History (CSV Parsing & Live Updates)
         function parseCSV(text){
             const rows = []; let row = []; let cell = ''; let inQuotes = false;
