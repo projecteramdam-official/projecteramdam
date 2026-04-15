@@ -1,4 +1,4 @@
-P
+auto clear cart
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1755,6 +1755,10 @@ if (wrapper) {
 // 4. Reset total
 const totalEl = document.getElementById("cart-total");
 if (totalEl) totalEl.innerText = "₹0";
+
+// 5. Sync live cart state too
+cart = [];
+updateCartUI();
     // =============================
     // FIRE GOOGLE FORM (background)
     // =============================
