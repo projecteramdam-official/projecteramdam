@@ -1,4 +1,4 @@
-Yes???
+Please YES
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1388,21 +1388,45 @@ Yes???
         const removeFromCart = (index) => { cart.splice(index, 1); saveCart(); playTock(); if(cart.length === 0) switchSidebarState('cart'); };
 
         window.toggleCart = function(e){
-            if(e){ e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); }
-            const sidebar = document.getElementById("cart-sidebar");
-            const overlay = document.getElementById("cart-sidebar-overlay");
-            if(!sidebar || !overlay) return;
-            const isOpen = !sidebar.classList.contains("translate-x-full");
+    const fromPopState = e === true;
 
-            playTock();
-            if(isOpen){
-              sidebar.classList.add("translate-x-full"); overlay.classList.add("invisible","opacity-0"); document.body.style.overflow = '';
-              setTimeout(()=>{ document.activeElement?.blur(); }, 50);
-              return;
-            }
-            updateCartUI(); switchSidebarState('cart');
-            document.body.style.overflow = 'hidden'; sidebar.classList.remove('translate-x-full'); overlay.classList.remove('invisible', 'opacity-0');
-        };
+    if (e && typeof e.preventDefault === "function") {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+    }
+
+    const sidebar = document.getElementById("cart-sidebar");
+    const overlay = document.getElementById("cart-sidebar-overlay");
+    if(!sidebar || !overlay) return;
+
+    const isOpen = !sidebar.classList.contains("translate-x-full");
+
+    playTock();
+
+    if(isOpen){
+        sidebar.classList.add("translate-x-full");
+        overlay.classList.add("invisible","opacity-0");
+        document.body.style.overflow = '';
+        isCartSidebarOpen = false;
+
+        if (!fromPopState && history.state && history.state.modal === "cart") {
+            history.back();
+        }
+
+        setTimeout(()=>{ document.activeElement?.blur(); }, 50);
+        return;
+    }
+
+    updateCartUI();
+    switchSidebarState('cart');
+    isCartSidebarOpen = true;
+    history.pushState({ modal: 'cart' }, "");
+
+    document.body.style.overflow = 'hidden';
+    sidebar.classList.remove('translate-x-full');
+    overlay.classList.remove('invisible', 'opacity-0');
+};
 
         const toggleMenu = (fromPopState = false) => {
             const menu = document.getElementById('mobile-menu'); const overlay = document.getElementById('mobile-menu-overlay');
@@ -1786,26 +1810,27 @@ setTimeout(() => {
         window.handleWhatsAppRedirect = function(type){
     const orderId = localStorage.getItem("last_order_id") || "N/A";
     let msg = type === "order"
+        ? `Hi, I have completed payment. Order ID: ${ window.handleWhatsAppRedirect = function(type){
+    const orderId = localStorage.getItem("last_order_id") || "N/A";
+    const msg = type === "order"
         ? `Hi, I have completed payment. Order ID: ${orderId}`
         : "Hi Project Eramdam";
 
-    // WhatsApp redirect (APP → fallback WEB)
-const appURL = `whatsapp://send?phone=919366659414&text=${encodeURIComponent(msg)}`;
-const webURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
+    const webURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
 
-// try app first
-window.location.href = appURL;
-
-// fallback
-setTimeout(() => {
-window.location.href = webURL;
-}, 800);
-
+    const a = document.createElement("a");
+    a.href = webURL;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
 };
 window.backToProducts = function () {
     try {
         const sidebar = document.getElementById("cart-sidebar");
         const overlay = document.getElementById("cart-sidebar-overlay");
+        const dropSection = document.getElementById("drop");
 
         if (sidebar) sidebar.classList.add("translate-x-full");
         if (overlay) overlay.classList.add("invisible", "opacity-0");
@@ -1817,7 +1842,9 @@ window.backToProducts = function () {
         localStorage.removeItem("order_pending");
 
         setTimeout(() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (dropSection) {
+                dropSection.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
         }, 50);
 
     } catch (e) {
@@ -1989,6 +2016,7 @@ function restoreOrderState(force = false) {
                     </button>
                 `;
                 footer.appendChild(wrap);
+                localStorage.removeItem("order_pending");
             }
         }, 100);
     }
@@ -2015,5 +2043,4 @@ window.fetchOrders = fetchOrdersPremium;
     </script>
 </body>
 </html>
-
 
