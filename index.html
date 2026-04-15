@@ -1,4 +1,4 @@
-Very close
+almost there
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1713,16 +1713,18 @@ fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULR
 // Show success instantly
 restoreOrderState();
 
-// FAST open (mobile first)
-// ✅ OPEN WHATSAPP IN NEW TAB (PC FIX)
-const newTab = window.open(whatsappURL, "_blank");
+// ✅ SAFE WHATSAPP OPEN (MATCHES OTHER BUTTONS)
+const finalURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
 
-// ✅ fallback if popup blocked (mobile safe)
-setTimeout(() => {
-    if (!newTab || newTab.closed || typeof newTab.closed === "undefined") {
-        window.location.href = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
-    }
-}, 800);
+// open like real user click
+const a = document.createElement("a");
+a.href = finalURL;
+a.target = "_blank";
+a.rel = "noopener noreferrer";
+document.body.appendChild(a);
+a.click();
+a.remove();
+
 setTimeout(() => {
     window.__orderProcessing = false;
 }, 2000);
