@@ -1,4 +1,4 @@
-10
+101
 
 
 <!DOCTYPE html>
@@ -2117,25 +2117,8 @@ function restoreOrderState(force = false) {
 
         return;
     }
-}
-
-    if (phaseAlive) {
-        const sidebar = document.getElementById("cart-sidebar");
-        const overlay = document.getElementById("cart-sidebar-overlay");
-
-        if (sidebar && overlay) {
-            sidebar.classList.remove("translate-x-full");
-            overlay.classList.remove("invisible", "opacity-0");
-        }
-
-        setTimeout(() => {
-            switchSidebarState("payment");
-        }, 100);
-
-
-    }
-}
-        // expose globally
+    
+    // expose globally
 // When user comes back to tab (WhatsApp → browser)
 document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "visible") {
