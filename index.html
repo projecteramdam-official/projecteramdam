@@ -1,4 +1,6 @@
-SIze and color fixed
+new new
+
+almost there
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1887,22 +1889,37 @@ window.backToProducts = function () {
         const status = r[14] || "Processing";
         const tracking = r[15] || "Pending";
 
-        return `
-        <div class="premium-order">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <div>
-                    <div style="font-size:12px;font-weight:bold;font-family:'Inter', sans-serif;">${r[1]}</div>
-                    <div style="font-size:10px;color:#888;font-family:'Inter', sans-serif;">
-                        ${status} <span class="badge">LIVE</span>
-                    </div>
+return `
+<div class="premium-order">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+            <div style="font-size:12px;font-weight:bold;font-family:'Inter', sans-serif;">${r[1]}</div>
+            <div style="font-size:10px;color:#888;font-family:'Inter', sans-serif;">
+                ${status} <span class="badge">LIVE</span>
+            </div>
+        </div>
+
+        <div style="text-align:right;">
+            ${r[15] ? `
+                <div style="font-size:10px;color:#aaa;font-family:'Inter', sans-serif;">
+                    ${r[15]}
                 </div>
-                <div style="font-size:10px;color:#aaa;font-family:'Inter', sans-serif;">${tracking}</div>
-            </div>
-            <div class="timeline">
-                ${buildTimeline(status)}
-            </div>
-        </div>`;
-    });
+                <a href="${r[16] 
+                    ? `https://www.google.com/search?q=${r[15]}+${r[16]}+tracking`
+                    : `https://www.google.com/search?q=${r[15]}+tracking`
+                }"
+                target="_blank"
+                style="font-size:10px;color:#25D366;font-weight:bold;">
+                Track →
+                </a>
+            ` : ""}
+        </div>
+    </div>
+
+    <div class="timeline">
+        ${buildTimeline(status)}
+    </div>
+</div>`;    });
 
     container.innerHTML = html.join("");
 }
@@ -1977,3 +1994,5 @@ window.fetchOrders = fetchOrdersPremium;
     </script>
 </body>
 </html>
+
+
