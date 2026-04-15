@@ -1,4 +1,4 @@
-Please YES
+P
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1809,23 +1809,22 @@ setTimeout(() => {
 
         window.handleWhatsAppRedirect = function(type){
     const orderId = localStorage.getItem("last_order_id") || "N/A";
-    let msg = type === "order"
-        ? `Hi, I have completed payment. Order ID: ${ window.handleWhatsAppRedirect = function(type){
-    const orderId = localStorage.getItem("last_order_id") || "N/A";
-    const msg = type === "order"
-        ? `Hi, I have completed payment. Order ID: ${orderId}`
+
+    const msg = (type === "order")
+        ? "Hi, I have completed payment. Order ID: " + orderId
         : "Hi Project Eramdam";
 
-    const webURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
+    const url = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
 
     const a = document.createElement("a");
-    a.href = webURL;
+    a.href = url;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
     document.body.appendChild(a);
     a.click();
     a.remove();
 };
+        
 window.backToProducts = function () {
     try {
         const sidebar = document.getElementById("cart-sidebar");
