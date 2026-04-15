@@ -1,4 +1,4 @@
-new new
+track
 
 almost there
 
@@ -1900,20 +1900,28 @@ return `
         </div>
 
         <div style="text-align:right;">
-            ${r[15] ? `
-                <div style="font-size:10px;color:#aaa;font-family:'Inter', sans-serif;">
-                    ${r[15]}
-                </div>
-                <a href="${r[16] 
-                    ? `https://www.google.com/search?q=${r[15]}+${r[16]}+tracking`
-                    : `https://www.google.com/search?q=${r[15]}+tracking`
-                }"
-                target="_blank"
-                style="font-size:10px;color:#25D366;font-weight:bold;">
-                Track →
-                </a>
-            ` : ""}
+    ${r[15] ? `
+        <div style="font-size:10px;color:#aaa;font-family:'Inter', sans-serif;">
+            ID: ${r[15]}
         </div>
+
+        ${r[16] ? `
+            <div style="font-size:9px;color:#666;font-family:'Inter', sans-serif;">
+                ${r[16]}
+            </div>
+        ` : ""}
+
+        <a href="${
+            r[16] 
+                ? `https://www.google.com/search?q=${r[15]}+${r[16]}+tracking`
+                : `https://www.google.com/search?q=${r[15]}+tracking`
+        }"
+        target="_blank"
+        style="font-size:10px;color:#25D366;font-weight:bold;">
+            Track →
+        </a>
+    ` : ""}
+</div>
     </div>
 
     <div class="timeline">
