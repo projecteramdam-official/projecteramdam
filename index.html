@@ -1,4 +1,5 @@
-IDK anymore:
+Well Well
+
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1653,29 +1654,36 @@ Payment completed. Sharing screenshot below.`;
 
     const whatsappURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
 
-    // =============================
-    // CLEAR CART (BEFORE REDIRECT)
-    // =============================
-    localStorage.removeItem("cart");
+// =============================
+// CLEAR CART AFTER ORDER (FINAL CLEAN FIX)
+// =============================
 
-    if (typeof cart !== "undefined") {
-        cart = [];
-    }
+// 1. HARD RESET STORAGE
+localStorage.removeItem("cart");
 
-    if (typeof renderCart === "function") renderCart();
-    if (typeof updateCartBadge === "function") updateCartBadge();
+// 2. FORCE EMPTY ARRAY (prevents ghost reloads)
+localStorage.setItem("cart", JSON.stringify([]));
 
-    const wrapper = document.getElementById("cart-items-wrapper");
-    if (wrapper) {
-        wrapper.innerHTML = `
-            <p style="text-align:center; opacity:0.5; font-size:12px;">
-                Your cart is now empty. Add items for a new order.
-            </p>
-        `;
-    }
+// 3. RESET BADGE MANUALLY (since no renderCart)
+const badge = document.getElementById("cart-badge");
+if (badge) {
+    badge.innerText = "0";
+    badge.classList.add("hidden");
+}
 
-    const totalEl = document.getElementById("cart-total");
-    if (totalEl) totalEl.innerText = "₹0";
+// 4. CLEAR CART UI (DOM)
+const wrapper = document.getElementById("cart-items-wrapper");
+if (wrapper) {
+    wrapper.innerHTML = `
+        <p style="text-align:center; opacity:0.5; font-size:12px;">
+            Your cart is now empty. Add items for a new order.
+        </p>
+    `;
+}
+
+// 5. RESET TOTAL
+const totalEl = document.getElementById("cart-total");
+if (totalEl) totalEl.innerText = "₹0";
 
     // =============================
     // FIRE GOOGLE FORM (background)
@@ -1702,11 +1710,20 @@ fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULR
     body: params
 }).catch(()=>{});
 
-// 2. THEN REDIRECT (slight delay for smoothness)
+// =============================
+// FINAL REDIRECT FIX (FAST + SAFE)
+// =============================
+
+// Show success instantly
+restoreOrderState();
+
+// Open WhatsApp in new tab (no freeze, no redirect issues)
+window.open(whatsappURL, "_blank");
+
+// Optional UX polish
 setTimeout(() => {
-    window.location.href = whatsappURL;
-}, 50);
-};
+    window.focus();
+}, 300);
           // 2. State Restoration on Return
         function restoreOrderState() {
             const isPending = localStorage.getItem("order_pending");
