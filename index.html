@@ -1,4 +1,4 @@
-Just work, im tired already
+Very close
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1714,12 +1714,15 @@ fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULR
 restoreOrderState();
 
 // FAST open (mobile first)
-window.location.href = whatsappURL;
+// ✅ OPEN WHATSAPP IN NEW TAB (PC FIX)
+const newTab = window.open(whatsappURL, "_blank");
 
-// fallback if app not installed
+// ✅ fallback if popup blocked (mobile safe)
 setTimeout(() => {
-    window.location.href = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
-}, 1000);
+    if (!newTab || newTab.closed || typeof newTab.closed === "undefined") {
+        window.location.href = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
+    }
+}, 800);
 setTimeout(() => {
     window.__orderProcessing = false;
 }, 2000);
@@ -1861,9 +1864,12 @@ window.backToProducts = function () {
             }
 }
 
-function restoreOrderState() {
+function restoreOrderState(force = false) {
     const isPending = localStorage.getItem("order_pending");
     const orderId = localStorage.getItem("last_order_id");
+
+    // ✅ ONLY restore when forced OR real pending
+    if (!force && isPending !== "true") return;
 
     if (isPending === "true") {
         const sidebar = document.getElementById("cart-sidebar");
@@ -1906,14 +1912,16 @@ function restoreOrderState() {
 // When user comes back to tab (WhatsApp → browser)
 document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "visible") {
-        restoreOrderState();
+        if (localStorage.getItem("order_pending") === "true") {
+            restoreOrderState(true);
+        }
     }
 });
 
 // When page is restored from cache (mobile back button case)
 window.addEventListener("pageshow", function (event) {
-    if (event.persisted) {
-        restoreOrderState();
+    if (event.persisted && localStorage.getItem("order_pending") === "true") {
+        restoreOrderState(true);
     }
 });
 
@@ -1922,4 +1930,5 @@ window.fetchOrders = fetchOrdersPremium;
     </script>
 </body>
 </html>
+
 
