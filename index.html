@@ -2054,7 +2054,7 @@ function restoreOrderState(force = false) {
         orderId = snapshot.orderId || orderId;
     }
 
-    if (!force && isPending !== "true") return;
+    if (!force && isPending !== "true" && !snapshotAlive) return;
 
     if (isPending === "true") {
         const sidebar = document.getElementById("cart-sidebar");
@@ -2118,8 +2118,6 @@ function restoreOrderState(force = false) {
         return;
     }
 }
-    // Recover payment screen after UPI return/reload
-    if (!force && !phaseAlive) return;
 
     if (phaseAlive) {
         const sidebar = document.getElementById("cart-sidebar");
