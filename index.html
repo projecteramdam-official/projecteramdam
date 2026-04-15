@@ -1,3 +1,5 @@
+fingers crossed
+
 1
 
 <!DOCTYPE html>
@@ -1607,56 +1609,78 @@
             };
         }
 
-        // 1. Core Order Processing (Handles G-Form and WA Redirect cleanly)
         window.processOrderSuccess = function() {
-            playTock();
-            
-            const name = document.getElementById("dlv-name")?.value || "";
-            const phone = document.getElementById("dlv-phone")?.value || "";
-            const address = document.getElementById("dlv-address")?.value || "";
-            const pincode = document.getElementById("dlv-pincode")?.value || "";
-            const city = document.getElementById("dlv-city")?.value || "";
-            const state = document.getElementById("dlv-state")?.value || "";
+    playTock();
+    
+    const name = document.getElementById("dlv-name")?.value || "";
+    const phone = document.getElementById("dlv-phone")?.value || "";
+    const address = document.getElementById("dlv-address")?.value || "";
+    const pincode = document.getElementById("dlv-pincode")?.value || "";
+    const city = document.getElementById("dlv-city")?.value || "";
+    const state = document.getElementById("dlv-state")?.value || "";
 
-            if (!name || !phone || !address) { alert("Please ensure delivery details are filled."); return; }
+    if (!name || !phone || !address) { 
+        alert("Please ensure delivery details are filled."); 
+        return; 
+    }
 
-            // Save phone & pending state for return tracking
-            localStorage.setItem("user_phone", phone.replace(/\D/g, ""));
-            const orderId = "PE" + Date.now();
-            localStorage.setItem("last_order_id", orderId);
-            localStorage.setItem("order_pending", "true");
+    // Save phone & pending state
+    localStorage.setItem("user_phone", phone.replace(/\D/g, ""));
+    const orderId = "PE" + Date.now();
+    localStorage.setItem("last_order_id", orderId);
+    localStorage.setItem("order_pending", "true");
 
-            const data = extractProductData();
-            const total = (document.getElementById("cart-total")?.innerText || "0").replace("₹","").trim();
+    const data = extractProductData();
+    const total = (document.getElementById("cart-total")?.innerText || "0").replace("₹","").trim();
 
-            // Send to Google form silently using no-cors fetch (reliable, no hidden iframes needed)
-            const params = new URLSearchParams();
-            params.append("entry.715690915", orderId);
-            params.append("entry.2092671810", data.product);
-            params.append("entry.1214460634", data.size);
-            params.append("entry.2043910785", data.color);
-            params.append("entry.336831517", data.quantity);
-            params.append("entry.1392433275", total);
-            params.append("entry.1712849668", name);
-            params.append("entry.1222474464", phone);
-            params.append("entry.1810693968", address);
-            params.append("entry.335078953", pincode);
-            params.append("entry.1982148271", city);
-            add("entry.1464883250", state);
-            params.append("entry.2070227970", "Paid");
+    // Google Form submit
+    const params = new URLSearchParams();
+    params.append("entry.715690915", orderId);
+    params.append("entry.2092671810", data.product);
+    params.append("entry.1214460634", data.size);
+    params.append("entry.2043910785", data.color);
+    params.append("entry.336831517", data.quantity);
+    params.append("entry.1392433275", total);
+    params.append("entry.1712849668", name);
+    params.append("entry.1222474464", phone);
+    params.append("entry.1810693968", address);
+    params.append("entry.335078953", pincode);
+    params.append("entry.1982148271", city);
+    params.append("entry.1464883250", state); // ✅ FIXED
+    params.append("entry.2070227970", "Paid");
 
-            fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
-                method: "POST", mode: "no-cors", body: params
-            }).catch(()=>{});
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        body: params
+    }).catch(()=>{});
 
-            // Redirect to WhatsApp in same tab
-            const msg = `🧾 *Project Eramdam Order*\nOrder ID: ${orderId}\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n📮 Pincode: ${pincode}\n\nPayment completed. Sharing screenshot below for verification.`;
-            const whatsappURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
-            
-            // Give fetch a tiny headstart, then redirect
-            setTimeout(() => { window.location.href = whatsappURL; }, 200);
-        };
+    // WhatsApp message
+    const msg = ` *Project Eramdam Order*
+Order ID: ${orderId}
 
+ Name: ${name}
+ Phone: ${phone}
+ Address: ${address}, ${city}, ${state} - ${pincode}
+
+Product: ${data.product}
+Size: ${data.size}
+Color: ${data.color}
+Qty: ${data.quantity}
+Total: ₹${total}
+
+Payment completed. Sharing screenshot below for verification.`;
+
+    const whatsappURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
+
+    // 🚀 DIRECT REDIRECT (NO TIMEOUT)
+    window.location.href = whatsappURL;
+
+    // fallback safety
+    setTimeout(() => {
+        window.open(whatsappURL, "_blank");
+    }, 800);
+};
         // 2. State Restoration on Return
         function restoreOrderState() {
             const isPending = localStorage.getItem("order_pending");
