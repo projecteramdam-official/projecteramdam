@@ -1,4 +1,4 @@
-Well Well6
+Well Well7
 
 
 <!DOCTYPE html>
@@ -1724,49 +1724,7 @@ window.open(whatsappURL, "_blank");
 setTimeout(() => {
     window.focus();
 }, 300);
-          // 2. State Restoration on Return
-        function restoreOrderState() {
-            const isPending = localStorage.getItem("order_pending");
-            const orderId = localStorage.getItem("last_order_id");
-
-            if (isPending === "true") {
-                // Auto open sidebar to success state
-                const sidebar = document.getElementById("cart-sidebar");
-                const overlay = document.getElementById("cart-sidebar-overlay");
-                
-                if (sidebar && overlay) {
-                    sidebar.classList.remove("translate-x-full");
-                    overlay.classList.remove("invisible", "opacity-0");
-                }
-
-                setTimeout(() => {
-                    switchSidebarState("success");
-                    
-                    const idBox = document.getElementById("display-order-id");
-                    if(idBox && orderId) idBox.innerText = "Order ID: " + orderId;
-                    
-                    const footer = document.getElementById("success-action-footer");
-                    if (footer && !footer.querySelector(".extra-actions")) {
-                        const wrap = document.createElement("div");
-                        wrap.className = "extra-actions w-full";
-                        wrap.innerHTML = `
-                            <div style="display:flex;gap:8px;margin-top:10px;">
-                                <button onclick="handleWhatsAppRedirect('order')" class="flex-1 bg-[#25D366] text-white py-3 transition-all rounded-sm hover:bg-[#1ebe5d] font-inter text-[10px] uppercase font-bold tracking-widest text-center">
-                                    Resend SS
-                                </button>
-                                <button onclick="openOrderHistory()" class="flex-1 border border-white/20 text-white py-3 transition-all rounded-sm hover:bg-white/10 font-inter text-[10px] uppercase font-bold tracking-widest text-center">
-                                    Order History
-                                </button>
-                            </div>
-                            <button onclick="backToProducts()" class="w-full mt-3 bg-white/5 border border-white/10 py-3 transition-all rounded-sm hover:bg-white/10 font-inter text-[10px] uppercase font-bold tracking-widest text-center text-white/60">
-                                Back to Products
-                            </button>
-                        `;
-                        footer.appendChild(wrap);
-                    }
-                }, 100);
-            }
-        }
+          
 // =============================
 // TRIGGER RESTORE ON RETURN
 // =============================
@@ -1909,7 +1867,48 @@ window.addEventListener("pageshow", function (event) {
             }
 }
 
-// expose globally
+function restoreOrderState() {
+    const isPending = localStorage.getItem("order_pending");
+    const orderId = localStorage.getItem("last_order_id");
+
+    if (isPending === "true") {
+        const sidebar = document.getElementById("cart-sidebar");
+        const overlay = document.getElementById("cart-sidebar-overlay");
+
+        if (sidebar && overlay) {
+            sidebar.classList.remove("translate-x-full");
+            overlay.classList.remove("invisible", "opacity-0");
+        }
+
+        setTimeout(() => {
+            switchSidebarState("success");
+
+            const idBox = document.getElementById("display-order-id");
+            if(idBox && orderId) idBox.innerText = "Order ID: " + orderId;
+
+            const footer = document.getElementById("success-action-footer");
+            if (footer && !footer.querySelector(".extra-actions")) {
+                const wrap = document.createElement("div");
+                wrap.className = "extra-actions w-full";
+                wrap.innerHTML = `
+                    <div style="display:flex;gap:8px;margin-top:10px;">
+                        <button onclick="handleWhatsAppRedirect('order')" class="flex-1 bg-[#25D366] text-white py-3 rounded-sm text-[10px] uppercase font-bold tracking-widest">
+                            Resend SS
+                        </button>
+                        <button onclick="openOrderHistory()" class="flex-1 border border-white/20 text-white py-3 rounded-sm text-[10px] uppercase font-bold tracking-widest">
+                            Order History
+                        </button>
+                    </div>
+                    <button onclick="backToProducts()" class="w-full mt-3 border border-white/10 py-3 rounded-sm text-[10px] uppercase font-bold tracking-widest text-white/60">
+                        Back to Products
+                    </button>
+                `;
+                footer.appendChild(wrap);
+            }
+        }, 100);
+    }
+}
+        // expose globally
 window.fetchOrders = fetchOrdersPremium;
     
     </script>
