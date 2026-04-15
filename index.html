@@ -1,5 +1,4 @@
-enter
-
+Just work, im tired already
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1720,7 +1719,11 @@ window.location.href = whatsappURL;
 // fallback if app not installed
 setTimeout(() => {
     window.location.href = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
-}, 1000);          
+}, 1000);
+setTimeout(() => {
+    window.__orderProcessing = false;
+}, 2000);
+}; // ← THIS IS WHERE THE FUNCTION ENDS          
 // =============================
 // TRIGGER RESTORE ON RETURN
 // =============================
@@ -1731,16 +1734,19 @@ setTimeout(() => {
         ? `Hi, I have completed payment. Order ID: ${orderId}`
         : "Hi Project Eramdam";
 
-    const appURL = `whatsapp://send?phone=919366659414&text=${encodeURIComponent(msg)}`;
-    const webURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
+    // WhatsApp redirect (APP → fallback WEB)
+const appURL = `whatsapp://send?phone=919366659414&text=${encodeURIComponent(msg)}`;
+const webURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
 
-    window.location.href = appURL;
+// try app first
+window.location.href = appURL;
 
-    setTimeout(() => {
-        window.location.href = webURL;
-    }, 1000);
+// fallback
+setTimeout(() => {
+window.location.href = webURL;
+}, 800);
+
 };
-    }; // ✅ CLOSE processOrderSuccess HERE
 window.backToProducts = function () {
     try {
         const sidebar = document.getElementById("cart-sidebar");
