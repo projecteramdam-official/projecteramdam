@@ -1,6 +1,5 @@
-123
+587
 
-auto clear cart
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1703,14 +1702,29 @@ window.__orderProcessing = true;
     }
 
     // Save state
-    localStorage.setItem("user_phone", phone.replace(/\D/g, ""));
-    const orderId = "PE" + Date.now();
-    localStorage.setItem("last_order_id", orderId);
-    localStorage.setItem("order_pending", "true");
+localStorage.setItem("user_phone", phone.replace(/\D/g, ""));
+const orderId = "PE" + Date.now();
+localStorage.setItem("last_order_id", orderId);
+localStorage.setItem("order_pending", "true");
 
-    const data = extractProductData();
-    const total = (document.getElementById("cart-total")?.innerText || "0").replace("₹","").trim();
+const data = extractProductData();
+const total = (document.getElementById("cart-total")?.innerText || "0").replace("₹","").trim();
 
+localStorage.setItem("pe_last_order_snapshot", JSON.stringify({
+    createdAt: Date.now(),
+    orderId,
+    name,
+    phone,
+    address,
+    pincode,
+    city,
+    state,
+    product: data.product,
+    size: data.size,
+    color: data.color,
+    quantity: data.quantity,
+    total
+}));
     // =============================
     // PREP WHATSAPP MESSAGE FIRST
     // =============================
@@ -1847,6 +1861,9 @@ window.backToProducts = function () {
         document.documentElement.style.overflow = "auto";
 
         localStorage.removeItem("order_pending");
+localStorage.removeItem("pe_last_order_snapshot");
+localStorage.removeItem("pe_checkout_phase");
+localStorage.removeItem("pe_checkout_phase_at");
 
         setTimeout(() => {
             if (dropSection) {
@@ -1910,6 +1927,35 @@ window.backToProducts = function () {
                 const normalize = v => String(v||"").replace(/\D/g,"");
 
                 const userOrders = data.filter(r => normalize(r[8]) === normalize(phone) && r[1] !== "VISITOR");
+const snapshotRaw = localStorage.getItem("pe_last_order_snapshot");
+if (snapshotRaw) {
+    try {
+        const s = JSON.parse(snapshotRaw);
+        const alreadyThere = userOrders.some(r => String(r[1]) === String(s.orderId));
+
+        if (s && s.orderId && !alreadyThere) {
+            userOrders.unshift([
+                s.createdAt ? new Date(s.createdAt).toISOString() : new Date().toISOString(), // r[0]
+                s.orderId || "",     // r[1]
+                s.product || "",     // r[2]
+                s.size || "",        // r[3]
+                s.color || "",       // r[4]
+                s.quantity || "",    // r[5]
+                s.total || "",       // r[6]
+                s.name || "",        // r[7]
+                s.phone || phone,    // r[8]
+                s.address || "",     // r[9]
+                s.pincode || "",     // r[10]
+                s.city || "",        // r[11]
+                s.state || "",       // r[12]
+                "Paid",              // r[13]
+                "Processing",        // r[14]
+                "",                  // r[15]
+                ""                   // r[16]
+            ]);
+        }
+    } catch (e) {}
+}
 
                 if(!userOrders.length){
                     if(container) container.innerHTML = `<div class="text-center text-white/40 font-inter text-[10px] font-black tracking-widest uppercase mt-20">No orders found</div>`;
@@ -1984,14 +2030,32 @@ return `
 }
 
 function restoreOrderState(force = false) {
-    const isPending = localStorage.getItem("order_pending");
-    const orderId = localStorage.getItem("last_order_id");
+    let isPending = localStorage.getItem("order_pending");
+    let orderId = localStorage.getItem("last_order_id");
 
-    const phase = localStorage.getItem("pe_checkout_phase");
-    const phaseAt = Number(localStorage.getItem("pe_checkout_phase_at") || 0);
-    const phaseAlive = phase === "payment" && phaseAt && (Date.now() - phaseAt < 15 * 60 * 1000);
+    let snapshot = null;
+    try {
+        snapshot = JSON.parse(localStorage.getItem("pe_last_order_snapshot") || "null");
+    } catch (e) {
+        snapshot = null;
+    }
 
-    // Success state has priority
+    const snapshotAlive = !!(
+        snapshot &&
+        snapshot.orderId &&
+        snapshot.createdAt &&
+        (Date.now() - Number(snapshot.createdAt) < 30 * 60 * 1000)
+    );
+
+    // If the success snapshot exists, treat it like an active restore target
+    if (snapshotAlive && isPending !== "true") {
+        localStorage.setItem("order_pending", "true");
+        isPending = "true";
+        orderId = snapshot.orderId || orderId;
+    }
+
+    if (!force && isPending !== "true") return;
+
     if (isPending === "true") {
         const sidebar = document.getElementById("cart-sidebar");
         const overlay = document.getElementById("cart-sidebar-overlay");
@@ -2005,7 +2069,26 @@ function restoreOrderState(force = false) {
             switchSidebarState("success");
 
             const idBox = document.getElementById("display-order-id");
-            if (idBox && orderId) idBox.innerText = "Order ID: " + orderId;
+            if (idBox && (snapshot?.orderId || orderId)) {
+                idBox.innerText = "Order ID: " + (snapshot?.orderId || orderId);
+            }
+
+            if (snapshotAlive) {
+                const itemsBox = document.getElementById("success-order-items");
+                if (itemsBox) {
+                    itemsBox.innerHTML = `
+                        <div style="font-size:11px;line-height:1.5;color:#fff;">
+                            <div style="font-weight:700;">${snapshot.product || ""}</div>
+                            <div style="margin-top:4px;color:rgba(255,255,255,0.7);">
+                                Size: ${snapshot.size || "-"} • Color: ${snapshot.color || "-"} • Qty: ${snapshot.quantity || "-"}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                const totalBox = document.getElementById("success-total");
+                if (totalBox) totalBox.innerText = "₹" + (snapshot.total || "0");
+            }
 
             const footer = document.getElementById("success-action-footer");
             if (footer && !footer.querySelector(".extra-actions")) {
@@ -2034,7 +2117,7 @@ function restoreOrderState(force = false) {
 
         return;
     }
-
+}
     // Recover payment screen after UPI return/reload
     if (!force && !phaseAlive) return;
 
@@ -2058,15 +2141,21 @@ function restoreOrderState(force = false) {
 // When user comes back to tab (WhatsApp → browser)
 document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "visible") {
-        if (localStorage.getItem("order_pending") === "true") {
+        if (
+            localStorage.getItem("order_pending") === "true" ||
+            localStorage.getItem("pe_last_order_snapshot")
+        ) {
             restoreOrderState(true);
         }
     }
 });
-
 // When page is restored from cache (mobile back button case)
 window.addEventListener("pageshow", function (event) {
-    if (event.persisted && localStorage.getItem("order_pending") === "true") {
+    if (
+        event.persisted &&
+        (localStorage.getItem("order_pending") === "true" ||
+         localStorage.getItem("pe_last_order_snapshot"))
+    ) {
         restoreOrderState(true);
     }
 });
