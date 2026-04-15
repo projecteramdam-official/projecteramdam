@@ -1,4 +1,4 @@
-Well Well7
+enter
 
 
 <!DOCTYPE html>
@@ -1652,26 +1652,24 @@ Total: ₹${total}
 
 Payment completed. Sharing screenshot below.`;
 
-    const whatsappURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
+    const whatsappURL = `whatsapp://send?phone=919366659414&text=${encodeURIComponent(msg)}`;
 
 // =============================
-// CLEAR CART AFTER ORDER (FINAL CLEAN FIX)
+// FINAL CART CLEAR FIX
 // =============================
 
-// 1. HARD RESET STORAGE
-localStorage.removeItem("cart");
-
-// 2. FORCE EMPTY ARRAY (prevents ghost reloads)
+// 1. Hard reset storage
 localStorage.setItem("cart", JSON.stringify([]));
+localStorage.setItem("pe_cart", JSON.stringify([]));
 
-// 3. RESET BADGE MANUALLY (since no renderCart)
+// 2. Force badge reset
 const badge = document.getElementById("cart-badge");
 if (badge) {
     badge.innerText = "0";
     badge.classList.add("hidden");
 }
 
-// 4. CLEAR CART UI (DOM)
+// 3. Clear UI
 const wrapper = document.getElementById("cart-items-wrapper");
 if (wrapper) {
     wrapper.innerHTML = `
@@ -1681,10 +1679,9 @@ if (wrapper) {
     `;
 }
 
-// 5. RESET TOTAL
+// 4. Reset total
 const totalEl = document.getElementById("cart-total");
 if (totalEl) totalEl.innerText = "₹0";
-
     // =============================
     // FIRE GOOGLE FORM (background)
     // =============================
@@ -1717,55 +1714,47 @@ fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULR
 // Show success instantly
 restoreOrderState();
 
-// Open WhatsApp in new tab (no freeze, no redirect issues)
-window.open(whatsappURL, "_blank");
+// FAST open (mobile first)
+window.location.href = whatsappURL;
 
-// Optional UX polish
+// fallback if app not installed
 setTimeout(() => {
-    window.focus();
-}, 300);
-          
+    window.location.href = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
+}, 1000);          
 // =============================
 // TRIGGER RESTORE ON RETURN
 // =============================
 
-// When user comes back to tab (WhatsApp → browser)
-document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState === "visible") {
-        restoreOrderState();
-    }
-});
-
-// When page is restored from cache (mobile back button case)
-window.addEventListener("pageshow", function (event) {
-    if (event.persisted) {
-        restoreOrderState();
-    }
-});
         window.handleWhatsAppRedirect = function(type){
-            const orderId = localStorage.getItem("last_order_id") || "N/A";
-            let msg = type === "order" ? `Hi, I have completed payment. Order ID: ${orderId}` : "Hi Project Eramdam";
-            window.location.href = "https://wa.me/919366659414?text=" + encodeURIComponent(msg);
-        };
+    const orderId = localStorage.getItem("last_order_id") || "N/A";
+    let msg = type === "order"
+        ? `Hi, I have completed payment. Order ID: ${orderId}`
+        : "Hi Project Eramdam";
 
-        window.backToProducts = function () {
+    const appURL = `whatsapp://send?phone=919366659414&text=${encodeURIComponent(msg)}`;
+    const webURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
+
+    window.location.href = appURL;
+
+    setTimeout(() => {
+        window.location.href = webURL;
+    }, 1000);
+};
+    }; // ✅ CLOSE processOrderSuccess HERE
+window.backToProducts = function () {
     try {
-        // 1. Close sidebar
         const sidebar = document.getElementById("cart-sidebar");
         const overlay = document.getElementById("cart-sidebar-overlay");
 
         if (sidebar) sidebar.classList.add("translate-x-full");
         if (overlay) overlay.classList.add("invisible", "opacity-0");
 
-        // 2. Unlock scroll (CRITICAL)
         document.body.style.overflow = "auto";
         document.body.classList.remove("overflow-hidden");
-        document.documentElement.style.overflow = "auto"; // ✅ ADD THIS
+        document.documentElement.style.overflow = "auto";
 
-        // 3. Reset state
         localStorage.removeItem("order_pending");
 
-        // 4. Scroll to top
         setTimeout(() => {
             window.scrollTo({ top: 0, behavior: "smooth" });
         }, 50);
@@ -1774,7 +1763,6 @@ window.addEventListener("pageshow", function (event) {
         console.error("Back to products failed:", e);
     }
 };
-    }; // ✅ CLOSE processOrderSuccess HERE
         // 3. Premium Order History (CSV Parsing & Live Updates)
         function parseCSV(text){
             const rows = []; let row = []; let cell = ''; let inQuotes = false;
@@ -1909,8 +1897,23 @@ function restoreOrderState() {
     }
 }
         // expose globally
+// When user comes back to tab (WhatsApp → browser)
+document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") {
+        restoreOrderState();
+    }
+});
+
+// When page is restored from cache (mobile back button case)
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        restoreOrderState();
+    }
+});
+
 window.fetchOrders = fetchOrdersPremium;
     
     </script>
 </body>
 </html>
+
