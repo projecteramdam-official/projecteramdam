@@ -1,6 +1,5 @@
-fingers crossed
+updated fix maybe
 
-1
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1724,7 +1723,23 @@ Payment completed. Sharing screenshot below for verification.`;
                 }, 300);
             }
         }
+// =============================
+// TRIGGER RESTORE ON RETURN
+// =============================
 
+// When user comes back to tab (WhatsApp → browser)
+document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") {
+        restoreOrderState();
+    }
+});
+
+// When page is restored from cache (mobile back button case)
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        restoreOrderState();
+    }
+});
         window.handleWhatsAppRedirect = function(type){
             const orderId = localStorage.getItem("last_order_id") || "N/A";
             let msg = type === "order" ? `Hi, I have completed payment. Order ID: ${orderId}` : "Hi Project Eramdam";
