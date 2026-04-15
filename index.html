@@ -1,3 +1,5 @@
+123
+
 auto clear cart
 
 <!DOCTYPE html>
@@ -1132,6 +1134,8 @@ auto clear cart
         };
 
         function openUPIApp() {
+localStorage.setItem("pe_checkout_phase", "payment");
+localStorage.setItem("pe_checkout_phase_at", String(Date.now()));
             const upiID = "7629049582@okbizaxis";
             const name = "Project Eramdam";
             const amountEl = document.getElementById("payment-total-display");
@@ -1983,9 +1987,11 @@ function restoreOrderState(force = false) {
     const isPending = localStorage.getItem("order_pending");
     const orderId = localStorage.getItem("last_order_id");
 
-    // ✅ ONLY restore when forced OR real pending
-    if (!force && isPending !== "true") return;
+    const phase = localStorage.getItem("pe_checkout_phase");
+    const phaseAt = Number(localStorage.getItem("pe_checkout_phase_at") || 0);
+    const phaseAlive = phase === "payment" && phaseAt && (Date.now() - phaseAt < 15 * 60 * 1000);
 
+    // Success state has priority
     if (isPending === "true") {
         const sidebar = document.getElementById("cart-sidebar");
         const overlay = document.getElementById("cart-sidebar-overlay");
@@ -1999,7 +2005,7 @@ function restoreOrderState(force = false) {
             switchSidebarState("success");
 
             const idBox = document.getElementById("display-order-id");
-            if(idBox && orderId) idBox.innerText = "Order ID: " + orderId;
+            if (idBox && orderId) idBox.innerText = "Order ID: " + orderId;
 
             const footer = document.getElementById("success-action-footer");
             if (footer && !footer.querySelector(".extra-actions")) {
@@ -2019,9 +2025,33 @@ function restoreOrderState(force = false) {
                     </button>
                 `;
                 footer.appendChild(wrap);
+
                 localStorage.removeItem("order_pending");
+                localStorage.removeItem("pe_checkout_phase");
+                localStorage.removeItem("pe_checkout_phase_at");
             }
         }, 100);
+
+        return;
+    }
+
+    // Recover payment screen after UPI return/reload
+    if (!force && !phaseAlive) return;
+
+    if (phaseAlive) {
+        const sidebar = document.getElementById("cart-sidebar");
+        const overlay = document.getElementById("cart-sidebar-overlay");
+
+        if (sidebar && overlay) {
+            sidebar.classList.remove("translate-x-full");
+            overlay.classList.remove("invisible", "opacity-0");
+        }
+
+        setTimeout(() => {
+            switchSidebarState("payment");
+        }, 100);
+
+        return;
     }
 }
         // expose globally
@@ -2046,4 +2076,3 @@ window.fetchOrders = fetchOrdersPremium;
     </script>
 </body>
 </html>
-
