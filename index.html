@@ -1,4 +1,4 @@
-fixed
+IDK anymore:
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1608,6 +1608,8 @@ fixed
         }
 
 window.processOrderSuccess = function() {
+if (window.__orderProcessing) return;
+window.__orderProcessing = true;
     playTock();
     
     const name = document.getElementById("dlv-name")?.value || "";
@@ -1631,57 +1633,9 @@ window.processOrderSuccess = function() {
     const data = extractProductData();
     const total = (document.getElementById("cart-total")?.innerText || "0").replace("₹","").trim();
 
-    // Google Form
-    const params = new URLSearchParams();
-    params.append("entry.715690915", orderId);
-    params.append("entry.2092671810", data.product);
-    params.append("entry.1214460634", data.size);
-    params.append("entry.2043910785", data.color);
-    params.append("entry.336831517", data.quantity);
-    params.append("entry.1392433275", total);
-    params.append("entry.1712849668", name);
-    params.append("entry.1222474464", phone);
-    params.append("entry.1810693968", address);
-    params.append("entry.335078953", pincode);
-    params.append("entry.1982148271", city);
-    params.append("entry.1464883250", state);
-    params.append("entry.2070227970", "Paid");
-
-    fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
-        method: "POST",
-        mode: "no-cors",
-        body: params
-    }).catch(()=>{});
-
     // =============================
-    // CLEAR CART AFTER ORDER
+    // PREP WHATSAPP MESSAGE FIRST
     // =============================
-
-    localStorage.removeItem("cart");
-
-    if (typeof cart !== "undefined") {
-        cart = [];
-    }
-
-    const totalEl = document.getElementById("cart-total");
-    if (totalEl) totalEl.innerText = "₹0";
-
-    if (typeof renderCart === "function") renderCart();
-    if (typeof updateCartBadge === "function") updateCartBadge();
-
-    const wrapper = document.getElementById("cart-items-wrapper");
-    if (wrapper) {
-        wrapper.innerHTML = `
-            <p style="text-align:center; opacity:0.5; font-size:12px;">
-                Your cart is now empty. Add items for a new order.
-            </p>
-        `;
-    }
-
-    // =============================
-    // WHATSAPP REDIRECT (IMPORTANT)
-    // =============================
-
     const msg = `Project Eramdam Order
 Order ID: ${orderId}
 
@@ -1699,13 +1653,61 @@ Payment completed. Sharing screenshot below.`;
 
     const whatsappURL = `https://wa.me/919366659414?text=${encodeURIComponent(msg)}`;
 
-    window.location.href = whatsappURL;
+    // =============================
+    // CLEAR CART (BEFORE REDIRECT)
+    // =============================
+    localStorage.removeItem("cart");
 
-    setTimeout(() => {
-        window.open(whatsappURL, "_blank");
-    }, 100);
+    if (typeof cart !== "undefined") {
+        cart = [];
+    }
+
+    if (typeof renderCart === "function") renderCart();
+    if (typeof updateCartBadge === "function") updateCartBadge();
+
+    const wrapper = document.getElementById("cart-items-wrapper");
+    if (wrapper) {
+        wrapper.innerHTML = `
+            <p style="text-align:center; opacity:0.5; font-size:12px;">
+                Your cart is now empty. Add items for a new order.
+            </p>
+        `;
+    }
+
+    const totalEl = document.getElementById("cart-total");
+    if (totalEl) totalEl.innerText = "₹0";
+
+    // =============================
+    // FIRE GOOGLE FORM (background)
+    // =============================
+    const params = new URLSearchParams();
+    params.append("entry.715690915", orderId);
+    params.append("entry.2092671810", data.product);
+    params.append("entry.1214460634", data.size);
+    params.append("entry.2043910785", data.color);
+    params.append("entry.336831517", data.quantity);
+    params.append("entry.1392433275", total);
+    params.append("entry.1712849668", name);
+    params.append("entry.1222474464", phone);
+    params.append("entry.1810693968", address);
+    params.append("entry.335078953", pincode);
+    params.append("entry.1982148271", city);
+    params.append("entry.1464883250", state);
+    params.append("entry.2070227970", "Paid");
+
+// 1. FIRE GOOGLE FORM (background)
+fetch("https://docs.google.com/forms/d/e/1FAIpQLSc4WIOcelFNxa9SqdABx7-y8seqQVULRRbi_5Di-10bfX_OaA/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    body: params
+}).catch(()=>{});
+
+// 2. THEN REDIRECT (slight delay for smoothness)
+setTimeout(() => {
+    window.location.href = whatsappURL;
+}, 50);
 };
-        // 2. State Restoration on Return
+          // 2. State Restoration on Return
         function restoreOrderState() {
             const isPending = localStorage.getItem("order_pending");
             const orderId = localStorage.getItem("last_order_id");
