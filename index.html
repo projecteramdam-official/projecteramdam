@@ -1,4 +1,4 @@
- Product details..
+PLease
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1770,6 +1770,9 @@ document.body.appendChild(a);
 a.click();
 a.remove();
 
+// Clear pending state after the success screen has been shown once
+localStorage.removeItem("order_pending");
+
 setTimeout(() => {
     window.__orderProcessing = false;
 }, 2000);
@@ -1852,7 +1855,25 @@ window.backToProducts = function () {
             }).join("");
         }
 
-        async function fetchOrdersPremium(){
+     function formatOrderDate(ts) {
+    try {
+        const d = new Date(ts);
+        if (isNaN(d.getTime())) return "";
+
+        const day = d.getDate().toString().padStart(2, '0');
+        const month = d.toLocaleString('en-IN', { month: 'short' });
+
+        let hours = d.getHours();
+        const minutes = d.getMinutes().toString().padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+
+        return `${day} ${month}, ${hours}:${minutes} ${ampm}`;
+    } catch (e) {
+        return "";
+    }
+}   
+     async function fetchOrdersPremium(){
             const phone = (localStorage.getItem("user_phone")||"").replace(/\D/g,"");
             const container = document.getElementById("history-container");
             const navBtn = document.getElementById('nav-orders-btn');
