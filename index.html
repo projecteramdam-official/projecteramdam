@@ -1,4 +1,4 @@
-Well Well3
+Well Well4
 
 
 <!DOCTYPE html>
@@ -1901,8 +1901,10 @@ window.addEventListener("pageshow", function (event) {
             } catch (err) {
                 console.error("Failed to fetch order history", err);
             }
-        
-        window.fetchOrders = fetchOrdersPremium;
+}
+
+// expose globally
+window.fetchOrders = fetchOrdersPremium;
     
     </script>
 </body>
