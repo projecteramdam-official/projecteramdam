@@ -1,4 +1,5 @@
-finally kinda very close
+color and size
+
 
 
 <!DOCTYPE html>
@@ -131,17 +132,20 @@ finally kinda very close
             transition: all 0.2s ease;
         }
         .color-option.active {
-    border-color: #ffffff;
-    background-color: #ffffff;
-    color: #000000;
-}
-
-.color-option.active .swatch {
-    border: 2px solid #000;
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+    color: #000000 !important;
 }
 
 .color-option.active span {
     color: #000000 !important;
+}
+
+.color-option.active .swatch {
+    border: 2px solid #000 !important;
+}
+.color-option.active {
+    transform: scale(0.96);
 }
         .swatch {
             width: 18px;
@@ -1474,10 +1478,37 @@ finally kinda very close
         const selectColor = (c) => {
             selectedColor = c;
             document.querySelectorAll('.color-option').forEach(el => {
-                el.classList.toggle('border-white', el.dataset.color === c); el.classList.toggle('bg-white/10', el.dataset.color === c);
-                el.classList.toggle('border-white/20', el.dataset.color !== c);
-            });
-            validateForm(); playTock();
+    const isActive = el.dataset.color === c;
+
+    // reset all
+    el.classList.remove(
+    'border-white',
+    'bg-white',
+    'text-black',
+    'border-white/20',
+    'bg-white/10'
+);
+
+// 🔥 reset inline styles
+el.querySelectorAll('*').forEach(child => {
+    child.style.color = "";
+});
+    if (isActive) {
+        // ✅ strong selected state (like size)
+        el.classList.add('border-white', 'bg-white', 'text-black');
+
+// 🔥 FORCE CHILD TEXT COLOR (THIS IS YOUR ISSUE)
+el.querySelectorAll('*').forEach(child => {
+    child.style.color = "#000";
+});
+    } else {
+        // default state
+        el.classList.add('border-white/20');
+    }
+});
+
+validateForm();
+playTock();
         };
 
         const validateForm = () => {
