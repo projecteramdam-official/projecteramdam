@@ -1,4 +1,4 @@
-101
+go
 
 
 <!DOCTYPE html>
@@ -1983,7 +1983,11 @@ return `
             </div>
 
             <div style="font-size:10px;color:#888;margin-top:2px;">
-                ${(typeof formatOrderDate === "function" && r[0]) ? formatOrderDate(r[0]) : ""}
+                ${r[0] ? new Date(r[0]).toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+}) : "Just now"}
             </div>
 
             <div style="font-size:10px;color:#aaa;margin-top:2px;">
