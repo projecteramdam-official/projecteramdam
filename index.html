@@ -1,4 +1,4 @@
-Yes?
+Yes??
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1895,69 +1895,55 @@ window.backToProducts = function () {
 return `
 <div class="premium-order" style="padding:12px;border-bottom:1px solid #222;">
 
-    <!-- TOP ROW -->
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
 
-        <!-- LEFT SIDE -->
         <div style="flex:1;">
-            <div style="font-size:12px;font-weight:bold;font-family:'Inter', sans-serif;">
+            <div style="font-size:12px;font-weight:bold;">
                 Order #${r[1] || ""}
             </div>
 
-            <div style="font-size:10px;color:#888;font-family:'Inter', sans-serif;margin-top:2px;">
+            <div style="font-size:10px;color:#888;margin-top:2px;">
                 ${(typeof formatOrderDate === "function" && r[0]) ? formatOrderDate(r[0]) : ""}
             </div>
 
             <div style="font-size:10px;color:#aaa;margin-top:2px;">
                 <span class="badge ${
-    status === "Delivered" ? "green" :
-    status === "Shipped" ? "blue" :
-    status === "Processing" ? "yellow" :
-    status === "Cancelled" ? "red" :
-    "default"
-}">
-    ${status}
-</span>
+                    status === "Delivered" ? "green" :
+                    status === "Shipped" ? "blue" :
+                    status === "Processing" ? "yellow" :
+                    status === "Cancelled" ? "red" :
+                    "default"
+                }">
+                    ${status}
+                </span>
             </div>
         </div>
 
-        <!-- RIGHT SIDE (TRACKING) -->
         <div style="text-align:right;min-width:90px;">
-            ${r[15] && r[15] !== "Pending"
-                <div style="font-size:10px;color:#aaa;font-family:'Inter', sans-serif;">
-                    Order #${r[1] || ""}
-                </div>
-
-                ${r[16] ? `
-                    <div style="font-size:9px;color:#666;font-family:'Inter', sans-serif;">
-                        ${r[16] || ""}
-                    </div>
-                ` : ""}
-
-                <a href="${
-                    r[16]
-                        ? `https://www.google.com/search?q=${r[15]}+${r[16]}+tracking`
-                        : `https://www.google.com/search?q=${r[15]}+tracking`
-                }"
-                target="_blank"
-                style="font-size:11px;color:#25D366;font-weight:bold;display:inline-block;margin-top:3px;text-decoration:underline;text-underline-offset:2px;">
-                    Track →
-                </a>
-            ` : `
-                <div style="font-size:10px;color:#666;">
-                    Processing
-                </div>
-            `}
+            ${
+                (r[15] && r[15] !== "Pending")
+                ? (
+                    "<div style='font-size:10px;color:#aaa;'>ID: " + (r[15] || "") + "</div>" +
+                    (r[16] ? "<div style='font-size:9px;color:#666;'>" + r[16] + "</div>" : "") +
+                    "<a href='" +
+                        (r[16]
+                            ? "https://www.google.com/search?q=" + r[15] + "+" + r[16] + "+tracking"
+                            : "https://www.google.com/search?q=" + r[15] + "+tracking"
+                        ) +
+                    "' target='_blank' style='font-size:11px;color:#25D366;font-weight:bold;display:inline-block;margin-top:3px;text-decoration:underline;'>Track →</a>"
+                )
+                : "<div style='font-size:10px;color:#666;'>Processing</div>"
+            }
         </div>
     </div>
 
-    <!-- PRODUCT DETAILS -->
     <div style="margin-top:8px;font-size:12px;line-height:1.4;color:#ddd;">
         ${r[2] || ""}
     </div>
 
 </div>
-`;    });
+`;
+    });
 
     container.innerHTML = html.join("");
 }
