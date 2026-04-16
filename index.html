@@ -542,7 +542,25 @@ Order history always visible V_2
 
         <!-- STATE 5: ORDER HISTORY -->
         <div id="state-history" class="hidden flex-col h-full overflow-hidden bg-[#050505] relative z-10">
-            <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col gap-4 text-left" id="history-container">
+            <div class="flex-grow overflow-y-auto hide-scrollbar p-6 flex flex-col gap-4 text-left">
+
+    <!-- PHONE CONTROL -->
+    <div class="flex items-center justify-between mb-2">
+        <div class="text-[10px] font-inter text-white/40 uppercase tracking-widest">
+            Orders linked to phone
+        </div>
+        <button onclick="changePhoneNumber()" class="text-[10px] font-inter font-black tracking-widest text-pe-red uppercase">
+            Change
+        </button>
+    </div>
+
+    <!-- CURRENT PHONE DISPLAY -->
+    <div id="current-phone-display" class="text-xs font-inter text-white mb-3"></div>
+
+    <!-- HISTORY -->
+    <div id="history-container" class="flex flex-col gap-4"></div>
+
+</div>
                 <!-- History items injected dynamically -->
             </div>
         </div>
@@ -1287,7 +1305,47 @@ localStorage.setItem("pe_checkout_phase_at", String(Date.now()));
     switchSidebarState('history');
     setTimeout(() => fetchOrdersPremium(), 50);
 }
-        function getLookupPhone() {
+function changePhoneNumber() {
+    // Clear stored phone
+    localStorage.removeItem("user_phone");
+
+    const container = document.getElementById("history-container");
+    if (!container) return;
+
+    // Show input UI
+    container.innerHTML = `
+        <div class="premium-order text-center">
+            <p class="text-white/60 text-xs mb-3">
+                Enter your phone number to view orders
+            </p>
+
+            <input 
+                id="manual-phone-input"
+                type="tel"
+                maxlength="10"
+                placeholder="Enter phone number"
+                class="w-full bg-black border border-white/10 p-3 text-xs text-white mb-3 outline-none"
+            >
+
+            <button 
+                onclick="submitManualPhone()"
+                class="w-full force-white-button py-3 text-xs font-black uppercase tracking-widest"
+            >
+                View My Orders
+            </button>
+        </div>
+    `;
+}
+// Show current phone in UI
+const phoneDisplay = document.getElementById("current-phone-display");
+if (phoneDisplay) {
+    const savedPhone = localStorage.getItem("user_phone");
+    phoneDisplay.innerText = savedPhone ? `+91 ${savedPhone}` : "No phone linked";
+}
+    // Refresh UI + fetch again
+    fetchOrdersPremium();
+}
+function getLookupPhone() {
     try {
         const userData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
         const fromUserData = (userData.phone || "").replace(/\D/g, "").slice(-10);
@@ -1365,6 +1423,19 @@ restoreOrderState();
                 }
             } catch(e) {}
         }
+function submitManualPhone() {
+    const input = document.getElementById("manual-phone-input").value.trim();
+
+    if (!input || input.length !== 10) {
+        alert("Enter valid 10 digit number");
+        return;
+    }
+
+    localStorage.setItem("user_phone", input);
+
+    // Fetch orders again with new phone
+    fetchOrdersPremium();
+}
 
         function saveUserData() {
             const data = {
