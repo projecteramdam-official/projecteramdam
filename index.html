@@ -1,4 +1,4 @@
-3
+4
 
 
 
@@ -1391,7 +1391,7 @@ if (orderFromURL && !localStorage.getItem("pe_last_order_snapshot")) {
     }));
 }
     // Check recovery / history on load
-const lookupPhone = getLookupPhone();
+const phone = (localStorage.getItem("user_phone") || "").replace(/\D/g, "").slice(-10);
 
 if (lookupPhone) {
     localStorage.setItem("user_phone", lookupPhone);
@@ -2137,14 +2137,27 @@ window.submitHistoryPhone = function () {
     fetchOrdersPremium(phone);
 };
 async function fetchOrdersPremium(phoneOverride = "") {
+
+    updatePhoneDisplay(); // ✅ ADD THIS AT TOP
+
     const container = document.getElementById("history-container");
     const navBtn = document.getElementById("nav-orders-btn");
     const mobileBtn = document.getElementById("mobile-orders-btn");
 
-    const phone = normalizePhone(phoneOverride || getStoredOrderPhone());
+    // 🔥 FORCE DIRECT SOURCE (NO CACHE / NO INDIRECT)
+    const phone = (phoneOverride || localStorage.getItem("user_phone") || "")
+        .replace(/\D/g, "")
+        .slice(-10);
+    
 
     if (!phone) {
     renderPhoneLookup(container);
+
+    const phoneDisplay = document.getElementById("current-phone-display");
+    if (phoneDisplay) {
+        phoneDisplay.innerText = "No phone linked";
+    }
+
     return;
 }
     localStorage.setItem("user_phone", phone);
