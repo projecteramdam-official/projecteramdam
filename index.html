@@ -1,4 +1,4 @@
-Phone number for order history - V1
+Using phone number instead, iOS and private brower fix
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1340,16 +1340,10 @@ const lookupPhone = getLookupPhone();
 
 if (lookupPhone) {
     localStorage.setItem("user_phone", lookupPhone);
-} else {
-    const typedPhone = prompt("Enter your phone number to view your order history:");
-    if (typedPhone) {
-        const cleanPhone = typedPhone.replace(/\D/g, "").slice(-10);
-        localStorage.setItem("user_phone", cleanPhone);
-    }
+    fetchOrdersPremium(lookupPhone);
 }
 
 restoreOrderState();
-fetchOrdersPremium();
     // ✅ OPTIONAL CLEANUP (safe)
     if (orderFromURL) {
         window.history.replaceState({}, document.title, window.location.pathname);
