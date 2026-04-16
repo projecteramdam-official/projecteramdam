@@ -1,5 +1,4 @@
-7
-
+8
 
 
 <!DOCTYPE html>
@@ -2435,6 +2434,61 @@ window.fetchOrders = fetchOrdersPremium;
     function openOrderDetailByIndex(index) {
     const orders = window.__ORDER_CACHE__ || [];
     const r = orders[index];
+    if (!r) return;
+
+    const raw = r[2] || "";
+    const total = r[6] || "0";
+
+    // 🔥 CLEAN SPLIT
+    const items = raw.split("•").map(x => x.trim()).filter(Boolean);
+
+    let html = "";
+
+    items.forEach(item => {
+        // product name = before "Size:"
+        const name = item.split("Size:")[0]?.replace("—", "").trim() || "Product";
+
+        const sizeMatch = item.match(/Size:\s*([^/]+)/i);
+        const colorMatch = item.match(/Color:\s*(.*)/i);
+
+        const size = sizeMatch ? sizeMatch[1].trim() : "-";
+        const color = colorMatch ? colorMatch[1].trim() : "-";
+
+        html += `
+            <div style="border-bottom:1px solid #222;padding-bottom:10px;margin-bottom:10px;">
+                
+                <div style="font-size:12px;font-weight:600;">${name}</div>
+                
+                <div style="font-size:11px;color:#aaa;margin-top:4px;">
+                    Size: ${size} • Color: ${color}
+                </div>
+
+                <div style="font-size:11px;color:#888;margin-top:2px;">
+                    Qty: 1
+                </div>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("od-name").innerHTML = html;
+    document.getElementById("od-size").innerText = "-";
+    document.getElementById("od-color").innerText = "-";
+    document.getElementById("od-qty").innerText = items.length;
+    document.getElementById("od-total").innerText = `₹${total}`;
+
+    // 🔥 SIMPLE IMAGE (1 IMAGE FOR NOW)
+    document.getElementById("od-image").src = "images/placeholder.jpg";
+
+    const modal = document.getElementById("order-detail-modal");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+    history.pushState({ modal: true }, "");
+}
+        {
+    const orders = window.__ORDER_CACHE__ || [];
+    const r = orders[index];
 
     if (!r) return;
 
@@ -2462,7 +2516,16 @@ function closeOrderDetail() {
     const modal = document.getElementById("order-detail-modal");
     modal.classList.add("hidden");
     modal.classList.remove("flex");
+
+    history.back();
 }
+        window.addEventListener("popstate", function () {
+    const modal = document.getElementById("order-detail-modal");
+    if (modal && !modal.classList.contains("hidden")) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+    }
+});
     </script>
     
 <script src="js/scarcity.js"></script>
