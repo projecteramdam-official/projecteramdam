@@ -1,4 +1,4 @@
-Version_2 iOS order history missing bug fix, using order ID as ulr
+Version_3 iOS order history missing bug fix, using order ID as ulr
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1308,7 +1308,23 @@ localStorage.setItem("pe_checkout_phase_at", String(Date.now()));
     if (orderFromURL) {
         localStorage.setItem("last_order_id", orderFromURL);
     }
-
+if (orderFromURL && !localStorage.getItem("pe_last_order_snapshot")) {
+    localStorage.setItem("pe_last_order_snapshot", JSON.stringify({
+        createdAt: Date.now(),
+        orderId: orderFromURL,
+        name: "",
+        phone: "",
+        address: "",
+        pincode: "",
+        city: "",
+        state: "",
+        product: "Recovered order",
+        size: "",
+        color: "",
+        quantity: 1,
+        total: ""
+    }));
+}
     // Check recovery / history on load
     restoreOrderState();
     fetchOrdersPremium();
