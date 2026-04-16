@@ -71,8 +71,11 @@ function calculateStock(product) {
 // SINGLE MESSAGE RULE
 function getScarcityMessage(stock) {
   if (stock <= 5) return `Only ${stock} left`;
+
   if (stock <= 10) return "Selling fast";
-  return "Only a few pieces left";
+
+  // ✅ MOST IMPORTANT CHANGE
+  return ""; // show nothing when not needed
 }
 
 // PUBLIC FUNCTION (USE THIS)
