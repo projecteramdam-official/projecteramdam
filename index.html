@@ -1,4 +1,4 @@
-00
+1212121
 
 
 <!DOCTYPE html>
@@ -2258,11 +2258,15 @@ async function fetchOrdersPremium(phoneOverride = "") {
 
         <div style="flex:1;">
             <div style="font-size:12px;font-weight:bold;">
-    <a href="https://www.bluedart.com/tracking?track_number=${r[1] || ""}"
+    Order #${r[1] || ""}
+</div>
+
+<div style="font-size:10px;color:#4ea1ff;margin-top:2px;">
+    <a href="https://www.bluedart.com/tracking?track_number=${r[15] || ""}"
        target="_blank"
        onclick="event.stopPropagation();"
-       style="color:#4ea1ff;text-decoration:none;">
-        Order #${r[1] || ""}
+       style="text-decoration:none;color:#4ea1ff;">
+        Track: ${r[15] || "Pending"}
     </a>
 </div>
 
@@ -2471,10 +2475,11 @@ window.fetchOrders = fetchOrdersPremium;
         `;
     });
 
-    document.getElementById("od-name").innerHTML = html;
+   const nameEl = document.getElementById("od-name");
+const totalEl = document.getElementById("od-total");
 
-// 🔥 ONLY keep total (remove duplicate junk)
-document.getElementById("od-total").innerText = `₹${total}`;
+if (nameEl) nameEl.innerHTML = html;
+if (totalEl) totalEl.innerText = `₹${total}`;
 
 // 🔥 CLEAR unused fields
 const sizeEl = document.getElementById("od-size");
