@@ -1,4 +1,4 @@
-0014
+00
 
 
 <!DOCTYPE html>
@@ -2110,7 +2110,7 @@ function renderPhoneLookup(container, title = "View Orders", subtitle = "Enter t
     container.innerHTML = `
         <div class="premium-order cursor-pointer"
      data-index="${i}"
-     onclick="openOrderDetailByIndex(${i})">
+     onclick="submitHistoryPhone()">
             <div class="font-inter text-[11px] font-black tracking-widest uppercase text-white mb-2">${title}</div>
             <p class="font-inter text-[10px] text-white/60 leading-relaxed mb-4">${subtitle}</p>
             <input
@@ -2258,8 +2258,13 @@ async function fetchOrdersPremium(phoneOverride = "") {
 
         <div style="flex:1;">
             <div style="font-size:12px;font-weight:bold;">
-                Order #${r[1] || ""}
-            </div>
+    <a href="https://www.bluedart.com/tracking?track_number=${r[1] || ""}"
+       target="_blank"
+       onclick="event.stopPropagation();"
+       style="color:#4ea1ff;text-decoration:none;">
+        Order #${r[1] || ""}
+    </a>
+</div>
 
             <div style="font-size:10px;color:#888;margin-top:2px;">
                 ${r[0] ? new Date(r[0]).toLocaleDateString("en-IN", {
@@ -2301,13 +2306,6 @@ async function fetchOrdersPremium(phoneOverride = "") {
 
             container.innerHTML = html.join("");
 
-// 🔥 CLICK HANDLER (FINAL FIX)
-document.querySelectorAll(".premium-order").forEach(el => {
-    el.addEventListener("click", function () {
-        const index = this.getAttribute("data-index");
-        openOrderDetailByIndex(index);
-    });
-});
         }
     } catch (err) {
         console.error("Failed to fetch order history", err);
@@ -2479,9 +2477,13 @@ window.fetchOrders = fetchOrdersPremium;
 document.getElementById("od-total").innerText = `₹${total}`;
 
 // 🔥 CLEAR unused fields
-document.getElementById("od-size").innerText = "";
-document.getElementById("od-color").innerText = "";
-document.getElementById("od-qty").innerText = "";
+const sizeEl = document.getElementById("od-size");
+const colorEl = document.getElementById("od-color");
+const qtyEl = document.getElementById("od-qty");
+
+if (sizeEl) sizeEl.innerText = "";
+if (colorEl) colorEl.innerText = "";
+if (qtyEl) qtyEl.innerText = "";
     
             const modal = document.getElementById("order-detail-modal");
             modal.classList.remove("hidden");
