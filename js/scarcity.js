@@ -7,9 +7,9 @@ if (!sessionStorage.getItem("pe_visit_start")) {
 }
 // PERSONALITY PROFILES
 const SCARCITY_PROFILES = {
-  hot: { base: 18, decay: 6, min: 2 },
-  balanced: { base: 26, decay: 8, min: 3 },
-  slow: { base: 40, decay: 12, min: 5 }
+  hot: { base: 12, decay: 6, min: 2 },
+  balanced: { base: 16, decay: 8, min: 3 },
+  slow: { base: 22, decay: 12, min: 5 }
 };
 
 // AUTO PERSONALITY (NO JSON CHANGE)
