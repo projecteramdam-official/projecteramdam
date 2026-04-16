@@ -76,7 +76,7 @@ if (visitStart) {
 stock -= timeBoost;
 
   // FLOOR PROTECTION
-  stock = Math.max(profile.min + 1, Math.floor(stock));
+  stock = Math.max(profile.min + 2, Math.floor(stock));
 
   // SOFT RESET (18–42 hrs randomized)
   const resetWindow = 1080 + (product.id % 24) * 60;
@@ -89,8 +89,8 @@ stock -= timeBoost;
 }
 
 // SINGLE MESSAGE RULE
-function getScarcityMessage(stock) {
-  if (stock <= 3 && (product.id % 3 === 0)) {
+function getScarcityMessage(stock, product) {
+  if (stock <= 3 && (product.id % 5 === 0)) {
   return `Only ${stock} left`;
 }
 
@@ -103,5 +103,5 @@ function getScarcityMessage(stock) {
 // PUBLIC FUNCTION (USE THIS)
 function getScarcityText(product) {
   const stock = calculateStock(product);
-  return getScarcityMessage(stock);
+  return getScarcityMessage(stock, product);
 }
