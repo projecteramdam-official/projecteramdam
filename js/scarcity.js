@@ -1,7 +1,10 @@
 // ================================
 // SCARCITY ENGINE — PROJECT ERAMDAM
 // ================================
-
+// 👇 track visit start (runs once per session)
+if (!sessionStorage.getItem("pe_visit_start")) {
+  sessionStorage.setItem("pe_visit_start", Date.now());
+}
 // PERSONALITY PROFILES
 const SCARCITY_PROFILES = {
   hot: { base: 18, decay: 6, min: 2 },
@@ -54,6 +57,23 @@ function calculateStock(product) {
   const decaySteps = Math.floor(minutesPassed / profile.decay);
 
   let stock = profile.base - decaySteps + state.seed;
+  // 👇 TIME-BASED INTEREST (no HTML needed)
+const visitStart = sessionStorage.getItem("pe_visit_start");
+
+let timeBoost = 0;
+
+if (visitStart) {
+  const start = parseInt(visitStart);
+
+  if (!isNaN(start)) {
+    const minutesOnPage = (Date.now() - start) / 60000;
+
+    if (minutesOnPage > 2) timeBoost = 1;
+    if (minutesOnPage > 5) timeBoost = 2;
+  }
+}
+
+stock -= timeBoost;
 
   // FLOOR PROTECTION
   stock = Math.max(profile.min, Math.floor(stock));
