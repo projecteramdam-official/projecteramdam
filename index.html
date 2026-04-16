@@ -1,4 +1,4 @@
-0245
+00
 
 
 <!DOCTYPE html>
@@ -1371,56 +1371,127 @@ if (phoneDisplay) {
 }
      function getTrackingData(r) {
     const trackingId = (r[15] || "").toString().trim();
-    const courier = (r[16] || "").toString().toLowerCase().trim(); // change index if courier is in another column
+    const courierRaw = (r[16] || "").toString().trim(); // change this index if courier is elsewhere
+    const courier = courierRaw || "Tracking";
+    const c = courierRaw.toLowerCase();
 
     if (!trackingId) {
         return {
             clickable: false,
-            label: "Tracking Pending",
-            url: ""
+            url: "",
+            label: "Tracking Pending"
         };
     }
 
-    if (courier.includes("bluedart") || courier.includes("blue dart")) {
+    if (c.includes("bluedart") || c.includes("blue dart")) {
         return {
             clickable: true,
-            label: `Track: ${trackingId}`,
-            url: `https://www.bluedart.com/tracking?track_number=${encodeURIComponent(trackingId)}`
+            url: `https://www.bluedart.com/tracking?track_number=${encodeURIComponent(trackingId)}`,
+            label: `BlueDart · ${trackingId}`
         };
     }
 
-    if (courier.includes("dtdc")) {
+    if (c.includes("delhivery")) {
         return {
             clickable: true,
-            label: `Track: ${trackingId}`,
-            url: `https://www.dtdc.in/tracking/track.asp?strCnno=${encodeURIComponent(trackingId)}`
+            url: `https://www.delhivery.com/track/package/${encodeURIComponent(trackingId)}`,
+            label: `Delhivery · ${trackingId}`
         };
     }
 
-    if (courier.includes("delhivery")) {
+    if (c.includes("dtdc")) {
         return {
             clickable: true,
-            label: `Track: ${trackingId}`,
-            url: `https://www.delhivery.com/track/package/${encodeURIComponent(trackingId)}`
+            url: `https://www.dtdc.in/tracking/track.asp?strCnno=${encodeURIComponent(trackingId)}`,
+            label: `DTDC · ${trackingId}`
         };
     }
 
-    if (courier.includes("india post") || courier.includes("speed post") || courier.includes("post")) {
+    if (c.includes("india post") || c.includes("speed post") || c.includes("post")) {
         return {
             clickable: true,
-            label: `Track: ${trackingId}`,
-            url: `https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx?ArticleNo=${encodeURIComponent(trackingId)}`
+            url: `https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx?ArticleNo=${encodeURIComponent(trackingId)}`,
+            label: `India Post · ${trackingId}`
         };
     }
 
     return {
         clickable: false,
-        label: trackingId,
-        url: ""
+        url: "",
+        label: `${courier} · ${trackingId}`
     };
 }   
     // Refresh UI + fetch again
-    fetchOrdersPremium();
+                function getTrackingMeta(r) {
+    const trackingId = (r[15] || "").toString().trim();
+    const courierRaw = (r[16] || "").toString().trim(); // change this if courier is in another column
+    const c = courierRaw.toLowerCase();
+
+    if (!trackingId) {
+        return {
+            clickable: false,
+            url: "",
+            courier: courierRaw || "Courier",
+            trackingId: "",
+            label1: courierRaw || "Courier",
+            label2: "Tracking Pending"
+        };
+    }
+
+    if (c.includes("bluedart") || c.includes("blue dart")) {
+        return {
+            clickable: true,
+            url: `https://www.bluedart.com/tracking?track_number=${encodeURIComponent(trackingId)}`,
+            courier: courierRaw || "BlueDart",
+            trackingId,
+            label1: courierRaw || "BlueDart",
+            label2: trackingId
+        };
+    }
+
+    if (c.includes("delhivery")) {
+        return {
+            clickable: true,
+            url: `https://www.delhivery.com/track/package/${encodeURIComponent(trackingId)}`,
+            courier: courierRaw || "Delhivery",
+            trackingId,
+            label1: courierRaw || "Delhivery",
+            label2: trackingId
+        };
+    }
+
+    if (c.includes("dtdc")) {
+        return {
+            clickable: true,
+            url: `https://www.dtdc.in/tracking/track.asp?strCnno=${encodeURIComponent(trackingId)}`,
+            courier: courierRaw || "DTDC",
+            trackingId,
+            label1: courierRaw || "DTDC",
+            label2: trackingId
+        };
+    }
+
+    if (c.includes("india post") || c.includes("speed post") || c.includes("post")) {
+        return {
+            clickable: true,
+            url: `https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx?ArticleNo=${encodeURIComponent(trackingId)}`,
+            courier: courierRaw || "India Post",
+            trackingId,
+            label1: courierRaw || "India Post",
+            label2: trackingId
+        };
+    }
+
+    return {
+        clickable: false,
+        url: "",
+        courier: courierRaw || "Courier",
+        trackingId,
+        label1: courierRaw || "Courier",
+        label2: trackingId
+    };
+}
+        fetchOrdersPremium();
         
 function getLookupPhone() {
     return (localStorage.getItem("user_phone") || "").replace(/\D/g, "").slice(-10);
@@ -2595,15 +2666,20 @@ window.fetchOrders = fetchOrdersPremium;
     modal.classList.remove("hidden");
     modal.classList.add("flex");
 
-    history.pushState({ modal: true }, "", location.href);
+    history.pushState({ modal: "order-detail" }, "", location.href);
 }
     
-function closeOrderDetail() {
+function closeOrderDetail(fromPopState = false) {
     const modal = document.getElementById("order-detail-modal");
+    if (!modal) return;
 
     if (!modal.classList.contains("hidden")) {
         modal.classList.add("hidden");
         modal.classList.remove("flex");
+    }
+
+    if (!fromPopState && history.state && history.state.modal === "order-detail") {
+        history.back();
     }
 }
         // 🔥 GLOBAL BACK BUTTON HANDLER (ONLY ONCE)
@@ -2611,11 +2687,8 @@ window.addEventListener("popstate", function () {
     const modal = document.getElementById("order-detail-modal");
 
     if (modal && !modal.classList.contains("hidden")) {
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-
-        // STOP cascading back
-        history.pushState(null, "", location.href);
+        closeOrderDetail(true);
+        return;
     }
 });
     </script>
