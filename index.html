@@ -1,6 +1,4 @@
-iOS order history not appearing, using order ID as ULR for fix
-
-
+Version_2 iOS order history missing bug fix, using order ID as ulr
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1319,6 +1317,7 @@ localStorage.setItem("pe_checkout_phase_at", String(Date.now()));
     if (orderFromURL) {
         window.history.replaceState({}, document.title, window.location.pathname);
     }
+}
 }
         function loadUserData() {
             try {
