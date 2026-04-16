@@ -1,4 +1,4 @@
-using phone number to view order - dang U iOS
+Phone number for order history - V1
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1282,11 +1282,11 @@ localStorage.setItem("pe_checkout_phase_at", String(Date.now()));
         };
 
         function openOrderHistory() {
-            const sidebar = document.getElementById('cart-sidebar');
-            if (sidebar.classList.contains('translate-x-full')) toggleCart(); 
-            switchSidebarState('history');
-        }
-
+    const sidebar = document.getElementById('cart-sidebar');
+    if (sidebar.classList.contains('translate-x-full')) toggleCart();
+    switchSidebarState('history');
+    setTimeout(() => fetchOrdersPremium(), 50);
+}
         function getLookupPhone() {
     try {
         const userData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
@@ -2000,71 +2000,151 @@ localStorage.removeItem("pe_checkout_phase_at");
             }).join("");
         }
 
-        async function fetchOrdersPremium(){
-            const phone = (localStorage.getItem("user_phone")||"").replace(/\D/g,"");
-            const container = document.getElementById("history-container");
-            const navBtn = document.getElementById('nav-orders-btn');
-            const mobileBtn = document.getElementById('mobile-orders-btn');
-            
-            if(!phone) {
-                if(container) container.innerHTML = `<div class="text-center text-white/40 font-inter text-[10px] font-black tracking-widest uppercase mt-20">No orders found</div>`;
-                return;
-            }
-
-            try {
-                const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmjBL98bhRf4A1FDyaDpt9ry5fRgo9t0RRmgmYrlmmLTI7s-hPNafQVhoJMP1Oq6iQWR1MRht4pVCY/pub?output=csv");
-                const text = await res.text();
-                const rows = parseCSV(text);
-                const data = rows.slice(1);
-                const normalize = v => String(v||"").replace(/\D/g,"");
-
-                const userOrders = data.filter(r => normalize(r[8]) === normalize(phone) && r[1] !== "VISITOR");
-const snapshotRaw = localStorage.getItem("pe_last_order_snapshot");
-if (snapshotRaw) {
-    try {
-        const s = JSON.parse(snapshotRaw);
-        const alreadyThere = userOrders.some(r => String(r[1]) === String(s.orderId));
-
-        if (s && s.orderId && !alreadyThere) {
-            userOrders.unshift([
-                s.createdAt ? new Date(s.createdAt).toISOString() : new Date().toISOString(), // r[0]
-                s.orderId || "",     // r[1]
-                s.product || "",     // r[2]
-                s.size || "",        // r[3]
-                s.color || "",       // r[4]
-                s.quantity || "",    // r[5]
-                s.total || "",       // r[6]
-                s.name || "",        // r[7]
-                s.phone || phone,    // r[8]
-                s.address || "",     // r[9]
-                s.pincode || "",     // r[10]
-                s.city || "",        // r[11]
-                s.state || "",       // r[12]
-                "Paid",              // r[13]
-                "Processing",        // r[14]
-                "",                  // r[15]
-                ""                   // r[16]
-            ]);
-        }
-    } catch (e) {}
+        function normalizePhone(phone) {
+    return String(phone || "").replace(/\D/g, "").slice(-10);
 }
 
-                if(!userOrders.length){
-                    if(container) container.innerHTML = `<div class="text-center text-white/40 font-inter text-[10px] font-black tracking-widest uppercase mt-20">No orders found</div>`;
-                    if(navBtn) navBtn.classList.add('hidden');
-                    if(mobileBtn) mobileBtn.classList.add('hidden');
-                    return;
+function getStoredOrderPhone() {
+    try {
+        const userData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
+        return normalizePhone(userData.phone) || normalizePhone(localStorage.getItem("user_phone"));
+    } catch (e) {
+        return normalizePhone(localStorage.getItem("user_phone"));
+    }
+}
+
+function renderPhoneLookup(container, title = "View Orders", subtitle = "Enter the same phone number used at checkout.", prefill = "") {
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="premium-order">
+            <div class="font-inter text-[11px] font-black tracking-widest uppercase text-white mb-2">${title}</div>
+            <p class="font-inter text-[10px] text-white/60 leading-relaxed mb-4">${subtitle}</p>
+            <input
+                id="history-phone-input"
+                type="tel"
+                inputmode="numeric"
+                maxlength="10"
+                value="${prefill}"
+                placeholder="Phone number used at checkout"
+                class="w-full bg-[#050505] border border-white/10 text-white p-3 rounded-sm text-xs font-inter outline-none focus:border-white/40 mb-3"
+            >
+            <button
+                type="button"
+                onclick="submitHistoryPhone()"
+                class="w-full bg-white text-black py-3 rounded-sm text-[10px] font-black tracking-widest uppercase"
+            >
+                View My Orders
+            </button>
+            <p class="font-inter text-[9px] text-white/35 mt-3 leading-relaxed">
+                If you used a friend’s number at checkout, enter that number here.
+            </p>
+        </div>
+    `;
+}
+
+window.submitHistoryPhone = function () {
+    const input = document.getElementById("history-phone-input");
+    const phone = normalizePhone(input ? input.value : "");
+    if (!phone) return;
+
+    localStorage.setItem("user_phone", phone);
+
+    try {
+        const userData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
+        userData.phone = phone;
+        localStorage.setItem("pe_userData", JSON.stringify(userData));
+    } catch (e) {}
+
+    fetchOrdersPremium(phone);
+};
+async function fetchOrdersPremium(phoneOverride = "") {
+    const container = document.getElementById("history-container");
+    const navBtn = document.getElementById("nav-orders-btn");
+    const mobileBtn = document.getElementById("mobile-orders-btn");
+
+    const phone = normalizePhone(phoneOverride || getStoredOrderPhone());
+
+    if (!phone) {
+        renderPhoneLookup(container);
+        if (navBtn) navBtn.classList.add("hidden");
+        if (mobileBtn) mobileBtn.classList.add("hidden");
+        return;
+    }
+
+    localStorage.setItem("user_phone", phone);
+
+    try {
+        const currentUserData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
+        currentUserData.phone = phone;
+        localStorage.setItem("pe_userData", JSON.stringify(currentUserData));
+    } catch (e) {}
+
+    try {
+        const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmjBL98bhRf4A1FDyaDpt9ry5fRgo9t0RRmgmYrlmmLTI7s-hPNafQVhoJMP1Oq6iQWR1MRht4pVCY/pub?output=csv");
+        const text = await res.text();
+        const rows = parseCSV(text);
+        const data = rows.slice(1);
+
+        const userOrders = data.filter(r => normalizePhone(r[8]) === phone && r[1] !== "VISITOR");
+
+        const snapshotRaw = localStorage.getItem("pe_last_order_snapshot");
+        if (snapshotRaw) {
+            try {
+                const s = JSON.parse(snapshotRaw);
+                const alreadyThere = userOrders.some(r => String(r[1]) === String(s.orderId));
+
+                if (s && s.orderId && !alreadyThere) {
+                    userOrders.unshift([
+                        s.createdAt ? new Date(s.createdAt).toISOString() : new Date().toISOString(), // r[0]
+                        s.orderId || "",     // r[1]
+                        s.product || "",     // r[2]
+                        s.size || "",        // r[3]
+                        s.color || "",       // r[4]
+                        s.quantity || "",    // r[5]
+                        s.total || "",       // r[6]
+                        s.name || "",        // r[7]
+                        s.phone || phone,    // r[8]
+                        s.address || "",     // r[9]
+                        s.pincode || "",     // r[10]
+                        s.city || "",        // r[11]
+                        s.state || "",       // r[12]
+                        "Paid",              // r[13]
+                        "Processing",        // r[14]
+                        "",                  // r[15]
+                        ""                   // r[16]
+                    ]);
                 }
-                
-                if(navBtn) { navBtn.classList.remove('hidden'); navBtn.classList.add('flex'); }
-                if(mobileBtn) { mobileBtn.classList.remove('hidden'); mobileBtn.classList.add('flex'); }
+            } catch (e) {}
+        }
 
-                if (container) {
-    const html = userOrders.map(r => {
-        const status = r[14] || "Processing";
-        const tracking = r[15] || "Pending";
+        if (!userOrders.length) {
+            renderPhoneLookup(
+                container,
+                "No Orders Found",
+                "Check the phone number used at checkout and try again.",
+                phone
+            );
+            if (navBtn) navBtn.classList.add("hidden");
+            if (mobileBtn) mobileBtn.classList.add("hidden");
+            return;
+        }
 
-return `
+        if (navBtn) {
+            navBtn.classList.remove("hidden");
+            navBtn.classList.add("flex");
+        }
+        if (mobileBtn) {
+            mobileBtn.classList.remove("hidden");
+            mobileBtn.classList.add("flex");
+        }
+
+        if (container) {
+            const html = userOrders.map(r => {
+                const status = r[14] || "Processing";
+                const tracking = r[15] || "Pending";
+
+                return `
 <div class="premium-order" style="padding:12px;border-bottom:1px solid #222;">
 
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
@@ -2076,10 +2156,10 @@ return `
 
             <div style="font-size:10px;color:#888;margin-top:2px;">
                 ${r[0] ? new Date(r[0]).toLocaleDateString("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric"
-}) : "Just now"}
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }) : "Just now"}
             </div>
 
             <div style="font-size:10px;color:#aaa;margin-top:2px;">
@@ -2094,37 +2174,36 @@ return `
         </div>
 
         <div style="text-align:right;min-width:90px;">
-            ${
-                r[15] && r[15] !== "Pending"
-                ? "<div style='font-size:10px;color:#aaa;'>ID: " + (r[15] || "") + "</div>" +
-                  (r[16] ? "<div style='font-size:9px;color:#666;'>" + r[16] + "</div>" : "") +
-                  "<a href='" +
-                    (r[16]
-                        ? "https://www.google.com/search?q=" + r[15] + "+" + r[16] + "+tracking"
-                        : "https://www.google.com/search?q=" + r[15] + "+tracking"
-                    ) +
-                  "' target='_blank' style='font-size:11px;color:#25D366;font-weight:bold;display:inline-block;margin-top:3px;text-decoration:underline;'>Track →</a>"
-                : "<div style='font-size:10px;color:#666;'>Processing</div>"
-            }
+            <div style="font-size:11px;color:#fff;font-weight:700;">
+                ₹${r[6] || "0"}
+            </div>
+            <div style="font-size:9px;color:#888;margin-top:2px;">
+                ${tracking || ""}
+            </div>
         </div>
 
     </div>
 
-<div style="margin-top:8px;font-size:12px;color:#ddd;">
-    ${r[2] || ""}
-</div>
+    <div style="margin-top:8px;font-size:12px;color:#ddd;">
+        ${r[2] || ""}
+    </div>
 
 </div>
 `;
-    });
+            });
 
-    container.innerHTML = html.join("");
+            container.innerHTML = html.join("");
+        }
+    } catch (err) {
+        console.error("Failed to fetch order history", err);
+        renderPhoneLookup(
+            container,
+            "Could Not Load Orders",
+            "Please check your phone number and try again.",
+            phone
+        );
+    }
 }
-            } catch (err) {
-                console.error("Failed to fetch order history", err);
-            }
-}
-
 function restoreOrderState(force = false) {
     let isPending = localStorage.getItem("order_pending");
     let orderId = localStorage.getItem("last_order_id");
