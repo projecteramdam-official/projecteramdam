@@ -1,4 +1,4 @@
-01
+0245
 
 
 <!DOCTYPE html>
@@ -1300,7 +1300,32 @@ localStorage.setItem("pe_checkout_phase_at", String(Date.now()));
             setTimeout(() => { switchSidebarState('payment'); }, 300);
         };
 
-        function openOrderHistory() {
+        function getTrackingUrl(trackingId, courierName = "") {
+    const id = (trackingId || "").toString().trim();
+    const courier = (courierName || "").toString().trim().toLowerCase();
+
+    if (!id) return "";
+
+    if (courier.includes("bluedart") || courier.includes("blue dart")) {
+        return `https://www.bluedart.com/tracking?track_number=${encodeURIComponent(id)}`;
+    }
+
+    if (courier.includes("dtdc")) {
+        return `https://www.dtdc.in/tracking/track.asp?strCnno=${encodeURIComponent(id)}`;
+    }
+
+    if (courier.includes("delhivery")) {
+        return `https://www.delhivery.com/track/package/${encodeURIComponent(id)}`;
+    }
+
+    if (courier.includes("india post") || courier.includes("speed post") || courier.includes("post")) {
+        return `https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx?ArticleNo=${encodeURIComponent(id)}`;
+    }
+
+    return "";
+}
+
+function openOrderHistory() {
     const sidebar = document.getElementById('cart-sidebar');
     if (sidebar.classList.contains('translate-x-full')) toggleCart();
     switchSidebarState('history');
@@ -1344,6 +1369,56 @@ if (phoneDisplay) {
     const phone = (localStorage.getItem("user_phone") || "").replace(/\D/g, "").slice(-10);
     phoneDisplay.innerText = phone ? `+91 ${phone}` : "No phone linked";
 }
+     function getTrackingData(r) {
+    const trackingId = (r[15] || "").toString().trim();
+    const courier = (r[16] || "").toString().toLowerCase().trim(); // change index if courier is in another column
+
+    if (!trackingId) {
+        return {
+            clickable: false,
+            label: "Tracking Pending",
+            url: ""
+        };
+    }
+
+    if (courier.includes("bluedart") || courier.includes("blue dart")) {
+        return {
+            clickable: true,
+            label: `Track: ${trackingId}`,
+            url: `https://www.bluedart.com/tracking?track_number=${encodeURIComponent(trackingId)}`
+        };
+    }
+
+    if (courier.includes("dtdc")) {
+        return {
+            clickable: true,
+            label: `Track: ${trackingId}`,
+            url: `https://www.dtdc.in/tracking/track.asp?strCnno=${encodeURIComponent(trackingId)}`
+        };
+    }
+
+    if (courier.includes("delhivery")) {
+        return {
+            clickable: true,
+            label: `Track: ${trackingId}`,
+            url: `https://www.delhivery.com/track/package/${encodeURIComponent(trackingId)}`
+        };
+    }
+
+    if (courier.includes("india post") || courier.includes("speed post") || courier.includes("post")) {
+        return {
+            clickable: true,
+            label: `Track: ${trackingId}`,
+            url: `https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx?ArticleNo=${encodeURIComponent(trackingId)}`
+        };
+    }
+
+    return {
+        clickable: false,
+        label: trackingId,
+        url: ""
+    };
+}   
     // Refresh UI + fetch again
     fetchOrdersPremium();
         
@@ -2247,7 +2322,10 @@ async function fetchOrdersPremium(phoneOverride = "") {
             window.__ORDER_CACHE__ = userOrders;
             const html = userOrders.map((r, i) => {
                 const status = r[14] || "Processing";
-                const tracking = r[15] || "Pending";
+const tracking = r[15] || "";
+const courier = r[16] || "";
+const trackUrl = getTrackingUrl(tracking, courier);
+const trackLabel = courier && tracking ? `${courier} · ${tracking}` : (tracking || "Tracking Pending");
 
                 return `
 <div class="premium-order cursor-pointer"
@@ -2283,28 +2361,57 @@ async function fetchOrdersPremium(phoneOverride = "") {
         </div>
 
        <div style="min-width:120px;flex-shrink:0;display:flex;justify-content:flex-end;">
-    <a href="https://www.bluedart.com/tracking?track_number=${r[15] || ""}"
-       target="_blank"
-       onclick="event.stopPropagation();"
-       style="
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            padding:6px 10px;
-            border-radius:8px;
-            border:1px solid rgba(77,161,255,0.5);
-            background:rgba(77,161,255,0.12);
-            color:#4ea1ff;
-            font-size:10px;
-            font-weight:700;
-            text-decoration:none;
-            white-space:nowrap;
-            max-width:110px;
-            overflow:hidden;
-            text-overflow:ellipsis;
-       ">
-        ${r[15] ? "Track: " + r[15] : "Tracking Pending"}
-    </a>
+    ${(() => {
+        const t = getTrackingData(r);
+
+        if (t.clickable) {
+            return `
+                <a href="${t.url}"
+                   target="_blank"
+                   onclick="event.stopPropagation();"
+                   style="
+                        display:inline-flex;
+                        align-items:center;
+                        justify-content:center;
+                        padding:6px 10px;
+                        border-radius:8px;
+                        border:1px solid rgba(77,161,255,0.5);
+                        background:rgba(77,161,255,0.12);
+                        color:#4ea1ff;
+                        font-size:10px;
+                        font-weight:700;
+                        text-decoration:none;
+                        white-space:nowrap;
+                        max-width:110px;
+                        overflow:hidden;
+                        text-overflow:ellipsis;
+                   ">
+                    ${t.label}
+                </a>
+            `;
+        }
+
+        return `
+            <span style="
+                display:inline-flex;
+                align-items:center;
+                justify-content:center;
+                padding:6px 10px;
+                border-radius:8px;
+                border:1px solid rgba(255,255,255,0.10);
+                background:rgba(255,255,255,0.05);
+                color:#888;
+                font-size:10px;
+                font-weight:700;
+                white-space:nowrap;
+                max-width:110px;
+                overflow:hidden;
+                text-overflow:ellipsis;
+            ">
+                ${t.label}
+            </span>
+        `;
+    })()}
 </div>
 
     </div>
