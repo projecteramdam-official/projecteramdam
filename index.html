@@ -1,4 +1,4 @@
-123
+1
 
 
 
@@ -1348,15 +1348,9 @@ if (phoneDisplay) {
     fetchOrdersPremium();
         
 function getLookupPhone() {
-    try {
-        const userData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
-        const fromUserData = (userData.phone || "").replace(/\D/g, "").slice(-10);
-        const fromLegacy = (localStorage.getItem("user_phone") || "").replace(/\D/g, "").slice(-10);
-        return fromUserData || fromLegacy || "";
-    } catch (e) {
-        return (localStorage.getItem("user_phone") || "").replace(/\D/g, "").slice(-10);
-    }
+    return (localStorage.getItem("user_phone") || "").replace(/\D/g, "").slice(-10);
 }
+        
 async function loadRegistry() {
             try {
                 const res = await fetch('./data/products.json?ts=' + Date.now());
@@ -1433,12 +1427,16 @@ function submitManualPhone() {
         return;
     }
 
+    // Save as main source
     localStorage.setItem("user_phone", input);
 
-    // Fetch orders again with new phone
+    // 🔥 ALSO update pe_userData to prevent override anywhere else
+    const userData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
+    userData.phone = input;
+    localStorage.setItem("pe_userData", JSON.stringify(userData));
+
     fetchOrdersPremium();
 }
-
         function saveUserData() {
             const data = {
                 name: document.getElementById("dlv-name").value.trim(), phone: document.getElementById("dlv-phone").value.trim(),
