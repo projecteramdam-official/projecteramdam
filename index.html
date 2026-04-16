@@ -1,4 +1,4 @@
-7
+8
 
 
 <!DOCTYPE html>
@@ -2486,13 +2486,7 @@ window.fetchOrders = fetchOrdersPremium;
 
     history.pushState({ modal: true }, "");
 }
-        {
-    const orders = window.__ORDER_CACHE__ || [];
-    const r = orders[index];
-
-    if (!r) return;
-            }
-
+    
     const product = r[2] || "-";
     const size = r[3] || "-";
     const color = r[4] || "-";
