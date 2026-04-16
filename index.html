@@ -1,4 +1,4 @@
-Scarcity
+Scarcity added
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1610,11 +1610,44 @@ playTock();
         };
 
         const renderGrid = () => {
-            document.getElementById('product-grid').innerHTML = PRODUCT_DATA_LOADED.map((p, idx) => {
-                const nameParts = splitName(p.name);
-                return `<div class="group cursor-pointer flex flex-col h-full" onclick="openModal(${idx})"><div class="aspect-[4/5] bg-neutral-900 overflow-hidden mb-4 rounded-sm"><img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"></div><div class="px-1 flex flex-col flex-grow"><span class="block font-mayek text-[13px] text-white leading-tight mb-1 text-left">${nameParts.mayek}</span><span class="font-inter text-[8px] text-white/60 tracking-widest uppercase mb-2 text-left">${nameParts.eng}</span><div class="flex justify-between items-center border-t border-white/5 pt-3 mt-auto text-left"><span class="text-xs font-inter">₹${parseInt(p.price.replace(/\D/g,'')).toLocaleString('en-IN')}</span><span class="font-mayek text-pe-red text-[11px]">ꯑꯀꯨꯞꯄ</span></div></div></div>`}).join('');
-        };
+    document.getElementById('product-grid').innerHTML = PRODUCT_DATA_LOADED.map((p, idx) => {
+        const nameParts = splitName(p.name);
 
+        // ✅ ONLY ADD THIS
+        const scarcityText = getScarcityText(p);
+
+        return `<div class="group cursor-pointer flex flex-col h-full" onclick="openModal(${idx})">
+
+        <div class="aspect-[4/5] bg-neutral-900 overflow-hidden mb-4 rounded-sm">
+            <img src="${p.images[0]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+        </div>
+
+        <div class="px-1 flex flex-col flex-grow">
+
+            <span class="block font-mayek text-[13px] text-white leading-tight mb-1 text-left">
+                ${nameParts.mayek}
+            </span>
+
+            <span class="font-inter text-[8px] text-white/60 tracking-widest uppercase mb-2 text-left">
+                ${nameParts.eng}
+            </span>
+
+            <!-- ✅ ONLY ADD THIS BLOCK -->
+            <div class="text-[9px] text-pe-red font-bold tracking-widest mb-2 text-left">
+                ${scarcityText}
+            </div>
+
+            <div class="flex justify-between items-center border-t border-white/5 pt-3 mt-auto text-left">
+                <span class="text-xs font-inter">
+                    ₹${parseInt(p.price.replace(/\D/g,'')).toLocaleString('en-IN')}
+                </span>
+                <span class="font-mayek text-pe-red text-[11px]">ꯑꯀꯨꯞꯄ</span>
+            </div>
+
+        </div>
+        </div>`;
+    }).join('');
+};
         const canvas = document.getElementById('matrix-canvas'), ctx = canvas.getContext('2d');
         const drawM = () => {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.15)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
