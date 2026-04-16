@@ -1,4 +1,4 @@
-5
+6
 
 
 
@@ -2189,6 +2189,7 @@ async function fetchOrdersPremium(phoneOverride = "") {
         const data = rows.slice(1);
 
         const userOrders = data.filter(r => normalizePhone(r[8]) === phone && r[1] !== "VISITOR");
+        window.__ORDER_CACHE__ = userOrders;
 
         const snapshotRaw = localStorage.getItem("pe_last_order_snapshot");
         if (snapshotRaw) {
@@ -2242,12 +2243,14 @@ async function fetchOrdersPremium(phoneOverride = "") {
         }
 
         if (container) {
-            const html = userOrders.map(r => {
+            const html = userOrders.map((r, i) => {
                 const status = r[14] || "Processing";
                 const tracking = r[15] || "Pending";
 
                 return `
-<div class="premium-order" style="padding:12px;border-bottom:1px solid #222;">
+<div class="premium-order cursor-pointer"
+     onclick="openOrderDetailByIndex(${i})"
+     style="padding:12px;border-bottom:1px solid #222;">
 
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
 
@@ -2420,6 +2423,37 @@ window.addEventListener("pageshow", function (event) {
 
 window.fetchOrders = fetchOrdersPremium;
     }
+    function openOrderDetailByIndex(index) {
+    const orders = window.__ORDER_CACHE__ || [];
+    const r = orders[index];
+
+    if (!r) return;
+
+    const product = r[2] || "-";
+    const size = r[3] || "-";
+    const color = r[4] || "-";
+    const qty = r[5] || "1";
+    const total = r[6] || "0";
+
+    const image = "images/placeholder.jpg";
+
+    document.getElementById("od-name").innerText = product;
+    document.getElementById("od-size").innerText = size;
+    document.getElementById("od-color").innerText = color;
+    document.getElementById("od-qty").innerText = qty;
+    document.getElementById("od-total").innerText = `₹${total}`;
+    document.getElementById("od-image").src = image;
+
+    const modal = document.getElementById("order-detail-modal");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+}
+
+function closeOrderDetail() {
+    const modal = document.getElementById("order-detail-modal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+}
     </script>
     
 <script src="js/scarcity.js"></script>
