@@ -1,4 +1,6 @@
-Final debugging 16th Apr'26
+iOS order history not appearing, using order ID as ULR for fix
+
+
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1296,13 +1298,28 @@ localStorage.setItem("pe_checkout_phase_at", String(Date.now()));
                 else PRODUCT_DATA_LOADED = FALLBACK_DATA;
             } catch (err) { PRODUCT_DATA_LOADED = FALLBACK_DATA; } 
             finally {
-                renderGrid(); renderRegistryAccordion(); updateCartUI(); loadUserData();
-                // Check recovery / history on load
-                restoreOrderState();
-                fetchOrdersPremium();
-            }
-        }
+    renderGrid(); 
+    renderRegistryAccordion(); 
+    updateCartUI(); 
+    loadUserData();
 
+    // ✅ ADD THIS BLOCK HERE (IMPORTANT POSITION)
+    const params = new URLSearchParams(window.location.search);
+    const orderFromURL = params.get("order");
+
+    if (orderFromURL) {
+        localStorage.setItem("last_order_id", orderFromURL);
+    }
+
+    // Check recovery / history on load
+    restoreOrderState();
+    fetchOrdersPremium();
+
+    // ✅ OPTIONAL CLEANUP (safe)
+    if (orderFromURL) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+}
         function loadUserData() {
             try {
                 const data = JSON.parse(localStorage.getItem("pe_userData"));
@@ -1761,6 +1778,9 @@ localStorage.setItem("pe_last_order_snapshot", JSON.stringify({
     quantity: data.quantity,
     total
 }));
+setTimeout(() => {
+  window.location.href = window.location.pathname + "?order=" + orderId;
+}, 1000);
     // =============================
     // PREP WHATSAPP MESSAGE FIRST
     // =============================
