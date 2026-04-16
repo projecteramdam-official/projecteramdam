@@ -1,4 +1,4 @@
-8
+12
 
 
 <!DOCTYPE html>
@@ -2472,13 +2472,29 @@ window.fetchOrders = fetchOrdersPremium;
     });
 
     document.getElementById("od-name").innerHTML = html;
-    document.getElementById("od-size").innerText = "-";
-    document.getElementById("od-color").innerText = "-";
-    document.getElementById("od-qty").innerText = items.length;
-    document.getElementById("od-total").innerText = `₹${total}`;
+
+// 🔥 ONLY keep total (remove duplicate junk)
+document.getElementById("od-total").innerText = `₹${total}`;
+
+// 🔥 CLEAR unused fields
+document.getElementById("od-size").innerText = "";
+document.getElementById("od-color").innerText = "";
+document.getElementById("od-qty").innerText = "";
 
     // 🔥 SIMPLE IMAGE (1 IMAGE FOR NOW)
-    document.getElementById("od-image").src = "images/placeholder.jpg";
+    // 🔥 GET FIRST PRODUCT
+const firstItem = items[0] || "";
+
+// 🔥 BASIC IMAGE MATCHING
+let image = "images/placeholder.jpg";
+
+if (firstItem.toLowerCase().includes("kangla")) {
+    image = "images/kangla.jpg";
+} else if (firstItem.toLowerCase().includes("khushangbi")) {
+    image = "images/khushangbi.jpg";
+}
+
+document.getElementById("od-image").src = image;
 
     const modal = document.getElementById("order-detail-modal");
     modal.classList.remove("hidden");
@@ -2498,13 +2514,15 @@ function closeOrderDetail() {
         window.addEventListener("popstate", function (e) {
     const modal = document.getElementById("order-detail-modal");
 
-    // 🔥 ONLY close modal, don't let page go back further
+    // 🔥 If modal is open → ONLY close modal
     if (modal && !modal.classList.contains("hidden")) {
         modal.classList.add("hidden");
         modal.classList.remove("flex");
 
-        // prevent further navigation
-        history.pushState(null, "", location.href);
+        // 🔥 STOP further navigation
+        setTimeout(() => {
+            history.pushState(null, "", location.href);
+        }, 0);
     }
 });
     </script>
