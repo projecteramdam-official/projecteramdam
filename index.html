@@ -1,4 +1,4 @@
-2
+3
 
 
 
@@ -1428,16 +1428,27 @@ function submitManualPhone() {
         return;
     }
 
-    // Save as main source
+    // Save main phone
     localStorage.setItem("user_phone", input);
 
-    // 🔥 ALSO update pe_userData to prevent override anywhere else
+    // Keep checkout autofill in sync
     const userData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
     userData.phone = input;
     localStorage.setItem("pe_userData", JSON.stringify(userData));
+
+    // Reset UI (prevents stale content)
+    const container = document.getElementById("history-container");
+    if (container) {
+        container.innerHTML = `<p class="text-white/40 text-xs">Loading orders...</p>`;
+    }
+
+    // Update phone display instantly
     updatePhoneDisplay();
 
-    fetchOrdersPremium();
+    // Slight delay ensures clean refresh
+    setTimeout(() => {
+        fetchOrdersPremium();
+    }, 50);
 }
         function saveUserData() {
             const data = {
