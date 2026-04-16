@@ -1,4 +1,6 @@
-Ddddd
+work
+
+
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -1344,7 +1346,7 @@ if (phoneDisplay) {
 }
     // Refresh UI + fetch again
     fetchOrdersPremium();
-        
+}
 function getLookupPhone() {
     try {
         const userData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
@@ -2131,12 +2133,9 @@ async function fetchOrdersPremium(phoneOverride = "") {
     const phone = normalizePhone(phoneOverride || getStoredOrderPhone());
 
     if (!phone) {
-        renderPhoneLookup(container);
-        if (navBtn) navBtn.classList.add("hidden");
-        if (mobileBtn) mobileBtn.classList.add("hidden");
-        return;
-    }
-
+    renderPhoneLookup(container);
+    return;
+}
     localStorage.setItem("user_phone", phone);
 
     try {
