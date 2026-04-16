@@ -1,4 +1,4 @@
-00
+11
 
 
 <!DOCTYPE html>
@@ -1327,8 +1327,16 @@ localStorage.setItem("pe_checkout_phase_at", String(Date.now()));
 
 function openOrderHistory() {
     const sidebar = document.getElementById('cart-sidebar');
-    if (sidebar.classList.contains('translate-x-full')) toggleCart();
+    if (!sidebar) return;
+
+    if (sidebar.classList.contains('translate-x-full')) {
+        toggleCart();
+    }
+
     switchSidebarState('history');
+
+    history.pushState({ page: "order-history" }, "", location.href);
+
     setTimeout(() => fetchOrdersPremium(), 50);
 }
 function changePhoneNumber() {
@@ -2452,10 +2460,11 @@ const trackLabel = courier && tracking ? `${courier} · ${tracking}` : (tracking
                         font-size:10px;
                         font-weight:700;
                         text-decoration:none;
-                        white-space:nowrap;
-                        max-width:110px;
-                        overflow:hidden;
-                        text-overflow:ellipsis;
+                        max-width:120px;
+white-space:normal;
+word-break:break-all;
+line-height:1.2;
+text-align:right;    
                    ">
                     ${t.label}
                 </a>
@@ -2474,10 +2483,11 @@ const trackLabel = courier && tracking ? `${courier} · ${tracking}` : (tracking
                 color:#888;
                 font-size:10px;
                 font-weight:700;
-                white-space:nowrap;
-                max-width:110px;
-                overflow:hidden;
-                text-overflow:ellipsis;
+                max-width:120px;
+white-space:normal;
+word-break:break-all;
+line-height:1.2;
+text-align:right;
             ">
                 ${t.label}
             </span>
@@ -2678,9 +2688,24 @@ function closeOrderDetail(fromPopState = false) {
         modal.classList.remove("flex");
     }
 
-    if (!fromPopState && history.state && history.state.modal === "order-detail") {
-        history.back();
+    window.addEventListener("popstate", function () {
+    const modal = document.getElementById("order-detail-modal");
+    const historyPage = document.getElementById("state-history");
+
+    // Priority 1: close modal
+    if (modal && !modal.classList.contains("hidden")) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        history.pushState({ modal: "detail" }, "");
+        return;
     }
+
+    // Priority 2: close history
+    if (historyPage && !historyPage.classList.contains("hidden")) {
+        historyPage.classList.add("hidden");
+        return;
+    }
+});
 }
         // 🔥 GLOBAL BACK BUTTON HANDLER (ONLY ONCE)
 window.addEventListener("popstate", function () {
