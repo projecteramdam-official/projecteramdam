@@ -1,4 +1,4 @@
-8
+7
 
 
 <!DOCTYPE html>
@@ -2487,26 +2487,6 @@ window.fetchOrders = fetchOrdersPremium;
     history.pushState({ modal: true }, "");
 }
     
-    const product = r[2] || "-";
-    const size = r[3] || "-";
-    const color = r[4] || "-";
-    const qty = r[5] || "1";
-    const total = r[6] || "0";
-
-    const image = "images/placeholder.jpg";
-
-    document.getElementById("od-name").innerText = product;
-    document.getElementById("od-size").innerText = size;
-    document.getElementById("od-color").innerText = color;
-    document.getElementById("od-qty").innerText = qty;
-    document.getElementById("od-total").innerText = `₹${total}`;
-    document.getElementById("od-image").src = image;
-
-    const modal = document.getElementById("order-detail-modal");
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-}
-
 function closeOrderDetail() {
     const modal = document.getElementById("order-detail-modal");
     modal.classList.add("hidden");
