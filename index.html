@@ -1,4 +1,4 @@
-1212121
+2
 
 
 <!DOCTYPE html>
@@ -2252,23 +2252,24 @@ async function fetchOrdersPremium(phoneOverride = "") {
                 return `
 <div class="premium-order cursor-pointer"
      data-index="${i}"
-     style="padding:12px;border-bottom:1px solid #222;">
+     onclick="openOrderDetailByIndex(${i})"
+     style="padding:12px;border-bottom:1px solid #222;cursor:pointer;">
 
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
 
         <div style="flex:1;">
             <div style="font-size:12px;font-weight:bold;">
-    Order #${r[1] || ""}
-</div>
+                Order #${r[1] || ""}
+            </div>
 
-<div style="font-size:10px;color:#4ea1ff;margin-top:2px;">
-    <a href="https://www.bluedart.com/tracking?track_number=${r[15] || ""}"
-       target="_blank"
-       onclick="event.stopPropagation();"
-       style="text-decoration:none;color:#4ea1ff;">
-        Track: ${r[15] || "Pending"}
-    </a>
-</div>
+            <div style="font-size:10px;color:#4ea1ff;margin-top:2px;">
+                <a href="https://www.bluedart.com/tracking?track_number=${r[15] || ""}"
+                   target="_blank"
+                   onclick="event.stopPropagation();"
+                   style="text-decoration:none;color:#4ea1ff;">
+                    Track: ${r[15] || "Pending"}
+                </a>
+            </div>
 
             <div style="font-size:10px;color:#888;margin-top:2px;">
                 ${r[0] ? new Date(r[0]).toLocaleDateString("en-IN", {
@@ -2292,9 +2293,6 @@ async function fetchOrdersPremium(phoneOverride = "") {
         <div style="text-align:right;min-width:90px;">
             <div style="font-size:11px;color:#fff;font-weight:700;">
                 ₹${r[6] || "0"}
-            </div>
-            <div style="font-size:9px;color:#888;margin-top:2px;">
-                ${r[15] || ""}
             </div>
         </div>
 
@@ -2442,14 +2440,11 @@ window.fetchOrders = fetchOrdersPremium;
 
     const raw = r[2] || "";
     const total = r[6] || "0";
-
-    // 🔥 CLEAN SPLIT
     const items = raw.split("•").map(x => x.trim()).filter(Boolean);
 
     let html = "";
 
     items.forEach(item => {
-        // product name = before "Size:"
         const name = item.split("Size:")[0]?.replace("—", "").trim() || "Product";
 
         const sizeMatch = item.match(/Size:\s*([^/]+)/i);
@@ -2460,42 +2455,30 @@ window.fetchOrders = fetchOrdersPremium;
 
         html += `
             <div style="border-bottom:1px solid #222;padding-bottom:10px;margin-bottom:10px;">
-                
                 <div style="font-size:12px;font-weight:600;">${name}</div>
-                
                 <div style="font-size:11px;color:#aaa;margin-top:4px;">
                     Size: ${size} • Color: ${color}
                 </div>
-
                 <div style="font-size:11px;color:#888;margin-top:2px;">
                     Qty: 1
                 </div>
-
             </div>
         `;
     });
 
-   const nameEl = document.getElementById("od-name");
-const totalEl = document.getElementById("od-total");
+    const nameEl = document.getElementById("od-name");
+    const totalEl = document.getElementById("od-total");
+    const modal = document.getElementById("order-detail-modal");
 
-if (nameEl) nameEl.innerHTML = html;
-if (totalEl) totalEl.innerText = `₹${total}`;
+    if (nameEl) nameEl.innerHTML = html;
+    if (totalEl) totalEl.innerText = `₹${total}`;
+    if (!modal) return;
 
-// 🔥 CLEAR unused fields
-const sizeEl = document.getElementById("od-size");
-const colorEl = document.getElementById("od-color");
-const qtyEl = document.getElementById("od-qty");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
 
-if (sizeEl) sizeEl.innerText = "";
-if (colorEl) colorEl.innerText = "";
-if (qtyEl) qtyEl.innerText = "";
-    
-            const modal = document.getElementById("order-detail-modal");
-            modal.classList.remove("hidden");
-            modal.classList.add("flex");
-        
-            history.pushState({ modal: true }, "");
-        }
+    history.pushState({ modal: true }, "", location.href);
+}
     
 function closeOrderDetail() {
     const modal = document.getElementById("order-detail-modal");
@@ -2530,14 +2513,21 @@ window.addEventListener("popstate", function () {
             ✕
         </button>
 
-        <div class="space-y-2 text-xs text-white">
-            <!-- 🔥 ADD THIS LINE HERE -->
-    <div class="text-xs font-black tracking-widest mb-3 text-white/70">
+        <div class="space-y-3 text-xs text-white">
+    <div class="text-xs font-black tracking-widest mb-3 text-white/70 uppercase">
         ORDER DETAILS
-            <div><span class="text-white/40">Product:</span> <span id="od-name"></span></div>
-            <div><span class="text-white/40">Total:</span> <span id="od-total"></span></div>
+    </div>
 
-        </div>
+    <div>
+        <div class="text-white/40 mb-2">Product:</div>
+        <div id="od-name" class="space-y-3"></div>
+    </div>
+
+    <div class="pt-3 border-t border-white/10">
+        <div class="text-white/40 mb-1">Total:</div>
+        <div id="od-total" class="font-black text-white"></div>
+    </div>
+</div>
 
     </div>
 </div>
