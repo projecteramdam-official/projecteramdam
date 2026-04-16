@@ -1,4 +1,4 @@
-123
+0014
 
 
 <!DOCTYPE html>
@@ -2482,28 +2482,7 @@ document.getElementById("od-total").innerText = `₹${total}`;
 document.getElementById("od-size").innerText = "";
 document.getElementById("od-color").innerText = "";
 document.getElementById("od-qty").innerText = "";
-
-                    // 🔥 GET FIRST PRODUCT
-const firstItem = items[0] || "";
-
-// 🔥 BASIC IMAGE MATCHING
-let image = "images/placeholder.jpg";
-
-if (firstItem.toLowerCase().includes("kangla")) {
-    image = "images/kangla.jpg";
-} else if (firstItem.toLowerCase().includes("khushangbi")) {
-    image = "images/khushangbi.jpg";
-}
-
-// 🔥 SAFE IMAGE LOAD (NO BROKEN ICON EVER)
-const imgEl = document.getElementById("od-image");
-
-imgEl.src = image;
-
-imgEl.onerror = function () {
-    this.src = "images/placeholder.jpg";
-};
-        
+    
             const modal = document.getElementById("order-detail-modal");
             modal.classList.remove("hidden");
             modal.classList.add("flex");
@@ -2544,12 +2523,10 @@ window.addEventListener("popstate", function () {
             ✕
         </button>
 
-        <!-- IMAGE -->
-        <img id="od-image" src="images/placeholder.jpg" class="w-full h-56 object-cover mb-4 border border-white/10">
-
-        <!-- INFO -->
         <div class="space-y-2 text-xs text-white">
-
+            <!-- 🔥 ADD THIS LINE HERE -->
+    <div class="text-xs font-black tracking-widest mb-3 text-white/70">
+        ORDER DETAILS
             <div><span class="text-white/40">Product:</span> <span id="od-name"></span></div>
             <div><span class="text-white/40">Total:</span> <span id="od-total"></span></div>
 
