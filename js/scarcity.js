@@ -7,9 +7,9 @@ if (!sessionStorage.getItem("pe_visit_start")) {
 }
 // PERSONALITY PROFILES
 const SCARCITY_PROFILES = {
-  hot: { base: 12, decay: 6, min: 2 },
-  balanced: { base: 16, decay: 8, min: 3 },
-  slow: { base: 22, decay: 12, min: 5 }
+  hot: { base: 16, decay: 6, min: 2 },
+  balanced: { base: 22, decay: 8, min: 3 },
+  slow: { base: 30, decay: 12, min: 5 }
 };
 
 // AUTO PERSONALITY (NO JSON CHANGE)
@@ -68,8 +68,8 @@ if (visitStart) {
   if (!isNaN(start)) {
     const minutesOnPage = (Date.now() - start) / 60000;
 
-    if (minutesOnPage > 2) timeBoost = 1;
-    if (minutesOnPage > 5) timeBoost = 2;
+    if (minutesOnPage > 3) timeBoost = 1;
+    if (minutesOnPage > 7) timeBoost = 2;
   }
 }
 
