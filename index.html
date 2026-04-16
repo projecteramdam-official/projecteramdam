@@ -1,4 +1,4 @@
-7
+8
 
 
 <!DOCTYPE html>
@@ -2489,16 +2489,22 @@ window.fetchOrders = fetchOrdersPremium;
     
 function closeOrderDetail() {
     const modal = document.getElementById("order-detail-modal");
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
 
-    history.back();
+    if (!modal.classList.contains("hidden")) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+    }
 }
-        window.addEventListener("popstate", function () {
+        window.addEventListener("popstate", function (e) {
     const modal = document.getElementById("order-detail-modal");
+
+    // 🔥 ONLY close modal, don't let page go back further
     if (modal && !modal.classList.contains("hidden")) {
         modal.classList.add("hidden");
         modal.classList.remove("flex");
+
+        // prevent further navigation
+        history.pushState(null, "", location.href);
     }
 });
     </script>
