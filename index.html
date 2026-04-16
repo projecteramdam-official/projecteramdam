@@ -1,4 +1,4 @@
-12
+1230
 
 
 <!DOCTYPE html>
@@ -2511,18 +2511,16 @@ function closeOrderDetail() {
         modal.classList.remove("flex");
     }
 }
-        window.addEventListener("popstate", function (e) {
+        // 🔥 GLOBAL BACK BUTTON HANDLER (ONLY ONCE)
+window.addEventListener("popstate", function () {
     const modal = document.getElementById("order-detail-modal");
 
-    // 🔥 If modal is open → ONLY close modal
     if (modal && !modal.classList.contains("hidden")) {
         modal.classList.add("hidden");
         modal.classList.remove("flex");
 
-        // 🔥 STOP further navigation
-        setTimeout(() => {
-            history.pushState(null, "", location.href);
-        }, 0);
+        // STOP cascading back
+        history.pushState(null, "", location.href);
     }
 });
     </script>
