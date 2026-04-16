@@ -68,15 +68,15 @@ if (visitStart) {
   if (!isNaN(start)) {
     const minutesOnPage = (Date.now() - start) / 60000;
 
-    if (minutesOnPage > 3) timeBoost = 1;
-    if (minutesOnPage > 7) timeBoost = 2;
+    if (minutesOnPage > 5) timeBoost = 1;
+    if (minutesOnPage > 10) timeBoost = 2;
   }
 }
 
 stock -= timeBoost;
 
   // FLOOR PROTECTION
-  stock = Math.max(profile.min, Math.floor(stock));
+  stock = Math.max(profile.min + 1, Math.floor(stock));
 
   // SOFT RESET (18–42 hrs randomized)
   const resetWindow = 1080 + (product.id % 24) * 60;
@@ -90,7 +90,9 @@ stock -= timeBoost;
 
 // SINGLE MESSAGE RULE
 function getScarcityMessage(stock) {
-  if (stock <= 5) return `Only ${stock} left`;
+  if (stock <= 3 && (product.id % 3 === 0)) {
+  return `Only ${stock} left`;
+}
 
   if (stock <= 10) return "Selling fast";
 
