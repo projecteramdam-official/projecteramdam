@@ -1633,9 +1633,13 @@ playTock();
             </span>
 
             <!-- ✅ ONLY ADD THIS BLOCK -->
-            <div class="text-[9px] text-pe-red font-bold tracking-widest mb-2 text-left">
-                ${scarcityText}
-            </div>
+            <div class="${
+  scarcityText.includes('Only')
+    ? 'text-[10px] text-white font-semibold'
+    : 'text-[9px] text-white/50 font-medium'
+} tracking-widest mb-2 text-left ${scarcityText ? '' : 'hidden'}">
+  ${scarcityText}
+</div>
 
             <div class="flex justify-between items-center border-t border-white/5 pt-3 mt-auto text-left">
                 <span class="text-xs font-inter">
