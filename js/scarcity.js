@@ -63,7 +63,6 @@ function calculateStock(product) {
 
   if (minutesPassed > resetWindow) {
     state.startTime = Date.now();
-    localStorage.setItem("pe_scarcity_" + product.id, JSON.stringify(state));
   }
 
   return stock;
