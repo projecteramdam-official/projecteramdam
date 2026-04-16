@@ -1,4 +1,4 @@
-12
+123
 
 
 <!DOCTYPE html>
@@ -2109,7 +2109,8 @@ function renderPhoneLookup(container, title = "View Orders", subtitle = "Enter t
 
     container.innerHTML = `
         <div class="premium-order cursor-pointer"
-     data-index="${i}">
+     data-index="${i}"
+     onclick="openOrderDetailByIndex(${i})">
             <div class="font-inter text-[11px] font-black tracking-widest uppercase text-white mb-2">${title}</div>
             <p class="font-inter text-[10px] text-white/60 leading-relaxed mb-4">${subtitle}</p>
             <input
@@ -2243,6 +2244,7 @@ async function fetchOrdersPremium(phoneOverride = "") {
         }
 
         if (container) {
+            window.__ORDER_CACHE__ = userOrders;
             const html = userOrders.map((r, i) => {
                 const status = r[14] || "Processing";
                 const tracking = r[15] || "Pending";
