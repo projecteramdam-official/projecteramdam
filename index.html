@@ -1,4 +1,4 @@
-1230
+12
 
 
 <!DOCTYPE html>
@@ -2481,8 +2481,7 @@ document.getElementById("od-size").innerText = "";
 document.getElementById("od-color").innerText = "";
 document.getElementById("od-qty").innerText = "";
 
-    // 🔥 SIMPLE IMAGE (1 IMAGE FOR NOW)
-    // 🔥 GET FIRST PRODUCT
+                    // 🔥 GET FIRST PRODUCT
 const firstItem = items[0] || "";
 
 // 🔥 BASIC IMAGE MATCHING
@@ -2494,14 +2493,21 @@ if (firstItem.toLowerCase().includes("kangla")) {
     image = "images/khushangbi.jpg";
 }
 
-document.getElementById("od-image").src = image;
+// 🔥 SAFE IMAGE LOAD (NO BROKEN ICON EVER)
+const imgEl = document.getElementById("od-image");
 
-    const modal = document.getElementById("order-detail-modal");
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
+imgEl.src = image;
 
-    history.pushState({ modal: true }, "");
-}
+imgEl.onerror = function () {
+    this.src = "images/placeholder.jpg";
+};
+        
+            const modal = document.getElementById("order-detail-modal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        
+            history.pushState({ modal: true }, "");
+        }
     
 function closeOrderDetail() {
     const modal = document.getElementById("order-detail-modal");
@@ -2537,15 +2543,12 @@ window.addEventListener("popstate", function () {
         </button>
 
         <!-- IMAGE -->
-        <img id="od-image" src="" class="w-full h-56 object-cover mb-4 border border-white/10">
+        <img id="od-image" src="images/placeholder.jpg" class="w-full h-56 object-cover mb-4 border border-white/10">
 
         <!-- INFO -->
         <div class="space-y-2 text-xs text-white">
 
             <div><span class="text-white/40">Product:</span> <span id="od-name"></span></div>
-            <div><span class="text-white/40">Size:</span> <span id="od-size"></span></div>
-            <div><span class="text-white/40">Color:</span> <span id="od-color"></span></div>
-            <div><span class="text-white/40">Quantity:</span> <span id="od-qty"></span></div>
             <div><span class="text-white/40">Total:</span> <span id="od-total"></span></div>
 
         </div>
