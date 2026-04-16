@@ -1,4 +1,4 @@
-1
+2
 
 
 
@@ -1340,9 +1340,10 @@ function changePhoneNumber() {
 }
 // Show current phone in UI
 const phoneDisplay = document.getElementById("current-phone-display");
+
 if (phoneDisplay) {
-    const savedPhone = localStorage.getItem("user_phone");
-    phoneDisplay.innerText = savedPhone ? `+91 ${savedPhone}` : "No phone linked";
+    const phone = (localStorage.getItem("user_phone") || "").replace(/\D/g, "").slice(-10);
+    phoneDisplay.innerText = phone ? `+91 ${phone}` : "No phone linked";
 }
     // Refresh UI + fetch again
     fetchOrdersPremium();
@@ -1434,6 +1435,7 @@ function submitManualPhone() {
     const userData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
     userData.phone = input;
     localStorage.setItem("pe_userData", JSON.stringify(userData));
+    updatePhoneDisplay();
 
     fetchOrdersPremium();
 }
