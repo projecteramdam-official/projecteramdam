@@ -1,4 +1,4 @@
-4
+5
 
 
 
@@ -1421,34 +1421,48 @@ restoreOrderState();
             } catch(e) {}
         }
 function submitManualPhone() {
-    const input = document.getElementById("manual-phone-input").value.trim();
+    const inputEl = document.getElementById("manual-phone-input");
+    if (!inputEl) return;
+
+    const input = inputEl.value.trim();
 
     if (!input || input.length !== 10) {
         alert("Enter valid 10 digit number");
         return;
     }
 
-    // Save main phone
-    localStorage.setItem("user_phone", input);
+    // Normalize ONCE (backend-safe format)
+    const phone = normalizePhone(input);
 
-    // Keep checkout autofill in sync
+    // Save everywhere (SYNC)
+    localStorage.setItem("user_phone", phone);
+
     const userData = JSON.parse(localStorage.getItem("pe_userData") || "{}");
-    userData.phone = input;
+    userData.phone = phone;
     localStorage.setItem("pe_userData", JSON.stringify(userData));
 
-    // Reset UI (prevents stale content)
+    // Reset UI immediately (prevents stale content)
     const container = document.getElementById("history-container");
     if (container) {
         container.innerHTML = `<p class="text-white/40 text-xs">Loading orders...</p>`;
     }
 
-    // Update phone display instantly
+    // Update display immediately
     updatePhoneDisplay();
 
-    // Slight delay ensures clean refresh
+    // ✅ Controlled delay WITH override (keeps original intent, fixes bug)
     setTimeout(() => {
-        fetchOrdersPremium();
+        fetchOrdersPremium(phone);
     }, 50);
+}
+
+
+function updatePhoneDisplay() {
+    const el = document.getElementById("current-phone-display");
+    if (!el) return;
+
+    const phone = normalizePhone(localStorage.getItem("user_phone") || "");
+    el.innerText = phone ? `+91 ${phone}` : "No phone linked";
 }
         function saveUserData() {
             const data = {
