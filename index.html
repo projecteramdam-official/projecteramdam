@@ -1,4 +1,4 @@
-11
+456
 
 
 <!DOCTYPE html>
@@ -2059,9 +2059,8 @@ localStorage.setItem("pe_last_order_snapshot", JSON.stringify({
     quantity: data.quantity,
     total
 }));
-setTimeout(() => {
-  window.location.href = window.location.pathname + "?order=" + orderId;
-}, 1000);
+// Keep the page in place; recovery is handled by localStorage + visibilitychange/pageshow
+// No hard navigation here.
     // =============================
     // PREP WHATSAPP MESSAGE FIRST
     // =============================
