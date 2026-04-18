@@ -1,4 +1,4 @@
-456
+mayek font
 
 
 <!DOCTYPE html>
@@ -14,6 +14,40 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Meetei+Mayek:wght@100..900&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     
+    <style>
+@font-face {
+    font-family: 'Eeyek';
+    src: url('./fonts/woff2/eeyek-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Epaomayek';
+    src: url('./fonts/woff2/epaomayek.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EyekAhobi';
+    src: url('./fonts/woff2/eyekahobi-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EyekPro';
+    src: url('./fonts/woff2/eyekpro-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+</style>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -25,9 +59,12 @@
                         'pe-white': '#ffffff'
                     },
                     fontFamily: {
-                        'mayek': ['"Noto Sans Meetei Mayek"', 'sans-serif'],
-                        'inter': ['Inter', 'sans-serif'],
-                    }
+    'mayek': ['EyekAhobi', 'sans-serif'],
+    'mayekAlt': ['Epaomayek', 'sans-serif'],
+    'mayekPro': ['EyekPro', 'sans-serif'],
+    'mayekAhobi': ['EyekAhobi', 'sans-serif'],
+    'inter': ['Inter', 'sans-serif'],
+}
                 }
             }
         }
