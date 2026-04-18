@@ -1,4 +1,4 @@
-mayek ahobi font
+456
 
 
 <!DOCTYPE html>
@@ -14,40 +14,6 @@ mayek ahobi font
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Meetei+Mayek:wght@100..900&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     
-    <style>
-@font-face {
-    font-family: 'Eeyek';
-    src: url('./fonts/woff2/eeyek-regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Epaomayek';
-    src: url('./fonts/woff2/epaomayek.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'EyekAhobi';
-    src: url('./fonts/woff2/eyekahobi-regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'EyekPro';
-    src: url('./fonts/woff2/eyekpro-regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-</style>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -59,10 +25,9 @@ mayek ahobi font
                         'pe-white': '#ffffff'
                     },
                     fontFamily: {
-    'mayek': ['"Noto Sans Meetei Mayek"', 'sans-serif'],
-    'ahobi': ['EyekAhobi', 'sans-serif'],
-    'inter': ['Inter', 'sans-serif'],
-}
+                        'mayek': ['"Noto Sans Meetei Mayek"', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    }
                 }
             }
         }
@@ -295,7 +260,7 @@ mayek ahobi font
                      <span id="cart-badge" class="absolute -top-1.5 -right-2 bg-pe-red text-white text-[9px] font-black w-[16px] h-[16px] flex items-center justify-center rounded-full hidden">0</span>
                  </button>
                  <button onclick="openWhatsApp()" class="hidden sm:flex flex-col items-end text-right border-b border-white/30 pb-1 hover:border-white transition-colors">
-                    <span class=“font-ahobi text-white text-sm font-black leading-none mb-1">ꯄꯥꯎ ꯐꯥꯎꯅꯕꯤꯌꯨ</span>
+                    <span class="font-mayek text-white text-sm font-black leading-none mb-1">ꯄꯥꯎ ꯐꯥꯎꯅꯕꯤꯌꯨ</span>
                     <span class="font-inter text-[7px] text-white/60 font-black uppercase tracking-widest leading-none">Connect</span>
                  </button>
                  <button onclick="toggleMenu()" class="md:hidden text-white hover:text-pe-red transition-colors"><i data-lucide="menu" class="w-6 h-6"></i></button>
@@ -307,19 +272,19 @@ mayek ahobi font
     <div id="mobile-menu-overlay" onclick="toggleMenu()" class="fixed inset-0 z-[2400] hidden bg-pe-black/40 backdrop-blur-sm"></div>
     <div id="mobile-menu" class="fixed top-[70px] right-5 w-48 bg-[#0a0a0a] tactical-border z-[2500] hidden flex-col py-2 shadow-2xl rounded-sm">
         <a href="javascript:void(0)" onclick="handleMobileNav('orders')" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors" id="mobile-orders-btn">
-            <span class=“font-ahobi text-lg font-black text-pe-red leading-none mb-1.5">ꯑꯣꯔꯗꯔꯁꯤꯡ</span>
+            <span class="font-mayek text-lg font-black text-pe-red leading-none mb-1.5">ꯑꯣꯔꯗꯔꯁꯤꯡ</span>
             <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">My Orders</span>
         </a>
         <a href="javascript:void(0)" onclick="handleMobileNav('drop')" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
-            <span class=“font-ahobi text-lg font-black text-white leading-none mb-1.5">ꯗ ꯗ꯭ꯔꯣꯄ</span>
+            <span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯗ ꯗ꯭ꯔꯣꯄ</span>
             <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">The Drop</span>
         </a>
         <a href="javascript:void(0)" onclick="handleMobileNav('manifesto')" class="px-5 py-4 border-b border-white/5 flex flex-col hover:bg-white/5 transition-colors">
-            <span class=“font-ahobi text-lg font-black text-white leading-none mb-1.5">ꯍꯧꯔꯀꯐꯝ</span>
+            <span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯍꯧꯔꯀꯐꯝ</span>
             <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase leading-none">Manifesto</span>
         </a>
         <a href="javascript:void(0)" onclick="handleMobileNav('faq')" class="px-5 py-4 flex flex-col hover:bg-white/5 transition-colors">
-            <span class=“font-ahobi text-lg font-black text-white leading-none mb-1.5">ꯄꯥꯎꯈꯨꯝ</span>
+            <span class="font-mayek text-lg font-black text-white leading-none mb-1.5">ꯄꯥꯎꯈꯨꯝ</span>
             <span class="font-inter text-[8px] font-black tracking-[0.3em] text-white/60 uppercase text-left">Registry</span>
         </a>
     </div>
@@ -333,7 +298,7 @@ mayek ahobi font
             <div class="flex items-center gap-3">
                 <button id="cart-back-btn" onclick="goBackInFunnel()" class="hidden text-white/50 hover:text-white transition-colors p-1 -ml-1"><i data-lucide="arrow-left" class="w-5 h-5"></i></button>
                 <div class="flex flex-col text-left">
-                    <h2 id="cart-main-title" class=“font-ahobi text-2xl text-white font-black leading-none mb-1 transition-colors">ꯀꯥꯔꯠ</h2>
+                    <h2 id="cart-main-title" class="font-mayek text-2xl text-white font-black leading-none mb-1 transition-colors">ꯀꯥꯔꯠ</h2>
                     <span id="cart-sub-title" class="font-inter text-[9px] text-white/60 tracking-[0.4em] font-black uppercase leading-none transition-colors">Cart Checkout</span>
                 </div>
             </div>
@@ -351,7 +316,7 @@ mayek ahobi font
                     <span id="cart-total" class="text-2xl font-inter font-black tracking-tight text-white leading-none">₹0</span>
                 </div>
                 <button id="proceedToCheckoutBtn" onclick="switchSidebarState('checkout')" class="w-full force-white-button py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer border-transparent">
-                    <span class=“font-ahobi text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span>
+                    <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span>
                     <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none text-center">Proceed to Checkout</span>
                 </button>
                 <div class="flex flex-col items-center gap-1 mt-4">
@@ -443,7 +408,7 @@ mayek ahobi font
                 <!-- Wrapper to catch clicks when button is disabled to show red errors -->
                 <div onclick="triggerErrorHighlight()" class="w-full cursor-pointer rounded-sm">
                     <button id="proceedToPaymentBtn" onclick="switchSidebarState('payment')" class="w-full py-4 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center opacity-50 pointer-events-none" disabled>
-                        <span class=“font-ahobi text-lg font-black leading-none mb-1.5 text-center">ꯁꯦꯟꯊꯨꯡ</span>
+                        <span class="font-mayek text-lg font-black leading-none mb-1.5 text-center">ꯁꯦꯟꯊꯨꯡ</span>
                         <span class="font-inter text-[9px] font-black tracking-[0.3em] uppercase leading-none text-center">Proceed to Payment</span>
                     </button>
                 </div>
@@ -610,11 +575,11 @@ mayek ahobi font
         </div>
         <div class="relative z-10 text-center px-6 mt-16 w-full max-w-4xl mx-auto">
             <div class="flex items-center justify-center gap-4 mb-6 opacity-50"><p class="text-[8px] md:text-[10px] font-inter font-black tracking-[1em] uppercase text-white">Kangleipak Origin</p></div>
-            <h1 class=“font-ahobi text-5xl sm:text-6xl md:text-[8rem] font-black text-white leading-none mb-4 text-center text-center">ꯍꯧꯔꯀꯐꯝꯒꯤ ꯐꯤꯖꯣꯜ ꯁꯦꯠꯄꯤꯌꯨ</h1>
+            <h1 class="font-mayek text-5xl sm:text-6xl md:text-[8rem] font-black text-white leading-none mb-4 text-center text-center">ꯍꯧꯔꯀꯐꯝꯒꯤ ꯐꯤꯖꯣꯜ ꯁꯦꯠꯄꯤꯌꯨ</h1>
             <h2 class="font-inter text-sm sm:text-lg md:text-2xl font-black tracking-[0.5em] md:tracking-[0.8em] text-white/60 uppercase mb-12 text-center">Wear Your Roots</h2>
             
             <button onclick="document.getElementById('drop').scrollIntoView({behavior: 'smooth'}); playTock();" class="force-white-button px-12 py-4 active:scale-95 transition-all flex flex-col items-center justify-center mx-auto rounded-sm hover:bg-gray-100 shadow-2xl">
-                <span class=“font-ahobi text-xl font-black leading-none mb-1.5 text-center">ꯐꯤꯖꯣꯜꯁꯤꯡ ꯌꯦꯡꯕꯤꯌꯨ</span>
+                <span class="font-mayek text-xl font-black leading-none mb-1.5 text-center">ꯐꯤꯖꯣꯜꯁꯤꯡ ꯌꯦꯡꯕꯤꯌꯨ</span>
                 <span class="font-inter text-[8px] font-black tracking-[0.4em] uppercase leading-none text-center">Explore Drop</span>
             </button>
         </div>
@@ -623,7 +588,7 @@ mayek ahobi font
     <!-- TICKER -->
     <div class="bg-white text-black py-4 md:py-5 overflow-hidden whitespace-nowrap border-y border-white/10 z-20 relative text-left">
         <div class="flex animate-marquee space-x-12 items-center">
-            <span class=“font-ahobi text-[14px] md:text-[16px] font-black uppercase tracking-[0.6em] flex items-center gap-10 text-black leading-normal">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-black"></i> ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-black"></i></span>
+            <span class="font-mayek text-[14px] md:text-[16px] font-black uppercase tracking-[0.6em] flex items-center gap-10 text-black leading-normal">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-black"></i> ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ PROJECT ERAMDAM <i data-lucide="shield-check" class="w-4 h-4 md:w-5 md:h-5 text-black"></i></span>
         </div>
     </div>
 
@@ -632,7 +597,7 @@ mayek ahobi font
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center text-left">
             <div class="text-left w-full text-left">
                 <div class="mb-10 text-left">
-                    <h3 class=“font-ahobi text-4xl md:text-6xl font-black text-white leading-none mb-3">ꯍꯧꯔꯀꯐꯝ</h3>
+                    <h3 class="font-mayek text-4xl md:text-6xl font-black text-white leading-none mb-3">ꯍꯧꯔꯀꯐꯝ</h3>
                     <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-left">Origin Manifesto</h4>
                 </div>
                 <div class="space-y-6 md:space-y-8 text-sm sm:text-base md:text-xl font-light leading-relaxed text-gray-300 border-l border-white/20 pl-6 md:pl-8 text-left w-full">
@@ -651,14 +616,14 @@ mayek ahobi font
     <section class="py-20 md:py-32 px-5 md:px-6 border-b border-white/10 bg-neutral-950/50 relative z-10 text-center w-full">
         <div class="max-w-7xl mx-auto w-full text-center">
             <div class="mb-12 md:mb-20 flex flex-col items-center">
-                <h3 class=“font-ahobi text-2xl md:text-3xl font-bold text-white leading-none mb-3 text-center">ꯒ꯭ꯋꯥꯔꯦꯟꯇꯤ</h3>
+                <h3 class="font-mayek text-2xl md:text-3xl font-bold text-white leading-none mb-3 text-center">ꯒ꯭ꯋꯥꯔꯦꯟꯇꯤ</h3>
                 <h4 class="font-inter text-[11px] md:text-[13px] font-black tracking-[0.5em] text-white/80 uppercase text-center">Quality Spec</h4>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center w-full">
                 <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-8 flex flex-col items-center justify-start space-y-4 text-center">
                     <i data-lucide="target" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
                     <div class="flex flex-col items-center">
-                        <span class=“font-ahobi text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯃꯒꯨꯟ ꯂꯩꯕꯥ ꯐꯤ</span>
+                        <span class="font-mayek text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯃꯒꯨꯟ ꯂꯩꯕꯥ ꯐꯤ</span>
                         <span class="font-inter font-bold text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-white/80 text-center">Premium Fabric</span>
                         <p class="font-inter text-[10px] md:text-[11px] text-white/70 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1 text-center">Every piece is crafted specially for you on demand using premium fabrics, ensuring lasting quality.</p>
                     </div>
@@ -666,7 +631,7 @@ mayek ahobi font
                 <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-8 flex flex-col items-center justify-start space-y-4 text-center">
                     <i data-lucide="shield" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
                     <div class="flex flex-col items-center">
-                        <span class=“font-ahobi text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯆꯤꯡꯅꯗꯅ ꯂꯩꯕꯤꯌꯨ</span>
+                        <span class="font-mayek text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯆꯤꯡꯅꯗꯅ ꯂꯩꯕꯤꯌꯨ</span>
                         <span class="font-inter font-bold text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-white/80 text-center">Secure Checkout</span>
                         <p class="font-inter text-[10px] md:text-[11px] text-white/70 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1 text-center">We exclusively accept secure prepaid orders (UPI) to guarantee committed delivery for our custom prints.</p>
                     </div>
@@ -674,7 +639,7 @@ mayek ahobi font
                 <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-8 flex flex-col items-center justify-start space-y-4 text-center">
                     <i data-lucide="locate" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
                     <div class="flex flex-col items-center">
-                        <span class=“font-ahobi text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯃꯥꯐꯝ ꯄꯨꯝꯕꯥ ꯌꯧꯍꯟꯂꯤ</span>
+                        <span class="font-mayek text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯃꯥꯐꯝ ꯄꯨꯝꯕꯥ ꯌꯧꯍꯟꯂꯤ</span>
                         <span class="font-inter font-bold text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-white/80 text-center">Pan India Delivery</span>
                         <p class="font-inter text-[10px] md:text-[11px] text-white/70 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1 text-center">Safe delivery across India within 4–8 days. Northeast regions securely delivered via trusted partners.</p>
                     </div>
@@ -682,7 +647,7 @@ mayek ahobi font
                 <div class="interactive-card group bg-[#050505] rounded-sm p-6 md:p-8 flex flex-col items-center justify-start space-y-4 text-center">
                     <i data-lucide="activity" class="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-pe-red transition-all duration-300 mb-1"></i>
                     <div class="flex flex-col items-center">
-                        <span class=“font-ahobi text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯀꯗꯥꯏ ꯌꯧꯔꯦ ꯌꯦꯡꯕꯤꯌꯨ</span>
+                        <span class="font-mayek text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯀꯗꯥꯏ ꯌꯧꯔꯦ ꯌꯦꯡꯕꯤꯌꯨ</span>
                         <span class="font-inter font-bold text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-white/80 text-center">Unit Tracking</span>
                         <p class="font-inter text-[10px] md:text-[11px] text-white/70 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1 text-center">Once shipped, you’ll receive an active tracking ID to follow your package's journey directly to your door.</p>
                     </div>
@@ -694,7 +659,7 @@ mayek ahobi font
     <!-- HOW TO ORDER -->
     <section id="process" class="py-20 md:py-32 px-5 md:px-6 max-w-7xl mx-auto text-center relative z-10 w-full">
         <div class="mb-12 md:mb-20 flex flex-col items-center text-center">
-            <h3 class=“font-ahobi text-2xl md:text-3xl font-bold text-white leading-none mb-3 text-center">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</h3>
+            <h3 class="font-mayek text-2xl md:text-3xl font-bold text-white leading-none mb-3 text-center">ꯑꯣꯔꯗꯔ ꯇꯧꯕꯤꯌꯨ</h3>
             <h4 class="font-inter text-[11px] md:text-[13px] font-black tracking-[0.5em] text-white/80 uppercase text-center">How To Order</h4>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center w-full">
@@ -702,7 +667,7 @@ mayek ahobi font
                 <span class="text-8xl md:text-9xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-6 -right-4 font-inter z-0 leading-none select-none">1</span>
                 <i data-lucide="mouse-pointer-click" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110 relative z-10"></i>
                 <div class="flex flex-col items-center text-center relative z-10">
-                    <span class=“font-ahobi text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯑꯄꯥꯝꯕꯥ ꯈꯟꯕꯤꯌꯨ</span>
+                    <span class="font-mayek text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯑꯄꯥꯝꯕꯥ ꯈꯟꯕꯤꯌꯨ</span>
                     <span class="font-inter font-bold text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-white/80 text-center">Select Piece</span>
                     <p class="font-inter text-[10px] md:text-[11px] text-white/70 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1 text-center">Browse the drop and use our real-life size guide to carefully select your perfect fit and color variant.</p>
                 </div>
@@ -711,7 +676,7 @@ mayek ahobi font
                 <span class="text-8xl md:text-9xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-6 -right-4 font-inter z-0 leading-none select-none">2</span>
                 <i data-lucide="message-circle" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110 relative z-10"></i>
                 <div class="flex flex-col items-center text-center relative z-10">
-                    <span class=“font-ahobi text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯋꯥꯠꯁꯑꯦꯞ ꯇꯥ ꯀꯟꯐꯥꯝ ꯇꯧꯕꯤꯌꯨ </span>
+                    <span class="font-mayek text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯋꯥꯠꯁꯑꯦꯞ ꯇꯥ ꯀꯟꯐꯥꯝ ꯇꯧꯕꯤꯌꯨ </span>
                     <span class="font-inter font-bold text-[10px] md:text-[11px] tracking-[0.3em] text-white/80 uppercase text-center">WhatsApp Confirm</span>
                     <p class="font-inter text-[10px] md:text-[11px] text-white/70 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1 text-center">Add your chosen piece to the cart and proceed to WhatsApp, where our team will personally assist you.</p>
                 </div>
@@ -720,7 +685,7 @@ mayek ahobi font
                 <span class="text-8xl md:text-9xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-6 -right-4 font-inter z-0 leading-none select-none">3</span>
                 <i data-lucide="shield-check" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110 relative z-10"></i>
                 <div class="flex flex-col items-center text-center relative z-10">
-                    <span class=“font-ahobi text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯌꯨ ꯄꯤ ꯑꯥꯏ  ꯗꯥ ꯂꯩꯕꯤꯌꯨ</span>
+                    <span class="font-mayek text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯌꯨ ꯄꯤ ꯑꯥꯏ  ꯗꯥ ꯂꯩꯕꯤꯌꯨ</span>
                     <span class="font-inter font-bold text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-white/80 text-center">UPI Signature</span>
                     <p class="font-inter text-[10px] md:text-[11px] text-white/70 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1 text-center">Make a safe, secure prepaid payment. To maintain quality control, we do not offer Cash on Delivery.</p>
                 </div>
@@ -729,7 +694,7 @@ mayek ahobi font
                 <span class="text-8xl md:text-9xl font-black text-white/5 group-hover:text-pe-red/5 transition-colors absolute -bottom-6 -right-4 font-inter z-0 leading-none select-none">4</span>
                 <i data-lucide="truck" class="w-8 h-8 md:w-10 md:h-10 text-white/30 transition-colors group-hover:text-pe-red mb-3 group-hover:scale-110 relative z-10"></i>
                 <div class="flex flex-col items-center text-center relative z-10">
-                    <span class=“font-ahobi text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯑꯣꯔꯗꯦꯔ ꯆꯦꯛꯁꯤꯅꯥ ꯌꯧꯔꯛꯅꯤ</span>
+                    <span class="font-mayek text-white font-bold text-sm md:text-base leading-none mb-1.5 text-center">ꯑꯣꯔꯗꯦꯔ ꯆꯦꯛꯁꯤꯅꯥ ꯌꯧꯔꯛꯅꯤ</span>
                     <span class="font-inter font-bold text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-white/80 text-center">Unit Deployed</span>
                     <p class="font-inter text-[10px] md:text-[11px] text-white/70 mt-3 md:mt-4 leading-relaxed font-normal tracking-wide normal-case px-1 text-center">Your order goes straight into production (2-3 days) before being carefully packed and dispatched to you.</p>
                 </div>
@@ -740,7 +705,7 @@ mayek ahobi font
     <!-- DROP GRID -->
     <section id="drop" class="py-20 md:py-32 px-5 md:px-6 border-t border-white/5 relative z-10 text-left w-full text-left">
         <div id="drop-trigger" class="text-center mb-16 md:mb-24 flex flex-col items-center">
-            <h3 class=“font-ahobi text-4xl md:text-5xl font-black text-white leading-none mb-3 text-center"> ꯑꯩꯈꯣꯏꯒꯤ ꯐꯤꯖꯣꯜ ꯂꯩꯖꯥꯔꯦ </h3>
+            <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-center"> ꯑꯩꯈꯣꯏꯒꯤ ꯐꯤꯖꯣꯜ ꯂꯩꯖꯥꯔꯦ </h3>
             <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-pe-white uppercase text-center">Current Drop</h4>
         </div>
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-10 text-left w-full max-w-7xl mx-auto px-1"></div>
@@ -750,7 +715,7 @@ mayek ahobi font
     <section id="faq" class="py-20 md:py-32 px-6 border-t border-white/10 relative z-10 text-left w-full overflow-hidden text-left">
         <div class="max-w-5xl mx-auto text-left w-full">
             <div class="mb-12 md:mb-20 flex flex-col text-left items-start">
-                <h3 class=“font-ahobi text-4xl md:text-5xl font-black text-white leading-none mb-3 text-left">ꯄꯥꯑꯣꯈꯨꯝ ꯄꯨꯝꯅꯃꯛ ꯐꯪꯕꯤꯒꯅꯤ</h3>
+                <h3 class="font-mayek text-4xl md:text-5xl font-black text-white leading-none mb-3 text-left">ꯄꯥꯑꯣꯈꯨꯝ ꯄꯨꯝꯅꯃꯛ ꯐꯪꯕꯤꯒꯅꯤ</h3>
                 <h4 class="font-inter text-[10px] md:text-[12px] font-black tracking-[0.5em] text-white/60 uppercase text-left">Registry / What to Expect</h4>
             </div>
             
@@ -764,7 +729,7 @@ mayek ahobi font
     <section class="py-20 md:py-28 px-6 bg-[#0a0a0a] border-t border-white/10 relative z-10 text-center w-full">
         <div class="max-w-3xl mx-auto flex flex-col items-center">
             <i data-lucide="bell-ring" class="w-10 h-10 text-pe-red mb-6 animate-pulse"></i>
-            <h3 class=“font-ahobi text-3xl md:text-5xl font-black text-white leading-none mb-3">ꯃꯊꯪꯒꯤ ꯐꯤꯖꯣꯜ ꯉꯥꯏꯕꯤꯌꯨ</h3>
+            <h3 class="font-mayek text-3xl md:text-5xl font-black text-white leading-none mb-3">ꯃꯊꯪꯒꯤ ꯐꯤꯖꯣꯜ ꯉꯥꯏꯕꯤꯌꯨ</h3>
             <h4 class="font-inter text-[11px] md:text-[13px] font-black tracking-[0.5em] text-white/80 uppercase mb-8">Join The Drop Signal</h4>
 
             <p class="font-inter text-[11px] md:text-[13px] text-white/60 leading-relaxed mb-10 max-w-lg px-4">
@@ -784,7 +749,7 @@ mayek ahobi font
     <footer class="py-20 md:py-24 px-6 border-t border-white/10 bg-[#050505] relative z-10 text-center md:text-left w-full overflow-hidden text-left">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 md:gap-20 w-full text-left">
             <div class="flex flex-col items-center md:items-start w-full text-left">
-                <span class=“font-ahobi text-4xl sm:text-5xl font-black text-white leading-none mb-2 text-center md:text-left w-full break-words">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
+                <span class="font-mayek text-4xl sm:text-5xl font-black text-white leading-none mb-2 text-center md:text-left w-full break-words">ꯄ꯭ꯔꯣꯖꯦꯛꯇ ꯏꯔꯝꯗꯝ</span>
                 <span class="font-inter text-[10px] font-black tracking-[0.4em] text-white/60 uppercase leading-none">Project Eramdam</span>
             </div>
             <div class="flex flex-col items-center md:items-end gap-8 w-full text-left">
@@ -841,7 +806,7 @@ mayek ahobi font
                 <div class="space-y-0 w-full border-t border-white/10 text-left mb-8">
                     <button onclick="toggleAccordion('size')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
-                            <span class=“font-ahobi text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯆꯥꯡ</span>
+                            <span class="font-mayek text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯆꯥꯡ</span>
                             <span class="font-inter text-[10px] tracking-widest uppercase text-white/80 font-bold leading-none">Size Chart & Guide</span>
                         </div>
                         <i id="icon-size" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
@@ -885,7 +850,7 @@ mayek ahobi font
 
                     <button id="btn-protocol" onclick="toggleAccordion('protocol')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group text-left">
                         <div class="flex flex-col text-left">
-                            <span class=“font-ahobi text-pe-red text-lg font-bold leading-none mb-1.5 transition-colors">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
+                            <span class="font-mayek text-pe-red text-lg font-bold leading-none mb-1.5 transition-colors">ꯆꯦꯛꯁꯤꯟꯕꯥ</span>
                             <span class="font-inter text-[10px] tracking-widest uppercase text-pe-red/90 font-bold leading-none">Shopping Protocol</span>
                         </div>
                         <i id="icon-protocol" data-lucide="shield-alert" class="w-5 h-5 text-pe-red/40 group-hover:text-pe-red transition-colors"></i>
@@ -917,7 +882,7 @@ mayek ahobi font
                 <div class="space-y-0 w-full border-t border-white/10 text-left">
                     <button onclick="toggleAccordion('lore')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
-                            <span class=“font-ahobi text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯋꯥꯔꯤ</span>
+                            <span class="font-mayek text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯋꯥꯔꯤ</span>
                             <span class="font-inter text-[10px] tracking-widest uppercase text-white/80 font-bold leading-none">Lore & Origin</span>
                         </div>
                         <i id="icon-lore" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
@@ -928,7 +893,7 @@ mayek ahobi font
 
                     <button id="btn-details" onclick="toggleAccordion('details')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
-                            <span class=“font-ahobi text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯑꯀꯨꯞꯄ</span>
+                            <span class="font-mayek text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯑꯀꯨꯞꯄ</span>
                             <span class="font-inter text-[10px] tracking-widest uppercase text-white/80 font-bold leading-none">Product Details</span>
                         </div>
                         <i id="icon-details" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
@@ -941,7 +906,7 @@ mayek ahobi font
 
                     <button id="btn-wash" onclick="toggleAccordion('wash')" class="w-full text-left py-5 border-b border-white/10 flex justify-between items-center group">
                         <div class="flex flex-col text-left">
-                            <span class=“font-ahobi text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯁꯦꯡꯗꯣꯛꯄꯥ</span>
+                            <span class="font-mayek text-white text-lg font-bold leading-none mb-1.5 group-hover:text-pe-red transition-colors">ꯁꯦꯡꯗꯣꯛꯄꯥ</span>
                             <span class="font-inter text-[10px] tracking-widest uppercase text-white/80 font-bold leading-none text-left">Wash Care</span>
                         </div>
                         <i id="icon-wash" data-lucide="chevron-down" class="w-5 h-5 text-white/30 group-hover:text-white transition-colors"></i>
@@ -1694,9 +1659,7 @@ function updatePhoneDisplay() {
                         <button onclick="removeFromCart(${idx})" class="absolute top-0 right-0 p-2 bg-[#1a0f0f] border border-white/10 hover:border-pe-red hover:bg-pe-red/20 rounded-sm text-white/80 hover:text-white transition-colors z-10 flex items-center justify-center shadow-md"><i data-lucide="x" class="w-4 h-4"></i></button>
                         <div class="w-20 h-24 bg-neutral-900 shrink-0 rounded-sm overflow-hidden border border-white/5"><img src="${item.image}" class="w-full h-full object-contain"></div>
                         <div class="flex-grow flex flex-col justify-center min-w-0 text-left pr-10">
-                            <h4 class="font-inter text-sm text-white leading-none mb-1 truncate text-left">
-  ${nameParts.english}
-</h4>
+                            <h4 class="font-mayek text-sm text-white leading-none mb-1 truncate text-left">${nameParts.mayek}</h4>
                             <span class="font-inter text-[8px] tracking-[0.2em] font-bold text-white/50 uppercase truncate mb-3 text-left">${nameParts.eng}</span>
                             <div class="flex flex-wrap gap-2 text-left">
                                 <div class="text-[8px] font-inter text-white uppercase tracking-widest font-black bg-white/10 px-2 py-1 rounded-sm">Size: <span class="text-pe-red">${item.size}</span></div>
@@ -1890,10 +1853,10 @@ playTock();
             
             if (msg) {
                 btn.disabled = true; btn.className = "w-full py-4 flex flex-col items-center justify-center rounded-sm transition-all bg-[#0a0a0a] border border-white/5 text-center cursor-not-allowed opacity-40";
-                btn.innerHTML = `<span class=“font-ahobi text-lg font-black leading-none mb-1.5">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] uppercase">CONTINUE</span>`;
+                btn.innerHTML = `<span class="font-mayek text-lg font-black leading-none mb-1.5">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] uppercase">CONTINUE</span>`;
             } else {
                 btn.disabled = false; btn.onclick = addToCart; btn.className = "w-full force-white-button py-4 active:scale-95 flex flex-col items-center justify-center transition-all rounded-sm shadow-xl text-center cursor-pointer";
-                btn.innerHTML = `<span class=“font-ahobi text-lg font-black leading-none mb-1.5">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] uppercase">Add to Cart</span>`;
+                btn.innerHTML = `<span class="font-mayek text-lg font-black leading-none mb-1.5">ꯃꯈꯥ ꯆꯠꯊꯕꯥ</span><span class="font-inter text-[9px] font-black tracking-[0.4em] uppercase">Add to Cart</span>`;
             }
         };
 
@@ -1980,7 +1943,7 @@ playTock();
                 <span class="text-xs font-inter">
                     ₹${parseInt(p.price.replace(/\D/g,'')).toLocaleString('en-IN')}
                 </span>
-                <span class=“font-ahobi text-pe-red text-[11px]">ꯑꯀꯨꯞꯄ</span>
+                <span class="font-mayek text-pe-red text-[11px]">ꯑꯀꯨꯞꯄ</span>
             </div>
 
         </div>
